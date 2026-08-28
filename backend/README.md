@@ -1,6 +1,6 @@
-## Backend API
+## Backend
 
-A basic FastAPI backend application with health endpoints and test suite.
+FastAPI backend with supabase jwt auth, postgres persistence, health monitoring, tests.
 
 ---
 
@@ -9,69 +9,88 @@ A basic FastAPI backend application with health endpoints and test suite.
 #### Create & Activate Virtual Environment
 
 ```bash
-# From the project root
-python3 -m venv backend/.venv
-source backend/.venv/bin/activate
-```
-
-#### Install Dependencies
-
-```bash
 cd backend
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
 ---
 
-### 2. Running the Server
+### 2. Environment Configuration
 
-#### Option A: Direct with Uvicorn (Development)
-
-From the project root:
+Copy the example environment configuration:
 ```bash
-backend/.venv/bin/uvicorn app.main:app --reload --app-dir backend --port 8000
+cp .env.example .env
 ```
 
-Or from inside the `backend/` directory:
+Key environment variables:
+- `POSTGRES_SERVER`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`: Local PostgreSQL settings.
+- `DATABASE_URL`: (Optional) Direct connection URI; defaults to local PostgreSQL or set to Supabase transaction pooler in production.
+- `SUPABASE_PROJECT_ID`: Supabase project reference id.
+- `SUPABASE_JWT_SECRET`: JWT Secret from `Project Settings > API > JWT Settings`.
+
+---
+
+### 3. Running the Server
+
+#### Option A: Local Development with Uvicorn
+
+1. Ensure local PostgreSQL is running:
+   ```bash
+   docker run -d --name sagar_postgres -p 5432:5432 \
+     -e POSTGRES_USER=postgres \
+     -e POSTGRES_PASSWORD=postgrespassword \
+     -e POSTGRES_DB=sagar_db \
+     postgres:16-alpine
+   ```
+
+2. Start the FastAPI server:
+   ```bash
+   cd backend
+   source .venv/bin/activate
+   uvicorn app.main:app --reload --port 8000
+   ```
+
+#### Option B: Docker Compose (Root Directory)
+
 ```bash
-cd backend
-source .venv/bin/activate
-uvicorn app.main:app --reload --port 8000
+docker compose up --build -d
 ```
 
-#### Option B: Run with Docker
+#### Option C: Production Docker Container (Connected to Supabase)
 
 ```bash
-cd backend
-docker build -t backend-api .
-docker run -p 8000:8000 backend-api
+docker compose -f docker-compose.prod.yml up --build -d
 ```
 
 ---
 
-### 3. Endpoints & API Documentation
+### 4. Endpoints & API Documentation
 
 Once the server is running on `http://localhost:8000`:
 
-| Endpoint | Method | Description | Example Response |
+| Endpoint | Method | Auth | Description |
 | :--- | :--- | :--- | :--- |
-| `/` | `GET` | Service status | `{"status":"ok","message":"API is running"}` |
-| `/api/v1/health` | `GET` | Liveness health check | `{"status":"healthy"}` |
-| `/api/v1/ready` | `GET` | Readiness check | `{"status":"ready"}` |
-| `/docs` | `GET` | Swagger Interactive API UI | Interactive Docs |
-| `/redoc` | `GET` | ReDoc API Documentation | ReDoc UI |
+| `/` | `GET` | None | Service status |
+| `/api/v1/health` | `GET` | None | Liveness health check |
+| `/api/v1/ready` | `GET` | None | Readiness check |
+| `/api/v1/user/create` | `POST` | Supabase JWT | Sync/create user profile in database |
+| `/api/v1/user/me` | `GET` | Supabase JWT | Get authenticated user profile |
+| `/api/v1/user/me` | `PUT` | Supabase JWT | Update user profile |
+| `/api/v1/user/token-info` | `GET` | Supabase JWT | Inspect parsed token claims |
+| `/user/create` | `POST` | Supabase JWT | Starter compatibility user create |
+| `/user/me` | `GET` | Supabase JWT | Starter compatibility user me |
+| `/docs` | `GET` | None | Swagger Interactive API UI |
+| `/redoc` | `GET` | None | ReDoc API Documentation |
 
-#### Quick Test with curl:
-
-```bash
-curl http://localhost:8000/api/v1/health
-```
 ---
 
-### 4. Running Tests
+### 5. Running Tests
 
 Run all unit tests using `pytest`:
 ```bash
 cd backend
-pytest tests/
+source .venv/bin/activate
+pytest tests/ -v
 ```
