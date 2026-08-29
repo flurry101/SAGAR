@@ -872,7 +872,7 @@ class TestAmfitriteHABRealImageryPipeline(unittest.TestCase):
         """torch.rand() must not appear anywhere in the HAB adapter source."""
         adapter_path = os.path.join(
             os.path.dirname(__file__),
-            "..", "..", "backend", "app", "adapters", "amfitrite_hab_adapter.py",
+            "..", "..", "app", "adapters", "amfitrite_hab_adapter.py",
         )
         with open(adapter_path, "r", encoding="utf-8") as fh:
             source = fh.read()
@@ -886,7 +886,7 @@ class TestAmfitriteHABRealImageryPipeline(unittest.TestCase):
         """np.random and random() must not appear in the normal data path."""
         adapter_path = os.path.join(
             os.path.dirname(__file__),
-            "..", "..", "backend", "app", "adapters", "amfitrite_hab_adapter.py",
+            "..", "..", "app", "adapters", "amfitrite_hab_adapter.py",
         )
         with open(adapter_path, "r", encoding="utf-8") as fh:
             source = fh.read()
