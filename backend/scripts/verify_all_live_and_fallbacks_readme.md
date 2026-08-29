@@ -1,1 +1,0 @@
-Run `python verify_all_live_and_fallbacks.py` to perform live+fallback verification locally. Use `PF_DEMO_MODE=true` to enable demo cyclone in `hazard_demo.json`. Do NOT use `hazard_demo.json` in production.

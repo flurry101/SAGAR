@@ -58,5 +58,8 @@ ORCA-Marine-AI-main/
 # SQLite Databases
 *.db
 *.sqlite
+# Ignore Markdown files by default; explicitly keep the M4 README tracked
+*.md
+!/backend/M4_README.md
 *.sqlite3
 
