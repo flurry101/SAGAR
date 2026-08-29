@@ -1,0 +1,21 @@
+{
+  "_comment": "Demo-only hazard file containing a single hand-built active cyclone. Do NOT use in production. Load only when DEMO_MODE=true.",
+  "hazards": [
+    {
+      "hazard_id": "DEMO-CYCLONE-001",
+      "hazard_type": "CYCLONE_WARNING",
+      "severity": "SEVERE",
+      "description": "Demo-active cyclone (hand-built). For demo only — not an official IMD/INCOIS advisory.",
+      "affected_region": {
+        "lat_min": 12.0,
+        "lat_max": 15.0,
+        "lon_min": 80.0,
+        "lon_max": 86.0
+      },
+      "valid_from_offset_hours": -1,
+      "valid_until_offset_hours": 48,
+      "source": "Hand-built demo sample (NOT official IMD/INCOIS)",
+      "cyclone_active": true
+    }
+  ]
+}

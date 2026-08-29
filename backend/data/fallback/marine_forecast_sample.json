@@ -1,0 +1,26 @@
+{
+  "hand_built_metadata": "Rolling fallback: hour_offset is hours from the current UTC hour, resolved at read time. Not a live Open-Meteo pull.",
+  "time_mode": "relative_hourly",
+  "forecasts": [
+    {
+      "hour_offset": -48,
+      "wave_height_m": 1.3,
+      "wave_direction_deg": 220,
+      "swell_height_m": 0.68,
+      "swell_direction_deg": 202,
+      "wind_speed_kmh": 30.0,
+      "wind_direction_deg": 222,
+      "visibility_km": 6.0
+    },
+    {
+      "hour_offset": 0,
+      "wave_height_m": 1.3,
+      "wave_direction_deg": 220,
+      "swell_height_m": 0.68,
+      "swell_direction_deg": 200,
+      "wind_speed_kmh": 30.0,
+      "wind_direction_deg": 210,
+      "visibility_km": 6.0
+    }
+  ]
+}
