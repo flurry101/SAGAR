@@ -63,3 +63,41 @@ ORCA-Marine-AI-main/
 !/backend/M4_README.md
 *.sqlite3
 
+# OS / editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Python tooling caches
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.python-version
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+.cache/
+
+# Local runtime/data artifacts
+.local/
+.env.local
+.env.production
+.env.development
+
+# Frontend / node bundling (if added later)
+node_modules/
+dist/
+coverage/
+coverage.xml
+
+# Test / profiler output
+.hypothesis/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
