@@ -1,0 +1,45 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "RESTRICTED_NAVAL_01",
+        "name": "Kochi Naval Exclusion Zone",
+        "restriction_type": "Naval / Defense"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [76.15, 9.90],
+            [76.25, 9.90],
+            [76.25, 9.98],
+            [76.15, 9.98],
+            [76.15, 9.90]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "zone_id": "RESTRICTED_MPA_02",
+        "name": "Gulf of Mannar Marine National Park Buffer",
+        "restriction_type": "Marine Protected Area"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [78.10, 8.80],
+            [78.40, 8.80],
+            [78.40, 9.20],
+            [78.10, 9.20],
+            [78.10, 8.80]
+          ]
+        ]
+      }
+    }
+  ]
+}
