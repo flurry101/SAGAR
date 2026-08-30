@@ -152,7 +152,7 @@ class AgentExecution(TypedDict, total=False):
     """
     id: str
     trip_id: str
-    agent_name: str  # "planner", "geo", "weather", "marine", "risk"
+    agent_name: str  # "planner", "geo", "weather", "marine", "risk", "supervisor"
     status: str  # "running", "completed", "failed"
     started_at: str
     completed_at: str | None
@@ -161,6 +161,109 @@ class AgentExecution(TypedDict, total=False):
     data_sources: list[str]
     confidence: float | None
     error: str | None
+
+
+# ---------------------------------------------------------------------------
+# Supervisor & Autonomous Planning Types
+# ---------------------------------------------------------------------------
+
+# Approved capability registry — Supervisor may ONLY select from these
+APPROVED_CAPABILITIES = [
+    "geo", "marine", "weather", "ocean_analytics", "route",
+    "risk", "visualization", "reporting", "knowledge", "copilot",
+]
+
+SAFETY_CAPABILITIES = {"geo", "weather", "marine", "risk"}
+
+
+class TaskPlan(TypedDict, total=False):
+    """Structured task plan produced by the Supervisor.
+
+    The Supervisor uses LLM structured output to generate this plan.
+    The Safety Guard may add mandatory capabilities.
+    The Dynamic Router uses required_capabilities to decide which nodes execute.
+    """
+    intent: str  # e.g. "safe_fishing_trip", "pfz_query", "knowledge_question"
+    required_capabilities: list[str]  # subset of APPROVED_CAPABILITIES
+    priority: str  # "safety", "information", "planning"
+    requires_safety_assessment: bool
+    requires_route: bool
+    requires_visualization: bool
+    requires_report: bool
+    clarification_required: bool
+    clarification_question: str | None
+    reasoning_summary: str  # brief rationale for capability selection
+
+
+class EvidenceItem(TypedDict, total=False):
+    """A single piece of structured evidence from any agent/node."""
+    evidence_id: str
+    category: str  # "weather", "marine", "geofence", "risk", "route"
+    value: Any
+    unit: str | None
+    source: str
+    timestamp: str | None
+    lat: float | None
+    lon: float | None
+    confidence: float | None
+    agent: str  # which node produced this
+
+
+class OceanAnalysis(TypedDict, total=False):
+    """Output of the Ocean Analytics component."""
+    productivity_score: float | None
+    sst_status: str  # "favourable", "unfavourable", "unknown"
+    chlorophyll_status: str  # "high", "moderate", "low", "unknown"
+    pfz_alignment: bool | None
+    fishing_opportunity: str  # "good", "moderate", "poor", "unknown"
+    confidence: float | None
+    evidence_ids: list[str]
+    summary: str
+
+
+class RouteCandidate(TypedDict, total=False):
+    """A single candidate route from the Route Optimization component."""
+    route_id: str
+    waypoints: list[dict[str, Any]]
+    total_distance_nm: float | None
+    safety_score: float | None
+    weather_risk_score: float | None
+    geofence_clear: bool
+    selected: bool
+    reason: str
+
+
+class Alert(TypedDict, total=False):
+    """A proactive safety or environmental alert."""
+    alert_type: str  # "HIGH_WAVES", "CYCLONE", "LIGHTNING", "RESTRICTED_ZONE", etc.
+    severity: str  # "INFO", "WARNING", "SEVERE"
+    message: str
+    source: str
+    timestamp: str | None
+    lat: float | None
+    lon: float | None
+    evidence_ids: list[str]
+
+
+class VisualizationSpec(TypedDict, total=False):
+    """Structured visualization specification for the frontend."""
+    layers: list[dict[str, Any]]
+    center: dict[str, float] | None  # {"lat": ..., "lon": ...}
+    bounds: list[float] | None  # [min_lon, min_lat, max_lon, max_lat]
+    recommended_zoom: int | None
+
+
+class Report(TypedDict, total=False):
+    """Structured evidence-backed report."""
+    summary: str
+    recommendation: str
+    risk: dict[str, Any] | None
+    route: dict[str, Any] | None
+    alerts: list[Alert]
+    evidence: list[EvidenceItem]
+    sources: list[str]
+    uncertainty: list[str]
+    limitations: list[str]
 
 
 # ---------------------------------------------------------------------------
@@ -174,8 +277,8 @@ class OrcaState(TypedDict, total=False):
 
     State Ownership:
         conversation_history   — Planner writes/reads
-        trip_context           — Planner writes → all read
-        vessel_profile         — Planner writes → Geo, Risk read
+        trip_context           — Planner/Supervisor writes → all read
+        vessel_profile         — Planner/Supervisor writes → Geo, Risk read
         trajectory             — Geo writes → Marine, Weather, Risk read
         marine_observations    — Marine writes → Risk reads
         weather_observations   — Weather writes → Risk reads
@@ -184,6 +287,13 @@ class OrcaState(TypedDict, total=False):
         geofence_results       — Geo writes → Risk reads
         risk_evidence          — Risk writes → Planner reads
         advisory               — Planner writes → Frontend reads
+        task_plan              — Supervisor writes → Router reads
+        evidence_registry      — All nodes append → Reporting reads
+        visualization_spec     — Visualization writes → Frontend reads
+        report                 — Reporting writes → Frontend reads
+        ocean_analysis         — OceanAnalytics writes → Reporting reads
+        route_candidates       — Route writes → Risk, Visualization read
+        alerts                 — Weather/Geo writes → Reporting, Frontend reads
         workflow_status        — All nodes update
         errors                 — Any node writes
         provenance_registry    — Adapters write → all read
@@ -192,6 +302,9 @@ class OrcaState(TypedDict, total=False):
 
     # --- Conversation ---
     conversation_history: list[dict[str, str]]
+
+    # --- Supervisor & Autonomous Planning ---
+    task_plan: TaskPlan
 
     # --- Trip & Vessel ---
     trip_context: TripContext
@@ -207,15 +320,37 @@ class OrcaState(TypedDict, total=False):
     marine_observations: list[MarineObservation]
     pfz_data: list[PFZData]
 
+    # --- Ocean Analytics ---
+    ocean_analysis: OceanAnalysis
+
+    # --- Route Optimization ---
+    route_candidates: list[RouteCandidate]
+
+    # --- Alerts ---
+    alerts: list[Alert]
+
     # --- Risk & Advisory ---
     risk_evidence: RiskEvidence
+    overall_risk_level: str  # "LOW", "MODERATE", "HIGH", "SEVERE", "UNKNOWN"
     advisory: Advisory
+
+    # --- Evidence Registry ---
+    evidence_registry: list[EvidenceItem]
+
+    # --- Visualization & Reporting ---
+    visualization_spec: VisualizationSpec
+    report: Report
 
     # --- Workflow Control ---
     workflow_status: str  # "RECEIVED", "VALIDATED", "TRAJECTORY_READY", etc.
+    persistence_status: str  # "success", "partial", "failed", "supabase_not_configured"
     errors: list[dict[str, Any]]
     provenance_registry: list[Provenance]
 
     # --- Agent Execution Tracking ---
     agent_executions: list[AgentExecution]
-""", "Description": "OrcaState TypedDict matching 07_DATA_MODEL.md Section 3 exactly, including the new AgentExecution tracking entity."
+
+    # --- Language ---
+    language: str  # ISO 639-1 code, e.g. "en", "hi", "ta"
+    hazard_alerts: dict[str, Any]  # Raw hazard data from GDACS
+

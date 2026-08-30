@@ -3,20 +3,20 @@ SVAS (Significant Wave height to vessel Beam ratio) Capsize Safety Rule.
 
 Formula & Theory:
   SVAS Ratio = Significant Wave Height (m) / Vessel Beam (m)
-  Threshold limit = 4.0
+  Threshold limit = 0.25 (i.e. maximum safe wave height = vessel beam / 4)
 
 Safety Context:
-  When significant wave height exceeds 4.0 times the beam of a small to mid-sized vessel,
-  the risk of parametric rolling, dynamic instability, and capsize increases exponentially.
+  This is explicitly a configurable project safety threshold, not an official ISRO rule.
+  When significant wave height exceeds 0.25 times the beam of a small to mid-sized vessel,
+  the risk of parametric rolling, dynamic instability, and capsize increases.
 """
 
 from app.risk_engine.rules.base import BaseRule
 from app.risk_engine.schemas import RiskInput, RuleResult, RuleStatus, RiskLevel
 
-# Safety-critical ratio threshold constant.
-# Source / Assumption: Standard stability guideline for small fishing vessels.
-# MUST BE REVIEWED BY DOMAIN EXPERT BEFORE PRODUCTION USE.
-SVAS_CAPSIZE_RATIO_LIMIT: float = 4.0
+# Safety-critical ratio threshold constant (max wave = beam / 4)
+# Source / Assumption: Configurable project safety threshold. NOT an official rule.
+SVAS_CAPSIZE_RATIO_LIMIT: float = 0.25
 
 
 class SVASCapSizeRule(BaseRule):
@@ -87,7 +87,7 @@ class SVASCapSizeRule(BaseRule):
 
         if max_svas_ratio > SVAS_CAPSIZE_RATIO_LIMIT:
             # Extremely high wave-to-beam ratio -> Severe / High risk
-            risk_lvl = RiskLevel.SEVERE if max_svas_ratio >= 5.0 else RiskLevel.HIGH
+            risk_lvl = RiskLevel.SEVERE if max_svas_ratio >= (1.5 * SVAS_CAPSIZE_RATIO_LIMIT) else RiskLevel.HIGH
             return RuleResult(
                 rule_id=self.rule_id,
                 rule_name=self.rule_name,

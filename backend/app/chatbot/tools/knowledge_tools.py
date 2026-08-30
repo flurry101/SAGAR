@@ -35,14 +35,18 @@ def search_marine_knowledge(query: str) -> str:
     Returns:
         Relevant knowledge passages with source citations.
     """
-    # TODO: Implement pgvector retrieval
-    # from app.chatbot.retrieval.retriever import get_retriever
-    # retriever = get_retriever()
-    # docs = retriever.invoke(query)
-    # return "\n\n".join([
-    #     f"[Source: {doc.metadata.get('source', 'unknown')}]\n{doc.page_content}"
-    #     for doc in docs
-    # ])
+    from app.chatbot.retrieval.retriever import get_retriever
+    retriever = get_retriever()
+    
+    if retriever:
+        try:
+            docs = retriever.invoke(query)
+            return "\n\n".join([
+                f"[Source: {doc.metadata.get('source', 'unknown')}]\n{doc.page_content}"
+                for doc in docs
+            ])
+        except Exception as e:
+            return f"Error searching knowledge base: {e}"
 
     return (
         f"[Knowledge search stub] Query: '{query}'\n"

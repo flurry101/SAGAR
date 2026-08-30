@@ -30,7 +30,7 @@ India enforces seasonal fishing bans to protect breeding populations:
 - Motorized boats under certain tonnage may be exempt in some states.
 - State-specific variations exist — check local fisheries department.
 
-## Exclusive Economic Zone (EEZ)
+# Exclusive Economic Zone (EEZ)
 
 - India's EEZ extends 200 nautical miles from the coastline.
 - Indian fishers must not cross into another country's EEZ.

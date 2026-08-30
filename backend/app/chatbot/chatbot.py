@@ -98,22 +98,21 @@ def get_copilot_agent(llm=None):
     Returns:
         A LangGraph-powered agent executor.
     """
-    # TODO: Implement with langgraph prebuilt agent when dependencies are installed
-    #
-    # from langgraph.prebuilt import create_react_agent
-    #
-    # if llm is None:
-    #     llm = _get_default_llm()
-    #
-    # agent = create_react_agent(
-    #     model=llm,
-    #     tools=ALL_COPILOT_TOOLS,
-    #     state_modifier=COPILOT_SYSTEM_PROMPT + "\n\n" + COPILOT_TOOL_INSTRUCTIONS,
-    # )
-    #
-    # return agent
-
-    return None
+    from langgraph.prebuilt import create_react_agent
+    
+    if llm is None:
+        llm = _get_default_llm()
+    
+    if llm is None:
+        return None
+        
+    agent = create_react_agent(
+        model=llm,
+        tools=ALL_COPILOT_TOOLS,
+        state_modifier=COPILOT_SYSTEM_PROMPT + "\n\n" + COPILOT_TOOL_INSTRUCTIONS,
+    )
+    
+    return agent
 
 
 async def chat(
@@ -194,15 +193,11 @@ def _get_default_llm():
         print("WARNING: GOOGLE_API_KEY not set. Copilot will return fallback responses.")
         return None
 
-    # TODO: Uncomment when langchain_google_genai is installed
-    #
-    # from langchain_google_genai import ChatGoogleGenerativeAI
-    #
-    # return ChatGoogleGenerativeAI(
-    #     model="gemini-2.0-flash",
-    #     google_api_key=api_key,
-    #     temperature=0.3,      # Low temperature for factual, grounded responses
-    #     max_output_tokens=1024,
-    # )
+    from langchain_google_genai import ChatGoogleGenerativeAI
 
-    return None
+    return ChatGoogleGenerativeAI(
+        model="gemini-1.5-pro", # Used 1.5-pro for consistency with other parts of the app
+        google_api_key=api_key,
+        temperature=0.3,      # Low temperature for factual, grounded responses
+        max_output_tokens=1024,
+    )

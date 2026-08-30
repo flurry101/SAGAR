@@ -27,6 +27,14 @@ class Settings(BaseSettings):
     # Explicit Database URL (Takes precedence if provided, e.g. for Supabase PostgreSQL)
     DATABASE_URL: Optional[str] = None
 
+    # Bhashini Translation API
+    BHASHINI_API_KEY: str = ""
+    BHASHINI_USER_ID: str = ""
+    BHASHINI_PIPELINE_URL: str = "https://meity-auth.udyat.ai/ulca/apis/v0/model/getModelsPipeline"
+
+    # Google AI
+    GOOGLE_API_KEY: str = ""
+
     @computed_field
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> str:

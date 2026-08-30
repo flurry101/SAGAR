@@ -12,10 +12,33 @@ Reference: 08_AI_ML_AGENTIC_ARCHITECTURE.md, Section 28
 
 from __future__ import annotations
 
+import logging
 from langchain_core.tools import tool
 
-# TODO: Replace with actual Supabase client
-# from app.core.supabase_client import get_supabase
+logger = logging.getLogger(__name__)
+
+
+def _get_client():
+    """Get the Supabase client, or None if not configured."""
+    try:
+        from app.core.supabase import get_supabase_client
+        return get_supabase_client()
+    except Exception as e:
+        logger.warning(f"Could not get Supabase client: {e}")
+        return None
+
+
+def _supabase_unavailable_response(resource: str, identifier: str) -> dict:
+    """Consistent response when Supabase is not configured."""
+    return {
+        "status": "supabase_not_configured",
+        "resource": resource,
+        "identifier": identifier,
+        "message": (
+            "Supabase is not configured. To enable evidence retrieval, "
+            "set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in the .env file."
+        ),
+    }
 
 
 @tool
@@ -33,16 +56,24 @@ def get_trip_advisory(trip_id: str) -> dict:
         The advisory dict with recommendation_text, advisory_category,
         reason, affected_phase, and evidence_summary.
     """
-    # TODO: Implement Supabase query
-    # supabase = get_supabase()
-    # result = supabase.table("advisories").select("*").eq("trip_id", trip_id).single().execute()
-    # return result.data
+    client = _get_client()
+    if not client:
+        return _supabase_unavailable_response("advisory", trip_id)
 
-    return {
-        "status": "stub",
-        "message": f"Advisory for trip {trip_id} would be fetched from Supabase.",
-        "note": "Implement Supabase query in production.",
-    }
+    try:
+        result = (
+            client.table("advisories")
+            .select("*")
+            .eq("trip_id", trip_id)
+            .maybe_single()
+            .execute()
+        )
+        if result.data:
+            return {"status": "found", "data": result.data}
+        return {"status": "not_found", "trip_id": trip_id}
+    except Exception as e:
+        logger.warning(f"Advisory query failed: {e}")
+        return {"status": "error", "trip_id": trip_id, "error": str(e)}
 
 
 @tool
@@ -60,15 +91,24 @@ def get_risk_evidence(trip_id: str) -> dict:
         RiskEvidence dict with advisory_category, risk_level, hazard_flags,
         and the specific thresholds that were exceeded.
     """
-    # TODO: Implement Supabase query
-    # supabase = get_supabase()
-    # result = supabase.table("risk_evidence").select("*").eq("trip_id", trip_id).single().execute()
-    # return result.data
+    client = _get_client()
+    if not client:
+        return _supabase_unavailable_response("risk_evidence", trip_id)
 
-    return {
-        "status": "stub",
-        "message": f"Risk evidence for trip {trip_id} would be fetched from Supabase.",
-    }
+    try:
+        result = (
+            client.table("risk_evidence")
+            .select("*")
+            .eq("trip_id", trip_id)
+            .maybe_single()
+            .execute()
+        )
+        if result.data:
+            return {"status": "found", "data": result.data}
+        return {"status": "not_found", "trip_id": trip_id}
+    except Exception as e:
+        logger.warning(f"Risk evidence query failed: {e}")
+        return {"status": "error", "trip_id": trip_id, "error": str(e)}
 
 
 @tool
@@ -85,15 +125,26 @@ def get_weather_evidence(trip_id: str) -> dict:
     Returns:
         List of WeatherObservation dicts matched to trajectory waypoints.
     """
-    # TODO: Implement Supabase query
-    # supabase = get_supabase()
-    # result = supabase.table("weather_evidence").select("*").eq("trip_id", trip_id).execute()
-    # return result.data
+    client = _get_client()
+    if not client:
+        return _supabase_unavailable_response("weather_evidence", trip_id)
 
-    return {
-        "status": "stub",
-        "message": f"Weather evidence for trip {trip_id} would be fetched from Supabase.",
-    }
+    try:
+        result = (
+            client.table("weather_evidence")
+            .select("*")
+            .eq("trip_id", trip_id)
+            .execute()
+        )
+        return {
+            "status": "found" if result.data else "not_found",
+            "trip_id": trip_id,
+            "count": len(result.data) if result.data else 0,
+            "data": result.data or [],
+        }
+    except Exception as e:
+        logger.warning(f"Weather evidence query failed: {e}")
+        return {"status": "error", "trip_id": trip_id, "error": str(e)}
 
 
 @tool
@@ -110,11 +161,26 @@ def get_marine_evidence(trip_id: str) -> dict:
     Returns:
         List of MarineObservation dicts plus PFZ data.
     """
-    # TODO: Implement Supabase query
-    return {
-        "status": "stub",
-        "message": f"Marine evidence for trip {trip_id} would be fetched from Supabase.",
-    }
+    client = _get_client()
+    if not client:
+        return _supabase_unavailable_response("marine_evidence", trip_id)
+
+    try:
+        result = (
+            client.table("marine_evidence")
+            .select("*")
+            .eq("trip_id", trip_id)
+            .execute()
+        )
+        return {
+            "status": "found" if result.data else "not_found",
+            "trip_id": trip_id,
+            "count": len(result.data) if result.data else 0,
+            "data": result.data or [],
+        }
+    except Exception as e:
+        logger.warning(f"Marine evidence query failed: {e}")
+        return {"status": "error", "trip_id": trip_id, "error": str(e)}
 
 
 @tool
@@ -133,17 +199,22 @@ def get_agent_execution_history(trip_id: str) -> list[dict]:
         List of AgentExecution dicts with agent_name, status, data_sources,
         input_summary, output_data, and timestamps.
     """
-    # TODO: Implement Supabase query
-    # supabase = get_supabase()
-    # result = supabase.table("agent_executions").select("*").eq("trip_id", trip_id).order("started_at").execute()
-    # return result.data
+    client = _get_client()
+    if not client:
+        return [_supabase_unavailable_response("agent_executions", trip_id)]
 
-    return [
-        {
-            "status": "stub",
-            "message": f"Agent execution history for trip {trip_id} would be fetched from Supabase.",
-        }
-    ]
+    try:
+        result = (
+            client.table("agent_executions")
+            .select("*")
+            .eq("trip_id", trip_id)
+            .order("started_at")
+            .execute()
+        )
+        return result.data or []
+    except Exception as e:
+        logger.warning(f"Agent execution query failed: {e}")
+        return [{"status": "error", "trip_id": trip_id, "error": str(e)}]
 
 
 # Convenience list for registration

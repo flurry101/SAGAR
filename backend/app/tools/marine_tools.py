@@ -18,9 +18,9 @@ Each function is a plain Python callable.  If your teammate wraps them with
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Tuple
 
-from backend.app.adapters.amfitrite_hab_adapter import AmfitriteHABAdapter
-from backend.app.adapters.sst_adapter import SSTAdapter
-from backend.app.adapters.static_pfz_adapter import StaticPFZAdapter
+from app.adapters.amfitrite_hab_adapter import AmfitriteHABAdapter
+from app.adapters.sst_adapter import SSTAdapter
+from app.adapters.static_pfz_adapter import StaticPFZAdapter
 
 # ---------------------------------------------------------------------------
 # Module-level adapter singletons (instantiated once per process)
@@ -249,12 +249,19 @@ def fetch_marine_forecast_batch(
         # can inspect individual tool provenances separately if needed.
         merged_provenance = sst_obs.get("provenance") or hab_obs.get("provenance")
 
+        # Chlorophyll Normalizer / Source (Tier 3 deterministic fallback for demo)
+        # In a full implementation, this would hit Copernicus/INCOIS.
+        # Higher productivity near coast (lat ~ 10-15) and specific months.
+        base_chl = 0.5
+        if 8 <= lat <= 15 and 70 <= lon <= 78:
+            base_chl += 1.2  # Coast of Kerala/Karnataka boost
+        
         marine_obs: Dict[str, Any] = {
             "lat":                lat,
             "lon":                lon,
             "time_iso":           eta_iso,
             "sst_celsius":        sst_obs.get("sst_celsius"),
-            "chlorophyll_mgm3":   None,   # not sourced in M4 scope
+            "chlorophyll_mg_m3":  base_chl,
             "hab_detected":       hab_obs.get("hab_detected"),
             "hab_probability":    hab_obs.get("hab_probability"),
             "current_speed_kmh":  None,   # not sourced in M4 scope
