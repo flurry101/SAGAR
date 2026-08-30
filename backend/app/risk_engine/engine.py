@@ -67,6 +67,9 @@ class RiskEvidenceBuilder:
         if override_rule:
             overall_risk = RiskLevel.SEVERE
             summary_prefix = f"OVERRIDE TRIGGERED ({override_rule.rule_name}): "
+        elif insufficient_count > 0:
+            overall_risk = RiskLevel.UNKNOWN
+            summary_prefix = ""
         else:
             overall_risk = max_risk_level
             summary_prefix = ""
@@ -78,13 +81,12 @@ class RiskEvidenceBuilder:
                 f"{summary_prefix}Voyage presents {overall_risk.value} risk. "
                 f"Failed rules: {', '.join(failed_names) if failed_names else 'Safety threshold breach'}."
             )
+        elif overall_risk == RiskLevel.UNKNOWN:
+            summary = f"Voyage assessed as UNKNOWN risk. {insufficient_count} rule(s) lacked sufficient safety-critical data."
         elif overall_risk == RiskLevel.MODERATE:
             summary = "Voyage presents MODERATE risk. Operational caution recommended."
         else:
-            if insufficient_count > 0:
-                summary = f"Voyage assessed as SAFE with {insufficient_count} rule(s) lacking sufficient data."
-            else:
-                summary = "Voyage assessed as SAFE. All safety rules passed."
+            summary = "Voyage assessed as SAFE. All safety rules passed."
 
         evidence_trace = {
             "total_rules_evaluated": len(rule_results),

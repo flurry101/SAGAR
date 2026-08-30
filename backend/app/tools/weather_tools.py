@@ -24,8 +24,8 @@ Each function is a plain Python callable. If your teammate wraps them with
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
-from backend.app.adapters.open_meteo_adapter import OpenMeteoAdapter
-from backend.app.adapters.static_hazard_adapter import StaticHazardAdapter
+from app.adapters.open_meteo_adapter import OpenMeteoAdapter
+from app.adapters.static_hazard_adapter import StaticHazardAdapter
 
 # ---------------------------------------------------------------------------
 # Module-level adapter singletons (instantiated once per process)

@@ -11,6 +11,7 @@ class RiskLevel(str, Enum):
     MODERATE = "MODERATE"
     HIGH = "HIGH"
     SEVERE = "SEVERE"
+    UNKNOWN = "UNKNOWN"
 
 
 class RuleStatus(str, Enum):
