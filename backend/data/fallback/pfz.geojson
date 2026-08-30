@@ -1,0 +1,28 @@
+{
+  "_comment": "Static PFZ fallback. Validity uses hour offsets from the current UTC hour so the file never expires on demo day. Not a live INCOIS pull.",
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "pfz_id": "PFZ-KA-001",
+        "source": "INCOIS (Static Fallback)",
+        "valid_from_offset_hours": -72,
+        "valid_until_offset_hours": 168,
+        "description": "Potential Fishing Zone — North Karnataka coast, approx. 40 km offshore"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [74.20, 14.80],
+            [74.60, 14.80],
+            [74.60, 14.50],
+            [74.20, 14.50],
+            [74.20, 14.80]
+          ]
+        ]
+      }
+    }
+  ]
+}

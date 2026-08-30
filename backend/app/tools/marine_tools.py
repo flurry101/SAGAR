@@ -1,0 +1,277 @@
+"""
+marine_tools.py
+===============
+LangGraph-compatible tool wrappers for the Marine Agent.
+
+Strict chain:
+    Marine Agent (LangGraph) -> tool -> Adapter -> Source
+
+Tools implemented here:
+    fetch_pfz                  -- PFZ lookup within a radius of the origin
+    fetch_sst                  -- single waypoint SST
+    detect_hab                 -- single waypoint HAB detection
+    fetch_marine_forecast_batch -- batch: one MarineObservation per trajectory waypoint
+
+Each function is a plain Python callable.  If your teammate wraps them with
+@tool from langgraph/langchain, the signatures are already compatible.
+"""
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Tuple
+
+from backend.app.adapters.amfitrite_hab_adapter import AmfitriteHABAdapter
+from backend.app.adapters.sst_adapter import SSTAdapter
+from backend.app.adapters.static_pfz_adapter import StaticPFZAdapter
+
+# ---------------------------------------------------------------------------
+# Module-level adapter singletons (instantiated once per process)
+# ---------------------------------------------------------------------------
+# Live-first HAB: STAC + RDNet when possible. Unresolved if imagery/weights fail.
+# Mock lat>20 heuristic only when DEMO_HAB_MOCK is set on the adapter path.
+_hab_adapter = AmfitriteHABAdapter()
+_sst_adapter = SSTAdapter()
+_pfz_adapter = StaticPFZAdapter()
+
+# One HAB inference per ~0.1° ROI (matches Sentinel-2 search bbox scale)
+_HAB_ROI_CACHE: Dict[Tuple[float, float], Dict[str, Any]] = {}
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _now_iso() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def clear_hab_roi_cache() -> None:
+    """Drop ROI HAB cache (tests / new trajectory)."""
+    _HAB_ROI_CACHE.clear()
+
+
+def _hab_roi_key(lat: float, lon: float) -> Tuple[float, float]:
+    return (round(float(lat), 1), round(float(lon), 1))
+
+
+def _copy_hab_for_query(cached: Dict[str, Any], lat: float, lon: float, time_iso: str) -> Dict[str, Any]:
+    out = dict(cached)
+    out["lat"] = lat
+    out["lon"] = lon
+    out["time_iso"] = time_iso
+    out["timestamp"] = time_iso
+    return out
+
+
+def _cached_hab_fetch(lat: float, lon: float, time_iso: str) -> Dict[str, Any]:
+    key = _hab_roi_key(lat, lon)
+    if key not in _HAB_ROI_CACHE:
+        _HAB_ROI_CACHE[key] = _hab_adapter.fetch_data(lat, lon, time_iso)
+    return _copy_hab_for_query(_HAB_ROI_CACHE[key], lat, lon, time_iso)
+
+
+def _trajectory_hab_anchor(waypoints: List[Dict[str, Any]]) -> Tuple[float, float, str]:
+    """Prefer fishing-phase centroid; otherwise all-waypoint centroid."""
+    fishing = [w for w in waypoints if str(w.get("phase", "")).upper() == "FISHING"]
+    pool = fishing or list(waypoints)
+    lat = sum(float(w["lat"]) for w in pool) / len(pool)
+    lon = sum(float(w["lon"]) for w in pool) / len(pool)
+    eta_iso = pool[0].get("eta_iso") or _now_iso()
+    return lat, lon, eta_iso
+
+
+# ---------------------------------------------------------------------------
+# Single-point tools (Step 09, Section 16.2)
+# ---------------------------------------------------------------------------
+
+def fetch_pfz(
+    origin: Dict[str, float],
+    radius_km: float = 100.0,
+) -> Dict[str, Any]:
+    """
+    Return Potential Fishing Zones within `radius_km` of the fisher's origin.
+
+    Invoked by: Marine Agent
+    Deterministic: Data retrieval (static file -- always same result)
+    Adapter: StaticPFZAdapter (always Tier 3 for MVP)
+
+    Parameters
+    ----------
+    origin    : {"lat": float, "lon": float}
+    radius_km : Search radius in kilometres (default 100 km).
+
+    Returns
+    -------
+    {
+        "pfzs"      : [FishingZone, ...],
+        "provenance": Provenance
+    }
+    """
+    result = _pfz_adapter.fetch_data(
+        lat=origin["lat"],
+        lon=origin["lon"],
+        radius_km=radius_km,
+    )
+    return {
+        "pfzs":      result.get("pfzs", []),
+        "provenance": result.get("provenance"),
+    }
+
+
+def fetch_sst(lat: float, lon: float, time_iso: str) -> Dict[str, Any]:
+    """
+    Return Sea Surface Temperature for a single waypoint / time.
+
+    Invoked by: Marine Agent
+    Adapter: SSTAdapter (Tier 1 live stub -> Tier 3 climatology fallback)
+
+    Parameters
+    ----------
+    lat, lon : Waypoint coordinates.
+    time_iso : ISO 8601 UTC target time.
+
+    Returns
+    -------
+    {
+        "sst_celsius": float | None,
+        "provenance" : Provenance
+    }
+    """
+    obs = _sst_adapter.fetch_data(lat, lon, time_iso)
+    return {
+        "sst_celsius": obs.get("sst_celsius"),
+        "provenance":  obs.get("provenance"),
+    }
+
+
+def detect_hab(lat: float, lon: float, time_iso: str) -> Dict[str, Any]:
+    """
+    Detect Harmful Algal Blooms at a specific location and time.
+
+    Invoked by: Marine Agent
+    Deterministic: No (ML inference — Tier 2 when imagery+weights available)
+    Default: live-first STAC; unresolved if imagery/weights fail.
+    Mock: original lat>20 heuristic only when DEMO_HAB_MOCK is set.
+    Adapter: AmfitriteHABAdapter
+
+    Repeat calls for the same ~0.1° ROI reuse a process cache.
+
+    Parameters
+    ----------
+    lat, lon : Query coordinates.
+    time_iso : ISO 8601 UTC target time.
+
+    Returns
+    -------
+    {
+        "hab_detected"   : bool | None,
+        "hab_probability": float | None,
+        "provenance"     : Provenance
+    }
+    """
+    obs = _cached_hab_fetch(lat, lon, time_iso)
+    return {
+        "hab_detected":    obs.get("hab_detected"),
+        "hab_probability": obs.get("hab_probability"),
+        "provenance":      obs.get("provenance"),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Batch tool -- one full MarineObservation per trajectory waypoint
+# ---------------------------------------------------------------------------
+
+def fetch_marine_forecast_batch(
+    waypoints: List[Dict[str, Any]],
+) -> List[Dict[str, Any]]:
+    """
+    Fetch a complete MarineObservation for every waypoint in a trajectory.
+
+    Combines SST (from SSTAdapter) and HAB detection (from AmfitriteHABAdapter).
+    HAB is evaluated once per trajectory at the fishing-phase centroid (or the
+    waypoint centroid) and reused for every waypoint — not once per waypoint.
+
+    Invoked by: Marine Agent (batch collection for the Environmental Cube)
+
+    Parameters
+    ----------
+    waypoints : List of waypoint dicts, each containing at minimum:
+        {
+            "waypoint_index": int,
+            "phase"         : str,
+            "lat"           : float,
+            "lon"           : float,
+            "eta_iso"       : str    # ISO 8601 UTC ETA
+        }
+
+    Returns
+    -------
+    List of WaypointForecast dicts (Step 07, Section 2.7):
+        {
+            "waypoint_index": int,
+            "phase"         : str,
+            "lat"           : float,
+            "lon"           : float,
+            "time_iso"      : str,
+            "marine"        : MarineObservation  -- merged observation dict
+        }
+
+    Individual waypoint errors are silently absorbed -- the observation for
+    that waypoint will have resolved=False rather than raising an exception.
+    """
+    results: List[Dict[str, Any]] = []
+
+    hab_obs: Dict[str, Any]
+    if waypoints:
+        try:
+            alat, alon, aeta = _trajectory_hab_anchor(waypoints)
+            hab_obs = _cached_hab_fetch(alat, alon, aeta)
+        except Exception:
+            hab_obs = {"hab_detected": None, "hab_probability": None, "provenance": None, "resolved": False}
+    else:
+        hab_obs = {"hab_detected": None, "hab_probability": None, "provenance": None, "resolved": False}
+
+    for wp in waypoints:
+        lat     = wp["lat"]
+        lon     = wp["lon"]
+        eta_iso = wp.get("eta_iso") or _now_iso()
+        idx     = wp.get("waypoint_index", 0)
+        phase   = wp.get("phase", "UNKNOWN")
+
+        # Fetch each sub-observation independently so one failure doesn't
+        # block the others.
+        try:
+            sst_obs = _sst_adapter.fetch_data(lat, lon, eta_iso)
+        except Exception:
+            sst_obs = {"sst_celsius": None, "provenance": None}
+
+        # HAB: trajectory-level result, not a per-waypoint STAC download.
+        # Provenance: prefer SST provenance (it runs a live query attempt);
+        # if both resolved, we note the primary source only.  The Risk Engine
+        # can inspect individual tool provenances separately if needed.
+        merged_provenance = sst_obs.get("provenance") or hab_obs.get("provenance")
+
+        marine_obs: Dict[str, Any] = {
+            "lat":                lat,
+            "lon":                lon,
+            "time_iso":           eta_iso,
+            "sst_celsius":        sst_obs.get("sst_celsius"),
+            "chlorophyll_mgm3":   None,   # not sourced in M4 scope
+            "hab_detected":       hab_obs.get("hab_detected"),
+            "hab_probability":    hab_obs.get("hab_probability"),
+            "current_speed_kmh":  None,   # not sourced in M4 scope
+            "current_direction_deg": None,
+            "resolved": (
+                sst_obs.get("resolved", False) or hab_obs.get("resolved", False)
+            ),
+            "provenance": merged_provenance,
+        }
+
+        results.append({
+            "waypoint_index": idx,
+            "phase":          phase,
+            "lat":            lat,
+            "lon":            lon,
+            "time_iso":       eta_iso,
+            "marine":         marine_obs,
+        })
+
+    return results

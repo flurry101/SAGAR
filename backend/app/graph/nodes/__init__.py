@@ -1,1 +1,1 @@
-"""Graph nodes package."""
+"""Package marker for M4 graph nodes."""
