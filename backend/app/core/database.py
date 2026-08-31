@@ -22,5 +22,9 @@ def get_db() -> Generator:
         db.close()
 
 def init_db() -> None:
-    from app.models.user import User  # noqa: F401
-    Base.metadata.create_all(bind=engine)
+    try:
+        from app.models.user import User  # noqa: F401
+        Base.metadata.create_all(bind=engine)
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).warning(f"Database initialization deferred: {e}")

@@ -41,7 +41,11 @@ class EnvironmentalObservation(BaseModel):
     lon: Optional[float] = Field(None, description="Longitude")
     wave_height_m: Optional[float] = Field(None, description="Significant wave height in meters (m)", ge=0.0)
     wind_speed_knots: Optional[float] = Field(None, description="Wind speed in knots (kt)", ge=0.0)
+    wind_speed_kmh: Optional[float] = Field(None, description="Wind speed in km/h", ge=0.0)
+    gust_speed_kmh: Optional[float] = Field(None, description="Wind gust speed in km/h", ge=0.0)
     visibility_km: Optional[float] = Field(None, description="Visibility in kilometers (km)", ge=0.0)
+    depth_m: Optional[float] = Field(None, description="Water depth in meters (m) from bathymetry", ge=0.0)
+    tide_height_m: Optional[float] = Field(None, description="Tidal water level height in meters (m)")
     cyclone_warning: Optional[bool] = Field(False, description="Flag indicating active cyclone warning")
     cyclone_details: Optional[Dict[str, Any]] = Field(None, description="Additional cyclone warning metadata")
 
