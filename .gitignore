@@ -102,3 +102,10 @@ coverage.xml
 .coverage.*
 htmlcov/
 
+
+# Local Node environment
+node-env/
+
+# Frontend generated/dependency files
+frontend/node_modules/
+frontend/dist/
