@@ -73,39 +73,36 @@ def ingest_to_vector_store(docs_dir: Path | None = None) -> int:
     print(f"Created {len(chunks)} chunks from {len(documents)} documents.")
 
     # 3. Embed and store
-    supabase_url = os.environ.get("SUPABASE_URL") or os.environ.get("SUPABASE_DB_URL")
-    supabase_key = os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or os.environ.get("SUPABASE_SERVICE_KEY") or os.environ.get("SUPABASE_ANON_KEY")
-
-    if supabase_url and supabase_key:
-        try:
-            from supabase import create_client
-            from langchain_community.vectorstores import SupabaseVectorStore
-
-            embeddings = get_embedding_model()
-            if embeddings is None:
-                print("Embeddings model not available. Chunks prepared but not vectorized.")
-                return len(chunks)
-
-            supabase = create_client(supabase_url, supabase_key)
-            texts = [c["content"] for c in chunks]
-            metadatas = [{"source": c["source"], "domain": c["domain"]} for c in chunks]
-
-            vector_store = SupabaseVectorStore.from_texts(
-                texts=texts,
-                metadatas=metadatas,
-                embedding=embeddings,
-                client=supabase,
-                table_name="knowledge_chunks",
-                query_name="match_knowledge_chunks",
-            )
-            print(f"Successfully ingested {len(texts)} chunks into Supabase vector store.")
-            return len(texts)
-        except Exception as e:
-            print(f"Vector store ingestion error: {e}")
+    try:
+        embeddings = get_embedding_model()
+        if not embeddings:
+            print("INFO: Google API key not configured for embeddings. Chunks prepared successfully.")
             return len(chunks)
 
-    print("Notice: Supabase credentials not set. Chunks verified but not persisted to remote vector store.")
-    return len(chunks)
+        from app.core.supabase import get_supabase_client
+        supabase = get_supabase_client()
+        if not supabase:
+            print("INFO: Supabase client not configured. Chunks prepared successfully.")
+            return len(chunks)
+
+        from langchain_community.vectorstores import SupabaseVectorStore
+
+        texts = [c["content"] for c in chunks]
+        metadatas = [{"source": c["source"], "domain": c["domain"]} for c in chunks]
+
+        vector_store = SupabaseVectorStore.from_texts(
+            texts=texts,
+            metadatas=metadatas,
+            embedding=embeddings,
+            client=supabase,
+            table_name="knowledge_chunks",
+            query_name="match_knowledge_chunks",
+        )
+        print(f"Successfully ingested {len(texts)} chunks into Supabase pgvector!")
+        return len(texts)
+    except Exception as e:
+        print(f"Vector storage ingestion note / error: {e}")
+        return len(chunks)
 
 
 if __name__ == "__main__":

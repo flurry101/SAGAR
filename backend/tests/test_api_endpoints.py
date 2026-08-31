@@ -1,16 +1,31 @@
+from unittest.mock import AsyncMock, patch
 import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import patch, AsyncMock
 from app.main import app
+from app.api.trip import get_graph
+from app.api.copilot import get_copilot_chat_runner
 
 client = TestClient(app)
 
 
-def test_health_endpoint():
-    response = client.get("/api/v1/health")
-    assert response.status_code == 200
-    data = response.json()
-    assert data["status"] == "healthy"
+def test_root_and_health_endpoints():
+    res_root = client.get("/")
+    assert res_root.status_code == 200
+    assert res_root.json()["status"] == "ok"
+
+    res_health = client.get("/api/v1/health")
+    assert res_health.status_code == 200
+    assert res_health.json()["status"] == "healthy"
+
+    res_ready = client.get("/api/v1/ready")
+    assert res_ready.status_code == 200
+    assert res_ready.json()["status"] == "ready"
+
+
+def test_request_id_middleware():
+    res = client.get("/api/v1/health", headers={"X-Request-ID": "custom-uuid-999"})
+    assert res.status_code == 200
+    assert res.headers.get("X-Request-ID") == "custom-uuid-999"
 
 
 def test_weather_forecast_endpoint():
@@ -86,25 +101,60 @@ def test_risk_evaluate_endpoint():
     assert res_json["data"]["overall_risk_level"] == "SAFE"
 
 
-def test_assessment_get_endpoint():
-    response = client.get("/api/v1/assessment/nonexistent-id")
-    assert response.status_code in (200, 404)
+def test_copilot_chat_endpoint():
+    mock_runner = AsyncMock()
+    mock_runner.return_value = {
+        "response": "Potential Fishing Zones (PFZ) are identified using satellite ocean data.",
+        "tool_calls": [{"tool": "search_marine_knowledge", "args": {"query": "pfz"}}],
+    }
+
+    app.dependency_overrides[get_copilot_chat_runner] = lambda: mock_runner
+
+    try:
+        payload = {
+            "message": "What is a PFZ?",
+        }
+
+        res = client.post("/api/v1/copilot", json=payload)
+        assert res.status_code == 200
+        data = res.json()
+        assert data["status"] == "success"
+        assert "Potential Fishing Zones" in data["data"]["response"]
+        assert len(data["data"]["tool_calls"]) == 1
+    finally:
+        app.dependency_overrides.pop(get_copilot_chat_runner, None)
 
 
-@patch("app.api.copilot.copilot_chat")
-def test_copilot_endpoint(mock_chat):
-    mock_chat.return_value = {
-        "response": "The wave threshold is calculated based on SVAS formula.",
-        "tool_calls": []
+def test_chat_trip_planner_endpoint():
+    mock_graph = AsyncMock()
+    mock_graph.ainvoke.return_value = {
+        "workflow_status": "ADVISORY_READY",
+        "trip_context": {"trip_id": "trip-test-123", "origin": "Mangalore"},
+        "advisory": {
+            "advisory_category": "CONDITIONS_FAVORABLE",
+            "recommendation_text": "Conditions are safe for fishing trip.",
+            "disclaimer": "Safety disclaimer.",
+            "language": "en",
+        },
+        "overall_risk_level": "SAFE",
     }
-    payload = {
-        "message": "What is the wave safety threshold?"
-    }
-    response = client.post("/api/v1/copilot", json=payload)
-    assert response.status_code == 200
-    res_json = response.json()
-    assert res_json["status"] == "success"
-    assert "SVAS formula" in res_json["data"]["response"]
+
+    app.dependency_overrides[get_graph] = lambda: mock_graph
+
+    try:
+        payload = {
+            "message": "I want to go fishing from Mangalore at 5 AM",
+            "language": "en",
+        }
+
+        res = client.post("/api/v1/chat", json=payload)
+        assert res.status_code == 200
+        data = res.json()
+        assert data["status"] == "success"
+        assert data["data"]["trip_id"] == "trip-test-123"
+        assert "X-Request-ID" in res.headers
+    finally:
+        app.dependency_overrides.pop(get_graph, None)
 
 
 def test_trip_assess_endpoint():
@@ -119,12 +169,23 @@ def test_trip_assess_endpoint():
     assert "workflow_status" in res_json["data"]
 
 
-def test_chat_alias_endpoint():
-    payload = {
-        "message": "Is it safe to go to PFZ from Kochi tomorrow?",
-        "language": "en"
+def test_assessment_get_endpoint():
+    response = client.get("/api/v1/assessment/nonexistent-id")
+    assert response.status_code in (200, 404)
+
+
+@patch("app.api.vessel.get_vessel_by_id")
+def test_vessel_endpoints(mock_get_vessel):
+    mock_get_vessel.return_value = {
+        "id": "vessel-789",
+        "vessel_type": "mechanized_trawler",
+        "beam_width_m": 4.2,
+        "cruising_speed_kmh": 16.0,
+        "has_ais": True,
     }
-    response = client.post("/api/v1/chat", json=payload)
-    assert response.status_code == 200
-    res_json = response.json()
-    assert res_json["status"] in ("success", "needs_clarification", "insufficient_information")
+
+    res = client.get("/api/v1/vessel/vessel-789")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["status"] == "success"
+    assert data["data"]["beam_width_m"] == 4.2

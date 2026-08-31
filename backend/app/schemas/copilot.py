@@ -2,15 +2,35 @@
 Copilot Conversational RAG Schemas.
 """
 
-from typing import Any, Dict, List, Optional
+from __future__ import annotations
+
+from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseModel, Field
 
 
-class CopilotChatRequest(BaseModel):
-    message: str = Field(..., min_length=1, max_length=4000, description="Fisherman question or explanation request")
-    conversation_history: Optional[List[Dict[str, Any]]] = Field(default_factory=list, description="Prior conversation messages")
-    trip_id: Optional[str] = Field(None, description="Optional trip ID for context grounding")
-    fisher_id: Optional[str] = Field(None, description="Optional authenticated fisher ID")
+class CopilotMessage(BaseModel):
+    role: str = Field(..., description="Message author role: user or assistant")
+    content: str = Field(..., description="Message text content")
+
+
+class CopilotRequest(BaseModel):
+    message: str = Field(..., min_length=1, max_length=4000, description="Question or query for copilot")
+    conversation_history: Optional[List[Union[CopilotMessage, Dict[str, Any]]]] = Field(
+        default_factory=list,
+        description="Prior conversation turns",
+    )
+    trip_id: Optional[str] = Field(default=None, description="Optional active trip id for contextual answers")
+    fisher_id: Optional[str] = Field(default=None, description="Optional fisher user id")
+
+
+class CopilotResponse(BaseModel):
+    response: str = Field(..., description="Grounded assistant response")
+    tool_calls: List[Dict[str, Any]] = Field(default_factory=list, description="Tools executed during answering")
+    trip_id: Optional[str] = Field(default=None, description="Trip ID context")
+
+
+# Aliases for compatibility
+CopilotChatRequest = CopilotRequest
 
 
 class CopilotChatResponse(BaseModel):

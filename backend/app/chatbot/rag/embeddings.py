@@ -1,10 +1,8 @@
 """
-RAG Embeddings — Embedding Model Configuration
+RAG Embeddings: Embedding Model Configuration
 
 Configures the embedding model used for vectorizing knowledge documents
 and queries. Uses Google's text-embedding-004 model via LangChain.
-
-Reference: 12A_IMPLEMENTATION_PLAN.md, WS-09
 """
 
 from __future__ import annotations

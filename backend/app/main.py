@@ -1,8 +1,16 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+import logging
+from fastapi import FastAPI, HTTPException
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.core.database import init_db
+from app.core.middleware import (
+    add_request_id_middleware,
+    global_exception_handler,
+    http_exception_handler,
+    validation_exception_handler,
+)
 from app.api.health import router as health_router
 from app.api.user import router as user_router
 from app.api.trip import router as trip_router
@@ -11,28 +19,33 @@ from app.api.assessment import router as assessment_router
 from app.api.weather import router as weather_router
 from app.api.marine import router as marine_router
 from app.api.risk import router as risk_router
+from app.api.vessel import router as vessel_router
 
-
-# Ensure tables are created
-init_db()
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize database tables on startup
-    init_db()
+    # Initialize database tables gracefully on startup
+    try:
+        init_db()
+        logger.info("Database initialized successfully.")
+    except Exception as e:
+        logger.warning(f"Database initialization deferred or offline: {e}")
     yield
 
 
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
+    description="ORCA — Marine EcOsystem Reasoning with Collaborative Agents API",
     lifespan=lifespan,
     docs_url=settings.docs_url,
     redoc_url=settings.redoc_url,
     openapi_url=settings.openapi_url,
 )
 
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -41,16 +54,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# API Routers
+# Request ID tracing middleware
+app.middleware("http")(add_request_id_middleware)
+
+# Global exception handlers
+app.add_exception_handler(HTTPException, http_exception_handler)
+app.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_handler(Exception, global_exception_handler)
+
+# API Route Registration
 app.include_router(health_router, prefix="/api/v1", tags=["Health"])
-app.include_router(user_router, prefix="/api/v1/user", tags=["User"])
-app.include_router(user_router, prefix="/user", tags=["User (Starter Compatibility)"])
 app.include_router(trip_router, prefix="/api/v1", tags=["Trip Planning & LangGraph"])
-app.include_router(copilot_router, prefix="/api/v1", tags=["Copilot & RAG"])
+app.include_router(copilot_router, prefix="/api/v1", tags=["Fisherman Copilot & RAG"])
 app.include_router(assessment_router, prefix="/api/v1", tags=["Assessments"])
+app.include_router(vessel_router, prefix="/api/v1", tags=["Vessels"])
 app.include_router(weather_router, prefix="/api/v1", tags=["Weather & Hazards"])
 app.include_router(marine_router, prefix="/api/v1", tags=["Marine & PFZ"])
 app.include_router(risk_router, prefix="/api/v1", tags=["Deterministic Risk Engine"])
+app.include_router(user_router, prefix="/api/v1/user", tags=["User"])
+app.include_router(user_router, prefix="/user", tags=["User (Starter Compatibility)"])
 
 
 @app.get("/")

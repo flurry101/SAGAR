@@ -164,19 +164,20 @@ def weather_node(state: Dict[str, Any]) -> Dict[str, Any]:
     Now also generates structured alerts from weather conditions.
     """
     trajectory = state.get("trajectory") or {}
-    waypoints: List[Dict[str, Any]] = trajectory.get("waypoints", [])
+    waypoints: List[Dict[str, Any]] = state.get("waypoints") or trajectory.get("waypoints", [])
     
     updates: Dict[str, Any] = {}
     if waypoints:
         updates["weather_observations"] = fetch_weather_forecast_batch(waypoints)
 
-    # Extract bbox from spatial_constraints
+    # Extract bbox from state directly or from spatial_constraints
     spatial_constraints = state.get("spatial_constraints", [])
-    bbox = None
-    for constraint in spatial_constraints:
-        if constraint.get("type") == "bbox" and constraint.get("purpose") == "hazard_alerts":
-            bbox = constraint.get("coordinates")
-            break
+    bbox = state.get("bbox")
+    if not bbox:
+        for constraint in spatial_constraints:
+            if constraint.get("type") == "bbox" and constraint.get("purpose") == "hazard_alerts":
+                bbox = constraint.get("coordinates")
+                break
 
     hazard_data = {}
     if bbox:
