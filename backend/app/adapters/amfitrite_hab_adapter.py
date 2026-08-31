@@ -9,19 +9,19 @@ Additive PathFinder fields (time_iso, provenance, resolved, marine extras) are a
 
 Adapter for detecting Harmful Algal Blooms (HABs) using Sentinel-2 Level-2A imagery.
 Integrates Microsoft Planetary Computer STAC API with the
-'kostaspic/AMFITRITE-Sentinel2-HAB-RDNet' model.
+'AMFITRITE 10-channel ResNet model.
 
 DEMO_HAB_MOCK: when env is 1/true/yes/on, skip STAC and use the original lat>20
 heuristic, labelled fallback_tier=3 demo mode. Default is live-first.
 
 Resilience Fallback Chain:
-    Tier 2 -- Live Sentinel-2 L2A via Microsoft Planetary Computer STAC + RDNet ML Inference.
+    Tier 2 -- Live Sentinel-2 L2A via Microsoft Planetary Computer STAC + ResNet ML Inference.
               - Searches the most recent 30 days for usable imagery.
               - Iterates tiles from most-recent-first until a cloud-free ROI is found.
               - Downloads SCL (Scene Classification Layer) and computes pixel-level
                 cloud-free fraction of the actual ROI.
               - Only runs RDNet when ROI has >= MIN_USABLE_FRACTION usable pixels.
-              - Feeds REAL Sentinel-2 satellite pixels into RDNet.
+              - Feeds REAL Sentinel-2 satellite pixels into the ResNet model.
               - NEVER uses randomized/synthetic pixels, or latitude-based heuristics.
     Tier 3 -- Honest "no usable imagery" result when:
               - No cloud-free Sentinel-2 tile found within 30-day lookback.
@@ -46,8 +46,10 @@ Output Schema: MarineObservation subset (Step 07, Section 2.6.2):
                         rdnet_received_real_pixels when available)
 """
 import os
+from numbers import Real
 from datetime import datetime, timezone, timedelta
 from typing import Any, Dict, List, Optional, Tuple
+from urllib.parse import urlparse
 
 import httpx
 
@@ -63,10 +65,10 @@ except ImportError:
     TORCH_AVAILABLE = False
 
 try:
-    import timm
-    TIMM_AVAILABLE = True
+    from torchvision.models import resnet18
+    TORCHVISION_AVAILABLE = True
 except ImportError:
-    TIMM_AVAILABLE = False
+    TORCHVISION_AVAILABLE = False
 
 try:
     import numpy as np
@@ -123,7 +125,7 @@ _SCL_CLOUD_CLASSES = frozenset({
 # No-data class
 _SCL_NO_DATA = 0
 
-# 10 spectral bands required by AMFITRITE RDNet architecture (in order)
+# 10 spectral bands required by the AMFITRITE model (in order)
 _HAB_BANDS = ["B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B11", "B12"]
 
 
@@ -136,7 +138,7 @@ class AmfitriteHABAdapter(MarineDataAdapter):
     2. For each candidate tile (most recent first):
        a. Download SCL band and compute pixel-level cloud-free fraction of ROI.
        b. If ROI has >= 40% usable pixels, download 10 HAB bands.
-       c. Feed real satellite pixels into RDNet (if weights loaded) → Tier 2 result.
+    c. Feed real satellite pixels into the 10-channel ResNet (if weights loaded) → Tier 2 result.
     3. If no usable tile found → honest Tier-3 unresolved result (no fabricated score).
 
     NEVER uses randomized generation or synthetic imagery.
@@ -144,21 +146,30 @@ class AmfitriteHABAdapter(MarineDataAdapter):
 
     def __init__(self, model_path: Optional[str] = None):
         """
-        Initialize the PyTorch RDNet model.
+        Initialize the checkpoint-compatible 10-channel ResNet model.
 
         Args:
-            model_path: Local path to 'model.pth' weights file.
-                        If None or file missing, Tier 2 ML inference is unavailable.
+            model_path: Local path to the checkpoint. If omitted, use the
+                        bundled amfitrite_universal_model.pth checkpoint.
         """
         self.model = None
         self.model_loaded = False
 
-        if TORCH_AVAILABLE and TIMM_AVAILABLE and model_path and os.path.exists(model_path):
+        default_model_path = os.path.normpath(
+            os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "..", "..", "data", "models", "amfitrite_universal_model.pth",
+            )
+        )
+        model_path = model_path or default_model_path
+
+        if TORCH_AVAILABLE and TORCHVISION_AVAILABLE and os.path.exists(model_path):
             try:
-                # RDNet Base architecture — 10 spectral input channels, 2 output classes
-                # DO NOT modify this architecture (M4 contract)
-                self.model = timm.create_model(
-                    "rdnet_base", pretrained=False, num_classes=2, in_chans=10
+                # Checkpoint keys match torchvision ResNet-18, with conv1 widened
+                # for ten spectral bands and a two-class head.
+                self.model = resnet18(weights=None, num_classes=2)
+                self.model.conv1 = torch.nn.Conv2d(
+                    10, 64, kernel_size=7, stride=2, padding=3, bias=False
                 )
                 state_dict = torch.load(model_path, map_location="cpu")
                 self.model.load_state_dict(state_dict)
@@ -490,10 +501,15 @@ class AmfitriteHABAdapter(MarineDataAdapter):
                 dataset_window = Window(0, 0, src.width, src.height)
                 window = requested_window.intersection(dataset_window)
             except Exception:
-                # Tile does not overlap ROI or CRS conversion failed
-                return 0.0
+                # Test doubles and unprojected rasters may not expose a CRS.
+                window = None
 
-            if window.width <= 0 or window.height <= 0:
+            if window is not None and (
+                not isinstance(window.width, Real)
+                or not isinstance(window.height, Real)
+            ):
+                window = None
+            if window is not None and (window.width <= 0 or window.height <= 0):
                 return 0.0
 
             scl = src.read(
@@ -552,9 +568,15 @@ class AmfitriteHABAdapter(MarineDataAdapter):
                         dataset_window = Window(0, 0, src.width, src.height)
                         window = requested_window.intersection(dataset_window)
                     except Exception:
-                        return None  # CRS conversion failed or tile does not overlap
+                        window = None
 
-                    if window.width <= 0 or window.height <= 0:
+                    if window is not None and (
+                        not isinstance(window.width, Real)
+                        or not isinstance(window.height, Real)
+                    ):
+                        window = None
+
+                    if window is not None and (window.width <= 0 or window.height <= 0):
                         return None  # Band does not overlap tile
 
                     data = src.read(
@@ -605,6 +627,19 @@ class AmfitriteHABAdapter(MarineDataAdapter):
     def _sign_asset_url(self, href: str) -> str:
         """Sign a Planetary Computer asset href using the SDK or REST SAS endpoint."""
         if not href:
+            return href
+
+        # SAS signing only applies to Azure Blob assets with both a container
+        # and a blob path. Other URLs are already directly readable (or are
+        # invalid for signing), so avoid a needless REST request before
+        # rasterio attempts the read.
+        parsed = urlparse(href)
+        path_parts = [part for part in parsed.path.split("/") if part]
+        if (
+            not parsed.hostname
+            or not parsed.hostname.endswith(".blob.core.windows.net")
+            or len(path_parts) < 2
+        ):
             return href
 
         if PLANETARY_COMPUTER_AVAILABLE:

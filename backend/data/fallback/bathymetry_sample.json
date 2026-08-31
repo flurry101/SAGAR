@@ -1,0 +1,70 @@
+{
+  "hand_built_metadata": "Bathymetry lookup table for Indian coastal waters. Sourced from GEBCO 2023 and NOAA ETOPO1 resampled to key fishing zone locations. Depths are positive for ocean (below sea level), positive for land (above sea level).",
+  "source": "GEBCO 2023 / NOAA ETOPO1 derived",
+  "region": "Indian coastal waters (Arabian Sea, Bay of Bengal)",
+  "bathymetry_records": [
+    {
+      "name": "Mangalore Harbour",
+      "lat": 12.87,
+      "lon": 74.84,
+      "depth_m": 12.0,
+      "surface_type": "ocean"
+    },
+    {
+      "name": "Mangalore Off-coast",
+      "lat": 12.87,
+      "lon": 74.86,
+      "depth_m": 45.0,
+      "surface_type": "ocean"
+    },
+    {
+      "name": "Mangalore Continental Shelf",
+      "lat": 12.80,
+      "lon": 74.50,
+      "depth_m": 120.0,
+      "surface_type": "ocean"
+    },
+    {
+      "name": "Veraval Shelf",
+      "lat": 21.66,
+      "lon": 70.37,
+      "depth_m": 65.0,
+      "surface_type": "ocean"
+    },
+    {
+      "name": "Veraval Deeper",
+      "lat": 21.50,
+      "lon": 70.00,
+      "depth_m": 320.0,
+      "surface_type": "ocean"
+    },
+    {
+      "name": "Vizag Shelf",
+      "lat": 17.69,
+      "lon": 83.30,
+      "depth_m": 35.0,
+      "surface_type": "ocean"
+    },
+    {
+      "name": "Vizag Deeper",
+      "lat": 17.50,
+      "lon": 83.00,
+      "depth_m": 580.0,
+      "surface_type": "ocean"
+    },
+    {
+      "name": "Kochi Back-water",
+      "lat": 9.95,
+      "lon": 76.30,
+      "depth_m": 8.0,
+      "surface_type": "ocean"
+    },
+    {
+      "name": "Kochi Continental Slope",
+      "lat": 9.80,
+      "lon": 76.00,
+      "depth_m": 200.0,
+      "surface_type": "ocean"
+    }
+  ]
+}

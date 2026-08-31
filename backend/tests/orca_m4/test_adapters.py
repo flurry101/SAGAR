@@ -195,32 +195,54 @@ class TestStaticPFZAdapter(unittest.TestCase):
         d = _haversine_km(12.87, 74.84, 13.87, 74.84)
         self.assertAlmostEqual(d, 111.2, delta=2.0)
 
-    # --- Live ERDDAP Front Detection tests (mocked HTTP) ------------------
+    # --- Live INCOIS WFS tests (mocked HTTP) ------------------------------
 
-    def test_erddap_live_front_detection_returns_pfzs(self):
+    def test_incois_live_wfs_returns_pfzs(self):
+        # Mock INCOIS WFS response
+        mock_geojson = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {
+                        "Category": "sst",
+                        "UID": 2026243001.0,
+                        "Length": 31.65
+                    },
+                    "geometry": {
+                        "type": "MultiLineString",
+                        "coordinates": [
+                            [
+                                [74.10, 12.10],
+                                [74.15, 12.15]
+                            ]
+                        ]
+                    }
+                }
+            ]
+        }
+
         def _mock_get(url, **kwargs):
             mock_resp = MagicMock()
             mock_resp.status_code = 200
             mock_resp.raise_for_status.return_value = None
-            if "sst" in url.lower() or "analysed_sst" in url:
-                mock_resp.json.return_value = ERDDAP_SST_SAMPLE
-            else:
-                mock_resp.json.return_value = ERDDAP_CHL_SAMPLE
+            mock_resp.json.return_value = mock_geojson
             return mock_resp
 
         with patch("httpx.Client.get", side_effect=_mock_get):
-            result = self.adapter.fetch_data(lat=12.1, lon=74.1, radius_km=100.0)
+            result = self.adapter.fetch_data(lat=12.125, lon=74.125, radius_km=100.0)
 
         self.assertTrue(result["resolved"])
         self.assertEqual(result["status"], "ok")
         self.assertEqual(result["provenance"]["fallback_tier"], 1)
-        self.assertEqual(result["provenance"]["confidence"], "MODERATE")
-        self.assertIn("NOAA CoastWatch ERDDAP", result["provenance"]["source"])
+        self.assertEqual(result["provenance"]["confidence"], "HIGH")
+        self.assertEqual(result["provenance"]["source"], "INCOIS PFZ")
         self.assertGreater(len(result["pfzs"]), 0)
         p = result["pfzs"][0]
-        self.assertIn("PFZ-NOAA", p["pfz_id"])
-        self.assertEqual(p["coordinates"]["lat"], 12.1)
-        self.assertEqual(p["coordinates"]["lon"], 74.1)
+        self.assertIn("PFZ-INCOIS-", p["pfz_id"])
+        self.assertAlmostEqual(p["coordinates"]["lat"], 12.125, places=3)
+        self.assertAlmostEqual(p["coordinates"]["lon"], 74.125, places=3)
+
 
     # --- Radius filtering on fallback -------------------------------------
 
@@ -798,6 +820,29 @@ class TestAmfitriteHABAdapterNormalized(unittest.TestCase):
                       "current_direction_deg", "resolved", "provenance"):
             self.assertIn(field, result, msg=f"Missing field: {field}")
 
+    def test_bundled_resnet_checkpoint_loads_and_infers(self):
+        """The bundled checkpoint must load into the 10-channel ResNet model."""
+        import torch
+
+        adapter = AmfitriteHABAdapter()
+        self.assertTrue(adapter.model_loaded)
+        self.assertEqual(tuple(adapter.model.conv1.weight.shape), (64, 10, 7, 7))
+        self.assertEqual(adapter.model.fc.out_features, 2)
+        with torch.no_grad():
+            output = adapter.model(torch.zeros((1, 10, 256, 256)))
+        self.assertEqual(tuple(output.shape), (1, 2))
+
+    def test_model_unavailable_keeps_honest_fallback(self):
+        """A missing checkpoint must preserve the unresolved Tier-3 contract."""
+        adapter = AmfitriteHABAdapter(model_path="missing-amfitrite-checkpoint.pth")
+        self.assertFalse(adapter.model_loaded)
+        with patch("httpx.post", return_value=_mock_stac_response([])):
+            result = adapter.fetch_data(12.87, 74.84, "2026-08-21T06:00:00Z")
+        self.assertFalse(result["resolved"])
+        self.assertIsNone(result["hab_detected"])
+        self.assertIsNone(result["hab_probability"])
+        self.assertIn("severity", result)
+
 
 # ===========================================================================
 # 5. AmfitriteHABAdapter -- real imagery pipeline (new requirements)
@@ -971,7 +1016,7 @@ class TestAmfitriteHABRealImageryPipeline(unittest.TestCase):
         Without model weights, result should be resolved=False but with
         sentinel2_item_id in provenance (image was found and assessed).
         """
-        adapter = AmfitriteHABAdapter()  # no model_path
+        adapter = AmfitriteHABAdapter(model_path="missing-amfitrite-checkpoint.pth")
         feature  = _make_stac_feature(tile_id="S2B_USABLE_TILE", cloud_cover=30.0)
         scl_array  = _make_scl_array(usable_fraction=0.70)
         band_array = _make_band_array()

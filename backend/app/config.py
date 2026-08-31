@@ -40,6 +40,9 @@ class Settings(BaseSettings):
     # Google AI
     GOOGLE_API_KEY: str = ""
 
+    # WorldTides
+    WORLDTIDES_API_KEY: str = ""
+
     @computed_field
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> str:

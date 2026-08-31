@@ -8,6 +8,7 @@ Strict chain:
 
 Tools implemented here:
     fetch_pfz                  -- PFZ lookup within a radius of the origin
+    fetch_chlorophyll          -- Chlorophyll at a single waypoint (from ERDDAP if available)
     fetch_sst                  -- single waypoint SST
     detect_hab                 -- single waypoint HAB detection
     fetch_marine_forecast_batch -- batch: one MarineObservation per trajectory waypoint
@@ -142,6 +143,39 @@ def fetch_sst(lat: float, lon: float, time_iso: str) -> Dict[str, Any]:
     }
 
 
+def fetch_chlorophyll(lat: float, lon: float, time_iso: str = None) -> Dict[str, Any]:
+    """
+    Return chlorophyll-a concentration (productivity indicator) at a waypoint.
+
+    Invoked by: Marine Agent (when assessing fishing productivity)
+    Adapter: StaticPFZAdapter.fetch_chlorophyll_at_point()
+    Live source: NOAA CoastWatch ERDDAP (ESA-CCI/VIIRS 4km chlorophyll)
+    Fallback: None (no Tier 3 data available; returns unresolvable if live fails)
+
+    Parameters
+    ----------
+    lat, lon : Waypoint coordinates.
+    time_iso : ISO 8601 UTC target time (optional, unused; chlorophyll is location-dependent).
+
+    Returns
+    -------
+    {
+        "chlorophyll_mg_m3": float | None,
+        "resolved"         : bool,
+        "status"           : str,
+        "provenance"       : Provenance
+    }
+    """
+    time_iso = time_iso or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    obs = _pfz_adapter.fetch_chlorophyll_at_point(lat, lon, time_iso)
+    return {
+        "chlorophyll_mg_m3": obs.get("chlorophyll_mg_m3"),
+        "resolved":          obs.get("resolved"),
+        "status":            obs.get("status"),
+        "provenance":        obs.get("provenance"),
+    }
+
+
 def detect_hab(lat: float, lon: float, time_iso: str) -> Dict[str, Any]:
     """
     Detect Harmful Algal Blooms at a specific location and time.
@@ -249,20 +283,14 @@ def fetch_marine_forecast_batch(
         # can inspect individual tool provenances separately if needed.
         merged_provenance = sst_obs.get("provenance") or hab_obs.get("provenance")
 
-        # Chlorophyll Normalizer / Source (Tier 3 deterministic fallback for demo)
-        # In a full implementation, this would hit Copernicus/INCOIS.
-        # Higher productivity near coast (lat ~ 10-15) and specific months.
-        base_chl = 0.5
-        if 8 <= lat <= 15 and 70 <= lon <= 78:
-            base_chl += 1.2  # Coast of Kerala/Karnataka boost
-        
         marine_obs: Dict[str, Any] = {
             "lat":                lat,
             "lon":                lon,
             "time_iso":           eta_iso,
             "sst_celsius":        sst_obs.get("sst_celsius"),
-            "chlorophyll_mg_m3":  base_chl,
-            "chlorophyll_mgm3":   base_chl,
+            # Chlorophyll is populated only by the explicit ERDDAP tool.
+            "chlorophyll_mg_m3":  None,
+            "chlorophyll_mgm3":   None,
             "hab_detected":       hab_obs.get("hab_detected"),
             "hab_probability":    hab_obs.get("hab_probability"),
             "current_speed_kmh":  None,   # not sourced in M4 scope
