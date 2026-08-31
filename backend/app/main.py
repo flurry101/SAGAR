@@ -22,6 +22,9 @@ app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
     lifespan=lifespan,
+    docs_url=settings.docs_url,
+    redoc_url=settings.redoc_url,
+    openapi_url=settings.openapi_url,
 )
 
 app.add_middleware(

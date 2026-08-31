@@ -11,6 +11,11 @@ class Settings(BaseSettings):
     PORT: int = 8000
     HOST: str = "0.0.0.0"
 
+    # Documentation configuration (automatically disabled in production unless explicitly overridden)
+    DOCS_URL: Optional[str] = None
+    REDOC_URL: Optional[str] = None
+    OPENAPI_URL: Optional[str] = None
+
     # Supabase Configuration
     SUPABASE_PROJECT_ID: str = ""
     SUPABASE_JWT_SECRET: str = ""
@@ -47,6 +52,28 @@ class Settings(BaseSettings):
             f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
             f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         )
+
+    @property
+    def is_production(self) -> bool:
+        return self.ENVIRONMENT.strip().lower() in ("production", "prod")
+
+    @property
+    def docs_url(self) -> Optional[str]:
+        if self.DOCS_URL is not None:
+            return self.DOCS_URL
+        return None if self.is_production else "/docs"
+
+    @property
+    def redoc_url(self) -> Optional[str]:
+        if self.REDOC_URL is not None:
+            return self.REDOC_URL
+        return None if self.is_production else "/redoc"
+
+    @property
+    def openapi_url(self) -> Optional[str]:
+        if self.OPENAPI_URL is not None:
+            return self.OPENAPI_URL
+        return None if self.is_production else "/openapi.json"
 
     model_config = SettingsConfigDict(
         env_file=(
