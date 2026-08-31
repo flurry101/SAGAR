@@ -45,6 +45,10 @@ def _build_environmental_observations(state: Dict[str, Any]) -> List[Environment
             lon=w_obs.get("lon"),
             wave_height_m=weather.get("wave_height_m"),
             wind_speed_knots=wind_knots,
+            wind_speed_kmh=wind_kmh,
+            gust_speed_kmh=weather.get("gust_speed_kmh"),
+            depth_m=marine.get("depth_m"),
+            tide_height_m=marine.get("tide_height_m"),
             visibility_km=weather.get("visibility_km"),
             cyclone_warning=weather.get("cyclone_alert", False) or False,
             cyclone_details=None,
@@ -74,6 +78,7 @@ def risk_node(state: Dict[str, Any]) -> Dict[str, Any]:
         # Map OrcaState VesselProfile field names to RiskEngine VesselProfile
         vessel = VesselProfile(
             beam_m=vessel_data.get("beam_width_m"),
+            draft_m=vessel_data.get("draft_m"),
             length_m=vessel_data.get("length_m"),
             vessel_type=vessel_data.get("vessel_type"),
             max_speed_knots=vessel_data.get("cruising_speed_kmh", 10.0) / 1.852,

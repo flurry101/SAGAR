@@ -1,14 +1,15 @@
-# attr: m1
-# [marine observation and pfz schemas]
+"""
+Marine Observation and PFZ Schemas.
+"""
+
 from __future__ import annotations
 
-from typing import Optional
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 from app.schemas.provenance import Provenance
 
 
 class MarineObservation(BaseModel):
-    # [oceanographic observations at waypoint]
     waypoint_index: Optional[int] = Field(default=None, description="index of waypoint")
     lat: float = Field(..., description="latitude")
     lon: float = Field(..., description="longitude")
@@ -22,7 +23,6 @@ class MarineObservation(BaseModel):
 
 
 class PFZData(BaseModel):
-    # [potential fishing zone advisory data]
     pfz_id: Optional[str] = Field(default=None, description="pfz identifier")
     lat: float = Field(..., description="zone center latitude")
     lon: float = Field(..., description="zone center longitude")
@@ -31,5 +31,18 @@ class PFZData(BaseModel):
     species_advisory: Optional[str] = Field(default=None, description="recommended target species")
     source: str = Field(default="NOAA ERDDAP / Static", description="source identifier")
     provenance: Optional[Provenance] = Field(default=None, description="data source provenance")
-# attr: m1
 
+
+class PFZQueryRequest(BaseModel):
+    origin: Dict[str, float] = Field(..., description="Origin coordinate with lat and lon")
+    radius_km: Optional[float] = Field(100.0, ge=1.0, le=500.0, description="Search radius in km")
+
+
+class MarineBatchRequest(BaseModel):
+    waypoints: List[Dict[str, Any]] = Field(..., description="List of waypoints with lat, lon, and eta_iso")
+
+
+class MarineApiResponse(BaseModel):
+    status: str = Field("success", description="Status")
+    data: Dict[str, Any] = Field(default_factory=dict, description="PFZ or marine observations")
+    meta: Dict[str, Any] = Field(default_factory=dict, description="Metadata")

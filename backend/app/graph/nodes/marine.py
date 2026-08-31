@@ -30,18 +30,19 @@ def marine_node(state: Dict[str, Any]) -> Dict[str, Any]:
     Reads from trip_context and trajectory.
     """
     trajectory = state.get("trajectory") or {}
-    waypoints: List[Dict[str, Any]] = trajectory.get("waypoints", [])
+    waypoints: List[Dict[str, Any]] = state.get("waypoints") or trajectory.get("waypoints", [])
     
     trip_context = state.get("trip_context", {})
-    origin_lat = trip_context.get("origin_lat")
-    origin_lon = trip_context.get("origin_lon")
+    origin = state.get("origin") or {}
+    origin_lat = origin.get("lat") if origin.get("lat") is not None else trip_context.get("origin_lat")
+    origin_lon = origin.get("lon") if origin.get("lon") is not None else trip_context.get("origin_lon")
     
     updates: Dict[str, Any] = {}
 
     if origin_lat is not None and origin_lon is not None:
-        origin = {"lat": origin_lat, "lon": origin_lon}
+        origin_coord = {"lat": origin_lat, "lon": origin_lon}
         radius = float(state.get("pfz_radius_km") or 100.0)
-        updates["pfz_data"] = fetch_pfz(origin, radius_km=radius)
+        updates["pfz_data"] = fetch_pfz(origin_coord, radius_km=radius)
 
     if waypoints:
         updates["marine_observations"] = fetch_marine_forecast_batch(waypoints)

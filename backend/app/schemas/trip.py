@@ -1,8 +1,10 @@
-# attr: m1
-# [trip planning and langgraph chat schemas]
+"""
+Trip Planning and LangGraph Chat Schemas.
+"""
+
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseModel, Field
 from app.schemas.vessel import VesselProfile
 from app.schemas.trajectory import Trajectory
@@ -11,8 +13,17 @@ from app.schemas.marine import MarineObservation, PFZData
 from app.schemas.advisory import RiskEvidence, Advisory, VisualizationSpec, Report
 
 
+class VesselInputSchema(BaseModel):
+    vessel_id: Optional[str] = None
+    vessel_name: Optional[str] = None
+    vessel_type: Optional[str] = "fishing_boat"
+    beam_width_m: Optional[float] = Field(None, ge=0.0, description="Beam width in meters")
+    draft_m: Optional[float] = Field(None, ge=0.0, description="Draft depth in meters")
+    length_m: Optional[float] = Field(None, ge=0.0, description="Length in meters")
+    cruising_speed_kmh: Optional[float] = Field(15.0, ge=0.0, description="Speed in km/h")
+
+
 class TripContext(BaseModel):
-    # [extracted parameters defining the voyage]
     trip_id: Optional[str] = Field(default=None, description="unique trip identifier")
     fisher_id: Optional[str] = Field(default=None, description="requesting fisher identifier")
     origin: Optional[str] = Field(default=None, description="departure location name e.g. Mangalore")
@@ -27,54 +38,55 @@ class TripContext(BaseModel):
 
 
 class TripAssessRequest(BaseModel):
-    # [fisher trip planning input request]
-    message: str = Field(
-        ...,
-        min_length=1,
-        max_length=2000,
-        description="natural language fishing trip request or query",
-    )
-    fisher_id: Optional[str] = Field(default=None, description="authenticated fisher profile id")
-    session_id: Optional[str] = Field(default=None, description="session thread id for multi turn conversation")
-    language: Optional[str] = Field(default="en", description="preferred response language code")
-    vessel_profile: Optional[VesselProfile] = Field(default=None, description="optional vessel parameters")
-
-
-class TripContinueRequest(BaseModel):
-    # [multi-turn clarification response request]
-    session_id: str = Field(..., description="active conversation session thread id")
-    message: str = Field(..., min_length=1, max_length=2000, description="clarification reply text")
-    language: Optional[str] = Field(default="en", description="preferred response language")
+    message: str = Field(..., min_length=1, max_length=4000, description="Natural language fishing trip request or query")
+    session_id: Optional[str] = Field(default=None, description="Session thread id for multi turn conversation")
+    fisher_id: Optional[str] = Field(default=None, description="Fisher identifier")
+    language: Optional[str] = Field(default="en", description="Preferred response language code")
+    origin: Optional[str] = Field(default=None, description="Origin port or harbor name")
+    departure_time: Optional[str] = Field(default=None, description="Departure time in ISO format or natural text")
+    vessel: Optional[Union[VesselInputSchema, VesselProfile, Dict[str, Any]]] = Field(default=None, description="Vessel specifications")
+    vessel_profile: Optional[Union[VesselInputSchema, VesselProfile, Dict[str, Any]]] = Field(default=None, description="Vessel specifications alias")
+    conversation_history: Optional[List[Dict[str, Any]]] = Field(default_factory=list, description="Prior conversation messages")
 
 
 class ChatRequest(BaseModel):
-    # [primary chat interface request payload]
-    message: str = Field(..., min_length=1, max_length=2000, description="user message to trip planner")
-    session_id: Optional[str] = Field(default=None, description="conversation thread id")
-    fisher_id: Optional[str] = Field(default=None, description="user id")
-    language: Optional[str] = Field(default="en", description="response language code")
-    vessel_profile: Optional[VesselProfile] = Field(default=None, description="vessel specifications")
+    message: str = Field(..., min_length=1, max_length=4000, description="User message to trip planner")
+    session_id: Optional[str] = Field(default=None, description="Conversation thread id")
+    fisher_id: Optional[str] = Field(default=None, description="User id")
+    language: Optional[str] = Field(default="en", description="Response language code")
+    vessel: Optional[Union[VesselInputSchema, VesselProfile, Dict[str, Any]]] = Field(default=None, description="Vessel specifications")
+    vessel_profile: Optional[Union[VesselInputSchema, VesselProfile, Dict[str, Any]]] = Field(default=None, description="Vessel specifications")
+    conversation_history: Optional[List[Dict[str, Any]]] = Field(default_factory=list, description="Prior conversation messages")
+
+
+class TripContinueRequest(BaseModel):
+    session_id: str = Field(..., description="Active conversation session thread id")
+    message: str = Field(..., min_length=1, max_length=4000, description="Clarification reply text")
+    language: Optional[str] = Field(default="en", description="Preferred response language")
 
 
 class TripResponseData(BaseModel):
-    # [complete structured assessment data returned by langgraph]
     session_id: Optional[str] = Field(default=None, description="thread session id")
     trip_id: Optional[str] = Field(default=None, description="trip assessment identifier")
     workflow_status: str = Field(default="RECEIVED", description="pipeline execution status")
     task_plan: Optional[Dict[str, Any]] = Field(default=None, description="supervisor task plan")
     trip_context: Optional[TripContext] = Field(default=None, description="trip context")
-    vessel_profile: Optional[VesselProfile] = Field(default=None, description="vessel profile evaluated")
-    trajectory: Optional[Trajectory] = Field(default=None, description="trajectory with waypoints")
-    weather_observations: Optional[List[WeatherObservation]] = Field(default=None, description="weather forecasts")
-    marine_observations: Optional[List[MarineObservation]] = Field(default=None, description="marine observations")
-    pfz_data: Optional[List[PFZData]] = Field(default=None, description="pfz advisories")
-    alerts: Optional[List[Alert]] = Field(default=None, description="proactive alerts")
-    risk_evidence: Optional[RiskEvidence] = Field(default=None, description="deterministic risk evidence")
+    vessel_profile: Optional[Union[VesselProfile, Dict[str, Any]]] = Field(default=None, description="vessel profile evaluated")
+    trajectory: Optional[Union[Trajectory, Dict[str, Any]]] = Field(default=None, description="trajectory with waypoints")
+    weather_observations: Optional[List[Union[WeatherObservation, Dict[str, Any]]]] = Field(default=None, description="weather forecasts")
+    marine_observations: Optional[List[Union[MarineObservation, Dict[str, Any]]]] = Field(default=None, description="marine observations")
+    pfz_data: Optional[Union[List[PFZData], Dict[str, Any]]] = Field(default=None, description="pfz advisories")
+    alerts: Optional[List[Union[Alert, Dict[str, Any]]]] = Field(default=None, description="proactive alerts")
+    risk_evidence: Optional[Union[RiskEvidence, Dict[str, Any]]] = Field(default=None, description="deterministic risk evidence")
     overall_risk_level: Optional[str] = Field(default=None, description="overall risk level rating")
-    advisory: Optional[Advisory] = Field(default=None, description="synthesized advisory")
-    visualization_spec: Optional[VisualizationSpec] = Field(default=None, description="map visualization spec")
-    report: Optional[Report] = Field(default=None, description="evidence backed report")
+    advisory: Optional[Union[Advisory, Dict[str, Any]]] = Field(default=None, description="synthesized advisory")
+    visualization_spec: Optional[Union[VisualizationSpec, Dict[str, Any]]] = Field(default=None, description="map visualization spec")
+    report: Optional[Union[Report, Dict[str, Any]]] = Field(default=None, description="evidence backed report")
     persistence_status: Optional[str] = Field(default=None, description="supabase storage status")
     errors: Optional[List[Dict[str, Any]]] = Field(default=None, description="non-fatal warning errors")
-# attr: m1
 
+
+class TripAssessResponse(BaseModel):
+    status: str = Field("success", description="Response status: success, needs_clarification, insufficient_information, error")
+    data: Dict[str, Any] = Field(default_factory=dict, description="Payload containing advisory, risk, trajectory, alerts")
+    meta: Dict[str, Any] = Field(default_factory=dict, description="Metadata including request_id, timestamp, version")

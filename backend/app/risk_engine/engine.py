@@ -14,6 +14,9 @@ from app.risk_engine.schemas import (
 from app.risk_engine.rules.base import BaseRule
 from app.risk_engine.rules.svas_rule import SVASCapSizeRule
 from app.risk_engine.rules.geofence_rule import GeofenceViolationRule, CycloneOverrideRule
+from app.risk_engine.rules.wind_rule import WindLimitRule
+from app.risk_engine.rules.bathymetry_rule import BathymetryGroundingRule
+from app.risk_engine.rules.tidal_rule import TidalClearanceRule
 
 RISK_WEIGHTS = {
     RiskLevel.SAFE: 0,
@@ -118,6 +121,9 @@ class RiskEngine:
                 SVASCapSizeRule(),
                 GeofenceViolationRule(),
                 CycloneOverrideRule(),
+                WindLimitRule(),
+                BathymetryGroundingRule(),
+                TidalClearanceRule(),
             ]
 
     def evaluate(self, risk_input: RiskInput) -> RiskEvidence:

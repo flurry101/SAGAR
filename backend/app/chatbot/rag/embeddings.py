@@ -33,14 +33,12 @@ def get_embedding_model():
             "Set it in your .env file."
         )
 
-    # TODO: Uncomment when langchain_google_genai is installed
-    #
-    # from langchain_google_genai import GoogleGenerativeAIEmbeddings
-    #
-    # return GoogleGenerativeAIEmbeddings(
-    #     model=EMBEDDING_MODEL,
-    #     google_api_key=api_key,
-    # )
-
-    # Stub: return None until dependency is installed
-    return None
+    try:
+        from langchain_google_genai import GoogleGenerativeAIEmbeddings
+        return GoogleGenerativeAIEmbeddings(
+            model=EMBEDDING_MODEL,
+            google_api_key=api_key,
+        )
+    except Exception as e:
+        print(f"Warning: Could not initialize GoogleGenerativeAIEmbeddings: {e}")
+        return None

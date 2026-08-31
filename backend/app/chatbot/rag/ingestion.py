@@ -102,6 +102,9 @@ def ingest_to_vector_store(docs_dir: Path | None = None) -> int:
         return len(texts)
     except Exception as e:
         print(f"Vector storage ingestion note / error: {e}")
+        return len(chunks)
+
+
 if __name__ == "__main__":
     """Run the ingestion pipeline from the command line."""
     count = ingest_to_vector_store()

@@ -1,14 +1,15 @@
-# attr: m1
-# [weather observation and alert schemas]
+"""
+Weather Observation and Alert Schemas.
+"""
+
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 from app.schemas.provenance import Provenance
 
 
 class WeatherObservation(BaseModel):
-    # [waypoint weather forecast data]
     waypoint_index: Optional[int] = Field(default=None, description="index of waypoint")
     lat: float = Field(..., description="latitude")
     lon: float = Field(..., description="longitude")
@@ -24,7 +25,6 @@ class WeatherObservation(BaseModel):
 
 
 class Alert(BaseModel):
-    # [environmental or safety alert]
     alert_type: str = Field(..., description="type e.g. HIGH_WAVE, EXTREME_WAVE, CYCLONE")
     severity: str = Field(default="WARNING", description="severity level: INFO, WARNING, SEVERE")
     message: str = Field(..., description="human readable alert description")
@@ -33,5 +33,19 @@ class Alert(BaseModel):
     lat: Optional[float] = Field(default=None, description="latitude")
     lon: Optional[float] = Field(default=None, description="longitude")
     evidence_ids: List[str] = Field(default_factory=list, description="associated evidence identifiers")
-# attr: m1
 
+
+class WeatherBatchRequest(BaseModel):
+    waypoints: List[Dict[str, Any]] = Field(..., description="List of waypoints with lat, lon, and eta_iso")
+
+
+class HazardQueryRequest(BaseModel):
+    bbox: Optional[Dict[str, float]] = Field(None, description="Bounding box with lat_min, lat_max, lon_min, lon_max")
+    time_window_start: Optional[str] = Field(None, description="Start timestamp in ISO format")
+    time_window_end: Optional[str] = Field(None, description="End timestamp in ISO format")
+
+
+class WeatherApiResponse(BaseModel):
+    status: str = Field("success", description="Status")
+    data: Dict[str, Any] = Field(default_factory=dict, description="Observations or hazards")
+    meta: Dict[str, Any] = Field(default_factory=dict, description="Metadata")

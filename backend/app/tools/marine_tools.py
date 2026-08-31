@@ -262,6 +262,7 @@ def fetch_marine_forecast_batch(
             "time_iso":           eta_iso,
             "sst_celsius":        sst_obs.get("sst_celsius"),
             "chlorophyll_mg_m3":  base_chl,
+            "chlorophyll_mgm3":   base_chl,
             "hab_detected":       hab_obs.get("hab_detected"),
             "hab_probability":    hab_obs.get("hab_probability"),
             "current_speed_kmh":  None,   # not sourced in M4 scope

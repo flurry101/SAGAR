@@ -1,14 +1,19 @@
-# attr: m1
-# [copilot knowledge and reasoning chat router]
+"""
+Copilot Conversational RAG API Router.
+Wires FastAPI HTTP requests to the LangChain Copilot agent.
+"""
+
 from __future__ import annotations
 
 import logging
 import uuid
+from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Optional
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from app.core.auth import get_current_user_optional
 from app.schemas.common import APIResponse, Meta
 from app.schemas.copilot import CopilotRequest, CopilotResponse
+from app.models.user import User
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -20,7 +25,6 @@ async def _execute_copilot_chat(
     trip_id: Optional[str] = None,
     fisher_id: Optional[str] = None,
 ) -> Dict[str, Any]:
-    # [lazy load and execute langchain fisherman copilot]
     try:
         from app.chatbot.chatbot import chat as copilot_chat
         return await copilot_chat(
@@ -38,39 +42,52 @@ async def _execute_copilot_chat(
 
 
 def get_copilot_chat_runner() -> Callable:
-    # [dependency injection hook for copilot chat runner]
     return _execute_copilot_chat
 
 
-@router.post("/copilot", response_model=APIResponse[CopilotResponse])
+@router.post("/copilot", response_model=APIResponse[CopilotResponse], summary="Chat with ORCA Copilot (Knowledge & Explanation)")
 async def chat_with_copilot(
     payload: CopilotRequest,
     request: Request,
-    user=Depends(get_current_user_optional),
+    current_user: Optional[User] = Depends(get_current_user_optional),
     chat_runner: Callable = Depends(get_copilot_chat_runner),
 ):
-    # [invoke langchain fisherman copilot agent]
+    """
+    Submits a conversational question to the ORCA Fisherman Copilot.
+    Uses LangChain with 3 tool layers: Knowledge RAG, ORCA context reads, and live marine data.
+    """
     request_id = getattr(request.state, "request_id", str(uuid.uuid4()))
-    fisher_id = payload.fisher_id or (str(user.user_id) if user and hasattr(user, "user_id") else None)
+    fisher_id = payload.fisher_id or (str(current_user.id) if current_user else None)
 
-    history = [msg.model_dump() for msg in payload.conversation_history] if payload.conversation_history else None
+    history = []
+    if payload.conversation_history:
+        for msg in payload.conversation_history:
+            if hasattr(msg, "model_dump"):
+                history.append(msg.model_dump())
+            elif isinstance(msg, dict):
+                history.append(msg)
 
-    result = await chat_runner(
-        user_message=payload.message,
-        conversation_history=history,
-        trip_id=payload.trip_id,
-        fisher_id=fisher_id,
-    )
+    try:
+        result = await chat_runner(
+            user_message=payload.message,
+            conversation_history=history if history else None,
+            trip_id=payload.trip_id,
+            fisher_id=fisher_id,
+        )
 
-    response_data = CopilotResponse(
-        response=result.get("response", ""),
-        tool_calls=result.get("tool_calls", []),
-    )
+        response_data = CopilotResponse(
+            response=result.get("response", ""),
+            tool_calls=result.get("tool_calls", []),
+            trip_id=payload.trip_id,
+        )
 
-    return APIResponse(
-        status="success",
-        data=response_data,
-        meta=Meta(request_id=request_id),
-    )
-# attr: m1
-
+        return APIResponse(
+            status="success",
+            data=response_data,
+            meta=Meta(request_id=request_id),
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Copilot error: {str(e)}",
+        )
