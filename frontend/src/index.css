@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #f6f9fc;
+    color: #0f172a;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* Accessible visible focus states */
+  :focus-visible {
+    outline: 2px solid #0284c7;
+    outline-offset: 2px;
+  }
+}
+
+/* SAGAR Marine Pastel Surfaces */
+.sagar-panel {
+  background-color: #ffffff;
+  border: 1px solid #cfdce8;
+  border-radius: 1rem;
+  box-shadow: 0 4px 14px -2px rgba(15, 31, 56, 0.06), 0 2px 6px -1px rgba(15, 31, 56, 0.03);
+}
+
+.sagar-card {
+  background-color: #ffffff;
+  border: 1px solid #dce7f0;
+  border-radius: 0.875rem;
+  box-shadow: 0 1px 3px rgba(15, 31, 56, 0.04);
+}
+
+.sagar-card-interactive {
+  background-color: #ffffff;
+  border: 1px solid #dce7f0;
+  border-radius: 0.875rem;
+  box-shadow: 0 1px 3px rgba(15, 31, 56, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sagar-card-interactive:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 8px 20px -4px rgba(15, 31, 56, 0.08), 0 3px 8px -2px rgba(15, 31, 56, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Touch-friendly targets (minimum 44px for field accessibility) */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Severe Hazard visual pulse - restrained, high contrast */
+@keyframes pulse-hazard-light {
+  0%, 100% {
+    border-color: rgba(220, 38, 38, 0.9);
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+  }
+  50% {
+    border-color: rgba(220, 38, 38, 0.4);
+    box-shadow: none;
+  }
+}
+
+.hazard-pulse {
+  animation: pulse-hazard-light 2s ease-in-out infinite;
+}
+
+/* MapLibre nautical container and popup overrides */
+.maplibregl-map {
+  font-family: inherit;
+  border-radius: 1rem;
+}
+
+.maplibregl-popup-content {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbdfe9 !important;
+  border-radius: 0.75rem !important;
+  padding: 0.75rem 1rem !important;
+  box-shadow: 0 10px 25px -4px rgba(15, 31, 56, 0.15) !important;
+}
+
+.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: #ffffff !important;
+}
+.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: #ffffff !important;
+}
+.maplibregl-popup-anchor-left .maplibregl-popup-tip {
+  border-right-color: #ffffff !important;
+}
+.maplibregl-popup-anchor-right .maplibregl-popup-tip {
+  border-left-color: #ffffff !important;
+}
+
+/* Custom Marine Scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #edf5fa;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #cbdfe9;
+  border-radius: 3px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Ocean Wave & Flowing Current Animations */
+@keyframes ocean-wave-drift {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(1.08);
+  }
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+}
+
+@keyframes ocean-wave-reverse {
+  0% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(1.05);
+  }
+  100% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+}
+
+@keyframes wave-crest-undulate {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-wave-drift-slow {
+  animation: ocean-wave-drift 24s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+.animate-wave-drift-fast {
+  animation: ocean-wave-reverse 16s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+.animate-wave-crest {
+  animation: wave-crest-undulate 5s ease-in-out infinite;
+}
+
+/* prefers-reduced-motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hazard-pulse,
+  .animate-wave-drift-slow,
+  .animate-wave-drift-fast,
+  .animate-wave-crest {
+    animation: none !important;
+  }
+}

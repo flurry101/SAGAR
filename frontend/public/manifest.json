@@ -1,0 +1,17 @@
+{
+  "short_name": "SAGAR",
+  "name": "SAGAR — Marine Decision-Support System",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0a1128",
+  "theme_color": "#0a1128",
+  "display": "standalone",
+  "orientation": "any",
+  "description": "Marine decision-support system providing 4D spatio-temporal voyage safety advisories for fishers."
+}
