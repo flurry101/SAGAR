@@ -1,0 +1,6546 @@
+{
+  "type": "FeatureCollection",
+  "name": "indian_ocean_biodiversity",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.97,
+          21.83
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 600.0,
+        "year": 2018,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.26316667,
+          14.39283333
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 200.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          65.003,
+          8.993
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 4480.0,
+        "year": 2024,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.0,
+          15.0
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 1758,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.57,
+          6.27
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2005,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.49533333,
+          5.967833333
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 1500.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.37,
+          6.04
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2005,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.4279065122,
+          5.8548923361
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2017,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.75,
+          7.87
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2005,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.0,
+          15.0
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 1758,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.422,
+          5.893
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 1780.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.39522982,
+          8.6457120877
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.450821,
+          5.801144
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.74365,
+          5.779533
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.4,
+          5.9
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2016,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.0,
+          15.0
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.205057,
+          6.018962
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.205057,
+          6.018962
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.20466667,
+          5.714833333
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 2500.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.658,
+          12.842
+        ]
+      },
+      "properties": {
+        "species": "Blue Whale",
+        "scientific_name": "Balaenoptera musculus",
+        "category": "Cetaceans",
+        "depth": 45.0,
+        "year": 2023,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.6951750568,
+          9.294119429
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2026,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6000003815
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 1765,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0,
+          8.5
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 1765,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          89.4390849504,
+          20.4620145742
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2026,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          92.75,
+          12.5
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 1765,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.234192833,
+          12.8758321267
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2024,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.6761731518,
+          9.3672239305
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2025,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.923439744,
+          9.3445162491
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2014,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.7690909667,
+          6.3624136203
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2025,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0,
+          8.5
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 1765,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.0,
+          9.52
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2005,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.17,
+          9.58
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2005,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.08,
+          9.57
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2005,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.1,
+          9.57
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2005,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          92.75,
+          12.5
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 1765,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.708510129,
+          9.3901532805
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2025,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.6495308494,
+          9.2795307063
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2025,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.6955817959,
+          9.3805606027
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2025,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.0,
+          9.5
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2005,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.8422285421,
+          6.4677898661
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Humpback Dolphin",
+        "scientific_name": "Sousa chinensis",
+        "category": "Cetaceans",
+        "depth": 15.0,
+        "year": 2025,
+        "iucn_status": "Vulnerable"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9515485951,
+          3.653206508
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2024,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.7883072388,
+          3.4774671776
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.5100617649,
+          7.9054184018
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.07,
+          8.03
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2005,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          89.2229824,
+          21.7566388
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2023,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.449113535,
+          5.9250066203
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.200421596,
+          15.8673855283
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2026,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.2611297519,
+          5.8297577485
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2024,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.7334636493,
+          8.8626026621
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2017,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.47,
+          11.9
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2005,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0827991479,
+          2.7967444255
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2023,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1422878227,
+          5.1891279035
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.12,
+          8.35
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2005,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.4084772818,
+          1.8878803495
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.12,
+          7.98
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2005,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.4337634146,
+          5.9502282051
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0118439628,
+          2.7252034557
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2023,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.4121000916,
+          24.5679167068
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.936995,
+          7.012423
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2019,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.4616114497,
+          5.9190562364
+        ]
+      },
+      "properties": {
+        "species": "Indo-Pacific Bottlenose Dolphin",
+        "scientific_name": "Tursiops aduncus",
+        "category": "Cetaceans",
+        "depth": 25.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.05,
+          15.82
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 1998,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.98,
+          20.14
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2000,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.3272202,
+          14.0169266
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.3272202,
+          14.0169266
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.3272202,
+          14.0169266
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.06,
+          7.47
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2005,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.3272202,
+          14.0169266
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.721,
+          5.723166667
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 1476.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.08,
+          20.22
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2000,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.87,
+          20.17
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2000,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.60816667,
+          6.081166667
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 1200.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.07,
+          16.95
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2002,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.89,
+          5.82
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2000,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.02,
+          20.25
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2000,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.88,
+          20.16
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2000,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.95,
+          20.12
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2000,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.3272202,
+          14.0169266
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.07,
+          20.25
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2000,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.21066667,
+          5.7255
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 1350.0,
+        "year": 2019,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.86,
+          20.17
+        ]
+      },
+      "properties": {
+        "species": "Humpback Whale (Arabian Sea)",
+        "scientific_name": "Megaptera novaeangliae",
+        "category": "Cetaceans",
+        "depth": 60.0,
+        "year": 2000,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.0,
+          15.0
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 1758,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.318875219,
+          5.9214420341
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2016,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.4619328357,
+          5.9125890908
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2020,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.585517,
+          12.9161
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 287.0,
+        "year": 2024,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.079,
+          10.007
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 3637.0,
+        "year": 2024,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.0111588252,
+          11.3395008379
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2014,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.3739374131,
+          12.7583152956
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2023,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.3646448226,
+          10.0044972321
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2025,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.7122976184,
+          16.9436983296
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2026,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          92.916664,
+          13.25
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 1758,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.27,
+          14.41
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2001,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          92.9166641235,
+          13.25
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 1758,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.03,
+          16.22
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2000,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.407910169,
+          5.9203662974
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2018,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.430289,
+          5.779208
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2023,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.0,
+          15.0
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 1758,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.3576506969,
+          5.9346926354
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2018,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.498533,
+          9.360717
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 265.0,
+        "year": 2024,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.6806160361,
+          16.9744931678
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2026,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.4619328357,
+          5.912930587
+        ]
+      },
+      "properties": {
+        "species": "Killer Whale / Orca",
+        "scientific_name": "Orcinus orca",
+        "category": "Cetaceans",
+        "depth": 80.0,
+        "year": 2020,
+        "iucn_status": "Data Deficient"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8375,
+          3.475
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2008,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.01667,
+          9.35
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2007,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.96861,
+          23.83861
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2008,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1021879893,
+          1.4022013479
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2015,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.1468624729,
+          2.6608178737
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2026,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9,
+          3.49167
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2008,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.98333,
+          9.93333
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2007,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8999510979,
+          5.2047654948
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2018,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8780871335,
+          2.8354271361
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2022,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.8516191314,
+          3.4208360378
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2024,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.8107210507,
+          8.8537058103
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2010,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.79905,
+          3.47272
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2006,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.81667,
+          3.46667
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2005,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          84.5653309558,
+          18.4292011359
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2024,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.98362,
+          9.3637
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2007,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.82143,
+          3.46728
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2006,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2241735504,
+          3.2929235327
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2022,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.81944,
+          3.46678
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2007,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.79775,
+          3.47152
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2006,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.77917,
+          9.99912
+        ]
+      },
+      "properties": {
+        "species": "Whale Shark",
+        "scientific_name": "Rhincodon typus",
+        "category": "Elasmobranchii",
+        "depth": 35.0,
+        "year": 2005,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.250137,
+          0.5168055
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.7210666666669,
+          6.9724666666667
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.368926666667,
+          4.8048
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.4192666666669,
+          1.3856333333333
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.450138,
+          1.4001389
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.0502999999999,
+          6.0167866666667
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.48347,
+          1.5334722
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.8886333333329,
+          6.9055
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.766804,
+          1.4834722
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.53347,
+          1.6334722
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.9558,
+          0.41916666666667
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.0167666666669,
+          3.4191666666667
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          64.40241,
+          22.5700966666669
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.3689666666669,
+          1.21806666666669
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          63.268286666667,
+          3.85511999999999
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.766804,
+          1.4834722
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          59.7043,
+          15.419166666667
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.250137,
+          0.5168055
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.53347,
+          1.6334722
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.250137,
+          0.5168055
+        ]
+      },
+      "properties": {
+        "species": "Oceanic Whitetip Shark",
+        "scientific_name": "Carcharhinus longimanus",
+        "category": "Elasmobranchii",
+        "depth": 90.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.0707043379,
+          11.569981452
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2024,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          89.8857259147,
+          4.5663859529
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.53347,
+          1.6334722
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.6254863094,
+          8.8306851109
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.016804,
+          0.41680554
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.633472,
+          1.7168056
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.016804,
+          0.41680554
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.53347,
+          1.6334722
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5,
+          11.0
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 1792,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.633472,
+          1.7168056
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.633472,
+          1.7168056
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9564346651,
+          3.4512057286
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.53347,
+          1.6334722
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.53347,
+          1.6334722
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.633472,
+          1.7168056
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.7930372626,
+          8.9376333385
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2020,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5,
+          11.0
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 1792,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.6951836155,
+          8.8660544589
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.633472,
+          1.7168056
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.53347,
+          1.6334722
+        ]
+      },
+      "properties": {
+        "species": "Giant Oceanic Manta Ray",
+        "scientific_name": "Mobula birostris",
+        "category": "Elasmobranchii",
+        "depth": 40.0,
+        "year": 2025,
+        "iucn_status": "Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.5868333333329,
+          11.922166666667
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.833333,
+          11.5
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 1966,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.1007,
+          5.55337999999999
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.016836666667,
+          5.6372233333333
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.1007,
+          5.55337999999999
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.300385218,
+          23.7078903824
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2022,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6999969482,
+          7.69999980927
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 51.0,
+        "year": 1969,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.1007,
+          5.55337999999999
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.989283333333,
+          5.70422
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.670746666667,
+          14.2515
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.0503199999999,
+          11.5701666666669
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.2069631398,
+          23.6479174937
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2022,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.989283333333,
+          5.70422
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.771173,
+          11.249916
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 1941,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.972556666667,
+          5.6203866666667
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.067166666667,
+          5.41922666666669
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.1174666666669,
+          5.3688966666667
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.1174666666669,
+          5.63723333333329
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.0838633333329,
+          5.4191866666667
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          94.1006799999999,
+          5.35212999999999
+        ]
+      },
+      "properties": {
+        "species": "Scalloped Hammerhead",
+        "scientific_name": "Sphyrna lewini",
+        "category": "Elasmobranchii",
+        "depth": 50.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.8980217778187,
+          21.9442127684078
+        ]
+      },
+      "properties": {
+        "species": "Largetooth Sawfish",
+        "scientific_name": "Pristis pristis",
+        "category": "Elasmobranchii",
+        "depth": 12.0,
+        "year": 2025,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          89.4587867173,
+          22.9073681812
+        ]
+      },
+      "properties": {
+        "species": "Largetooth Sawfish",
+        "scientific_name": "Pristis pristis",
+        "category": "Elasmobranchii",
+        "depth": 12.0,
+        "year": 2018,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          90.2883940132,
+          23.7496062901
+        ]
+      },
+      "properties": {
+        "species": "Largetooth Sawfish",
+        "scientific_name": "Pristis pristis",
+        "category": "Elasmobranchii",
+        "depth": 12.0,
+        "year": 2022,
+        "iucn_status": "Critically Endangered"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.82833,
+          10.10167
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2002,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.425,
+          4.30833
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2006,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.1527,
+          10.6165
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1982,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.425,
+          4.31333
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2006,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.62,
+          10.56
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2000,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.21667,
+          8.58333
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2002,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.1299972534,
+          9.21000003815
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.0,
+          10.0
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1846,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5,
+          11.0
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1846,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.85,
+          9.46666
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.5,
+          1.08000004292
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.25,
+          3.75
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5,
+          11.0
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1846,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0,
+          8.5
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1846,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.36,
+          8.11
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1987,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.0,
+          10.0
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1846,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.36,
+          8.11
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1987,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.00833,
+          4.26167
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 2006,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.6018,
+          10.7237
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1967,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.62,
+          0.071
+        ]
+      },
+      "properties": {
+        "species": "Staghorn Coral",
+        "scientific_name": "Acropora formosa",
+        "category": "Corals",
+        "depth": 6.0,
+        "year": 1987,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.4000015259,
+          7.88333320618
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1848,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5,
+          11.0
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1848,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1851,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          66.78333,
+          21.833334
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1851,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.0,
+          10.0
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1851,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6000003815
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1848,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5,
+          11.0
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1848,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.1200027466,
+          9.27999973297
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.36,
+          18.22
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1987,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1851,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.736114502,
+          7.23777723312
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1848,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.0,
+          10.0
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1866,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.346147,
+          12.602461
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 2023,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6000003815
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1848,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6000003815
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1848,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5,
+          11.0
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1848,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.4,
+          7.883333
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1851,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6000003815
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 1848,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.25,
+          3.75
+        ]
+      },
+      "properties": {
+        "species": "Hump Coral",
+        "scientific_name": "Porites lutea",
+        "category": "Corals",
+        "depth": 8.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9146394167,
+          3.5127828798
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2023,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.2706295209,
+          6.5213074765
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2020,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.8136959529,
+          10.1083507854
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2021,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.5,
+          7.71
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 1987,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          92.9508454,
+          11.9844552
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2019,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.2761236136,
+          6.5410909226
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2020,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.29,
+          10.94
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 1988,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.1527,
+          10.6165
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 1982,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.5574371853,
+          7.7662591007
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.5,
+          11.0
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 1758,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0,
+          8.5
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 1758,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.1165666667,
+          12.6980833333
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2000,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.62,
+          0.071
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 1987,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.1299972534,
+          9.21000003815
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.1046872404,
+          10.8607989747
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2021,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.25,
+          3.75
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.25,
+          9.5
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 1758,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.50225,
+          23.67908
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2022,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.0,
+          10.0
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 1758,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.2568969517,
+          6.5288117013
+        ]
+      },
+      "properties": {
+        "species": "Cauliflower Coral",
+        "scientific_name": "Pocillopora damicornis",
+        "category": "Corals",
+        "depth": 5.0,
+        "year": 2020,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.31667,
+          10.36667
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2008,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.0599975586,
+          8.27000045776
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.41667,
+          7.78333
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2007,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.1527,
+          10.6165
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 1982,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.7,
+          11.68
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 1988,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6000003815
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 1775,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.7600021362,
+          7.21000003815
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.31667,
+          10.36667
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.2833328247,
+          0.616666674614
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.31666,
+          10.36666
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2007,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.3598,
+          20.3478167
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2005,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0899963379,
+          9.42000007629
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.31666,
+          10.36666
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2007,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.62194,
+          20.26352
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2022,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          92.6627,
+          11.8042
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2010,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.7833328247,
+          9.16666698456
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 1775,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.31666,
+          10.36666
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2007,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.5299987793,
+          4.17999982834
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          99.31666,
+          10.36666
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 2007,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.6018,
+          10.7237
+        ]
+      },
+      "properties": {
+        "species": "Honeycomb Coral",
+        "scientific_name": "Favia favus",
+        "category": "Corals",
+        "depth": 10.0,
+        "year": 1967,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          59.6707666666669,
+          7.21806666666669
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          59.82,
+          4.25
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2005,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.0335333333329,
+          0.41916666666667
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.216805,
+          10.183473
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.850136,
+          2.750139
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.050137,
+          4.5834723
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.654,
+          3.62036666666669
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.73347,
+          0.9334722
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.7209766666669,
+          0.201199999999999
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.7042,
+          0.234733333333329
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.43347,
+          2.5168056
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.0,
+          0.43593333333333
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          50.766804,
+          1.1668055
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          60.383472,
+          3.600139
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.666805,
+          3.8834722
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.0503799999999,
+          0.352169999999999
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.90541,
+          0.33537333333333
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.8886533333329,
+          5.41917666666669
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.20127,
+          0.419246666666669
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.883472,
+          1.7001389
+        ]
+      },
+      "properties": {
+        "species": "Yellowfin Tuna",
+        "scientific_name": "Thunnus albacares",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 110.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.450138,
+          4.150139
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.883472,
+          1.7001389
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.633472,
+          2.1668057
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.116802,
+          2.3834722
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.75,
+          0.77
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.566803,
+          2.1334724
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          57.050137,
+          5.683472
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          60.050137,
+          2.9834723
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.500137,
+          2.9834723
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          54.950138,
+          5.766805
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          51.133472,
+          2.350139
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.066803,
+          5.7001386
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.250137,
+          0.5168055
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          60.23347,
+          3.6334722
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.316803,
+          3.1168056
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.316803,
+          3.1168056
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.316803,
+          3.1168056
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          59.116802,
+          0.2001389
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.08347,
+          1.0168055
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          60.383472,
+          3.600139
+        ]
+      },
+      "properties": {
+        "species": "Skipjack Tuna",
+        "scientific_name": "Katsuwonus pelamis",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 130.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          97.524724,
+          1.125528
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2006,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.6693,
+          3.59154
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2006,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.0,
+          11.0
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.05,
+          24.8666667
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.4014287367,
+          23.656853479
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2024,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.4319429186,
+          8.953471497
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2024,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.6693,
+          3.59154
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2006,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.4492024223,
+          16.0089759659
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2019,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.6693,
+          3.59154
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2006,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.05,
+          24.8666667
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 1979,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.0,
+          8.5
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 1800,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.05,
+          24.8666667
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 1978,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.6693,
+          3.59154
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2006,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.7229037067,
+          13.3384813331
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.3000030518,
+          13.1000003815
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 1966,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.6715212465,
+          7.7811732842
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2019,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.8652193337,
+          15.424421123
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2018,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.3,
+          13.083
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 2025,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.05,
+          24.8666667
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 1979,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.1999969482,
+          8.80000019073
+        ]
+      },
+      "properties": {
+        "species": "Narrow-barred Spanish Mackerel (Surmai)",
+        "scientific_name": "Scomberomorus commerson",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 35.0,
+        "year": 1966,
+        "iucn_status": "Near Threatened"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.96275,
+          11.22001667
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 200.0,
+        "year": 2010,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.2750943229,
+          13.007427913
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 2026,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.3192,
+          8.6626
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 23.0,
+        "year": 2008,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.773362,
+          11.250505
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 0,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.812443,
+          18.986038
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 7.5,
+        "year": 1973,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.9391543159,
+          5.4936957372
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.8833333,
+          11.2333333
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 1966,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.2750943229,
+          13.007427913
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 2026,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.4,
+          8.47
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 200.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.99,
+          9.0
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 100.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.35,
+          11.23
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 25.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.91,
+          12.0
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 25.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.8330001831,
+          11.9829998016
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          92.7230527778,
+          11.6888777778
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 2024,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.49,
+          8.47
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 50.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.6693,
+          3.59154
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 2006,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          67.05,
+          24.8666667
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 1978,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.5,
+          22.6
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 1816,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.233,
+          9.933
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 1980,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          98.6693,
+          3.59154
+        ]
+      },
+      "properties": {
+        "species": "Indian Mackerel (Bangda)",
+        "scientific_name": "Rastrelliger kanagurta",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 28.0,
+        "year": 2006,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.51,
+          7.8
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 25.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.7999992371,
+          23.6170005798
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.07188333,
+          11.9958
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 30.0,
+        "year": 2010,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.53,
+          13.11
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 50.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.828333,
+          7.205556
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 2012,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.79,
+          15.48
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 2007,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.46,
+          13.0
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 50.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.8167,
+          11.483
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 1986,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.8285,
+          9.773
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 1983,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.773362,
+          11.250505
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 1884,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.3,
+          9.0
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 50.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.5652,
+          12.449
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 80.0,
+        "year": 2008,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.06,
+          11.99
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 15.0,
+        "year": 2009,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.283333,
+          13.083333
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 2025,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.773362,
+          11.250505
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 1884,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.5,
+          7.58
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 37.5,
+        "year": 2010,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          58.0,
+          25.0
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 1847,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.0,
+          10.0
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 22.0,
+        "year": 1847,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.44,
+          8.45
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 100.0,
+        "year": 2010,
+        "iucn_status": "Least Concern"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.2754,
+          11.39058333
+        ]
+      },
+      "properties": {
+        "species": "Indian Oil Sardine (Mathi)",
+        "scientific_name": "Sardinella longiceps",
+        "category": "Commercial Tuna/Mackerel",
+        "depth": 54.0,
+        "year": 2013,
+        "iucn_status": "Least Concern"
+      }
+    }
+  ]
+}

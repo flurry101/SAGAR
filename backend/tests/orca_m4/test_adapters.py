@@ -822,7 +822,10 @@ class TestAmfitriteHABAdapterNormalized(unittest.TestCase):
 
     def test_bundled_resnet_checkpoint_loads_and_infers(self):
         """The bundled checkpoint must load into the 10-channel ResNet model."""
-        import torch
+        try:
+            import torch
+        except ImportError:
+            self.skipTest("torch is not installed in this environment")
 
         adapter = AmfitriteHABAdapter()
         self.assertTrue(adapter.model_loaded)

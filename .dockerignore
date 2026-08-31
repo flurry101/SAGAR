@@ -16,3 +16,9 @@ htmlcov
 *.sqlite3
 .git
 .gitignore
+node_modules
+frontend/node_modules
+dist
+frontend/dist
+.vscode
+.idea

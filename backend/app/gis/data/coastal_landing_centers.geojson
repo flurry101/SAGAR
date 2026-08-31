@@ -1,0 +1,612 @@
+{
+  "type": "FeatureCollection",
+  "name": "Indian_Coastal_Landing_Centers_Gazetteer",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Veraval",
+        "vernacular_names": {
+          "gu": "\u0ab5\u0ac7\u0ab0\u0abe\u0ab5\u0ab3",
+          "hi": "\u0935\u0947\u0930\u093e\u0935\u0932"
+        },
+        "state": "Gujarat",
+        "district": "Gir Somnath",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.36,
+          20.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Porbandar",
+        "vernacular_names": {
+          "gu": "\u0aaa\u0acb\u0ab0\u0aac\u0a82\u0aa6\u0ab0",
+          "hi": "\u092a\u094b\u0930\u092c\u0902\u0926\u0930"
+        },
+        "state": "Gujarat",
+        "district": "Porbandar",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.609,
+          21.642
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mangrol",
+        "vernacular_names": {
+          "gu": "\u0aae\u0abe\u0a82\u0a97\u0ab0\u0acb\u0ab3",
+          "hi": "\u092e\u093e\u0902\u0917\u0930\u094b\u0932"
+        },
+        "state": "Gujarat",
+        "district": "Junagadh",
+        "facility_type": "Landing Center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.116,
+          21.12
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Okha",
+        "vernacular_names": {
+          "gu": "\u0a93\u0a96\u0abe",
+          "hi": "\u0913\u0916\u093e"
+        },
+        "state": "Gujarat",
+        "district": "Devbhumi Dwarka",
+        "facility_type": "Port / Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.072,
+          22.466
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jakhau",
+        "vernacular_names": {
+          "gu": "\u0a9c\u0abe\u0a96\u0acc",
+          "hi": "\u091c\u093e\u0916\u094c"
+        },
+        "state": "Gujarat",
+        "district": "Kutch",
+        "facility_type": "Border Fishing Port"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          68.705,
+          23.235
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sassoon Dock (Mumbai)",
+        "vernacular_names": {
+          "mr": "\u0938\u0938\u0942\u0928 \u0921\u0949\u0915",
+          "hi": "\u0938\u0938\u0942\u0928 \u0921\u0949\u0915"
+        },
+        "state": "Maharashtra",
+        "district": "Mumbai City",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.825,
+          18.915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bhaucha Dhakka (Ferry Wharf)",
+        "vernacular_names": {
+          "mr": "\u092d\u093e\u090a\u091a\u093e \u0927\u0915\u094d\u0915\u093e",
+          "hi": "\u092d\u093e\u090a \u0915\u093e \u0927\u0915\u094d\u0915\u093e"
+        },
+        "state": "Maharashtra",
+        "district": "Mumbai City",
+        "facility_type": "Wholesale Fish Port"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.848,
+          18.956
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mirkarwada (Ratnagiri)",
+        "vernacular_names": {
+          "mr": "\u092e\u093f\u0930\u094d\u0915\u0930\u0935\u093e\u0921\u093e",
+          "hi": "\u092e\u093f\u0930\u0915\u0930\u0935\u093e\u0921\u093e"
+        },
+        "state": "Maharashtra",
+        "district": "Ratnagiri",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.28,
+          16.99
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Malvan",
+        "vernacular_names": {
+          "mr": "\u092e\u093e\u0932\u0935\u0923",
+          "hi": "\u092e\u093e\u0932\u0935\u0923"
+        },
+        "state": "Maharashtra",
+        "district": "Sindhudurg",
+        "facility_type": "Coastal Landing Center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.47,
+          16.06
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Satpati",
+        "vernacular_names": {
+          "mr": "\u0938\u093e\u0924\u092a\u093e\u091f\u0940",
+          "hi": "\u0938\u093e\u0924\u092a\u093e\u091f\u0940"
+        },
+        "state": "Maharashtra",
+        "district": "Palghar",
+        "facility_type": "Landing Center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.7,
+          19.733
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Malpe",
+        "vernacular_names": {
+          "kn": "\u0cae\u0cb2\u0ccd\u0caa\u0cc6",
+          "hi": "\u092e\u093e\u0932\u092a\u0947"
+        },
+        "state": "Karnataka",
+        "district": "Udupi",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.7,
+          13.35
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mangalore (Old Port)",
+        "vernacular_names": {
+          "kn": "\u0cae\u0c82\u0c97\u0cb3\u0cc2\u0cb0\u0cc1",
+          "hi": "\u092e\u0902\u0917\u0932\u094c\u0930"
+        },
+        "state": "Karnataka",
+        "district": "Dakshina Kannada",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.835,
+          12.855
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Honnavar",
+        "vernacular_names": {
+          "kn": "\u0cb9\u0cca\u0ca8\u0ccd\u0ca8\u0cbe\u0cb5\u0cb0",
+          "hi": "\u0939\u094b\u0928\u094d\u0928\u093e\u0935\u0930"
+        },
+        "state": "Karnataka",
+        "district": "Uttara Kannada",
+        "facility_type": "Landing Center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.45,
+          14.28
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cutbona (Betul)",
+        "vernacular_names": {
+          "kok": "\u0915\u091f\u092c\u094b\u0928\u093e",
+          "mr": "\u0915\u091f\u092c\u094b\u0928\u093e"
+        },
+        "state": "Goa",
+        "district": "South Goa",
+        "facility_type": "Major Fishing Jetty"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.96,
+          15.145
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Thoppumpady (Kochi)",
+        "vernacular_names": {
+          "ml": "\u0d24\u0d4b\u0d2a\u0d4d\u0d2a\u0d41\u0d02\u0d2a\u0d1f\u0d3f",
+          "hi": "\u0925\u094b\u092a\u092e\u092a\u0921\u093c\u0940"
+        },
+        "state": "Kerala",
+        "district": "Ernakulam",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.26,
+          9.94
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Munambam",
+        "vernacular_names": {
+          "ml": "\u0d2e\u0d41\u0d28\u0d2e\u0d4d\u0d2a\u0d02",
+          "hi": "\u092e\u0941\u0928\u0902\u092c\u092e"
+        },
+        "state": "Kerala",
+        "district": "Ernakulam",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.175,
+          10.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Neendakara",
+        "vernacular_names": {
+          "ml": "\u0d28\u0d40\u0d23\u0d4d\u0d1f\u0d15\u0d30",
+          "hi": "\u0928\u0940\u0902\u0926\u0915\u0930\u093e"
+        },
+        "state": "Kerala",
+        "district": "Kollam",
+        "facility_type": "Major Trawling Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.535,
+          8.935
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Vizhinjam",
+        "vernacular_names": {
+          "ml": "\u0d35\u0d3f\u0d34\u0d3f\u0d1e\u0d4d\u0d1e\u0d02",
+          "hi": "\u0935\u093f\u091d\u093f\u0902\u091c\u092e"
+        },
+        "state": "Kerala",
+        "district": "Thiruvananthapuram",
+        "facility_type": "International Port / Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.99,
+          8.38
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Beypore",
+        "vernacular_names": {
+          "ml": "\u0d2c\u0d47\u0d2a\u0d4d\u0d2a\u0d42\u0d7c",
+          "hi": "\u092c\u0947\u092a\u094b\u0930"
+        },
+        "state": "Kerala",
+        "district": "Kozhikode",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          75.805,
+          11.16
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kasimedu (Chennai)",
+        "vernacular_names": {
+          "ta": "\u0b95\u0bbe\u0b9a\u0bbf\u0bae\u0bc7\u0b9f\u0bc1",
+          "hi": "\u0915\u093e\u0938\u093f\u092e\u0947\u0921\u0941"
+        },
+        "state": "Tamil Nadu",
+        "district": "Chennai",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.295,
+          13.125
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Thoothukudi (Tuticorin)",
+        "vernacular_names": {
+          "ta": "\u0ba4\u0bc2\u0ba4\u0bcd\u0ba4\u0bc1\u0b95\u0bcd\u0b95\u0bc1\u0b9f\u0bbf",
+          "hi": "\u0924\u0942\u0924\u0940\u0915\u094b\u0930\u093f\u0928"
+        },
+        "state": "Tamil Nadu",
+        "district": "Thoothukudi",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.16,
+          8.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rameswaram",
+        "vernacular_names": {
+          "ta": "\u0bb0\u0bbe\u0bae\u0bc7\u0bb8\u0bcd\u0bb5\u0bb0\u0bae\u0bcd",
+          "hi": "\u0930\u093e\u092e\u0947\u0936\u094d\u0935\u0930\u092e"
+        },
+        "state": "Tamil Nadu",
+        "district": "Ramanathapuram",
+        "facility_type": "Palk Strait Landing Center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.313,
+          9.288
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kanyakumari",
+        "vernacular_names": {
+          "ta": "\u0b95\u0ba9\u0bcd\u0ba9\u0bbf\u0baf\u0bbe\u0b95\u0bc1\u0bae\u0bb0\u0bbf",
+          "hi": "\u0915\u0928\u094d\u092f\u093e\u0915\u0941\u092e\u093e\u0930\u0940"
+        },
+        "state": "Tamil Nadu",
+        "district": "Kanyakumari",
+        "facility_type": "Trijunction Landing Center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.55,
+          8.08
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nagapattinam",
+        "vernacular_names": {
+          "ta": "\u0ba8\u0bbe\u0b95\u0baa\u0bcd\u0baa\u0b9f\u0bcd\u0b9f\u0bbf\u0ba9\u0bae\u0bcd",
+          "hi": "\u0928\u093e\u0917\u092a\u091f\u094d\u091f\u093f\u0928\u092e"
+        },
+        "state": "Tamil Nadu",
+        "district": "Nagapattinam",
+        "facility_type": "Major Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.845,
+          10.765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Visakhapatnam Fishing Harbor",
+        "vernacular_names": {
+          "te": "\u0c35\u0c3f\u0c36\u0c3e\u0c16\u0c2a\u0c1f\u0c4d\u0c28\u0c02",
+          "hi": "\u0935\u093f\u0936\u093e\u0916\u093e\u092a\u091f\u094d\u091f\u0928\u092e"
+        },
+        "state": "Andhra Pradesh",
+        "district": "Visakhapatnam",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.295,
+          17.695
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kakinada Harbor",
+        "vernacular_names": {
+          "te": "\u0c15\u0c3e\u0c15\u0c3f\u0c28\u0c3e\u0c21",
+          "hi": "\u0915\u093e\u0915\u0940\u0928\u093e\u0921\u093e"
+        },
+        "state": "Andhra Pradesh",
+        "district": "Kakinada",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          82.26,
+          16.98
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Machilipatnam",
+        "vernacular_names": {
+          "te": "\u0c2e\u0c1a\u0c3f\u0c32\u0c40\u0c2a\u0c1f\u0c4d\u0c28\u0c02",
+          "hi": "\u092e\u091b\u0932\u0940\u092a\u091f\u094d\u091f\u0928\u092e"
+        },
+        "state": "Andhra Pradesh",
+        "district": "Krishna",
+        "facility_type": "Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          81.16,
+          16.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Paradip Fishing Harbor",
+        "vernacular_names": {
+          "or": "\u0b2a\u0b3e\u0b30\u0b3e\u0b26\u0b40\u0b2a",
+          "hi": "\u092a\u093e\u0930\u093e\u0926\u0940\u092a"
+        },
+        "state": "Odisha",
+        "district": "Jagatsinghpur",
+        "facility_type": "Major Fishing Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.68,
+          20.3
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dhamra",
+        "vernacular_names": {
+          "or": "\u0b27\u0b3e\u0b2e\u0b30\u0b3e",
+          "hi": "\u0927\u093e\u092e\u0930\u093e"
+        },
+        "state": "Odisha",
+        "district": "Bhadrak",
+        "facility_type": "Port / Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.96,
+          20.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Digha (Sankarpur)",
+        "vernacular_names": {
+          "bn": "\u09a6\u09c0\u0998\u09be",
+          "hi": "\u0926\u0940\u0918\u093e"
+        },
+        "state": "West Bengal",
+        "district": "Purba Medinipur",
+        "facility_type": "Major Coastal Harbor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.53,
+          21.625
+        ]
+      }
+    }
+  ]
+}

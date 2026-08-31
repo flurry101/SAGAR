@@ -1,0 +1,240 @@
+{
+  "type": "FeatureCollection",
+  "name": "DGLL_Indian_Lighthouses_and_Navigation_Aids",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          68.955,
+          22.238
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-GUJ-DWARKA",
+        "name": "Dwarka Point Lighthouse",
+        "state": "Gujarat",
+        "tower_height_m": 43,
+        "luminous_range_nm": 24,
+        "light_character": "Fl(2) W 15s",
+        "focal_plane_elevation_m": 47
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.355,
+          20.9
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-GUJ-VERAVAL",
+        "name": "Veraval Lighthouse",
+        "state": "Gujarat",
+        "tower_height_m": 34,
+        "luminous_range_nm": 18,
+        "light_character": "Fl W 5s",
+        "focal_plane_elevation_m": 38
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          72.815,
+          18.878
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-MAH-PRONGS",
+        "name": "Prongs Reef Lighthouse (Mumbai)",
+        "state": "Maharashtra",
+        "tower_height_m": 44,
+        "luminous_range_nm": 21,
+        "light_character": "Fl W 10s",
+        "focal_plane_elevation_m": 45
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.265,
+          16.992
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-MAH-RATNAGIRI",
+        "name": "Ratnagiri Lighthouse",
+        "state": "Maharashtra",
+        "tower_height_m": 19,
+        "luminous_range_nm": 22,
+        "light_character": "Fl(3) W 20s",
+        "focal_plane_elevation_m": 102
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          73.765,
+          15.492
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-GOA-AGUADA",
+        "name": "Aguada Lighthouse",
+        "state": "Goa",
+        "tower_height_m": 21,
+        "luminous_range_nm": 23,
+        "light_character": "Fl(3) W 20s",
+        "focal_plane_elevation_m": 84
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          74.788,
+          13.005
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-KAR-SURATHKAL",
+        "name": "Surathkal Lighthouse",
+        "state": "Karnataka",
+        "tower_height_m": 36,
+        "luminous_range_nm": 20,
+        "light_character": "Fl(4) W 30s",
+        "focal_plane_elevation_m": 42
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          76.992,
+          8.382
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-KER-VIZHINJAM",
+        "name": "Vizhinjam Lighthouse",
+        "state": "Kerala",
+        "tower_height_m": 36,
+        "luminous_range_nm": 24,
+        "light_character": "Fl(2) W 15s",
+        "focal_plane_elevation_m": 57
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          79.225,
+          9.282
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-TAM-PAMBAN",
+        "name": "Pamban Island Lighthouse",
+        "state": "Tamil Nadu",
+        "tower_height_m": 20,
+        "luminous_range_nm": 14,
+        "light_character": "Fl(3) W 15s",
+        "focal_plane_elevation_m": 23
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          78.065,
+          8.375
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-TAM-MANAPAD",
+        "name": "Manapad Point Lighthouse",
+        "state": "Tamil Nadu",
+        "tower_height_m": 25,
+        "luminous_range_nm": 19,
+        "light_character": "Fl(2) W 10s",
+        "focal_plane_elevation_m": 43
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.295,
+          17.675
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-AND-DOLPHIN",
+        "name": "Dolphin's Nose Lighthouse (Vizag)",
+        "state": "Andhra Pradesh",
+        "tower_height_m": 15,
+        "luminous_range_nm": 32,
+        "light_character": "Fl(3) W 15s",
+        "focal_plane_elevation_m": 173
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          86.735,
+          20.335
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-ODI-FALSEPT",
+        "name": "False Point Lighthouse",
+        "state": "Odisha",
+        "tower_height_m": 38,
+        "luminous_range_nm": 22,
+        "light_character": "Fl(2) W 20s",
+        "focal_plane_elevation_m": 40
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.825,
+          6.755
+        ]
+      },
+      "properties": {
+        "lh_id": "DGLL-AN-INDIRA",
+        "name": "Indira Point Lighthouse (Great Nicobar)",
+        "state": "Andaman & Nicobar",
+        "tower_height_m": 35,
+        "luminous_range_nm": 20,
+        "light_character": "Fl(3) W 20s",
+        "focal_plane_elevation_m": 38
+      }
+    }
+  ]
+}
