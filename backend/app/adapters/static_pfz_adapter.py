@@ -4,35 +4,24 @@ static_pfz_adapter.py
 Potential Fishing Zone (PFZ) Adapter for PathFinder.
 
 Resilience Fallback Chain:
-    Tier 1 -- Live Gradient-Based Thermal-Productivity Front Detection:
-              Queries NOAA OceanWatch / CoastWatch ERDDAP for Daily SST (GHRSST goes-poes 5km)
-              and Chlorophyll-a (ESA-CCI/VIIRS 4km) griddap fields across the Arabian Sea / Bay of Bengal.
-              Regrids both fields onto a unified coordinate space and computes 2D Sobel
-              gradient magnitude on the SST grid, thresholding with Chlorophyll productivity
-              to detect oceanic upwelling fronts (Potential Fishing Zones).
+    Tier 1 -- Live INCOIS PFZ WFS endpoint:
+              Queries INCOIS Geoserver WFS for pfzlines (GeoJSON MultiLineStrings).
+              Parses coordinate points, calculates centroids and distances,
+              and filters against user query parameters.
     Tier 3 -- Local GeoJSON fallback file: backend/data/fallback/pfz.geojson
-              Used if NOAA ERDDAP is unreachable, times out, or fails.
+              Used if live INCOIS WFS is unreachable, times out, or fails.
     Unresolvable -- Standardized error object if both live and fallback fail.
-
-Calibration & Gradient Distribution Reference:
-    Based on real-world Indian Ocean daily GHRSST gradient distributions:
-      - Mean SST spatial gradient: ~0.04 - 0.06 °C / 5km step.
-      - 75th percentile gradient:  ~0.06 - 0.08 °C / 5km step.
-      - 90th percentile gradient:  ~0.08 - 0.11 °C / 5km step.
-      - 95th percentile gradient:  ~0.10 - 0.13 °C / 5km step.
-    Calibrated thresholds:
-      - SST_FRONT_THRESHOLD = 0.08 (°C / 5km step, ~90th percentile): Captures active thermal fronts.
-      - CHL_PRODUCTIVITY_THRESHOLD = 0.3 (mg/m³): Pelagic fish forage productivity baseline.
 
 Output Schema: FishingZone (Step 07, Section 2.5):
     pfz_id        -- str
     coordinates   -- {"lat": float, "lon": float} (centroid)
-    geometry      -- GeoJSON Point or Polygon
+    geometry      -- GeoJSON Point, LineString, MultiLineString or Polygon
     valid_from    -- str (ISO 8601)
     valid_until   -- str (ISO 8601)
     source        -- str
     distance_km   -- float
     provenance    -- Provenance dictionary
+
 """
 import json
 import math
@@ -159,172 +148,80 @@ class StaticPFZAdapter(MarineDataAdapter):
     def _fetch_live_fronts(
         self, lat: float, lon: float, radius_km: float, retrieved_at: str, debug: bool = False
     ) -> Optional[Dict[str, Any]]:
-        """Query NOAA ERDDAP for Daily SST and Chlorophyll grids and compute thermal fronts."""
-        # Calculate bounding box around query point with margin
-        d_deg = max(0.6, (radius_km / 111.0) * 1.2)
-        lat_min, lat_max = max(-90.0, lat - d_deg), min(90.0, lat + d_deg)
-        lon_min, lon_max = max(-180.0, lon - d_deg), min(180.0, lon + d_deg)
-
-        # Build ERDDAP griddap URLs
-        sst_url = (
-            f"{_ERDDAP_BASE}/{_SST_DAILY_DATASET}.json?"
-            f"{_SST_VAR}[(last)][({lat_min:.2f}):({lat_max:.2f})][({lon_min:.2f}):({lon_max:.2f})]"
-        )
-        chl_url = (
-            f"{_ERDDAP_BASE}/{_CHL_DATASET}.json?"
-            f"{_CHL_VAR}[(last)][({lat_min:.2f}):({lat_max:.2f})][({lon_min:.2f}):({lon_max:.2f})]"
+        """Query live INCOIS WFS endpoint for PFZ lines and filter by radius."""
+        url = (
+            "https://www.incois.gov.in/geoserver/PFZ_Automation/ows"
+            "?service=WFS&version=1.1.0&request=GetFeature"
+            "&typeName=PFZ_Automation:pfzlines&outputFormat=application/json"
         )
 
-        with httpx.Client(timeout=_TIMEOUT_S, follow_redirects=True) as client:
-            sst_resp = client.get(sst_url)
-            sst_resp.raise_for_status()
-            sst_data = sst_resp.json()
+        try:
+            with httpx.Client(timeout=_TIMEOUT_S, follow_redirects=True) as client:
+                resp = client.get(url)
+                resp.raise_for_status()
+                data = resp.json()
 
-            # Attempt Chlorophyll fetch (non-fatal if cloud masked)
-            chl_map: Dict[Tuple[float, float], float] = {}
-            try:
-                chl_resp = client.get(chl_url)
-                if chl_resp.status_code == 200:
-                    for row in chl_resp.json().get("table", {}).get("rows", []):
-                        r_lat, r_lon, r_val = row[1], row[2], row[3]
-                        if r_val is not None:
-                            # Key rounded to 2 decimal places for spatial hash lookup
-                            chl_map[(round(r_lat, 2), round(r_lon, 2))] = float(r_val)
-            except Exception:
-                pass
+            features = data.get("features", [])
+            matched_pfzs: List[Dict[str, Any]] = []
+            valid_until_dt = datetime.now(timezone.utc) + timedelta(days=3)
 
-        # Parse SST grid
-        rows = sst_data.get("table", {}).get("rows", [])
-        if not rows:
-            return None
+            provenance = {
+                "source": "INCOIS PFZ",
+                "retrieved_at": retrieved_at,
+                "validity_time": retrieved_at,
+                "fallback_tier": 1,
+                "confidence": "HIGH",
+            }
 
-        # Build unified coordinate grid
-        lats_set = sorted(list({r[1] for r in rows}))
-        lons_set = sorted(list({r[2] for r in rows}))
+            for idx, feature in enumerate(features):
+                geom = feature.get("geometry", {})
+                props = feature.get("properties", {})
+                gtype = geom.get("type", "")
+                coords = geom.get("coordinates", [])
 
-        if len(lats_set) < 3 or len(lons_set) < 3:
-            return None
-
-        lat_indices = {val: idx for idx, val in enumerate(lats_set)}
-        lon_indices = {val: idx for idx, val in enumerate(lons_set)}
-
-        num_lats, num_lons = len(lats_set), len(lons_set)
-        grid = [[None for _ in range(num_lons)] for _ in range(num_lats)]
-
-        for r in rows:
-            r_lat, r_lon, sst_val = r[1], r[2], r[3]
-            i = lat_indices[r_lat]
-            j = lon_indices[r_lon]
-            if sst_val is not None:
-                # Convert Kelvin to Celsius if necessary
-                val_f = float(sst_val)
-                grid[i][j] = val_f - 273.15 if val_f > 100.0 else val_f
-
-        # Compute Sobel gradient magnitude on SST grid
-        front_points: List[Tuple[float, float, float, float]] = []
-        all_gradients: List[float] = []
-
-        for i in range(1, num_lats - 1):
-            for j in range(1, num_lons - 1):
-                patch_vals = [
-                    grid[i-1][j-1], grid[i-1][j], grid[i-1][j+1],
-                    grid[i][j-1],   grid[i][j],   grid[i][j+1],
-                    grid[i+1][j-1], grid[i+1][j], grid[i+1][j+1],
-                ]
-                if any(v is None for v in patch_vals):
+                # Parse coordinates to find centroid
+                all_pts = []
+                if gtype == "MultiLineString":
+                    for line in coords:
+                        all_pts.extend(line)
+                elif gtype == "LineString":
+                    all_pts = coords
+                
+                if not all_pts:
                     continue
 
-                # Sobel kernels
-                # Horizontal gradient Gx
-                gx = (patch_vals[2] + 2*patch_vals[5] + patch_vals[8]) - (patch_vals[0] + 2*patch_vals[3] + patch_vals[6])
-                # Vertical gradient Gy
-                gy = (patch_vals[6] + 2*patch_vals[7] + patch_vals[8]) - (patch_vals[0] + 2*patch_vals[1] + patch_vals[2])
+                lons = [p[0] for p in all_pts]
+                lats = [p[1] for p in all_pts]
+                avg_lon = sum(lons) / len(lons)
+                avg_lat = sum(lats) / len(lats)
+                centroid = {"lat": round(avg_lat, 4), "lon": round(avg_lon, 4)}
 
-                grad_mag = math.sqrt(gx**2 + gy**2) / 8.0
-                all_gradients.append(grad_mag)
+                dist_km = _haversine_km(lat, lon, centroid["lat"], centroid["lon"])
+                if dist_km <= radius_km:
+                    matched_pfzs.append({
+                        "pfz_id": f"PFZ-INCOIS-{props.get('UID') or props.get('Sno') or (idx+1)}",
+                        "coordinates": centroid,
+                        "geometry": geom,
+                        "valid_from": retrieved_at,
+                        "valid_until": valid_until_dt.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                        "source": f"INCOIS Live PFZ Line (Category {props.get('Category', 'sst')}, Length {props.get('Length', 0.0):.2f}km)",
+                        "distance_km": round(dist_km, 2),
+                        "provenance": provenance,
+                    })
 
-                p_lat, p_lon = lats_set[i], lons_set[j]
-                # Nearest co-registered chlorophyll value
-                chl_val = chl_map.get((round(p_lat, 2), round(p_lon, 2)), CHL_PRODUCTIVITY_THRESHOLD)
+            # Sort matched PFZs by distance (closest first)
+            matched_pfzs.sort(key=lambda x: x["distance_km"])
 
-                if grad_mag >= SST_FRONT_THRESHOLD and chl_val >= CHL_PRODUCTIVITY_THRESHOLD:
-                    front_points.append((p_lat, p_lon, grad_mag, chl_val))
+            return {
+                "pfzs": matched_pfzs,
+                "resolved": True,
+                "status": "ok" if matched_pfzs else "empty",
+                "provenance": provenance,
+            }
 
-        # Diagnostic logging of gradient distribution when requested
-        if debug and all_gradients:
-            all_gradients.sort()
-            n = len(all_gradients)
-            p50 = all_gradients[int(n * 0.5)]
-            p75 = all_gradients[int(n * 0.75)]
-            p90 = all_gradients[int(n * 0.90)]
-            p95 = all_gradients[int(n * 0.95)]
-            print(f"[PFZ Diagnostic] Query ({lat:.2f}, {lon:.2f}) -> Cells: {n}, "
-                  f"Grad min: {all_gradients[0]:.4f}, mean: {sum(all_gradients)/n:.4f}, "
-                  f"p50: {p50:.4f}, p75: {p75:.4f}, p90: {p90:.4f}, p95: {p95:.4f}, max: {all_gradients[-1]:.4f}, "
-                  f"Detected Fronts: {len(front_points)}")
+        except (httpx.RequestError, httpx.HTTPStatusError, KeyError, IndexError, ValueError, TypeError):
+            return None
 
-        # Sort front points by gradient magnitude (strongest upwelling fronts first)
-        front_points.sort(key=lambda x: x[2], reverse=True)
-
-        # Spatial clustering: select distinct front centers spaced by at least 15km
-        clustered_fronts: List[Tuple[float, float, float, float]] = []
-        for fp in front_points:
-            f_lat, f_lon, f_grad, f_chl = fp
-            too_close = False
-            for c_lat, c_lon, _, _ in clustered_fronts:
-                if _haversine_km(f_lat, f_lon, c_lat, c_lon) < 15.0:
-                    too_close = True
-                    break
-            if not too_close:
-                clustered_fronts.append(fp)
-            if len(clustered_fronts) >= 8:
-                break
-
-        # Convert clustered fronts into FishingZone records
-        matched_pfzs: List[Dict[str, Any]] = []
-        valid_until_dt = datetime.now(timezone.utc) + timedelta(days=3)
-
-        provenance = {
-            "source": "Derived from NOAA CoastWatch ERDDAP SST/Chlorophyll via gradient-front detection",
-            "retrieved_at": retrieved_at,
-            "validity_time": retrieved_at,
-            "fallback_tier": 1,
-            "confidence": "MODERATE",
-        }
-
-        for idx, (f_lat, f_lon, f_grad, f_chl) in enumerate(clustered_fronts):
-            dist_km = _haversine_km(lat, lon, f_lat, f_lon)
-            if dist_km <= radius_km:
-                # 0.05 degree box around the front centroid
-                half_box = 0.025
-                poly_coords = [
-                    [round(f_lon - half_box, 4), round(f_lat - half_box, 4)],
-                    [round(f_lon + half_box, 4), round(f_lat - half_box, 4)],
-                    [round(f_lon + half_box, 4), round(f_lat + half_box, 4)],
-                    [round(f_lon - half_box, 4), round(f_lat + half_box, 4)],
-                    [round(f_lon - half_box, 4), round(f_lat - half_box, 4)],
-                ]
-
-                matched_pfzs.append({
-                    "pfz_id": f"PFZ-NOAA-{idx+1:03d}",
-                    "coordinates": {"lat": round(f_lat, 4), "lon": round(f_lon, 4)},
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [poly_coords]
-                    },
-                    "valid_from": retrieved_at,
-                    "valid_until": valid_until_dt.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                    "source": f"NOAA CoastWatch ERDDAP Derived Front (Grad {f_grad:.3f}°C/5km, Chl {f_chl:.2f}mg/m³)",
-                    "distance_km": round(dist_km, 2),
-                    "provenance": provenance,
-                })
-
-        return {
-            "pfzs": matched_pfzs,
-            "resolved": True,
-            "status": "ok" if matched_pfzs else "empty",
-            "provenance": provenance,
-        }
 
     # ------------------------------------------------------------------
     # Tier 3: Static Fallback File
@@ -379,6 +276,188 @@ class StaticPFZAdapter(MarineDataAdapter):
             "resolved": True,
             "status": "ok" if nearby else "empty",
             "provenance": provenance,
+        }
+
+    def fetch_chlorophyll_at_point(
+        self, lat: float, lon: float, timestamp: str = None
+    ) -> Dict[str, Any]:
+        """
+        Fetch chlorophyll concentration at a specific (lat, lon) point.
+
+        This method queries the NOAA ERDDAP chlorophyll grid without computing
+        front detection. It reuses the same ERDDAP pipeline as fetch_data() but
+        returns the raw chlorophyll value at the query point instead of PFZs.
+
+        Invoked by: Marine Agent (chlorophyll-as-a-proxy-for-productivity)
+        Returns: MarineObservation-subset dict with chlorophyll_mg_m3 populated
+
+        Parameters
+        ----------
+        lat, lon  : Query coordinate
+        timestamp : ISO 8601 UTC time (unused; chlorophyll is location-dependent)
+
+        Returns
+        -------
+        Dict with:
+            lat, lon, time_iso,
+            chlorophyll_mg_m3 (float | None),
+            resolved (bool),
+            status (str: "ok" | "unresolvable"),
+            provenance (Provenance)
+        """
+        time_iso = timestamp or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        retrieved_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        # Guard: reject physically impossible coordinates
+        if not (-90.0 <= lat <= 90.0 and -180.0 <= lon <= 180.0):
+            return self._make_chlorophyll_unresolvable(
+                lat, lon, time_iso, retrieved_at,
+                reason="Invalid coordinates"
+            )
+
+        # --- Tier 1: Live NOAA ERDDAP chlorophyll grid ----------
+        try:
+            live = self._fetch_chlorophyll_live(lat, lon, time_iso, retrieved_at)
+            if live is not None:
+                return live
+        except Exception:
+            pass
+
+        # --- Tier 3: Static fallback (no chlorophyll in pfz.geojson) --
+        return self._make_chlorophyll_unresolvable(
+            lat, lon, time_iso, retrieved_at,
+            reason="Live ERDDAP chlorophyll unavailable; static PFZ file has no chlorophyll data"
+        )
+
+    def _fetch_chlorophyll_live(
+        self,
+        lat: float,
+        lon: float,
+        time_iso: str,
+        retrieved_at: str,
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Query NOAA ERDDAP for chlorophyll-a concentration at (lat, lon).
+
+        Minimal region query (0.5° × 0.5° box) to avoid large transfer for a single point.
+        """
+        d_deg = 0.25  # 0.5° box (±0.25°)
+        lat_min, lat_max = max(-90.0, lat - d_deg), min(90.0, lat + d_deg)
+        lon_min, lon_max = max(-180.0, lon - d_deg), min(180.0, lon + d_deg)
+
+        chl_url = (
+            f"{_ERDDAP_BASE}/{_CHL_DATASET}.json?"
+            f"{_CHL_VAR}[(last)][({lat_min:.2f}):({lat_max:.2f})][({lon_min:.2f}):({lon_max:.2f})]"
+        )
+
+        try:
+            with httpx.Client(timeout=_TIMEOUT_S, follow_redirects=True) as client:
+                chl_resp = client.get(chl_url)
+                if chl_resp.status_code != 200:
+                    return None
+
+                chl_data = chl_resp.json()
+                rows = chl_data.get("table", {}).get("rows", [])
+
+                if not rows:
+                    return None
+
+                # Find the row closest to the query point
+                closest_row = None
+                min_distance = float("inf")
+
+                for row in rows:
+                    r_lat, r_lon, r_val = row[1], row[2], row[3]
+                    if r_val is None:
+                        continue
+
+                    # Haversine distance to this grid cell
+                    distance = _haversine_km(lat, lon, r_lat, r_lon)
+                    if distance < min_distance:
+                        min_distance = distance
+                        closest_row = (r_lat, r_lon, r_val)
+
+                if closest_row is None:
+                    return None
+
+                chl_val = float(closest_row[2])
+
+                return self._make_chlorophyll_result(
+                    lat=lat,
+                    lon=lon,
+                    time_iso=time_iso,
+                    chlorophyll_mg_m3=chl_val,
+                    retrieved_at=retrieved_at,
+                    validity_time=time_iso,
+                    fallback_tier=1,
+                    source="NOAA CoastWatch ERDDAP Chlorophyll-a (ESA-CCI/VIIRS 4km)",
+                    confidence="HIGH",
+                )
+
+        except (httpx.RequestError, httpx.HTTPStatusError, KeyError, IndexError, ValueError, TypeError):
+            return None
+
+    @staticmethod
+    def _make_chlorophyll_result(
+        lat: float,
+        lon: float,
+        time_iso: str,
+        chlorophyll_mg_m3: Optional[float],
+        retrieved_at: str,
+        validity_time: str,
+        fallback_tier: int,
+        source: str,
+        confidence: str,
+    ) -> Dict[str, Any]:
+        """Assemble a chlorophyll observation dict."""
+        return {
+            "lat": lat,
+            "lon": lon,
+            "time_iso": time_iso,
+            "chlorophyll_mg_m3": chlorophyll_mg_m3,
+            # Schema completeness — all other marine fields are None
+            "sst_celsius": None,
+            "current_speed_kmh": None,
+            "current_direction_deg": None,
+            "hab_detected": None,
+            "resolved": True,
+            "status": "ok",
+            "provenance": {
+                "source": source,
+                "retrieved_at": retrieved_at,
+                "validity_time": validity_time,
+                "fallback_tier": fallback_tier,
+                "confidence": confidence,
+            },
+        }
+
+    @staticmethod
+    def _make_chlorophyll_unresolvable(
+        lat: float,
+        lon: float,
+        time_iso: str,
+        retrieved_at: str,
+        reason: str = "Cannot fetch chlorophyll",
+    ) -> Dict[str, Any]:
+        return {
+            "lat": lat,
+            "lon": lon,
+            "time_iso": time_iso,
+            "chlorophyll_mg_m3": None,
+            "sst_celsius": None,
+            "current_speed_kmh": None,
+            "current_direction_deg": None,
+            "hab_detected": None,
+            "resolved": False,
+            "status": "unresolvable",
+            "reason": reason,
+            "provenance": {
+                "source": None,
+                "retrieved_at": retrieved_at,
+                "validity_time": time_iso,
+                "fallback_tier": 3,
+                "confidence": "LOW",
+            },
         }
 
 

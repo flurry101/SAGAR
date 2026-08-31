@@ -1,0 +1,54 @@
+{
+  "hand_built_metadata": "Rolling fallback: hour_offset is hours from the current UTC hour, resolved at read time. Based on average Indian coastal tide tables (6-7m tidal range in Arabian Sea).",
+  "time_mode": "relative_hourly",
+  "tide_records": [
+    {
+      "hour_offset": -48,
+      "tide_height_m": 1.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -24,
+      "tide_height_m": 0.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -12,
+      "tide_height_m": 2.1,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -6,
+      "tide_height_m": 3.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 0,
+      "tide_height_m": 2.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 6,
+      "tide_height_m": 1.5,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 12,
+      "tide_height_m": 0.3,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 24,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    }
+  ]
+}

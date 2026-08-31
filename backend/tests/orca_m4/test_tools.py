@@ -239,6 +239,29 @@ class TestMarineTools(unittest.TestCase):
         self.assertIn("provenance", result)
         self.assertEqual(result["sst_celsius"], 27.5)
 
+    @patch("backend.app.tools.marine_tools._pfz_adapter")
+    def test_fetch_chlorophyll_returns_adapter_result(self, mock_adapter):
+        mock_adapter.fetch_chlorophyll_at_point.return_value = {
+            "chlorophyll_mg_m3": 0.8,
+            "resolved": True,
+            "status": "ok",
+            "provenance": {"fallback_tier": 1, "confidence": "HIGH"},
+        }
+        result = marine_tools.fetch_chlorophyll(12.87, 74.84, "2026-08-28T15:00:00Z")
+        self.assertEqual(result["chlorophyll_mg_m3"], 0.8)
+        self.assertEqual(result["provenance"]["fallback_tier"], 1)
+
+    @patch("backend.app.tools.marine_tools._sst_adapter")
+    @patch("backend.app.tools.marine_tools._hab_adapter")
+    def test_marine_batch_does_not_fabricate_chlorophyll(self, mock_hab, mock_sst):
+        mock_sst.fetch_data.return_value = MOCK_SST_OBS
+        mock_hab.fetch_data.return_value = MOCK_HAB_OBS
+        waypoints = [{"waypoint_index": 0, "phase": "FISHING", "lat": 12.87, "lon": 74.84,
+                      "eta_iso": "2026-08-28T06:00:00Z"}]
+        result = marine_tools.fetch_marine_forecast_batch(waypoints)
+        self.assertIsNone(result[0]["marine"]["chlorophyll_mg_m3"])
+        self.assertIsNone(result[0]["marine"]["chlorophyll_mgm3"])
+
     # ---- detect_hab --------------------------------------------------------
 
     @patch("backend.app.tools.marine_tools._hab_adapter")
