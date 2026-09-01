@@ -107,11 +107,12 @@ def risk_node(state: Dict[str, Any]) -> Dict[str, Any]:
     evidence = engine.evaluate(risk_input)
     
     evidence_dump = evidence.model_dump()
-    overall_risk = evidence.overall_risk_level.value
-    
+    overall_risk_value = getattr(evidence.overall_risk_level, "value", evidence.overall_risk_level)
+    overall_risk = str(overall_risk_value)
+
     if overall_risk == "UNKNOWN":
         evidence_dump["advisory_category"] = "INSUFFICIENT_INFORMATION"
-    elif overall_risk in ["SEVERE", "HIGH"]:
+    elif overall_risk in {"SEVERE", "HIGH"}:
         evidence_dump["advisory_category"] = "ELEVATED_RISK_IDENTIFIED"
     else:
         evidence_dump["advisory_category"] = "FAVORABLE"

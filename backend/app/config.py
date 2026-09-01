@@ -17,7 +17,9 @@ class Settings(BaseSettings):
     OPENAPI_URL: Optional[str] = None
 
     # CORS configuration
-    CORS_ALLOW_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
+    # Default to the configured frontend URL; allow an explicit override for
+    # multiple origins in staging or multi-tenant deployments.
+    CORS_ALLOW_ORIGINS: str = ""
     CORS_ALLOW_CREDENTIALS: bool = True
 
     # Supabase Configuration
@@ -46,6 +48,13 @@ class Settings(BaseSettings):
     # Google AI
     GOOGLE_API_KEY: str = ""
 
+    # Google OAuth
+    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_SECRET: str = ""
+
+    # Frontend URL (for OAuth redirect after callback)
+    FRONTEND_URL: str = "http://localhost:5173"
+
     # WorldTides
     WORLDTIDES_API_KEY: str = ""
 
@@ -68,7 +77,20 @@ class Settings(BaseSettings):
 
     @property
     def cors_allow_origins(self) -> list[str]:
-        return [origin.strip() for origin in self.CORS_ALLOW_ORIGINS.split(",") if origin.strip()]
+        origins = [
+            origin.strip()
+            for origin in self.CORS_ALLOW_ORIGINS.split(",")
+            if origin.strip()
+        ]
+        frontend_origin = self.FRONTEND_URL.strip().rstrip("/")
+        if frontend_origin and frontend_origin not in origins:
+            origins.insert(0, frontend_origin)
+        if not origins:
+            origins.extend([
+                "http://localhost:5173",
+                "http://127.0.0.1:5173",
+            ])
+        return origins
 
     @property
     def is_production(self) -> bool:

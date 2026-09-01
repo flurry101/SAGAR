@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+"""Focused regression checks for the backend data-contract fixes."""
 
 from app.gis.trajectory import calculate_trajectory
 from app.graph.nodes.geo import geo_node

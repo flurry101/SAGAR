@@ -98,8 +98,8 @@ export const useAppStore = create<AppState>((set, get) => ({
     registration_number: 'IND-KA-04-MM-8821',
     home_port: 'Mangalore Old Port'
   },
-  isAuthenticated: true,
-  userProfile: { name: 'Fisher Ravi Kumar', port: 'Mangalore Old Port', email: 'ravi.kumar@sagar.marine' },
+  isAuthenticated: false,
+  userProfile: null,
   supabaseToken: null,
 
   setCurrentView: (view) => set({ currentView: view }),
