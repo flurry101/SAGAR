@@ -24,7 +24,6 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-@tool
 def get_live_weather(lat: float, lon: float) -> dict:
     """Get current weather and marine forecast for a location.
 
@@ -75,7 +74,6 @@ def get_live_weather(lat: float, lon: float) -> dict:
         }
 
 
-@tool
 def get_live_marine_conditions(lat: float, lon: float) -> dict:
     """Get current marine/ocean conditions for a location.
 
@@ -127,14 +125,22 @@ def get_live_marine_conditions(lat: float, lon: float) -> dict:
         from app.adapters.static_pfz_adapter import StaticPFZAdapter
 
         pfz_adapter = StaticPFZAdapter()
-        pfz_data = pfz_adapter.fetch_pfz_for_bbox(
-            bbox={
-                "lat_min": lat - 0.5,
-                "lat_max": lat + 0.5,
-                "lon_min": lon - 0.5,
-                "lon_max": lon + 0.5,
-            }
-        )
+        try:
+            pfz_data = pfz_adapter.fetch_data(
+                lat=lat,
+                lon=lon,
+                timestamp=_now_iso(),
+                radius_km=100.0,
+            )
+        except TypeError as exc:
+            if "multiple values for argument 'lat'" not in str(exc):
+                raise
+            pfz_data = StaticPFZAdapter.fetch_data(
+                lat,
+                lon,
+                timestamp=_now_iso(),
+                radius_km=100.0,
+            )
 
         if pfz_data and pfz_data.get("pfzs"):
             result["pfz"] = {
@@ -152,8 +158,11 @@ def get_live_marine_conditions(lat: float, lon: float) -> dict:
     return result
 
 
+get_live_weather_tool = tool("get_live_weather")(get_live_weather)
+get_live_marine_conditions_tool = tool("get_live_marine_conditions")(get_live_marine_conditions)
+
 # Convenience list for registration
 LIVE_DATA_TOOLS = [
-    get_live_weather,
-    get_live_marine_conditions,
+    get_live_weather_tool,
+    get_live_marine_conditions_tool,
 ]

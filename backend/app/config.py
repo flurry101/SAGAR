@@ -16,12 +16,18 @@ class Settings(BaseSettings):
     REDOC_URL: Optional[str] = None
     OPENAPI_URL: Optional[str] = None
 
+    # CORS configuration
+    CORS_ALLOW_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
+    CORS_ALLOW_CREDENTIALS: bool = True
+
     # Supabase Configuration
     SUPABASE_PROJECT_ID: str = ""
     SUPABASE_JWT_SECRET: str = ""
     SUPABASE_URL: str = ""
     SUPABASE_ANON_KEY: str = ""
     SUPABASE_SERVICE_ROLE_KEY: str = ""
+    SUPABASE_SERVICE_KEY: str = ""
+    SUPABASE_DB_URL: Optional[str] = None
 
     # PostgreSQL Connection Parameters
     POSTGRES_SERVER: str = "localhost"
@@ -55,6 +61,14 @@ class Settings(BaseSettings):
             f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
             f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         )
+
+    @property
+    def service_role_key(self) -> str:
+        return self.SUPABASE_SERVICE_ROLE_KEY or self.SUPABASE_SERVICE_KEY
+
+    @property
+    def cors_allow_origins(self) -> list[str]:
+        return [origin.strip() for origin in self.CORS_ALLOW_ORIGINS.split(",") if origin.strip()]
 
     @property
     def is_production(self) -> bool:

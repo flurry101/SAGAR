@@ -32,6 +32,7 @@ from __future__ import annotations
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
 
+from app.config import settings
 from app.graph.state import OrcaState
 from app.graph.routing import supervisor_router, post_risk_router
 
@@ -267,7 +268,7 @@ def get_compiled_graph(checkpointer=None):
     """
     if checkpointer is None:
         import os
-        supabase_url = os.environ.get("SUPABASE_DB_URL")
+        supabase_url = getattr(settings, "SUPABASE_DB_URL", None) or os.environ.get("SUPABASE_DB_URL") or os.environ.get("DATABASE_URL")
 
         if supabase_url:
             try:

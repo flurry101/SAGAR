@@ -29,6 +29,9 @@ def _build_environmental_observations(state: Dict[str, Any]) -> List[Environment
         idx = m_obs.get("waypoint_index", 0)
         marine_by_idx[idx] = m_obs.get("marine", {})
 
+    hazard_alerts = state.get("hazard_alerts") or {}
+    cyclone_active = bool(hazard_alerts.get("cyclone_active", False))
+
     for w_obs in state.get("weather_observations", []):
         idx = w_obs.get("waypoint_index", 0)
         weather = w_obs.get("weather", {})
@@ -50,8 +53,8 @@ def _build_environmental_observations(state: Dict[str, Any]) -> List[Environment
             depth_m=marine.get("depth_m"),
             tide_height_m=marine.get("tide_height_m"),
             visibility_km=weather.get("visibility_km"),
-            cyclone_warning=weather.get("cyclone_alert", False) or False,
-            cyclone_details=None,
+            cyclone_warning=bool(weather.get("cyclone_alert", False)) or cyclone_active,
+            cyclone_details={"source": hazard_alerts.get("provenance", {}).get("source"), "cyclone_active": cyclone_active},
         ))
 
     return observations

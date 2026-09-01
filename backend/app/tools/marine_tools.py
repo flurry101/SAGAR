@@ -213,6 +213,18 @@ def detect_hab(lat: float, lon: float, time_iso: str) -> Dict[str, Any]:
 # Batch tool -- one full MarineObservation per trajectory waypoint
 # ---------------------------------------------------------------------------
 
+def _normalize_waypoint_contract(waypoint: Dict[str, Any]) -> Dict[str, Any]:
+    """Accept legacy and current waypoint field names without breaking downstream logic."""
+    eta_iso = waypoint.get("eta_iso") or waypoint.get("time_iso") or waypoint.get("timestamp") or _now_iso()
+    phase = waypoint.get("phase") or waypoint.get("leg_label") or "UNKNOWN"
+    normalized = dict(waypoint)
+    normalized["eta_iso"] = eta_iso
+    normalized["time_iso"] = eta_iso
+    normalized["phase"] = str(phase).upper()
+    normalized["leg_label"] = str(phase).lower()
+    return normalized
+
+
 def fetch_marine_forecast_batch(
     waypoints: List[Dict[str, Any]],
 ) -> List[Dict[str, Any]]:
@@ -264,6 +276,7 @@ def fetch_marine_forecast_batch(
         hab_obs = {"hab_detected": None, "hab_probability": None, "provenance": None, "resolved": False}
 
     for wp in waypoints:
+        wp = _normalize_waypoint_contract(wp)
         lat     = wp["lat"]
         lon     = wp["lon"]
         eta_iso = wp.get("eta_iso") or _now_iso()

@@ -6,12 +6,14 @@ no risk math, no LangGraph state schema ownership.
 """
 from typing import Any, Dict, List
 
+from app.tools.bathymetry_tools import fetch_bathymetry
 from app.tools.marine_tools import (
     detect_hab,
     fetch_marine_forecast_batch,
     fetch_pfz,
     fetch_sst,
 )
+from app.tools.tide_tools import fetch_tides
 
 __all__ = [
     "marine_node",
@@ -45,8 +47,18 @@ def marine_node(state: Dict[str, Any]) -> Dict[str, Any]:
         updates["pfz_data"] = fetch_pfz(origin_coord, radius_km=radius)
 
     if waypoints:
-        updates["marine_observations"] = fetch_marine_forecast_batch(waypoints)
-        
+        observations = fetch_marine_forecast_batch(waypoints)
+        for item in observations:
+            marine = item.get("marine", {})
+            if marine.get("depth_m") is None:
+                bathy = fetch_bathymetry(item["lat"], item["lon"])
+                marine["depth_m"] = bathy.get("depth_m")
+            if marine.get("tide_height_m") is None:
+                tide = fetch_tides(item["lat"], item["lon"], item.get("time_iso"))
+                marine["tide_height_m"] = tide.get("tide_height_m")
+            item["marine"] = marine
+        updates["marine_observations"] = observations
+
     # Log execution
     obs_count = len(updates.get("marine_observations", []))
     pfz_count = len(updates.get("pfz_data", {}).get("pfzs", []))

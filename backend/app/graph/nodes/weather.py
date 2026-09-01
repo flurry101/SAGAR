@@ -179,16 +179,16 @@ def weather_node(state: Dict[str, Any]) -> Dict[str, Any]:
                 bbox = constraint.get("coordinates")
                 break
 
-    hazard_data = {}
+    hazard_data = state.get("hazard_alerts") or {}
     if bbox:
         # We can extract a time window from the trajectory
         time_window = None
         if waypoints:
             time_window = {
-                "start": waypoints[0].get("eta_iso"),
-                "end": waypoints[-1].get("eta_iso")
+                "from": waypoints[0].get("eta_iso") or waypoints[0].get("timestamp"),
+                "to": waypoints[-1].get("eta_iso") or waypoints[-1].get("timestamp"),
             }
-        hazard_data = fetch_hazard_alerts(bbox, time_window)
+        hazard_data = state.get("hazard_alerts") or fetch_hazard_alerts(bbox, time_window)
         updates["hazard_alerts"] = hazard_data
 
     # --- Generate structured alerts ---
