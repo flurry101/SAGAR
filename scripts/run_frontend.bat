@@ -2,6 +2,6 @@
 echo ========================================================
 echo   Starting ORCA React Frontend
 echo ========================================================
-cd frontend
+cd /d "%~dp0\..\frontend"
 npm run dev
 pause

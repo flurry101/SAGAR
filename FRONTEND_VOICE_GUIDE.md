@@ -1,4 +1,3 @@
-git add -f FRONTEND_VOICE_GUIDE.md
 # 🎙️ Voice Assistant Integration Guide (Frontend)
 
 Hello! Since you don't have Docker installed to run the Vexyl Voice Gateway locally, I have securely exposed my running backend to the internet so you can test the frontend UI easily.
