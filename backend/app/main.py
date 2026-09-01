@@ -10,6 +10,7 @@ from app.core.middleware import (
     global_exception_handler,
     http_exception_handler,
     validation_exception_handler,
+    security_headers_middleware,
 )
 from app.api.health import router as health_router
 from app.api.user import router as user_router
@@ -21,6 +22,8 @@ from app.api.marine import router as marine_router
 from app.api.risk import router as risk_router
 from app.api.vessel import router as vessel_router
 from app.services.ais_websocket import AISWebSocketListener
+from app.api.voice import router as voice_router
+from app.api.google_oauth import router as google_oauth_router
 
 logger = logging.getLogger(__name__)
 
@@ -55,14 +58,17 @@ app = FastAPI(
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=settings.cors_allow_origins,
+    allow_credentials=settings.CORS_ALLOW_CREDENTIALS,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Request ID tracing middleware
 app.middleware("http")(add_request_id_middleware)
+
+# Security headers middleware
+app.middleware("http")(security_headers_middleware)
 
 # Global exception handlers
 app.add_exception_handler(HTTPException, http_exception_handler)
@@ -78,8 +84,10 @@ app.include_router(vessel_router, prefix="/api/v1", tags=["Vessels"])
 app.include_router(weather_router, prefix="/api/v1", tags=["Weather & Hazards"])
 app.include_router(marine_router, prefix="/api/v1", tags=["Marine & PFZ"])
 app.include_router(risk_router, prefix="/api/v1", tags=["Deterministic Risk Engine"])
+app.include_router(voice_router, prefix="/api/v1/voice", tags=["Resilient Voice Architecture"])
 app.include_router(user_router, prefix="/api/v1/user", tags=["User"])
 app.include_router(user_router, prefix="/user", tags=["User (Starter Compatibility)"])
+app.include_router(google_oauth_router, prefix="/api/v1", tags=["Google OAuth"])
 
 
 @app.get("/")

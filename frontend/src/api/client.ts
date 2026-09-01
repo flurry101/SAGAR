@@ -3,7 +3,7 @@ import { mockAdapter } from './mock/mockAdapter';
 import { getSupabaseAccessToken } from './supabaseClient';
 import { useAppStore } from '../state/appStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_API !== 'false';
 
 export async function apiRequest<T = any>(
@@ -36,24 +36,46 @@ export async function apiRequest<T = any>(
       return res as unknown as APIResponse<T>;
     }
     if (endpoint === '/user/me' && method === 'GET') {
-      const user = useAppStore.getState().userProfile;
+      const store = useAppStore.getState();
+      if (!store.isAuthenticated || !store.userProfile) {
+        return {
+          status: 'error',
+          error: {
+            code: 'UNAUTHENTICATED',
+            message: 'Authentication required to access the current user profile.',
+          },
+        } as APIResponse<T>;
+      }
+
+      const user = store.userProfile;
       return {
         status: 'success',
         data: {
-          user_id: user?.userId || 'user-demo-001',
-          name: user?.name || 'Fisher Ravi Kumar',
-          home_port: user?.port || 'Mangalore Old Port',
-          email: user?.email || 'ravi.kumar@sagar.marine',
-          preferred_language: useAppStore.getState().selectedLanguage,
+          user_id: user.userId || 'user-demo-001',
+          name: user.name,
+          home_port: user.port,
+          email: user.email || '',
+          preferred_language: store.selectedLanguage,
         } as unknown as T,
       };
     }
     if (endpoint === '/user/create' && method === 'POST') {
+      const store = useAppStore.getState();
+      if (!store.isAuthenticated) {
+        return {
+          status: 'error',
+          error: {
+            code: 'UNAUTHENTICATED',
+            message: 'Authentication required to create a user profile.',
+          },
+        } as APIResponse<T>;
+      }
+
       return {
         status: 'success',
         data: {
           message: 'User created successfully',
-          user_id: 'user-demo-001',
+          user_id: store.userProfile?.userId || 'user-demo-001',
           supabase_uid: 'supa-demo-uid',
           ...body,
         } as unknown as T,

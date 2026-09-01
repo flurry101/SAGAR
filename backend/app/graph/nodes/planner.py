@@ -24,17 +24,9 @@ from datetime import datetime, timezone
 from app.graph.state import OrcaState, AgentExecution
 
 
-import os
-from langchain_google_genai import ChatGoogleGenerativeAI
+from app.core.llm import get_llm
 from langchain_core.messages import SystemMessage, HumanMessage
 import json
-
-def get_llm():
-    """Helper to initialize the Gemini LLM."""
-    api_key = os.environ.get("GOOGLE_API_KEY")
-    if not api_key:
-        return None
-    return ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key=api_key, temperature=0.1)
 
 def planner_intake(state: OrcaState) -> OrcaState:
     """Phase 1: Extract intent from the fisher's message and validate trip context."""
@@ -97,7 +89,7 @@ def planner_intake(state: OrcaState) -> OrcaState:
         execution["output_data"] = {"validated": True}
 
     execution["completed_at"] = datetime.now(timezone.utc).isoformat()
-    state.setdefault("agent_executions", []).append(execution)
+    state["agent_executions"] = [execution]
     return state
 
 
@@ -163,5 +155,5 @@ def planner_synthesize(state: OrcaState) -> OrcaState:
     execution["completed_at"] = datetime.now(timezone.utc).isoformat()
     execution["output_data"] = {"advisory_category": category}
 
-    state.setdefault("agent_executions", []).append(execution)
+    state["agent_executions"] = [execution]
     return state

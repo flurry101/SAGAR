@@ -98,8 +98,8 @@ export const useAppStore = create<AppState>((set, get) => ({
     registration_number: 'IND-KA-04-MM-8821',
     home_port: 'Mangalore Old Port'
   },
-  isAuthenticated: true,
-  userProfile: { name: 'Fisher Ravi Kumar', port: 'Mangalore Old Port', email: 'ravi.kumar@sagar.marine' },
+  isAuthenticated: false,
+  userProfile: null,
   supabaseToken: null,
 
   setCurrentView: (view) => set({ currentView: view }),
@@ -137,7 +137,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       id: data.trip_id || `hist-${Date.now()}`,
       timestamp: new Date().toISOString(),
       origin: data.trip_context?.origin || 'Mangalore Port',
-      destination: data.trip_context?.destination_type === 'NEAREST_PFZ' ? 'Nearest PFZ' : 'Target Fishing Ground',
+      destination: data.trip_context?.destination_type === 'NEAREST_PFZ' ? 'Nearest PFZ' : 'Target Operational Area',
       departureTime: data.trip_context?.departure_time_iso || new Date().toISOString(),
       returnTime: data.trip_context?.expected_return_time_iso || new Date().toISOString(),
       riskLevel: data.overall_risk_level || data.risk_evidence?.overall_risk_level || 'SAFE',

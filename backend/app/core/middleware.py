@@ -24,6 +24,20 @@ async def add_request_id_middleware(request: Request, call_next: Callable) -> Re
     return response
 
 
+async def security_headers_middleware(request: Request, call_next: Callable) -> Response:
+    # [add recommended security headers including cache controls for auth endpoints]
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    
+    path = request.url.path
+    if "/login" in path or "/auth" in path:
+        response.headers["Cache-Control"] = "no-store"
+        
+    return response
+
+
 async def http_exception_handler(request: Request, exc: HTTPException) -> JSONResponse:
     # [format standard fastapi httpexception into errorresponse envelope while retaining detail for test compat]
     request_id = getattr(request.state, "request_id", str(uuid.uuid4()))

@@ -16,12 +16,20 @@ class Settings(BaseSettings):
     REDOC_URL: Optional[str] = None
     OPENAPI_URL: Optional[str] = None
 
+    # CORS configuration
+    # Default to the configured frontend URL; allow an explicit override for
+    # multiple origins in staging or multi-tenant deployments.
+    CORS_ALLOW_ORIGINS: str = ""
+    CORS_ALLOW_CREDENTIALS: bool = True
+
     # Supabase Configuration
     SUPABASE_PROJECT_ID: str = ""
     SUPABASE_JWT_SECRET: str = ""
     SUPABASE_URL: str = ""
     SUPABASE_ANON_KEY: str = ""
     SUPABASE_SERVICE_ROLE_KEY: str = ""
+    SUPABASE_SERVICE_KEY: str = ""
+    SUPABASE_DB_URL: Optional[str] = None
 
     # PostgreSQL Connection Parameters
     POSTGRES_SERVER: str = "localhost"
@@ -39,6 +47,13 @@ class Settings(BaseSettings):
 
     # Google AI
     GOOGLE_API_KEY: str = ""
+
+    # Google OAuth
+    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_SECRET: str = ""
+
+    # Frontend URL (for OAuth redirect after callback)
+    FRONTEND_URL: str = "http://localhost:5173"
 
     # WorldTides
     WORLDTIDES_API_KEY: str = ""
@@ -58,6 +73,27 @@ class Settings(BaseSettings):
             f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
             f"@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         )
+
+    @property
+    def service_role_key(self) -> str:
+        return self.SUPABASE_SERVICE_ROLE_KEY or self.SUPABASE_SERVICE_KEY
+
+    @property
+    def cors_allow_origins(self) -> list[str]:
+        origins = [
+            origin.strip()
+            for origin in self.CORS_ALLOW_ORIGINS.split(",")
+            if origin.strip()
+        ]
+        frontend_origin = self.FRONTEND_URL.strip().rstrip("/")
+        if frontend_origin and frontend_origin not in origins:
+            origins.insert(0, frontend_origin)
+        if not origins:
+            origins.extend([
+                "http://localhost:5173",
+                "http://127.0.0.1:5173",
+            ])
+        return origins
 
     @property
     def is_production(self) -> bool:

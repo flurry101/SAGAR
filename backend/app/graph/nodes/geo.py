@@ -17,7 +17,8 @@ def geo_node(state: Dict[str, Any]) -> Dict[str, Any]:
     Reads trip_context and vessel_profile from state.
     Calculates trajectory and geofence violations.
     """
-    trip_context = state.get("trip_context", {})
+    trip_context = dict(state.get("trip_context", {}))
+    state["trip_context"] = trip_context
     vessel_profile = state.get("vessel_profile", {})
 
     origin = trip_context.get("origin")
@@ -29,10 +30,10 @@ def geo_node(state: Dict[str, Any]) -> Dict[str, Any]:
     if not origin or not departure_time or not speed_kmh:
         # Cannot calculate trajectory without these
         state["workflow_status"] = "CLARIFICATION_REQUIRED"
-        state.setdefault("errors", []).append({
+        state["errors"] = [{
             "node": "geo",
             "message": "Missing origin, departure_time, or vessel cruising_speed_kmh for trajectory calculation."
-        })
+        }]
         return state
 
     speed_knots = speed_kmh * 0.539957
@@ -68,21 +69,40 @@ def geo_node(state: Dict[str, Any]) -> Dict[str, Any]:
     lons = [wp.lon for wp in trajectory.waypoints]
     bbox = [min(lons) - 0.5, min(lats) - 0.5, max(lons) + 0.5, max(lats) + 0.5]
 
-    state["trajectory"] = trajectory.model_dump()
+    normalized_waypoints = []
+    for index, wp in enumerate(trajectory.waypoints):
+        normalized_waypoints.append({
+            "waypoint_index": index,
+            "lat": wp.lat,
+            "lon": wp.lon,
+            "eta_iso": wp.timestamp,
+            "phase": wp.leg_label.value.upper(),
+            "timestamp": wp.timestamp,
+            "leg_label": wp.leg_label.value,
+        })
+
+    trajectory_payload = trajectory.model_dump()
+    trajectory_payload["waypoints"] = normalized_waypoints
+
+    state["trip_context"]["origin_lat"] = origin_lat
+    state["trip_context"]["origin_lon"] = origin_lon
+    state["origin"] = {"lat": origin_lat, "lon": origin_lon}
+    state["trajectory"] = trajectory_payload
+    state["bbox"] = {"lat_min": min(lats) - 0.5, "lat_max": max(lats) + 0.5, "lon_min": min(lons) - 0.5, "lon_max": max(lons) + 0.5}
     state["geofence_results"] = violations
-    state.setdefault("spatial_constraints", []).append({
+    state["spatial_constraints"] = [{
         "type": "bbox",
-        "coordinates": bbox,
+        "coordinates": state["bbox"],
         "purpose": "hazard_alerts"
-    })
+    }]
     
     # Log agent execution
-    state.setdefault("agent_executions", []).append({
+    state["agent_executions"] = [{
         "agent_name": "geo",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": ["geocoder", "trajectory_engine", "geofence_db"],
         "output_summary": f"Calculated {len(trajectory.waypoints)} waypoints and found {len(violations)} geofence violations."
-    })
+    }]
     
     return state

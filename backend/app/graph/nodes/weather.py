@@ -179,16 +179,16 @@ def weather_node(state: Dict[str, Any]) -> Dict[str, Any]:
                 bbox = constraint.get("coordinates")
                 break
 
-    hazard_data = {}
+    hazard_data = state.get("hazard_alerts") or {}
     if bbox:
         # We can extract a time window from the trajectory
         time_window = None
         if waypoints:
             time_window = {
-                "start": waypoints[0].get("eta_iso"),
-                "end": waypoints[-1].get("eta_iso")
+                "from": waypoints[0].get("eta_iso") or waypoints[0].get("timestamp"),
+                "to": waypoints[-1].get("eta_iso") or waypoints[-1].get("timestamp"),
             }
-        hazard_data = fetch_hazard_alerts(bbox, time_window)
+        hazard_data = state.get("hazard_alerts") or fetch_hazard_alerts(bbox, time_window)
         updates["hazard_alerts"] = hazard_data
 
     # --- Generate structured alerts ---
@@ -235,14 +235,14 @@ def weather_node(state: Dict[str, Any]) -> Dict[str, Any]:
     obs_count = len(updates.get("weather_observations", []))
     alert_count = len(alerts)
     hazard_count = len(hazard_data.get("hazards", [])) if isinstance(hazard_data, dict) else 0
-    updates.setdefault("agent_executions", []).append({
+    updates["agent_executions"] = [{
         "agent_name": "weather",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": ["open_meteo", "gdacs"],
         "output_summary": f"Fetched {obs_count} weather observations, {hazard_count} hazards, generated {alert_count} alerts.",
         "evidence_count": len(evidence_items),
-    })
+    }]
 
     return updates
 

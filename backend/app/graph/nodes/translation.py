@@ -75,7 +75,7 @@ def translation_node(state: Dict[str, Any]) -> Dict[str, Any]:
         execution["status"] = "completed"
         execution["completed_at"] = datetime.now(timezone.utc).isoformat()
         execution["output_summary"] = "No translation needed (English)."
-        state.setdefault("agent_executions", []).append(execution)
+        state["agent_executions"] = [execution]
         return state
 
     # --- Store original English text ---
@@ -109,7 +109,7 @@ def translation_node(state: Dict[str, Any]) -> Dict[str, Any]:
                 f"Translated to {target_lang} via Bhashini."
             )
             state["advisory"] = advisory
-            state.setdefault("agent_executions", []).append(execution)
+            state["agent_executions"] = [execution]
             return state
         else:
             logger.warning(
@@ -117,20 +117,14 @@ def translation_node(state: Dict[str, Any]) -> Dict[str, Any]:
                 "Falling back to Gemini."
             )
 
-    # --- Attempt 2: Gemini Fallback ---
-    api_key = os.environ.get("GOOGLE_API_KEY")
-    if api_key:
-        try:
-            from langchain_google_genai import ChatGoogleGenerativeAI
-            from langchain_core.messages import SystemMessage, HumanMessage
+    # --- Attempt 2: LLM Fallback (Gemini -> Qwen) ---
+    try:
+        from app.core.llm import get_llm
+        from langchain_core.messages import SystemMessage, HumanMessage
 
-            llm = ChatGoogleGenerativeAI(
-                model="gemini-1.5-pro",
-                google_api_key=api_key,
-                temperature=0.1,
-            )
+        llm = get_llm(temperature=0.1)
 
-            prompt = f"""Translate the following text to language code '{target_lang}'.
+        prompt = f"""Translate the following text to language code '{target_lang}'.
 Preserve:
 - All numerical values exactly as they are
 - Risk levels (SAFE, MODERATE, HIGH, SEVERE)
@@ -145,31 +139,31 @@ Recommendation: {recommendation}
 Reason: {reason}
 """
 
-            resp = llm.invoke([
-                SystemMessage(content="You are a precise translator. Preserve all technical terms."),
-                HumanMessage(content=prompt),
-            ])
+        resp = llm.invoke([
+            SystemMessage(content="You are a precise translator. Preserve all technical terms."),
+            HumanMessage(content=prompt),
+        ])
 
-            raw = resp.content.strip().strip("```json").strip("```").strip()
-            parsed = json.loads(raw)
+        raw = resp.content.strip().strip("```json").strip("```").strip()
+        parsed = json.loads(raw)
 
-            advisory["recommendation_text"] = parsed.get("recommendation", recommendation)
-            advisory["reason"] = parsed.get("reason", reason)
-            advisory["translation_provider"] = "gemini_fallback"
+        advisory["recommendation_text"] = parsed.get("recommendation", recommendation)
+        advisory["reason"] = parsed.get("reason", reason)
+        advisory["translation_provider"] = "gemini_fallback"
 
-            execution["status"] = "completed"
-            execution["completed_at"] = datetime.now(timezone.utc).isoformat()
-            execution["data_sources"] = ["gemini"]
-            execution["output_summary"] = (
-                f"Translated to {target_lang} via Gemini (Bhashini unavailable)."
-            )
-            state["advisory"] = advisory
-            state.setdefault("agent_executions", []).append(execution)
-            return state
+        execution["status"] = "completed"
+        execution["completed_at"] = datetime.now(timezone.utc).isoformat()
+        execution["data_sources"] = ["gemini"]
+        execution["output_summary"] = (
+            f"Translated to {target_lang} via Gemini (Bhashini unavailable)."
+        )
+        state["advisory"] = advisory
+        state["agent_executions"] = [execution]
+        return state
 
-        except Exception as e:
-            logger.warning(f"Gemini translation also failed: {e}")
-            execution["error"] = f"Both Bhashini and Gemini failed: {e}"
+    except Exception as e:
+        logger.warning(f"Gemini translation also failed: {e}")
+        execution["error"] = f"Both Bhashini and Gemini failed: {e}"
 
     # --- Attempt 3: Return original English ---
     advisory["translation_provider"] = "unavailable"
@@ -179,5 +173,5 @@ Reason: {reason}
         f"Translation to {target_lang} unavailable. Returning English."
     )
     state["advisory"] = advisory
-    state.setdefault("agent_executions", []).append(execution)
+    state["agent_executions"] = [execution]
     return state

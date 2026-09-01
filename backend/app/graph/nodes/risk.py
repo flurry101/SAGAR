@@ -29,6 +29,9 @@ def _build_environmental_observations(state: Dict[str, Any]) -> List[Environment
         idx = m_obs.get("waypoint_index", 0)
         marine_by_idx[idx] = m_obs.get("marine", {})
 
+    hazard_alerts = state.get("hazard_alerts") or {}
+    cyclone_active = bool(hazard_alerts.get("cyclone_active", False))
+
     for w_obs in state.get("weather_observations", []):
         idx = w_obs.get("waypoint_index", 0)
         weather = w_obs.get("weather", {})
@@ -50,8 +53,8 @@ def _build_environmental_observations(state: Dict[str, Any]) -> List[Environment
             depth_m=marine.get("depth_m"),
             tide_height_m=marine.get("tide_height_m"),
             visibility_km=weather.get("visibility_km"),
-            cyclone_warning=weather.get("cyclone_alert", False) or False,
-            cyclone_details=None,
+            cyclone_warning=bool(weather.get("cyclone_alert", False)) or cyclone_active,
+            cyclone_details={"source": hazard_alerts.get("provenance", {}).get("source"), "cyclone_active": cyclone_active},
         ))
 
     return observations
@@ -104,11 +107,12 @@ def risk_node(state: Dict[str, Any]) -> Dict[str, Any]:
     evidence = engine.evaluate(risk_input)
     
     evidence_dump = evidence.model_dump()
-    overall_risk = evidence.overall_risk_level.value
-    
+    overall_risk_value = getattr(evidence.overall_risk_level, "value", evidence.overall_risk_level)
+    overall_risk = str(overall_risk_value)
+
     if overall_risk == "UNKNOWN":
         evidence_dump["advisory_category"] = "INSUFFICIENT_INFORMATION"
-    elif overall_risk in ["SEVERE", "HIGH"]:
+    elif overall_risk in {"SEVERE", "HIGH"}:
         evidence_dump["advisory_category"] = "ELEVATED_RISK_IDENTIFIED"
     else:
         evidence_dump["advisory_category"] = "FAVORABLE"
@@ -118,13 +122,13 @@ def risk_node(state: Dict[str, Any]) -> Dict[str, Any]:
         "overall_risk_level": overall_risk,
     }
     
-    updates.setdefault("agent_executions", []).append({
+    updates["agent_executions"] = [{
         "agent_name": "risk",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": ["deterministic_rules"],
         "output_summary": f"Risk level assessed as {overall_risk}. {evidence.summary}"
-    })
+    }]
 
     return updates
 

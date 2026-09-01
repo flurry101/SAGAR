@@ -99,7 +99,7 @@ def route_node(state: Dict[str, Any]) -> Dict[str, Any]:
     no_safe_route = all(c.get("safety_score", 0) < 0.3 for c in candidates)
 
     updates = {"route_candidates": candidates}
-    updates.setdefault("agent_executions", []).append({
+    updates["agent_executions"] = [{
         "agent_name": "route",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
@@ -109,7 +109,7 @@ def route_node(state: Dict[str, Any]) -> Dict[str, Any]:
             f"Selected: {best['route_id']} (safety={best.get('safety_score', 'N/A')}). "
             f"No safe route: {no_safe_route}."
         ),
-    })
+    }]
 
     return updates
 

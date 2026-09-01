@@ -141,12 +141,12 @@ def reporting_node(state: Dict[str, Any]) -> Dict[str, Any]:
     }
 
     updates = {"report": report}
-    updates.setdefault("agent_executions", []).append({
+    updates["agent_executions"] = [{
         "agent_name": "reporting",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": list(sources),
         "output_summary": f"Generated report. Risk: {overall_risk}. Evidence items: {len(evidence)}.",
-    })
+    }]
 
     return updates

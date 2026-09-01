@@ -1,6 +1,6 @@
 {
   "app_name": "SAGAR Marine Decision Support",
-  "tagline": "Spatio-temporal fishing safety advisory & voyage decision support",
+  "tagline": "Spatio-temporal maritime safety advisory & voyage decision support",
   "nav": {
     "home": "Overview",
     "planner": "Trip Planner",
@@ -13,7 +13,7 @@
   "landing": {
     "hero_title": "Navigate safely with 4D spatio-temporal marine intelligence",
     "hero_subtitle": "SAGAR evaluates your entire 4D trip — outbound transit, fishing zone, and return journey — to protect you from future marine hazards.",
-    "start_trip": "Plan Fishing Trip",
+    "start_trip": "Plan Maritime Trip",
     "demo_scenarios": "Operational Scenarios"
   },
   "chat": {
