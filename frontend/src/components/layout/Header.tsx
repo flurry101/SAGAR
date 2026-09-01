@@ -22,8 +22,8 @@ export const Header: React.FC = () => {
     { id: 'history', label: 'Voyage History', icon: <History className="w-4 h-4 shrink-0" /> },
   ];
 
-  const fullDisplayName = isAuthenticated ? userProfile?.name || 'Fisher Ravi Kumar' : 'Sign In';
-  const shortDisplayName = isAuthenticated ? (userProfile?.name?.replace('Fisher ', '') || 'Ravi Kumar') : 'Sign In';
+  const fullDisplayName = isAuthenticated ? userProfile?.name || 'Marine Operator' : 'Sign In';
+  const shortDisplayName = isAuthenticated ? (userProfile?.name || 'Operator') : 'Sign In';
 
   return (
     <header className="w-full bg-white/95 backdrop-blur-md border-b border-sagar-border sticky top-0 z-40 shadow-soft-sm">
@@ -108,7 +108,7 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* 4. Right Controls: Language & Fisher Account - Guaranteed Fully Visible */}
+          {/* 4. Right Controls: Language & Profile Access - Guaranteed Fully Visible */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
             {/* Language Selector */}
             <div className="hidden sm:block shrink-0">

@@ -189,7 +189,7 @@ export const LandingPage: React.FC = () => {
               Deterministic Physics & Spatio-Temporal Intelligence
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              Why static weather cards fail fishers — and how SAGAR provides true voyage decision support.
+              Why static weather cards fail maritime operators — and how SAGAR provides true voyage decision support.
             </p>
           </motion.div>
 
@@ -241,7 +241,7 @@ export const LandingPage: React.FC = () => {
               </div>
               <h3 className="text-base font-extrabold text-sagar-navy">Full Data Provenance</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Fishers need to trust their advice. Every advisory provides complete provenance tiers (Tier 1 Live API, Tier 2 Numerical Forecast, Tier 3 Historical Baseline) with confidence ratings.
+                Operators need to trust their advice. Every advisory provides complete provenance tiers (Tier 1 Live API, Tier 2 Numerical Forecast, Tier 3 Historical Baseline) with confidence ratings.
               </p>
               <div className="pt-2 text-xs font-bold text-emerald-700 flex items-center gap-1">
                 <span>Expandable "See Why" evidence registry</span>
@@ -251,7 +251,7 @@ export const LandingPage: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* 5. FISHER-FIRST ACCESSIBILITY BANNER */}
+      {/* 5. MARITIME-READY ACCESSIBILITY BANNER */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -263,13 +263,13 @@ export const LandingPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-3 text-left">
               <span className="text-xs font-black uppercase tracking-wider text-sky-950 px-3 py-1 rounded-full bg-white/90 border border-sky-300">
-                Built for Coastal Fishers
+                Built for Coastal Operations
               </span>
               <h3 className="text-2xl sm:text-4xl font-black text-sagar-navy tracking-tight">
-                Designed for Outdoor Sunlight, Mobile Touch & Regional Languages
+                Designed for Outdoor Visibility, Mobile Touch & Regional Languages
               </h3>
               <p className="text-xs sm:text-sm text-slate-700 leading-relaxed max-w-2xl font-medium">
-                SAGAR features high-contrast typography readable under bright marine sunlight, 44px+ touch targets for boat operation, multilingual support across coastal states, and offline progressive caching.
+                SAGAR features high-contrast typography readable under bright marine sunlight, 44px+ touch targets for vessel operations, multilingual support across coastal regions, and offline progressive caching.
               </p>
             </div>
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">

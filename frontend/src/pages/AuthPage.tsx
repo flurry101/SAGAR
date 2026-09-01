@@ -19,10 +19,10 @@ const GoogleLogo: React.FC<{ className?: string }> = ({ className }) => (
 export const AuthPage: React.FC = () => {
   const { isAuthenticated, userProfile, setAuthenticated, setCurrentView, selectedLanguage } = useAppStore();
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
-  const [email, setEmail] = useState('fisher.ravi@sagar.marine');
+  const [email, setEmail] = useState('ops.sagar@marine.mission');
   const [password, setPassword] = useState('sagar12345');
-  const [name, setName] = useState(userProfile?.name || 'Fisher Ravi Kumar');
-  const [port, setHomePort] = useState(userProfile?.port || 'Mangalore Old Port');
+  const [name, setName] = useState(userProfile?.name || 'Marine Operator');
+  const [port, setHomePort] = useState(userProfile?.port || 'Mangalore Port');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
@@ -163,9 +163,9 @@ export const AuthPage: React.FC = () => {
           <div className="w-12 h-12 rounded-2xl bg-sagar-powder text-sky-700 flex items-center justify-center mx-auto font-bold shadow-soft-sm">
             <User className="w-6 h-6" />
           </div>
-          <h1 className="text-lg sm:text-xl font-bold text-sagar-navy">Fisherman Identity & Authentication</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-sagar-navy">Operator Identity & Authentication</h1>
           <p className="text-xs text-slate-500">
-            Authenticate to sync your registered vessel profile and past voyage safety records.
+            Authenticate to sync your vessel profile and voyage safety records across maritime operations.
           </p>
         </div>
 
@@ -259,7 +259,7 @@ export const AuthPage: React.FC = () => {
         <form onSubmit={handleEmailAuth} className="space-y-3.5 text-xs">
           {authMode === 'signup' && (
             <div>
-              <label className="font-semibold text-slate-700 block mb-1">Fisher Full Name</label>
+              <label className="font-semibold text-slate-700 block mb-1">Operator Full Name</label>
               <input
                 type="text"
                 required

@@ -83,7 +83,7 @@ export const AssessmentHistoryPage: React.FC = () => {
           </div>
           <h2 className="text-sm sm:text-base font-bold text-sagar-navy">No Previous Trip Assessments Found</h2>
           <p className="text-xs text-slate-500 max-w-md mx-auto">
-            When you evaluate a fishing voyage in the Trip Planner, the assessment parameters and safety advisories will be archived here.
+            When you evaluate a voyage in the Trip Planner, the assessment parameters and safety advisories will be archived here.
           </p>
           <button
             onClick={() => setCurrentView('chat')}

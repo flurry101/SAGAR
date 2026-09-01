@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: 'ORCA — Marine Ecosystem Reasoning & Safety PWA',
         short_name: 'ORCA Safety',
-        description: 'Spatio-temporal fishing safety advisory & trip planning',
+        description: 'Spatio-temporal maritime safety advisory & trip planning',
         theme_color: '#070d18',
         background_color: '#070d18',
         display: 'standalone',

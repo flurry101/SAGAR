@@ -224,7 +224,7 @@ export const InteractiveVoyageSimulator: React.FC = () => {
           iconRight={<ArrowRight className="w-4 h-4" />}
           onClick={() => setCurrentView('chat')}
         >
-          Plan My Fishing Trip
+          Plan My Maritime Voyage
         </RippleButton>
       </div>
     </div>

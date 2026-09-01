@@ -217,7 +217,7 @@ export const ChatInterface: React.FC = () => {
             <div>
               <h2 className="text-base sm:text-lg font-bold text-sagar-navy mb-1">Plan Your Voyage Safely</h2>
               <p className="text-xs max-w-md text-slate-600 leading-relaxed">
-                Specify your departure time, origin harbor, fishing ground, and expected return time. SAGAR evaluates sea state forecasts, geofencing, and capsize stability limits across every phase of your journey.
+                Specify your departure time, origin harbor, operational area, and expected return time. SAGAR evaluates sea state forecasts, geofencing, and capsize stability limits across every phase of your journey.
               </p>
             </div>
 

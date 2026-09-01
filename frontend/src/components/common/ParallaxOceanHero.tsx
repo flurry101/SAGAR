@@ -25,7 +25,7 @@ export const ParallaxOceanHero: React.FC = () => {
     { label: 'Origin', time: 'Mangalore', status: 'Harbor Base', icon: <Anchor className="w-3.5 h-3.5" /> },
     { label: 'Departure', time: '05:00 IST', status: 'Calm (0.8m)', icon: <Navigation className="w-3.5 h-3.5 text-emerald-600" /> },
     { label: 'Outbound', time: '07:30 IST', status: '30km Corridor', icon: <Ship className="w-3.5 h-3.5 text-sky-600" /> },
-    { label: 'Fishing Ground', time: '10:00 IST', status: 'Active PFZ', icon: <Sparkles className="w-3.5 h-3.5 text-teal-600" /> },
+    { label: 'Operational Area', time: '10:00 IST', status: 'Active PFZ', icon: <Sparkles className="w-3.5 h-3.5 text-teal-600" /> },
     { label: 'Return Transit', time: '16:00 IST', status: 'Swell Evaluated', icon: <Waves className="w-3.5 h-3.5 text-amber-600" /> },
     { label: 'Safe Arrival', time: '18:00 IST', status: 'SVAS Verified', icon: <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> },
   ];
@@ -90,7 +90,7 @@ export const ParallaxOceanHero: React.FC = () => {
               <div className="w-5 h-5 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold">
                 <Anchor className="w-3 h-3" />
               </div>
-              <span>SAGAR — Marine Voyage Decision Support</span>
+              <span>SAGAR — Maritime Voyage Decision Support</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
             </motion.div>
 
@@ -119,7 +119,7 @@ export const ParallaxOceanHero: React.FC = () => {
                 iconRight={<ArrowRight className="w-5 h-5" />}
                 onClick={() => setCurrentView('chat')}
               >
-                Plan Fishing Voyage
+                Plan Maritime Voyage
               </RippleButton>
 
               <RippleButton

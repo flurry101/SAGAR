@@ -30,7 +30,7 @@ export const TripConfirmation: React.FC<Props> = ({
       : '14:00'
   );
   const [destination, setDestination] = useState(
-    tripContext.destination_type === 'NEAREST_PFZ' ? 'Nearest Recommended PFZ' : 'Target Fishing Ground'
+    tripContext.destination_type === 'NEAREST_PFZ' ? 'Nearest Recommended PFZ' : 'Target Operational Area'
   );
   const [vesselType, setVesselType] = useState(
     vesselProfile?.vessel_type || 'Mechanized Trawler'
@@ -98,7 +98,7 @@ export const TripConfirmation: React.FC<Props> = ({
         <div className="p-3.5 rounded-xl bg-sagar-canvasAlt border border-sagar-borderLight space-y-1">
           <div className="flex items-center gap-1.5 text-slate-500 font-medium">
             <Navigation className="w-3.5 h-3.5 text-sky-600" />
-            <span>Fishing Destination</span>
+            <span>Operational Destination</span>
           </div>
           {isEditing ? (
             <input

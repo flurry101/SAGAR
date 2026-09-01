@@ -25,7 +25,7 @@ export function sanitizeSagarText(text?: string | null): string {
  * Standardized SAGAR safety disclaimer.
  */
 export const SAGAR_SAFETY_DISCLAIMER =
-  'SAGAR provides advisory decision support to assist fishers in voyage planning. It does not replace official marine weather bulletins from IMD or INCOIS. The final navigation and safety decision always rests with the vessel skipper.';
+  'SAGAR provides advisory decision support to assist maritime operators, coastal authorities, research teams, and disaster-management personnel in voyage planning. It does not replace official marine weather bulletins from IMD or INCOIS. The final navigation and safety decision always rests with the responsible vessel skipper or authority.';
 
 /**
  * Formats advisory disclaimers to ensure uniform, professional decision-support phrasing.
