@@ -20,6 +20,7 @@ from app.api.weather import router as weather_router
 from app.api.marine import router as marine_router
 from app.api.risk import router as risk_router
 from app.api.vessel import router as vessel_router
+from app.api.voice import router as voice_router
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +72,7 @@ app.include_router(vessel_router, prefix="/api/v1", tags=["Vessels"])
 app.include_router(weather_router, prefix="/api/v1", tags=["Weather & Hazards"])
 app.include_router(marine_router, prefix="/api/v1", tags=["Marine & PFZ"])
 app.include_router(risk_router, prefix="/api/v1", tags=["Deterministic Risk Engine"])
+app.include_router(voice_router, prefix="/api/v1/voice", tags=["Resilient Voice Architecture"])
 app.include_router(user_router, prefix="/api/v1/user", tags=["User"])
 app.include_router(user_router, prefix="/user", tags=["User (Starter Compatibility)"])
 
