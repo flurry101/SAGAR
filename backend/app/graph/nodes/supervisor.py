@@ -110,19 +110,14 @@ def supervisor_node(state: Dict[str, Any]) -> Dict[str, Any]:
         user_message = history[-1].get("content", "")
 
     # --- LLM-based intent understanding & task decomposition ---
-    api_key = os.environ.get("GOOGLE_API_KEY")
     task_plan = _default_task_plan(user_message)
 
-    if api_key and user_message:
+    if user_message:
         try:
-            from langchain_google_genai import ChatGoogleGenerativeAI
+            from app.core.llm import get_llm
             from langchain_core.messages import SystemMessage, HumanMessage
 
-            llm = ChatGoogleGenerativeAI(
-                model="gemini-1.5-pro",
-                google_api_key=api_key,
-                temperature=0.1,
-            )
+            llm = get_llm(temperature=0.1)
 
             prompt = f"""You are the ORCA Supervisor Agent for a marine intelligence platform.
 
@@ -241,7 +236,7 @@ User message: {user_message}
         "capabilities": task_plan.get("required_capabilities"),
         "safety_required": task_plan.get("requires_safety_assessment"),
     }
-    state.setdefault("agent_executions", []).append(execution)
+    state["agent_executions"] = [execution]
 
     return state
 

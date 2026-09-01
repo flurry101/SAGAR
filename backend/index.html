@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Voice Agent</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        canvas {
+            display: block;
+            cursor: pointer;
+        }
+
+        #ui-layer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        #status-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            text-transform: uppercase;
+            transition: all 0.5s ease;
+        }
+
+        button {
+            pointer-events: auto;
+            background: transparent;
+            border: 1px solid rgba(192, 192, 192, 0.3);
+            color: #c0c0c0;
+            padding: 10px 25px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Subtitle: the assistant's reply, word-by-word (response_delta), fades
+           out once the bot has finished speaking. */
+        #caption {
+            position: absolute;
+            left: 50%;
+            bottom: 8vh;
+            transform: translateX(-50%);
+            width: min(760px, 92vw);
+            max-height: 28vh;
+            overflow: hidden;
+            padding: 12px 18px;
+            box-sizing: border-box;
+            font-size: 16px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.88);
+            text-align: center;
+            white-space: pre-wrap;
+            word-break: break-word;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            backdrop-filter: blur(4px);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        #caption.show { opacity: 1; }
+        #caption.streaming::after { content: '▍'; opacity: 0.7; animation: blink 1s steps(1) infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+
+<body>
+
+    <div id="ui-layer">
+        <button id="start-btn">Start</button>
+        <div id="status-text" class="hidden"></div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+    <div id="caption" aria-live="polite"></div>
+
+    <script src="aivg-sdk.js?v=1.0.11"></script>
+    <script>
+        // --- SUBTITLE (assistant reply only; textContent — LLM text is untrusted) ---
+        // Text arrives faster than speech (a short reply streams in a few ms and
+        // lands ~1s before the first audio frame), so the reveal is paced: words
+        // appear at roughly speaking rate, starting when the bot's audio starts,
+        // and the subtitle fades once the bot has stopped speaking.
+        const caption = (() => {
+            const box = document.getElementById('caption');
+            const WORD_MS = 280;          // reveal pace (~3.5 words/s ≈ speech)
+            const LEAD_MS = 2500;         // start revealing anyway if audio hasn't begun by then
+            let target = '';              // text received so far (streaming or final)
+            let shownWords = 0;           // words revealed
+            let done = false;             // full text received
+            let played = false;           // audio heard playing since the reply started
+            let firstTextAt = 0;
+            let lastStep = 0;
+            let hideTimer = null, fallback = null;
+            const words = (t) => t.split(/(\s+)/);   // keep whitespace tokens so spacing is exact
+            const render = () => {
+                const parts = words(target);
+                // parts alternate word / space; shownWords counts words
+                let out = '', n = 0;
+                for (const p of parts) { if (/^\s+$/.test(p)) { if (n < shownWords) out += p; continue; } if (n >= shownWords) break; out += p; n++; }
+                box.textContent = out;
+                const finished = done && n >= parts.filter(p => p && !/^\s+$/.test(p)).length;
+                box.classList.toggle('streaming', !finished);
+                if (out) box.classList.add('show');
+            };
+            const totalWords = () => words(target).filter(p => p && !/^\s+$/.test(p)).length;
+            const reset = () => { target = ''; shownWords = 0; done = false; played = false; firstTextAt = 0; lastStep = 0; clearTimeout(fallback); fallback = null; };
+            const hide = () => {
+                clearTimeout(hideTimer);
+                box.classList.remove('show', 'streaming');
+                hideTimer = setTimeout(() => { if (!box.classList.contains('show')) box.textContent = ''; }, 700);
+                reset();
+            };
+            return {
+                streaming(text) {
+                    if (done) reset();               // new turn
+                    if (!firstTextAt) firstTextAt = performance.now();
+                    target = text;
+                    box.classList.add('show');
+                },
+                final(text) {
+                    if (!firstTextAt) firstTextAt = performance.now();
+                    target = text; done = true;
+                    clearTimeout(fallback);
+                    fallback = setTimeout(hide, 20000);   // safety: no audio ever comes
+                    box.classList.add('show');
+                },
+                // Called every animation frame with "is bot audio playing".
+                tick(playing) {
+                    if (!target) return;
+                    if (playing) played = true;
+                    const now = performance.now();
+                    const mayReveal = playing || played || (now - firstTextAt > LEAD_MS);
+                    if (mayReveal && now - lastStep >= WORD_MS && shownWords < totalWords()) {
+                        // catch up if the model is far ahead (long replies)
+                        const behind = totalWords() - shownWords;
+                        shownWords += behind > 40 ? 3 : (behind > 20 ? 2 : 1);
+                        lastStep = now;
+                        render();
+                    }
+                    // Fade once the whole reply is shown and the bot has stopped talking.
+                    if (done && played && !playing && shownWords >= totalWords()) hide();
+                },
+                hide
+            };
+        })();
+
+        // --- CONFIGURATION ---
+        const config = {
+            barGap: 2,
+            maxBarHeight: 150,
+            sensitivity: 2.5,
+
+            // State colors (RGB)
+            colors: {
+                idle: '220, 230, 255',       // Silver
+                connected: '220, 230, 255',  // Silver
+                listening: '100, 150, 255',  // Blue
+                processing: '255, 200, 100', // Yellow/Amber
+                speaking: '100, 255, 150',   // Green
+                error: '255, 100, 100'       // Red
+            },
+
+            // AIVG Server Configuration
+            serverUrl: `ws://${window.location.hostname}:8081`,
+            language: 'en-IN'
+        };
+
+        // --- DOM ELEMENTS ---
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const startBtn = document.getElementById('start-btn');
+        const statusText = document.getElementById('status-text');
+
+        // --- STATE VARIABLES ---
+        let currentState = 'idle';
+        let currentColor = config.colors.idle;
+        let targetColor = config.colors.idle;
+        let voice = null;
+
+        // Audio variables
+        let audioContext, analyser, dataArray, micSource;
+
+        // Canvas dimensions
+        let width, height, centerX, centerY;
+
+        // --- RESIZE HANDLING ---
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            centerX = width / 2;
+            centerY = height / 2;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // --- COLOR INTERPOLATION ---
+        function parseColor(colorStr) {
+            const parts = colorStr.split(',').map(s => parseInt(s.trim()));
+            return { r: parts[0], g: parts[1], b: parts[2] };
+        }
+
+        function lerpColor(current, target, t) {
+            const c = parseColor(current);
+            const tgt = parseColor(target);
+            const r = Math.round(c.r + (tgt.r - c.r) * t);
+            const g = Math.round(c.g + (tgt.g - c.g) * t);
+            const b = Math.round(c.b + (tgt.b - c.b) * t);
+            return `${r}, ${g}, ${b}`;
+        }
+
+        // --- STATE MANAGEMENT ---
+        function setState(newState) {
+            const previousState = currentState;
+            currentState = newState;
+            targetColor = config.colors[newState] || config.colors.idle;
+
+            // Update status text styling
+            statusText.className = '';
+            statusText.classList.add('hidden');
+
+            // Show status only for error
+            if (newState === 'error') {
+                statusText.classList.remove('hidden');
+            }
+
+            console.log(`[UI] State: ${previousState} → ${newState}`);
+        }
+
+        // --- AUDIO INITIALIZATION ---
+        async function initAudio() {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 128;
+
+                const bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+
+                return true;
+            } catch (err) {
+                console.error("Audio Init Error:", err);
+                return false;
+            }
+        }
+
+        // --- AUTO START LISTENING ---
+        let isStartingListening = false;
+        let wasListeningBeforeSpeaking = false;
+
+        async function autoStartListening() {
+            if (!voice || !voice.isConnected) return;
+            if (voice.isListening || isStartingListening) return;
+
+            isStartingListening = true;
+            try {
+                await voice.startListening();
+                // Connect microphone to analyser for visualization
+                if (audioContext && !micSource) {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    micSource = audioContext.createMediaStreamSource(stream);
+                    micSource.connect(analyser);
+                }
+            } catch (err) {
+                console.error('[UI] Failed to start listening:', err);
+                setState('error');
+                statusText.classList.remove('hidden');
+                statusText.innerText = 'Microphone access denied';
+            } finally {
+                isStartingListening = false;
+            }
+        }
+
+        // --- AIVG INITIALIZATION ---
+        async function initAIVG() {
+            startBtn.disabled = true;
+            startBtn.innerText = "Connecting...";
+
+            try {
+                await initAudio();
+
+                voice = new AIVoiceGateway({
+                    serverUrl: config.serverUrl,
+                    language: config.language,
+
+                    onConnect: ({ uuid }) => {
+                        console.log('[AIVG] Connected:', uuid);
+                        startBtn.classList.add('hidden');
+                        statusText.classList.add('hidden');
+                        setTimeout(() => autoStartListening(), 200);
+                    },
+
+                    onDisconnect: ({ code, reason }) => {
+                        console.log('[AIVG] Disconnected:', code, reason);
+                        setState('idle');
+                        startBtn.classList.remove('hidden');
+                        startBtn.disabled = false;
+                        startBtn.innerText = "Reconnect";
+                    },
+
+                    onStatus: (status) => {
+                        console.log('[AIVG] Status:', status);
+                        if (status === 'listening') {
+                            setState('listening');
+                            wasListeningBeforeSpeaking = true;
+                        } else if (status === 'processing') {
+                            setState('processing');
+                        } else if (status === 'speaking') {
+                            setState('speaking');
+                        } else if (status === 'ready') {
+                            if (wasListeningBeforeSpeaking) {
+                                setTimeout(() => autoStartListening(), 300);
+                            }
+                        }
+                    },
+
+                    onTranscript: (text, { isFinal }) => {
+                        console.log('[AIVG] Transcript:', text, isFinal ? '(final)' : '(interim)');
+                    },
+
+                    // Streamed fragments arrive while the model is still writing
+                    // (server LITEBOT_STREAMING) — render word-by-word.
+                    onResponseDelta: (delta, accumulated) => {
+                        caption.streaming(accumulated);
+                    },
+
+                    // Full text, once per turn — replaces the streamed line
+                    // (also the only callback on non-streaming servers).
+                    onResponse: (text) => {
+                        console.log('[AIVG] AI Response:', text);
+                        caption.final(text);
+                    },
+
+                    onAudio: (audioData) => {
+                        // Audio visualization handled via voice.getFrequencyData()
+                    },
+
+                    onHangup: ({ reason }) => {
+                        console.log('[AIVG] Hangup:', reason);
+                        caption.hide();
+                        setState('idle');
+                        startBtn.classList.remove('hidden');
+                        startBtn.disabled = false;
+                        startBtn.innerText = "Start";
+                    },
+
+                    onError: ({ code, message }) => {
+                        console.error('[AIVG] Error:', code, message);
+                        setState('error');
+                        statusText.innerText = `Error: ${message}`;
+                        setTimeout(() => {
+                            if (voice && voice.isConnected) {
+                                setState('connected');
+                            }
+                        }, 3000);
+                    }
+                });
+
+                await voice.connect();
+
+            } catch (error) {
+                console.error('[AIVG] Connection failed:', error);
+                setState('error');
+                statusText.innerText = `Connection Failed`;
+                statusText.classList.remove('hidden');
+                startBtn.disabled = false;
+                startBtn.innerText = "Retry";
+                startBtn.classList.remove('hidden');
+            }
+        }
+
+        // --- GET TTS AUDIO DATA ---
+        let ttsDataArray = null;
+
+        function getTTSAudioData() {
+            if (!voice) {
+                ttsDataArray = null;
+                return null;
+            }
+
+            // Check if we should get TTS data - either state is speaking OR audio is still playing
+            const isAudioPlaying = voice.isSpeakingSession || voice.isPlaying;
+            if (currentState !== 'speaking' && !isAudioPlaying) {
+                ttsDataArray = null;
+                return null;
+            }
+
+            const freqData = voice.getFrequencyData();
+            if (!freqData) {
+                ttsDataArray = null;
+                return null;
+            }
+
+            ttsDataArray = freqData;
+            return freqData;
+        }
+
+        // --- EVENT LISTENERS ---
+        startBtn.addEventListener('click', () => {
+            initAIVG();
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        });
+
+        canvas.addEventListener('click', () => {
+            if (!voice || !voice.isConnected) return;
+            if (currentState === 'connected' || currentState === 'idle') {
+                autoStartListening();
+            }
+        });
+
+        // --- VISUALIZATION ---
+        function drawWaveform() {
+            // Determine target color - use speaking color if TTS is playing
+            const ttsPlaying = voice && (voice.isSpeakingSession || voice.isPlaying);
+            caption.tick(!!ttsPlaying);
+            const effectiveTargetColor = ttsPlaying ? config.colors.speaking : targetColor;
+
+            // Smooth color transition
+            currentColor = lerpColor(currentColor, effectiveTargetColor, 0.08);
+
+            // Clear canvas
+            ctx.fillStyle = '#050505';
+            ctx.fillRect(0, 0, width, height);
+
+            // Get audio data based on state
+            let audioData = null;
+            let hasRealData = false;
+
+            if (ttsPlaying) {
+                // Prioritize TTS audio visualization when AI is speaking
+                const ttsData = getTTSAudioData();
+                if (ttsData) {
+                    audioData = ttsData;
+                    hasRealData = true;
+                }
+            } else if (currentState === 'listening' && analyser && dataArray && micSource) {
+                // Use microphone data when listening (and no TTS playing)
+                analyser.getByteFrequencyData(dataArray);
+                audioData = dataArray;
+                hasRealData = true;
+            }
+
+            // Calculate bar dimensions for full width
+            const barCount = Math.floor(width / (4 + config.barGap));
+            const barWidth = (width - (barCount * config.barGap)) / barCount;
+            const startX = 0;
+
+            // Draw bars
+            for (let i = 0; i < barCount; i++) {
+                let barHeight;
+                const ratio = i / barCount;
+
+                if (hasRealData && audioData) {
+                    // Use real audio data
+                    const dataIndex = Math.floor(i * audioData.length / barCount);
+                    const value = audioData[dataIndex] / 255;
+                    barHeight = value * config.maxBarHeight * config.sensitivity;
+                } else {
+                    // Generate animated waveform based on state
+                    const t = Date.now();
+
+                    if (currentState === 'listening') {
+                        // Gentle wave for listening
+                        barHeight = 20 + Math.sin(ratio * Math.PI * 4 + t / 200) * 15 + Math.sin(ratio * Math.PI * 2 + t / 300) * 10;
+                    } else if (currentState === 'speaking') {
+                        // More active wave for speaking
+                        barHeight = 30 + Math.sin(ratio * Math.PI * 6 + t / 80) * 25 + Math.sin(ratio * Math.PI * 3 - t / 120) * 20 + Math.random() * 10;
+                    } else if (currentState === 'processing') {
+                        // Pulsing wave for processing
+                        barHeight = 25 + Math.sin(ratio * Math.PI * 2 + t / 150) * 20 + Math.sin(t / 200) * 15;
+                    } else {
+                        // Subtle breathing for idle/connected
+                        barHeight = 8 + Math.sin(ratio * Math.PI * 2 + t / 1000) * 5 + Math.sin(t / 1500) * 3;
+                    }
+                }
+
+                // Ensure minimum height
+                barHeight = Math.max(3, barHeight);
+
+                const xPos = startX + i * (barWidth + config.barGap);
+                const yPos = centerY;
+
+                // Draw bar (mirrored top and bottom)
+                const gradient = ctx.createLinearGradient(xPos, yPos - barHeight, xPos, yPos + barHeight);
+                gradient.addColorStop(0, `rgba(${currentColor}, 0.1)`);
+                gradient.addColorStop(0.3, `rgba(${currentColor}, 0.8)`);
+                gradient.addColorStop(0.5, `rgba(${currentColor}, 1)`);
+                gradient.addColorStop(0.7, `rgba(${currentColor}, 0.8)`);
+                gradient.addColorStop(1, `rgba(${currentColor}, 0.1)`);
+
+                ctx.fillStyle = gradient;
+                ctx.fillRect(xPos, yPos - barHeight, barWidth, barHeight * 2);
+
+                // Add glow effect
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = `rgba(${currentColor}, 0.5)`;
+            }
+
+            // Reset shadow
+            ctx.shadowBlur = 0;
+
+            requestAnimationFrame(drawWaveform);
+        }
+
+        // Start animation loop
+        drawWaveform();
+
+    </script>
+</body>
+
+</html>

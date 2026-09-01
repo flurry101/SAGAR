@@ -30,10 +30,10 @@ def geo_node(state: Dict[str, Any]) -> Dict[str, Any]:
     if not origin or not departure_time or not speed_kmh:
         # Cannot calculate trajectory without these
         state["workflow_status"] = "CLARIFICATION_REQUIRED"
-        state.setdefault("errors", []).append({
+        state["errors"] = [{
             "node": "geo",
             "message": "Missing origin, departure_time, or vessel cruising_speed_kmh for trajectory calculation."
-        })
+        }]
         return state
 
     speed_knots = speed_kmh * 0.539957
@@ -90,19 +90,19 @@ def geo_node(state: Dict[str, Any]) -> Dict[str, Any]:
     state["trajectory"] = trajectory_payload
     state["bbox"] = {"lat_min": min(lats) - 0.5, "lat_max": max(lats) + 0.5, "lon_min": min(lons) - 0.5, "lon_max": max(lons) + 0.5}
     state["geofence_results"] = violations
-    state.setdefault("spatial_constraints", []).append({
+    state["spatial_constraints"] = [{
         "type": "bbox",
         "coordinates": state["bbox"],
         "purpose": "hazard_alerts"
-    })
+    }]
     
     # Log agent execution
-    state.setdefault("agent_executions", []).append({
+    state["agent_executions"] = [{
         "agent_name": "geo",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": ["geocoder", "trajectory_engine", "geofence_db"],
         "output_summary": f"Calculated {len(trajectory.waypoints)} waypoints and found {len(violations)} geofence violations."
-    })
+    }]
     
     return state

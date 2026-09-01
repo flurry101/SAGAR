@@ -187,8 +187,9 @@ def _get_default_llm():
         LLM instance, or None if API key is not set.
     """
     import os
+    from app.config import settings
 
-    api_key = os.environ.get("GOOGLE_API_KEY")
+    api_key = settings.GOOGLE_API_KEY or os.environ.get("GOOGLE_API_KEY")
     if not api_key:
         print("WARNING: GOOGLE_API_KEY not set. Copilot will return fallback responses.")
         return None
@@ -196,7 +197,7 @@ def _get_default_llm():
     from langchain_google_genai import ChatGoogleGenerativeAI
 
     return ChatGoogleGenerativeAI(
-        model="gemini-1.5-pro", # Used 1.5-pro for consistency with other parts of the app
+        model="gemini-3.6-flash",
         google_api_key=api_key,
         temperature=0.3,      # Low temperature for factual, grounded responses
         max_output_tokens=1024,

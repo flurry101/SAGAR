@@ -27,9 +27,15 @@ export class VexylClient {
       this.ws.binaryType = 'arraybuffer';
 
       this.ws.onopen = () => {
-        this.ws?.send(JSON.stringify({ type: 'start', language: 'en-IN', metadata: {} }));
-        this.startRecording();
-        this.options.onStateChange('listening');
+        try {
+          this.ws?.send(JSON.stringify({ type: 'start', language: 'en-IN', metadata: {} }));
+          this.startRecording();
+          this.options.onStateChange('listening');
+        } catch (e: any) {
+          console.error('[VEXYL] Failed to start recording on socket open:', e);
+          this.options.onError(e);
+          this.stop();
+        }
       };
 
       this.ws.onmessage = async (event) => {
@@ -69,6 +75,7 @@ export class VexylClient {
       
       this.ws.onclose = () => {
         this.stop();
+        this.options.onStateChange('idle');
       };
 
     } catch (e: any) {
@@ -88,17 +95,19 @@ export class VexylClient {
     for (const type of types) {
        if (MediaRecorder.isTypeSupported(type)) return type;
     }
-    return '';
+    return undefined;
   }
 
   private startRecording() {
     if (!this.audioStream) return;
     const mimeType = this._getSupportedMimeType();
     
-    this.mediaRecorder = new MediaRecorder(this.audioStream, {
-       mimeType: mimeType,
-       audioBitsPerSecond: 64000
-    });
+    const options: MediaRecorderOptions = { audioBitsPerSecond: 64000 };
+    if (mimeType) {
+      options.mimeType = mimeType;
+    }
+    
+    this.mediaRecorder = new MediaRecorder(this.audioStream, options);
     
     this.mediaRecorder.ondataavailable = (event) => {
        if (event.data.size > 0 && this.ws?.readyState === WebSocket.OPEN) {
