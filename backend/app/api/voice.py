@@ -1,9 +1,7 @@
-from fastapi import APIRouter, HTTPException, Header, Depends
+from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 import logging
-import uuid
-
 
 
 logger = logging.getLogger(__name__)
@@ -27,21 +25,20 @@ class VexylWebhookResponse(BaseModel):
 
 @router.post("/webhook", response_model=VexylWebhookResponse)
 async def voice_webhook(
-    payload: VexylWebhookRequest,
-    authorization: Optional[str] = Header(None)
+    payload: VexylWebhookRequest
 ):
     """
     Webhook for VEXYL Gateway Custom LLM.
-    Receives transcribed text -> calls existing ORCA LangGraph -> returns text for TTS.
+    Receives transcribed text -> calls ORCA Conversational Copilot -> returns text for TTS.
     """
-    logger.info(f"[VOICE] Received webhook for call {payload.sessionId} with transcript: {payload.message}")
+    logger.debug(f"[VOICE] Received webhook for call {payload.sessionId}")
     
     if not payload.message:
         return VexylWebhookResponse(response="I didn't catch that.", action="continue")
         
     try:
         # Build history format expected by Copilot
-        history = [{"role": msg.role, "content": msg.content} for msg in payload.history]
+        history = [{"role": msg.role, "content": msg.content} for msg in (payload.history or [])]
         
         # Route voice queries to the Conversational Copilot Chatbot instead of the deterministic LangGraph planner
         from app.api.copilot import _execute_copilot_chat

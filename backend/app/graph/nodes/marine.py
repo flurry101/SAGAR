@@ -62,12 +62,12 @@ def marine_node(state: Dict[str, Any]) -> Dict[str, Any]:
     # Log execution
     obs_count = len(updates.get("marine_observations", []))
     pfz_count = len(updates.get("pfz_data", {}).get("pfzs", []))
-    updates.setdefault("agent_executions", []).append({
+    updates["agent_executions"] = [{
         "agent_name": "marine",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": ["sst_adapter", "hab_adapter", "pfz_adapter"],
         "output_summary": f"Fetched {obs_count} marine observations and {pfz_count} PFZs."
-    })
+    }]
     
     return updates

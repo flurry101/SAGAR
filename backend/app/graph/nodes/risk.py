@@ -122,13 +122,13 @@ def risk_node(state: Dict[str, Any]) -> Dict[str, Any]:
         "overall_risk_level": overall_risk,
     }
     
-    updates.setdefault("agent_executions", []).append({
+    updates["agent_executions"] = [{
         "agent_name": "risk",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": ["deterministic_rules"],
         "output_summary": f"Risk level assessed as {overall_risk}. {evidence.summary}"
-    })
+    }]
 
     return updates
 

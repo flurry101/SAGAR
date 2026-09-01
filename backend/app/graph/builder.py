@@ -61,30 +61,29 @@ def _knowledge_node(state: OrcaState) -> OrcaState:
 
     task_plan = state.get("task_plan", {})
 
-    state["advisory"] = {
-        "advisory_category": "KNOWLEDGE_RESPONSE",
-        "recommendation_text": "This is a knowledge question. Use the ORCA Copilot for detailed answers.",
-        "reason": f"Intent: {task_plan.get('intent', 'knowledge')}",
-        "affected_phase": "",
-        "affected_time": "",
-        "affected_location": "",
-        "vessel_context": "",
-        "evidence_summary": "",
-        "uncertainty_notes": "",
-        "disclaimer": "ORCA provides decision support only. Follow official alerts from INCOIS and IMD.",
-        "language": state.get("trip_context", {}).get("language", "en"),
+    return {
+        "advisory": {
+            "advisory_category": "KNOWLEDGE_RESPONSE",
+            "recommendation_text": "This is a knowledge question. Use the ORCA Copilot for detailed answers.",
+            "reason": f"Intent: {task_plan.get('intent', 'knowledge')}",
+            "affected_phase": "",
+            "affected_time": "",
+            "affected_location": "",
+            "vessel_context": "",
+            "evidence_summary": "",
+            "uncertainty_notes": "",
+            "disclaimer": "ORCA provides decision support only. Follow official alerts from INCOIS and IMD.",
+            "language": state.get("trip_context", {}).get("language", "en"),
+        },
+        "workflow_status": "KNOWLEDGE_RESPONSE",
+        "agent_executions": [{
+            "agent_name": "knowledge_router",
+            "status": "completed",
+            "started_at": datetime.now(timezone.utc).isoformat(),
+            "data_sources": [],
+            "output_summary": "Routed to Copilot/RAG for knowledge query.",
+        }]
     }
-    state["workflow_status"] = "KNOWLEDGE_RESPONSE"
-
-    state.setdefault("agent_executions", []).append({
-        "agent_name": "knowledge_router",
-        "status": "completed",
-        "started_at": datetime.now(timezone.utc).isoformat(),
-        "data_sources": [],
-        "output_summary": "Routed to Copilot/RAG for knowledge query.",
-    })
-
-    return state
 
 
 def _persist_results(state: OrcaState) -> OrcaState:
@@ -103,27 +102,28 @@ def _persist_results(state: OrcaState) -> OrcaState:
 
     CRITICAL: Persistence failure does NOT alter the risk decision.
     """
+    updates = {}
     try:
         from app.repositories.assessment_repository import persist_assessment
 
         result = persist_assessment(state)
-        state["persistence_status"] = result.get("persistence_status", "unknown")
+        updates["persistence_status"] = result.get("persistence_status", "unknown")
 
         if result.get("errors"):
-            state.setdefault("errors", []).append({
+            updates["errors"] = [{
                 "node": "persist",
                 "message": f"Partial persistence: {result['errors']}",
                 "tables_written": result.get("tables_written", []),
-            })
+            }]
 
     except Exception as e:
-        state["persistence_status"] = "failed"
-        state.setdefault("errors", []).append({
+        updates["persistence_status"] = "failed"
+        updates["errors"] = [{
             "node": "persist",
             "message": f"Persistence failed: {e}. Risk decision is NOT affected.",
-        })
+        }]
 
-    return state
+    return updates
 
 
 def _post_process_node(state: OrcaState) -> OrcaState:
@@ -134,40 +134,41 @@ def _post_process_node(state: OrcaState) -> OrcaState:
     task_plan = state.get("task_plan", {})
     caps = set(task_plan.get("required_capabilities", []))
 
+    accumulated_updates = {}
+
     # Ocean Analytics
     if "ocean_analytics" in caps:
         updates = ocean_analytics_node(state)
-        _merge_updates(state, updates)
+        _merge_updates(accumulated_updates, updates)
 
     # Route Optimization
     if "route" in caps:
         updates = route_node(state)
-        _merge_updates(state, updates)
+        _merge_updates(accumulated_updates, updates)
 
     # Visualization
     if "visualization" in caps:
         updates = visualization_node(state)
-        _merge_updates(state, updates)
+        _merge_updates(accumulated_updates, updates)
 
     # Reporting
     if "reporting" in caps:
         updates = reporting_node(state)
-        _merge_updates(state, updates)
+        _merge_updates(accumulated_updates, updates)
 
-    return state
+    return accumulated_updates
 
 
-def _merge_updates(state: dict, updates: dict) -> None:
-    """Merge node updates into state, handling list-append fields properly."""
+def _merge_updates(accumulated: dict, updates: dict) -> None:
+    """Merge node updates into accumulated result, handling list-append fields properly."""
     for key, value in updates.items():
-        if key == "agent_executions":
-            state.setdefault("agent_executions", []).extend(value)
-        elif key == "evidence_registry":
-            state.setdefault("evidence_registry", []).extend(value)
-        elif key == "alerts":
-            state.setdefault("alerts", []).extend(value)
+        if key in ("agent_executions", "evidence_registry", "alerts", "errors"):
+            # Accumulate list fields by extending
+            if key not in accumulated:
+                accumulated[key] = []
+            accumulated[key].extend(value if isinstance(value, list) else [value])
         else:
-            state[key] = value
+            accumulated[key] = value
 
 
 def build_graph() -> StateGraph:

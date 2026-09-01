@@ -235,14 +235,14 @@ def weather_node(state: Dict[str, Any]) -> Dict[str, Any]:
     obs_count = len(updates.get("weather_observations", []))
     alert_count = len(alerts)
     hazard_count = len(hazard_data.get("hazards", [])) if isinstance(hazard_data, dict) else 0
-    updates.setdefault("agent_executions", []).append({
+    updates["agent_executions"] = [{
         "agent_name": "weather",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": ["open_meteo", "gdacs"],
         "output_summary": f"Fetched {obs_count} weather observations, {hazard_count} hazards, generated {alert_count} alerts.",
         "evidence_count": len(evidence_items),
-    })
+    }]
 
     return updates
 

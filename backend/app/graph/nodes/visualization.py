@@ -142,12 +142,12 @@ def visualization_node(state: Dict[str, Any]) -> Dict[str, Any]:
     }
 
     updates = {"visualization_spec": spec}
-    updates.setdefault("agent_executions", []).append({
+    updates["agent_executions"] = [{
         "agent_name": "visualization",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": ["trajectory", "pfz_data", "geofence_results", "risk_evidence"],
         "output_summary": f"Generated visualization with {len(layers)} layer(s).",
-    })
+    }]
 
     return updates

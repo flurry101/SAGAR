@@ -170,14 +170,14 @@ def ocean_analytics_node(state: Dict[str, Any]) -> Dict[str, Any]:
     if evidence_items:
         updates["evidence_registry"] = evidence_items
 
-    updates.setdefault("agent_executions", []).append({
+    updates["agent_executions"] = [{
         "agent_name": "ocean_analytics",
         "status": "completed",
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data_sources": ["marine_observations", "pfz_data"],
         "output_summary": summary,
         "evidence_count": len(evidence_items),
-    })
+    }]
 
     return updates
 

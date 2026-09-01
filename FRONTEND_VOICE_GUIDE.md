@@ -5,11 +5,15 @@ Hello! Since you don't have Docker installed to run the Vexyl Voice Gateway loca
 ### Step 1: Update your Environment Variables
 1. Open the `frontend` folder on your machine.
 2. Find the `.env` file (create it if you only have `.env.example`).
-3. Add or update the WebSocket URL to point to my secure tunnel:
+3. Add or update the WebSocket URL to point to the voice gateway:
    ```env
-   VITE_VEXYL_WS_URL=wss://chatty-houses-play.loca.lt
+   # If running locally on your machine:
+   VITE_VEXYL_WS_URL=ws://localhost:8082
+   
+   # Or if testing via an external tunnel (e.g. localtunnel):
+   # VITE_VEXYL_WS_URL=wss://<YOUR_TUNNEL_URL>
    ```
-*(Note: It must start with `wss://`, not `https://`!)*
+*(Note: If using a secure tunnel, it must start with `wss://`!)*
 
 ### Step 2: Run the Frontend
 Run the frontend just like you normally do:
