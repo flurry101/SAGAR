@@ -12,7 +12,8 @@ Architecture:
 
 from __future__ import annotations
 
-from typing import Any, TypedDict
+import operator
+from typing import Any, TypedDict, Annotated
 
 
 class TripContext(TypedDict, total=False):
@@ -327,7 +328,7 @@ class OrcaState(TypedDict, total=False):
     route_candidates: list[RouteCandidate]
 
     # --- Alerts ---
-    alerts: list[Alert]
+    alerts: Annotated[list[Alert], operator.add]
 
     # --- Risk & Advisory ---
     risk_evidence: RiskEvidence
@@ -335,7 +336,7 @@ class OrcaState(TypedDict, total=False):
     advisory: Advisory
 
     # --- Evidence Registry ---
-    evidence_registry: list[EvidenceItem]
+    evidence_registry: Annotated[list[EvidenceItem], operator.add]
 
     # --- Visualization & Reporting ---
     visualization_spec: VisualizationSpec
@@ -344,11 +345,11 @@ class OrcaState(TypedDict, total=False):
     # --- Workflow Control ---
     workflow_status: str  # "RECEIVED", "VALIDATED", "TRAJECTORY_READY", etc.
     persistence_status: str  # "success", "partial", "failed", "supabase_not_configured"
-    errors: list[dict[str, Any]]
-    provenance_registry: list[Provenance]
+    errors: Annotated[list[dict[str, Any]], operator.add]
+    provenance_registry: Annotated[list[Provenance], operator.add]
 
     # --- Agent Execution Tracking ---
-    agent_executions: list[AgentExecution]
+    agent_executions: Annotated[list[AgentExecution], operator.add]
 
     # --- Language ---
     language: str  # ISO 639-1 code, e.g. "en", "hi", "ta"

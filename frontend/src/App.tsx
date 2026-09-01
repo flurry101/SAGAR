@@ -10,6 +10,7 @@ import { VesselProfilePage } from './pages/VesselProfilePage';
 import { KnowledgeChatPage } from './pages/KnowledgeChatPage';
 import { AssessmentHistoryPage } from './pages/AssessmentHistoryPage';
 import { AuthPage } from './pages/AuthPage';
+import { VoiceWidget } from './components/VoiceAssistant/VoiceWidget';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function App() {
@@ -54,6 +55,7 @@ export function App() {
           </motion.div>
         </AnimatePresence>
       </main>
+      <VoiceWidget />
     </div>
   );
 }
