@@ -20,6 +20,7 @@ from app.api.weather import router as weather_router
 from app.api.marine import router as marine_router
 from app.api.risk import router as risk_router
 from app.api.vessel import router as vessel_router
+from app.services.ais_websocket import AISWebSocketListener
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,13 @@ async def lifespan(app: FastAPI):
         logger.info("Database initialized successfully.")
     except Exception as e:
         logger.warning(f"Database initialization deferred or offline: {e}")
-    yield
+    ais_listener = AISWebSocketListener()
+    await ais_listener.start()
+    app.state.ais_listener = ais_listener
+    try:
+        yield
+    finally:
+        await ais_listener.stop()
 
 
 app = FastAPI(

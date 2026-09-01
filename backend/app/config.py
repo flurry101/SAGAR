@@ -43,6 +43,9 @@ class Settings(BaseSettings):
     # WorldTides
     WORLDTIDES_API_KEY: str = ""
 
+    # AISstream.io (optional; without it traffic queries use the local sample data)
+    AISSTREAM_API_KEY: str = ""
+
     @computed_field
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> str:
