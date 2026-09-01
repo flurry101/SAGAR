@@ -5,11 +5,32 @@ Direct access to Potential Fishing Zones (PFZ) and SST / HAB conditions.
 
 import uuid
 from datetime import datetime, timezone
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Response, status
 from app.schemas.marine import PFZQueryRequest, MarineBatchRequest, MarineApiResponse
 from app.tools.marine_tools import fetch_pfz, fetch_marine_forecast_batch
+from app.tools.ais_tools import get_nearby_vessels
 
 router = APIRouter()
+
+
+@router.get("/marine/traffic", summary="Get nearby AIS vessel traffic as GeoJSON")
+async def get_marine_traffic(
+    response: Response,
+    lat: float,
+    lon: float,
+    radius_nm: float = 50.0,
+):
+    """Return Tier 1 AIS traffic when available, otherwise the local sample dataset."""
+    if not -90.0 <= lat <= 90.0 or not -180.0 <= lon <= 180.0:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Invalid coordinates")
+    if radius_nm <= 0:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="radius_nm must be positive")
+
+    result = get_nearby_vessels(lat, lon, radius_nm)
+    provenance = result["provenance"]
+    response.headers["X-AIS-Source"] = provenance["source"]
+    response.headers["X-AIS-Tier"] = str(provenance["tier"])
+    return result["geojson"]
 
 
 @router.post("/marine/pfz", response_model=MarineApiResponse, summary="Fetch Potential Fishing Zones near coordinate")
