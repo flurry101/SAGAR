@@ -7,14 +7,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 export const Header: React.FC = () => {
   const { currentView, setCurrentView, isAuthenticated, userProfile } = useAppStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   const navItems: { id: AppView; label: string; shortLabel: string; icon: React.ReactNode }[] = [
     { id: 'landing', label: 'Overview', shortLabel: 'Overview', icon: <Compass className="w-4 h-4 shrink-0" /> },
     { id: 'chat', label: 'Trip Planner', shortLabel: 'Trip Planner', icon: <Anchor className="w-4 h-4 shrink-0" /> },
     { id: 'advisory', label: 'Advisory Dashboard', shortLabel: 'Advisory', icon: <ShieldAlert className="w-4 h-4 shrink-0" /> },
-    { id: 'vessel', label: 'Vessel Profile', shortLabel: 'Vessel', icon: <Ship className="w-4 h-4 shrink-0" /> },
-    { id: 'history', label: 'Voyage History', shortLabel: 'History', icon: <History className="w-4 h-4 shrink-0" /> },
     { id: 'knowledge', label: 'Marine Knowledge', shortLabel: 'Knowledge', icon: <BookOpen className="w-4 h-4 shrink-0" /> },
+  ];
+
+  const profileMenuItems: { id: AppView; label: string; icon: React.ReactNode }[] = [
+    { id: 'auth', label: isAuthenticated ? 'Profile' : 'Sign In', icon: <UserCheck className="w-4 h-4 shrink-0" /> },
+    { id: 'vessel', label: 'Vessel Profile', icon: <Ship className="w-4 h-4 shrink-0" /> },
+    { id: 'history', label: 'Voyage History', icon: <History className="w-4 h-4 shrink-0" /> },
   ];
 
   const fullDisplayName = isAuthenticated ? userProfile?.name || 'Fisher Ravi Kumar' : 'Sign In';
@@ -111,24 +116,52 @@ export const Header: React.FC = () => {
             </div>
 
             {/* Profile Button - Never Squeezed or Clipped */}
-            <motion.button
-              whileHover={{ y: -1, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setCurrentView('auth')}
-              className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy text-xs font-extrabold border border-sagar-border transition-all shadow-soft-sm touch-target cursor-pointer shrink-0"
-              title={fullDisplayName}
-              aria-label={fullDisplayName}
-            >
-              <div className="w-6 h-6 rounded-full bg-sagar-powder text-sky-700 flex items-center justify-center shrink-0 border border-sky-200">
-                <UserCheck className="w-3.5 h-3.5" />
-              </div>
-              <span className="hidden lg:inline whitespace-nowrap font-extrabold text-sagar-navy">
-                {fullDisplayName}
-              </span>
-              <span className="hidden sm:inline lg:hidden whitespace-nowrap font-extrabold text-sagar-navy">
-                {shortDisplayName}
-              </span>
-            </motion.button>
+            <div className="relative shrink-0">
+              <motion.button
+                whileHover={{ y: -1, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setProfileMenuOpen((prev) => !prev)}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy text-xs font-extrabold border border-sagar-border transition-all shadow-soft-sm touch-target cursor-pointer shrink-0"
+                title={fullDisplayName}
+                aria-label={fullDisplayName}
+              >
+                <div className="w-6 h-6 rounded-full bg-sagar-powder text-sky-700 flex items-center justify-center shrink-0 border border-sky-200">
+                  <UserCheck className="w-3.5 h-3.5" />
+                </div>
+                <span className="hidden lg:inline whitespace-nowrap font-extrabold text-sagar-navy">
+                  {fullDisplayName}
+                </span>
+                <span className="hidden sm:inline lg:hidden whitespace-nowrap font-extrabold text-sagar-navy">
+                  {shortDisplayName}
+                </span>
+              </motion.button>
+
+              <AnimatePresence>
+                {profileMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-full mt-2 w-56 rounded-2xl border border-sagar-border bg-white p-2 shadow-soft-lg z-50"
+                  >
+                    {profileMenuItems.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          setCurrentView(item.id);
+                          setProfileMenuOpen(false);
+                        }}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-sagar-canvasAlt hover:text-sagar-navy text-left"
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* Mobile/Tablet Menu Button (shows on < 1180px) */}
             <div className="min-[1180px]:hidden flex items-center shrink-0">
@@ -174,17 +207,20 @@ export const Header: React.FC = () => {
                 <span>{item.label}</span>
               </button>
             ))}
-            <div className="pt-2 border-t border-sagar-borderLight">
-              <button
-                onClick={() => {
-                  setCurrentView('auth');
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-sagar-canvasAlt text-sky-950 rounded-xl text-xs font-extrabold border border-sagar-border touch-target cursor-pointer"
-              >
-                <UserCheck className="w-4 h-4 text-sky-600" />
-                <span>{fullDisplayName}</span>
-              </button>
+            <div className="pt-2 border-t border-sagar-borderLight space-y-2">
+              {profileMenuItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setCurrentView(item.id);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full flex items-center justify-start gap-3 px-4 py-3 bg-sagar-canvasAlt text-sky-950 rounded-xl text-xs font-extrabold border border-sagar-border touch-target cursor-pointer"
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </button>
+              ))}
             </div>
           </motion.div>
         )}
