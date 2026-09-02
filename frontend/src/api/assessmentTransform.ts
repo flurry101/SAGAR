@@ -50,24 +50,70 @@ export function normalizeAssessmentResponse(response: APIResponse): APIResponse 
   });
 
   const pfzData = data.pfz_data || {};
-  const pfzZones = (pfzData.pfzs || []).map((pfz: AnyRecord, index: number) => ({
+  const rawPfzZones = pfzData.pfzs || data.pfz_zones || [];
+  const pfzZones = rawPfzZones.map((pfz: AnyRecord, index: number) => {
+  const geometry = pfz.geometry;
+
+  // Live INCOIS PFZ can arrive as a GeoJSON LineString:
+  // coordinates = [[lon, lat], [lon, lat], ...]
+  const firstCoordinate =
+    geometry?.type === 'LineString' &&
+    Array.isArray(geometry.coordinates) &&
+    Array.isArray(geometry.coordinates[0])
+      ? geometry.coordinates[0]
+      : undefined;
+
+  return {
     pfz_id: pfz.pfz_id || `PFZ-${index + 1}`,
-    coordinates: { lat: pfz.lat, lon: pfz.lon },
-    valid_from: pfz.validity_start,
-    valid_until: pfz.validity_end,
-    distance_from_origin_km: pfz.distance_km ?? pfz.distance_from_origin_km ?? 0,
-    available: true,
-    provenance: asProvenance(pfz.provenance || pfzData.provenance, 'PFZ unavailable'),
-  }));
+
+    coordinates: {
+      lat:
+        pfz.coordinates?.lat ??
+        pfz.lat ??
+        firstCoordinate?.[1],
+
+      lon:
+        pfz.coordinates?.lon ??
+        pfz.lon ??
+        firstCoordinate?.[0],
+    },
+
+    valid_from: pfz.valid_from ?? pfz.validity_start,
+    valid_until: pfz.valid_until ?? pfz.validity_end,
+
+    distance_from_origin_km:
+      pfz.distance_km ??
+      pfz.distance_from_origin_km ??
+      0,
+
+    available: pfz.available ?? true,
+
+    // IMPORTANT: preserve the full INCOIS geometry
+    geometry,
+
+    provenance: asProvenance(
+      pfz.provenance || pfzData.provenance,
+      'PFZ unavailable'
+    ),
+  };
+  });
 
   const sources = [
-    ...weatherForecasts.map((item: AnyRecord) => item.provenance),
-    ...marineObservations.map((item: AnyRecord) => item.provenance),
-    ...pfzZones.map((item: AnyRecord) => item.provenance),
-    // The current graph emits GDACS/static-hazard alerts without provenance.
-    // Its adapter is explicitly Tier 3, so make that limitation visible.
-    ...(data.alerts || []).map((alert: AnyRecord) => asProvenance(alert.provenance, `${alert.source || 'Hazard source'} (Tier unavailable in graph payload)`)),
-  ];
+  ...weatherForecasts.map((item: AnyRecord) => item.provenance),
+  ...marineObservations.map((item: AnyRecord) => item.provenance),
+  ...pfzZones.map((item: AnyRecord) => item.provenance),
+
+  // The current graph emits GDACS/static-hazard alerts without provenance.
+  // Its adapter is explicitly Tier 3, so make that limitation visible.
+  ...(data.alerts || []).map(
+    (alert: AnyRecord) =>
+      asProvenance(
+        alert.provenance,
+        `${alert.source || 'Hazard source'} (Tier unavailable in graph payload)`
+      )
+  ),
+];
+
   const provenanceSummary: ProvenanceSummary[] = Array.from(
     new Map(sources.map((source: AnyRecord) => [`${source.source}:${source.fallback_tier}`, source])).values(),
   ).map((source: AnyRecord) => ({

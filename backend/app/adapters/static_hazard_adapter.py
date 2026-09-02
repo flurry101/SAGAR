@@ -410,7 +410,7 @@ class StaticHazardAdapter(MarineDataAdapter):
                 if isinstance(is_current, str):
                     is_current = is_current.strip().lower() == "true"
 
-                if is_current is not True:
+                if is_current is False:
                     continue
 
                 # -------------------------------------------------------
@@ -434,10 +434,11 @@ class StaticHazardAdapter(MarineDataAdapter):
                         for c in affected_countries
                     )
                 )
+                has_india_metadata = bool(country or iso3 or affected_countries)
 
                 # If GDACS explicitly identifies another country and not India,
                 # don't treat it as an India cyclone.
-                if not india_affected:
+                if has_india_metadata and not india_affected:
                     continue
 
                 # -------------------------------------------------------

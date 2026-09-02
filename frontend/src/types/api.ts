@@ -2,6 +2,7 @@ import { TripContext, Trajectory, Waypoint } from './trip';
 import { RiskEvidence, AlertItem, RuleResult, EvidenceItem, OverallRiskLevel } from './risk';
 import { Advisory } from './advisory';
 import { VesselProfile } from './vessel';
+import { Provenance } from './provenance';
 
 export type ResponseStatus = 'success' | 'needs_clarification' | 'insufficient_information' | 'error';
 
@@ -56,6 +57,8 @@ export interface PFZZone {
   valid_until: string;
   distance_from_origin_km: number;
   available: boolean;
+  geometry?: any;
+  provenance?: Provenance;
 }
 
 export interface RouteCandidatePenalty {
