@@ -504,13 +504,15 @@ class AmfitriteHABAdapter(MarineDataAdapter):
                 # Test doubles and unprojected rasters may not expose a CRS.
                 window = None
 
-            if window is not None and (
-                not isinstance(window.width, Real)
-                or not isinstance(window.height, Real)
-            ):
-                window = None
-            if window is not None and (window.width <= 0 or window.height <= 0):
-                return 0.0
+            if window is not None:
+                try:
+                    w_val = float(window.width)
+                    h_val = float(window.height)
+                    if w_val <= 0 or h_val <= 0:
+                        return 0.0
+                except (TypeError, ValueError):
+                    pass
+
 
             scl = src.read(
                 1,

@@ -26,8 +26,7 @@ Adapter chain:
 import json
 import os
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
-
+from typing import Any, Dict, List, Optional, Tuple
 import httpx
 
 from .base_adapter import MarineDataAdapter
@@ -109,6 +108,158 @@ def _map_gdacs_severity(alert_level: str, severity_val: Optional[float] = None) 
     if lvl == "green":
         return "LOW"
     return "MODERATE"
+
+def _point_in_polygon(lat: float, lon: float, polygon: List[List[List[float]]]) -> bool:
+    """
+    Check whether a latitude/longitude point is inside a GeoJSON Polygon.
+
+    GeoJSON coordinate order is [longitude, latitude].
+    Uses the ray-casting algorithm.
+    """
+    if not polygon:
+        return False
+
+    # A GeoJSON Polygon may contain an outer ring plus inner holes.
+    # We check the outer ring first.
+    outer_ring = polygon[0]
+
+    if len(outer_ring) < 3:
+        return False
+
+    inside = False
+    j = len(outer_ring) - 1
+
+    for i in range(len(outer_ring)):
+        lon_i, lat_i = outer_ring[i][0], outer_ring[i][1]
+        lon_j, lat_j = outer_ring[j][0], outer_ring[j][1]
+
+        intersects = (
+            ((lat_i > lat) != (lat_j > lat))
+            and (
+                lon
+                < (lon_j - lon_i) * (lat - lat_i) / (lat_j - lat_i)
+                + lon_i
+            )
+        )
+
+        if intersects:
+            inside = not inside
+
+        j = i
+
+    return inside
+
+
+def _extract_geometry_bbox(geometry: Dict[str, Any]) -> Optional[Dict[str, float]]:
+    """
+    Calculate a simple bounding box from GeoJSON geometry.
+
+    Returns:
+        {
+            "lat_min": ...,
+            "lat_max": ...,
+            "lon_min": ...,
+            "lon_max": ...
+        }
+
+    Supports Point, LineString, Polygon and MultiPolygon.
+    """
+    if not geometry:
+        return None
+
+    geometry_type = geometry.get("type")
+    coordinates = geometry.get("coordinates")
+
+    if not coordinates:
+        return None
+
+    points: List[Tuple[float, float]] = []
+
+    def collect_points(value: Any) -> None:
+        if (
+            isinstance(value, list)
+            and len(value) >= 2
+            and isinstance(value[0], (int, float))
+            and isinstance(value[1], (int, float))
+        ):
+            # GeoJSON = [longitude, latitude]
+            points.append((float(value[0]), float(value[1])))
+            return
+
+        if isinstance(value, list):
+            for item in value:
+                collect_points(item)
+
+    collect_points(coordinates)
+
+    if not points:
+        return None
+
+    lons = [p[0] for p in points]
+    lats = [p[1] for p in points]
+
+    return {
+        "lat_min": min(lats),
+        "lat_max": max(lats),
+        "lon_min": min(lons),
+        "lon_max": max(lons),
+    }
+
+
+def _geometry_matches_bbox(
+    geometry: Dict[str, Any],
+    bbox: Dict[str, float],
+) -> bool:
+    """
+    Determine whether a cyclone GeoJSON geometry is relevant to the
+    requested bounding box.
+
+    For Polygon:
+        checks whether any corner of the query box is inside the polygon,
+        or whether the geometry bounding box overlaps the query box.
+
+    For LineString / Point:
+        uses geometry bounding-box intersection.
+
+    The bounding-box test intentionally acts as a safety net so that
+    cyclone warning areas are not missed because of exact point geometry.
+    """
+    geometry_bbox = _extract_geometry_bbox(geometry)
+
+    if not geometry_bbox:
+        return False
+
+    if not _bbox_intersects(
+        geometry_bbox["lat_min"],
+        geometry_bbox["lat_max"],
+        geometry_bbox["lon_min"],
+        geometry_bbox["lon_max"],
+        bbox.get("lat_min", -90.0),
+        bbox.get("lat_max", 90.0),
+        bbox.get("lon_min", -180.0),
+        bbox.get("lon_max", 180.0),
+    ):
+        return False
+
+    geometry_type = geometry.get("type")
+
+    # For polygons, additionally check the actual query-box corners.
+    if geometry_type == "Polygon":
+        coordinates = geometry.get("coordinates", [])
+
+        query_points = [
+            (bbox.get("lat_min", -90.0), bbox.get("lon_min", -180.0)),
+            (bbox.get("lat_min", -90.0), bbox.get("lon_max", 180.0)),
+            (bbox.get("lat_max", 90.0), bbox.get("lon_min", -180.0)),
+            (bbox.get("lat_max", 90.0), bbox.get("lon_max", 180.0)),
+        ]
+
+        for q_lat, q_lon in query_points:
+            if _point_in_polygon(q_lat, q_lon, coordinates):
+                return True
+
+    # Bounding-box overlap is retained as the final match condition.
+    return True    
 
 
 # ---------------------------------------------------------------------------
@@ -200,115 +351,293 @@ class StaticHazardAdapter(MarineDataAdapter):
         retrieved_at: str,
     ) -> Optional[Dict[str, Any]]:
         """
-        Query GDACS for active tropical cyclone events and filter by bbox/time.
-        Returns a normalized dict or None to trigger fallback.
+        Query GDACS for current Tropical Cyclone events.
+
+        Process:
+            1. Get TC event list.
+            2. Keep current events only.
+            3. Retrieve the actual GDACS geometry for each event.
+            4. Check whether the geometry overlaps the requested bbox.
+            5. Normalize matching cyclone information.
+
+        Returns a normalized dict or None to trigger Tier-3 fallback.
         """
+
+        # ---------------------------------------------------------------
+        # Step 1: Get Tropical Cyclone event list
+        # ---------------------------------------------------------------
+
         with httpx.Client(timeout=_TIMEOUT_S) as client:
             resp = client.get(_GDACS_TC_URL)
             resp.raise_for_status()
-            geojson = resp.json()
+            event_data = resp.json()
 
-        features = geojson.get("features", [])
+            features = event_data.get("features", [])
 
-        tw = time_window or {}
-        q_from = _parse_iso(tw.get("from"))
-        q_until = _parse_iso(tw.get("to"))
+            tw = time_window or {}
+            q_from = _parse_iso(tw.get("from"))
+            q_until = _parse_iso(tw.get("to"))
 
-        matched_hazards: List[Dict[str, Any]] = []
-        cyclone_active = False
+            matched_hazards: List[Dict[str, Any]] = []
 
-        provenance = {
-            "source": "GDACS (Global Disaster Alert and Coordination System)",
-            "retrieved_at": retrieved_at,
-            "validity_time": tw.get("from"),
-            "fallback_tier": 1,
-            "confidence": "HIGH",
-        }
-
-        for feat in features:
-            props = feat.get("properties", {})
-            geom = feat.get("geometry", {})
-            event_type = props.get("eventtype")
-
-            # Filter to Tropical Cyclone events only
-            if event_type != "TC":
-                continue
-
-            # Extract spatial region from bbox or point geometry
-            f_bbox = feat.get("bbox")
-            if f_bbox and len(f_bbox) >= 4:
-                # GeoJSON standard bbox: [min_lon, min_lat, max_lon, max_lat]
-                h_lon_min, h_lat_min, h_lon_max, h_lat_max = float(f_bbox[0]), float(f_bbox[1]), float(f_bbox[2]), float(f_bbox[3])
-                # If bbox is a single point, buffer by 0.5 degrees
-                if h_lat_min == h_lat_max:
-                    h_lat_min -= 0.5
-                    h_lat_max += 0.5
-                if h_lon_min == h_lon_max:
-                    h_lon_min -= 0.5
-                    h_lon_max += 0.5
-            elif geom.get("type") == "Point" and len(geom.get("coordinates", [])) >= 2:
-                lon_val, lat_val = float(geom["coordinates"][0]), float(geom["coordinates"][1])
-                h_lat_min, h_lat_max = lat_val - 0.5, lat_val + 0.5
-                h_lon_min, h_lon_max = lon_val - 0.5, lon_val + 0.5
-            else:
-                continue
-
-            affected_region = {
-                "lat_min": h_lat_min,
-                "lat_max": h_lat_max,
-                "lon_min": h_lon_min,
-                "lon_max": h_lon_max,
+            provenance = {
+                "source": "GDACS (Global Disaster Alert and Coordination System)",
+                "retrieved_at": retrieved_at,
+                "validity_time": tw.get("from"),
+                "fallback_tier": 1,
+                "confidence": "HIGH",
             }
 
-            # Spatial filter
-            if not _bbox_intersects(
-                h_lat_min, h_lat_max, h_lon_min, h_lon_max,
-                bbox.get("lat_min", -90.0), bbox.get("lat_max", 90.0),
-                bbox.get("lon_min", -180.0), bbox.get("lon_max", 180.0),
-            ):
-                continue
+            # -----------------------------------------------------------
+            # Step 2: Process each cyclone event
+            # -----------------------------------------------------------
 
-            # Temporal filter
-            h_from = _parse_iso(props.get("fromdate"))
-            h_until = _parse_iso(props.get("todate"))
-            if not _time_window_overlaps(h_from, h_until, q_from, q_until):
-                continue
+            for feat in features:
+                props = feat.get("properties", {})
 
-            # Severity mapping
-            alert_lvl = props.get("alertlevel", "Orange")
-            sev_data = props.get("severitydata", {})
-            sev_val = sev_data.get("severity")
-            severity = _map_gdacs_severity(alert_lvl, sev_val)
+                # Only Tropical Cyclones
+                if props.get("eventtype") != "TC":
+                    continue
 
-            event_id = props.get("eventid", "0")
-            episode_id = props.get("episodeid", "0")
-            hazard_id = f"GDACS-TC-{event_id}-{episode_id}"
+                # -------------------------------------------------------
+                # IMPORTANT:
+                # Ignore historical cyclones.
+                # GDACS returns old events as well.
+                # -------------------------------------------------------
 
-            name = props.get("name") or props.get("eventname") or "Tropical Cyclone"
-            desc = props.get("description") or props.get("htmldescription") or f"{name} advisory from GDACS"
+                is_current = props.get("iscurrent")
 
-            matched_hazards.append({
-                "hazard_id": hazard_id,
-                "hazard_type": "CYCLONE_WARNING",
-                "severity": severity,
-                "description": desc,
-                "affected_region": affected_region,
-                "valid_from": _format_iso(h_from) or props.get("fromdate"),
-                "valid_until": _format_iso(h_until) or props.get("todate"),
-                "cyclone_active": True,
-                "source": "GDACS (Global Disaster Alert and Coordination System)",
+                if isinstance(is_current, str):
+                    is_current = is_current.strip().lower() == "true"
+
+                if is_current is False:
+                    continue
+
+                # -------------------------------------------------------
+                # India-specific filtering
+                # -------------------------------------------------------
+
+                country = str(props.get("country", "")).strip().lower()
+                iso3 = str(props.get("iso3", "")).strip().upper()
+
+                affected_countries = props.get("affectedcountries", [])
+
+                india_affected = (
+                    country == "india"
+                    or iso3 == "IND"
+                    or any(
+                        isinstance(c, dict)
+                        and (
+                            str(c.get("iso3", "")).upper() == "IND"
+                            or str(c.get("iso2", "")).upper() == "IN"
+                        )
+                        for c in affected_countries
+                    )
+                )
+                has_india_metadata = bool(country or iso3 or affected_countries)
+
+                # If GDACS explicitly identifies another country and not India,
+                # don't treat it as an India cyclone.
+                if has_india_metadata and not india_affected:
+                    continue
+
+                # -------------------------------------------------------
+                # Step 3: Temporal filtering
+                # -------------------------------------------------------
+
+                h_from = _parse_iso(props.get("fromdate"))
+                h_until = _parse_iso(props.get("todate"))
+
+                if not _time_window_overlaps(
+                    h_from,
+                    h_until,
+                    q_from,
+                    q_until,
+                ):
+                    continue
+
+                # -------------------------------------------------------
+                # Step 4: Get actual cyclone geometry
+                # -------------------------------------------------------
+
+                event_id = props.get("eventid")
+                episode_id = props.get("episodeid")
+
+                geometry_url = (
+                    props.get("url", {}).get("geometry")
+                    if isinstance(props.get("url"), dict)
+                    else None
+                )
+
+                geometry_features: List[Dict[str, Any]] = []
+
+                if geometry_url:
+                    try:
+                        geometry_resp = client.get(geometry_url)
+                        geometry_resp.raise_for_status()
+                        geometry_data = geometry_resp.json()
+
+                        geometry_features = geometry_data.get("features", [])
+
+                    except Exception:
+                        # If detailed geometry fails, fall back to the
+                        # event-list feature geometry.
+                        geometry_features = [feat]
+
+                else:
+                    geometry_features = [feat]
+
+                # -------------------------------------------------------
+                # Step 5: Check cyclone geometry against requested bbox
+                # -------------------------------------------------------
+
+                event_matches = False
+                best_region: Optional[Dict[str, float]] = None
+
+                for geometry_feature in geometry_features:
+                    geometry = geometry_feature.get("geometry", {})
+
+                    if not geometry:
+                        continue
+
+                    if not _geometry_matches_bbox(
+                        geometry,
+                        bbox,
+                    ):
+                        continue
+
+                    event_matches = True
+
+                    geometry_bbox = _extract_geometry_bbox(geometry)
+
+                    if geometry_bbox:
+                        if best_region is None:
+                            best_region = geometry_bbox
+                        else:
+                            best_region = {
+                                "lat_min": min(
+                                    best_region["lat_min"],
+                                    geometry_bbox["lat_min"],
+                                ),
+                                "lat_max": max(
+                                    best_region["lat_max"],
+                                    geometry_bbox["lat_max"],
+                                ),
+                                "lon_min": min(
+                                    best_region["lon_min"],
+                                    geometry_bbox["lon_min"],
+                                ),
+                                "lon_max": max(
+                                    best_region["lon_max"],
+                                    geometry_bbox["lon_max"],
+                                ),
+                            }
+
+                if not event_matches:
+                    continue
+
+                # -------------------------------------------------------
+                # Step 6: Severity
+                # -------------------------------------------------------
+
+                alert_lvl = props.get("alertlevel", "Orange")
+
+                sev_data = props.get("severitydata", {})
+
+                if not isinstance(sev_data, dict):
+                    sev_data = {}
+
+                sev_val = sev_data.get("severity")
+
+                try:
+                    sev_val = float(sev_val) if sev_val is not None else None
+                except (TypeError, ValueError):
+                    sev_val = None
+
+                severity = _map_gdacs_severity(
+                    alert_lvl,
+                    sev_val,
+                )
+
+                # -------------------------------------------------------
+                # Step 7: Build normalized hazard
+                # -------------------------------------------------------
+
+                hazard_id = (
+                    f"GDACS-TC-{event_id}-{episode_id}"
+                )
+
+                name = (
+                    props.get("eventname")
+                    or props.get("name")
+                    or "Tropical Cyclone"
+                )
+
+                description = (
+                    props.get("description")
+                    or props.get("htmldescription")
+                    or f"{name} advisory from GDACS"
+                )
+
+                # If geometry did not produce a bbox, use the requested bbox.
+                if best_region is None:
+                    best_region = {
+                        "lat_min": bbox.get("lat_min", -90.0),
+                        "lat_max": bbox.get("lat_max", 90.0),
+                        "lon_min": bbox.get("lon_min", -180.0),
+                        "lon_max": bbox.get("lon_max", 180.0),
+                    }
+
+                matched_hazards.append({
+                    "hazard_id": hazard_id,
+                    "hazard_type": "CYCLONE_WARNING",
+                    "severity": severity,
+                    "description": description,
+
+                    "affected_region": best_region,
+
+                    "valid_from": (
+                        _format_iso(h_from)
+                        or props.get("fromdate")
+                    ),
+
+                    "valid_until": (
+                        _format_iso(h_until)
+                        or props.get("todate")
+                    ),
+
+                    "cyclone_active": True,
+
+                    "source": (
+                        "GDACS (Global Disaster Alert and "
+                        "Coordination System)"
+                    ),
+
+                    "provenance": provenance,
+
+                    # Extra useful cyclone information.
+                    # These do not break the existing contract.
+                    "cyclone_name": props.get("eventname"),
+                    "event_id": event_id,
+                    "episode_id": episode_id,
+                    "alert_level": alert_lvl,
+                    "wind_speed_kmph": sev_val,
+                    "wind_description": sev_data.get("severitytext"),
+                    "source_agency": props.get("source"),
+                    "forecast": props.get("forecast"),
+                })
+
+            # ---------------------------------------------------------------
+            # Step 8: Return successful live result
+            # ---------------------------------------------------------------
+
+            return {
+                "hazards": matched_hazards,
+                "cyclone_active": bool(matched_hazards),
+                "resolved": True,
+                "status": "ok" if matched_hazards else "empty",
                 "provenance": provenance,
-            })
-
-            cyclone_active = True
-
-        return {
-            "hazards": matched_hazards,
-            "cyclone_active": cyclone_active,
-            "resolved": True,
-            "status": "ok" if matched_hazards else "empty",
-            "provenance": provenance,
-        }
+            }
 
     # ------------------------------------------------------------------
     # Tier 3: Static Fallback File

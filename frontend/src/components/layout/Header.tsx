@@ -15,6 +15,7 @@ export const Header: React.FC = () => {
     { id: 'landing', label: t`Overview`, shortLabel: t`Overview`, icon: <Compass className="w-4 h-4 shrink-0" /> },
     { id: 'chat', label: t`Trip Planner`, shortLabel: t`Trip Planner`, icon: <Anchor className="w-4 h-4 shrink-0" /> },
     { id: 'advisory', label: t`Advisory Dashboard`, shortLabel: t`Advisory`, icon: <ShieldAlert className="w-4 h-4 shrink-0" /> },
+    { id: 'conditions', label: 'Live Conditions', shortLabel: 'Conditions', icon: <Waves className="w-4 h-4 shrink-0" /> },
     { id: 'knowledge', label: t`Marine Knowledge`, shortLabel: t`Knowledge`, icon: <BookOpen className="w-4 h-4 shrink-0" /> },
   ];
 

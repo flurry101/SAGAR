@@ -128,8 +128,7 @@ def fetch_hazard_alerts(
     and time window.
 
     Invoked by: Weather Agent
-    Adapter: StaticHazardAdapter (always Tier 3 for MVP)
-
+Adapter: StaticHazardAdapter (Tier 1 GDACS -> Tier 3 static fallback)
     Parameters
     ----------
     bbox        : {"lat_min", "lat_max", "lon_min", "lon_max"}

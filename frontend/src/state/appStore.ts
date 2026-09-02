@@ -5,7 +5,7 @@ import { mockAdapter } from '../api/mock/mockAdapter';
 import { sanitizeSagarText } from '../utils/brand';
 import { SupportedLocale, dynamicActivate, detectInitialLocale } from '../i18n/lingui';
 
-export type AppView = 'landing' | 'chat' | 'advisory' | 'vessel' | 'knowledge' | 'history' | 'auth';
+export type AppView = 'landing' | 'chat' | 'conditions' | 'advisory' | 'vessel' | 'knowledge' | 'history' | 'auth';
 export type AppLanguage = SupportedLocale;
 
 export interface ChatMessage {

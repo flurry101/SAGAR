@@ -185,6 +185,8 @@ export const AdvisoryPage: React.FC = () => {
                 pfzZones={pfzZones}
                 visualizationSpec={visualizationSpec}
                 routeCandidates={routeCandidates}
+                weatherForecasts={weatherForecasts}
+                marineObservations={marineObservations}
               />
             </div>
 
