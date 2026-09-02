@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { AlertTriangle, CloudSun, Fish, MapPin, RefreshCw, Waves } from 'lucide-react';
+import { AlertTriangle, CloudSun, Fish, Gauge, MapPin, Mountain, RefreshCw, Waves } from 'lucide-react';
 import { AdapterProvenance, directAdapterApi, DirectAdapterResponse } from '../api/directAdapterApi';
 
 type Results = {
@@ -7,6 +7,8 @@ type Results = {
   hazards?: DirectAdapterResponse;
   pfz?: DirectAdapterResponse;
   marine?: DirectAdapterResponse;
+  tides?: DirectAdapterResponse;
+  bathymetry?: DirectAdapterResponse;
 };
 
 const tierClass = (tier?: number) => tier === 1
@@ -48,15 +50,17 @@ export const LiveConditionsPage: React.FC = () => {
     setLoading(true);
     setError(null);
     const coordinate = { lat: latitude, lon: longitude };
-    const etaIso = new Date().toISOString();
-    const [weather, hazards, pfz, marine] = await Promise.all([
+    const etaIso = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
+    const [weather, hazards, pfz, marine, tides, bathymetry] = await Promise.all([
       directAdapterApi.weatherForecast(coordinate, etaIso),
       directAdapterApi.weatherHazards(coordinate),
       directAdapterApi.potentialFishingZones(coordinate),
       directAdapterApi.marineObservations(coordinate, etaIso),
+      directAdapterApi.tides(coordinate, etaIso),
+      directAdapterApi.bathymetry(coordinate),
     ]);
-    setResults({ weather, hazards, pfz, marine });
-    const failed = [weather, hazards, pfz, marine].filter((response) => response.status === 'error');
+    setResults({ weather, hazards, pfz, marine, tides, bathymetry });
+    const failed = [weather, hazards, pfz, marine, tides, bathymetry].filter((response) => response.status === 'error');
     if (failed.length) setError(`${failed.length} adapter request${failed.length === 1 ? '' : 's'} failed. The remaining results are shown.`);
     setLoading(false);
   }, [lat, lon]);
@@ -68,6 +72,8 @@ export const LiveConditionsPage: React.FC = () => {
   const hazards = hazardData?.hazards || [];
   const pfzData = results.pfz?.data;
   const marine = results.marine?.data?.observations?.[0]?.marine;
+  const tide = results.tides?.data?.tides?.[0];
+  const depth = results.bathymetry?.data?.bathymetry?.[0];
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
@@ -76,7 +82,7 @@ export const LiveConditionsPage: React.FC = () => {
           <Waves className="mt-0.5 h-6 w-6 text-sky-700" />
           <div>
             <h1 className="text-xl font-black text-sagar-navy">Direct marine conditions</h1>
-            <p className="mt-1 text-sm text-slate-600">Calls the four M4 adapter endpoints directly. No trip assessment, chat, graph, or LLM is involved.</p>
+            <p className="mt-1 text-sm text-slate-600">Calls six M4 adapter endpoints directly. No trip assessment, chat, graph, or LLM is involved.</p>
           </div>
         </div>
         <div className="mt-4 flex flex-wrap items-end gap-3">
@@ -90,8 +96,10 @@ export const LiveConditionsPage: React.FC = () => {
       <div className="grid gap-4 md:grid-cols-2">
         <section className="rounded-2xl border border-sagar-border bg-white p-5 shadow-soft-sm"><div className="mb-4 flex items-center gap-2"><CloudSun className="h-5 w-5 text-sky-600" /><h2 className="font-bold text-sagar-navy">Weather and sea state</h2></div><Value label="Wave height" value={weather?.wave_height_m != null ? `${weather.wave_height_m} m` : null} /><Value label="Wind speed" value={weather?.wind_speed_kmh != null ? `${weather.wind_speed_kmh} km/h` : null} /><Value label="Swell height" value={weather?.swell_height_m != null ? `${weather.swell_height_m} m` : null} /><div className="mt-4"><ProvenanceBadge provenance={weather?.provenance} /></div></section>
         <section className="rounded-2xl border border-sagar-border bg-white p-5 shadow-soft-sm"><div className="mb-4 flex items-center gap-2"><AlertTriangle className="h-5 w-5 text-amber-600" /><h2 className="font-bold text-sagar-navy">Hazards</h2></div><Value label="Active hazards" value={hazards.length} /><Value label="Cyclone active" value={hazardData?.cyclone_active ? 'Yes' : 'No'} />{hazards[0] && <p className="mt-3 text-sm text-slate-600">{hazards[0].description}</p>}<div className="mt-4"><ProvenanceBadge provenance={hazardData?.provenance || hazards[0]?.provenance} /></div></section>
-        <section className="rounded-2xl border border-sagar-border bg-white p-5 shadow-soft-sm"><div className="mb-4 flex items-center gap-2"><Fish className="h-5 w-5 text-teal-600" /><h2 className="font-bold text-sagar-navy">Potential fishing zones</h2></div><Value label="PFZ zones returned" value={pfzData?.pfzs?.length ?? 0} />{pfzData?.pfzs?.[0] && <Value label="Nearest zone" value={`${pfzData.pfzs[0].lat}, ${pfzData.pfzs[0].lon}`} />}<div className="mt-4"><ProvenanceBadge provenance={pfzData?.provenance || pfzData?.pfzs?.[0]?.provenance} /></div></section>
+        <section className="rounded-2xl border border-sagar-border bg-white p-5 shadow-soft-sm"><div className="mb-4 flex items-center gap-2"><Fish className="h-5 w-5 text-teal-600" /><h2 className="font-bold text-sagar-navy">Potential fishing zones</h2></div><Value label="PFZ zones returned" value={pfzData?.pfzs?.length ?? 0} />{pfzData?.pfzs?.[0] && <Value label="Nearest zone" value={`${pfzData.pfzs[0].coordinates.lat}, ${pfzData.pfzs[0].coordinates.lon}`} />}<div className="mt-4"><ProvenanceBadge provenance={pfzData?.provenance || pfzData?.pfzs?.[0]?.provenance} /></div></section>
         <section className="rounded-2xl border border-sagar-border bg-white p-5 shadow-soft-sm"><div className="mb-4 flex items-center gap-2"><MapPin className="h-5 w-5 text-indigo-600" /><h2 className="font-bold text-sagar-navy">Ocean observations</h2></div><Value label="Sea-surface temperature" value={marine?.sst_celsius != null ? `${marine.sst_celsius} °C` : null} /><Value label="Chlorophyll" value={marine?.chlorophyll_mg_m3 != null ? `${marine.chlorophyll_mg_m3} mg/m³` : null} /><Value label="HAB detected" value={marine?.hab_detected == null ? null : marine.hab_detected ? 'Yes' : 'No'} /><div className="mt-4"><ProvenanceBadge provenance={marine?.provenance} /></div></section>
+        <section className="rounded-2xl border border-sagar-border bg-white p-5 shadow-soft-sm"><div className="mb-4 flex items-center gap-2"><Gauge className="h-5 w-5 text-cyan-600" /><h2 className="font-bold text-sagar-navy">Tides</h2></div><Value label="Current tide height" value={tide?.tide_height_m != null ? `${tide.tide_height_m} m` : null} /><Value label="Next high tide" value={tide?.next_high_time_iso ? new Date(tide.next_high_time_iso).toLocaleString() : null} /><Value label="Next low tide" value={tide?.next_low_time_iso ? new Date(tide.next_low_time_iso).toLocaleString() : null} /><div className="mt-4"><ProvenanceBadge provenance={tide?.provenance} /></div></section>
+        <section className="rounded-2xl border border-sagar-border bg-white p-5 shadow-soft-sm"><div className="mb-4 flex items-center gap-2"><Mountain className="h-5 w-5 text-slate-600" /><h2 className="font-bold text-sagar-navy">Seabed depth</h2></div><Value label="Depth / elevation" value={depth?.depth_m != null ? `${depth.depth_m} m` : null} /><Value label="Surface type" value={depth?.surface_type} /><Value label="Checked position" value={depth ? `${Number(depth.lat).toFixed(3)}°, ${Number(depth.lon).toFixed(3)}°` : null} /><div className="mt-4"><ProvenanceBadge provenance={depth?.provenance} /></div></section>
       </div>
     </main>
   );

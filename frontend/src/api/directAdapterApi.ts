@@ -50,4 +50,18 @@ export const directAdapterApi = {
       body: { waypoints: [{ ...coordinate, eta_iso: etaIso }] },
     });
   },
+
+  tides(coordinate: Coordinate, etaIso: string): Promise<DirectAdapterResponse> {
+    return apiRequest('/marine/tides', {
+      method: 'POST',
+      body: { waypoints: [{ ...coordinate, eta_iso: etaIso }] },
+    });
+  },
+
+  bathymetry(coordinate: Coordinate): Promise<DirectAdapterResponse> {
+    return apiRequest('/marine/bathymetry', {
+      method: 'POST',
+      body: { waypoints: [{ ...coordinate }] },
+    });
+  },
 };
