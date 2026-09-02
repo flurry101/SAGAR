@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAppStore, AppView } from '../../state/appStore';
-import { LanguageSelector } from '../common/LanguageSelector';
 import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -108,13 +107,8 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* 4. Right Controls: Language & Profile Access - Guaranteed Fully Visible */}
+          {/* 4. Right Controls: Profile Access - Guaranteed Fully Visible */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
-            {/* Language Selector */}
-            <div className="hidden sm:block shrink-0">
-              <LanguageSelector />
-            </div>
-
             {/* Profile Button - Never Squeezed or Clipped */}
             <div className="relative shrink-0">
               <motion.button
@@ -187,9 +181,7 @@ export const Header: React.FC = () => {
             transition={{ duration: 0.2 }}
             className="min-[1180px]:hidden border-t border-sagar-border bg-white px-4 pt-3 pb-5 space-y-2 shadow-soft-lg overflow-hidden"
           >
-            <div className="sm:hidden pb-2 mb-2 border-b border-sagar-borderLight">
-              <LanguageSelector />
-            </div>
+            <div className="pt-1"></div>
             {navItems.map((item) => (
               <button
                 key={item.id}
