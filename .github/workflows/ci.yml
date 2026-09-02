@@ -74,6 +74,7 @@ jobs:
 
       - name: Run backend tests
         env:
+          PYTHONPATH: ${{ github.workspace }}
           APP_ENV: test
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sagar_test_db
           POSTGRES_SERVER: localhost
