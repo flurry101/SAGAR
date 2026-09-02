@@ -15,11 +15,15 @@ export const Header: React.FC = () => {
     { id: 'knowledge', label: 'Marine Knowledge', shortLabel: 'Knowledge', icon: <BookOpen className="w-4 h-4 shrink-0" /> },
   ];
 
-  const profileMenuItems: { id: AppView; label: string; icon: React.ReactNode }[] = [
-    { id: 'auth', label: isAuthenticated ? 'Profile' : 'Sign In', icon: <UserCheck className="w-4 h-4 shrink-0" /> },
-    { id: 'vessel', label: 'Vessel Profile', icon: <Ship className="w-4 h-4 shrink-0" /> },
-    { id: 'history', label: 'Voyage History', icon: <History className="w-4 h-4 shrink-0" /> },
-  ];
+  const profileMenuItems: { id: AppView; label: string; icon: React.ReactNode }[] = isAuthenticated
+    ? [
+        { id: 'auth', label: 'Operator Profile', icon: <UserCheck className="w-4 h-4 shrink-0" /> },
+        { id: 'vessel', label: 'Vessel Profile', icon: <Ship className="w-4 h-4 shrink-0" /> },
+        { id: 'history', label: 'Voyage History', icon: <History className="w-4 h-4 shrink-0" /> },
+      ]
+    : [
+        { id: 'auth', label: 'Sign In', icon: <UserCheck className="w-4 h-4 shrink-0" /> },
+      ];
 
   const fullDisplayName = isAuthenticated ? userProfile?.name || 'Marine Operator' : 'Sign In';
   const shortDisplayName = isAuthenticated ? (userProfile?.name || 'Operator') : 'Sign In';
@@ -114,7 +118,13 @@ export const Header: React.FC = () => {
               <motion.button
                 whileHover={{ y: -1, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setProfileMenuOpen((prev) => !prev)}
+                onClick={() => {
+                  if (!isAuthenticated) {
+                    setCurrentView('auth');
+                  } else {
+                    setProfileMenuOpen((prev) => !prev);
+                  }
+                }}
                 className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy text-xs font-extrabold border border-sagar-border transition-all shadow-soft-sm touch-target cursor-pointer shrink-0"
                 title={fullDisplayName}
                 aria-label={fullDisplayName}
@@ -131,7 +141,7 @@ export const Header: React.FC = () => {
               </motion.button>
 
               <AnimatePresence>
-                {profileMenuOpen && (
+                {isAuthenticated && profileMenuOpen && (
                   <motion.div
                     initial={{ opacity: 0, y: -8, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
