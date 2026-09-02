@@ -149,6 +149,8 @@ Reason: {reason}
 
         advisory["recommendation_text"] = parsed.get("recommendation", recommendation)
         advisory["reason"] = parsed.get("reason", reason)
+        # Keep the public fallback contract stable even when the runtime model stack
+        # internally falls back from Gemini to Qwen.
         advisory["translation_provider"] = "gemini_fallback"
 
         execution["status"] = "completed"
