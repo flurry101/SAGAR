@@ -1,0 +1,32 @@
+name: Deploy to Render
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    env:
+      BACKEND_DEPLOY_HOOK: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK || vars.RENDER_BACKEND_DEPLOY_HOOK }}
+      FRONTEND_DEPLOY_HOOK: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK || vars.RENDER_FRONTEND_DEPLOY_HOOK }}
+
+    steps:
+      - name: Trigger backend deploy
+        if: ${{ env.BACKEND_DEPLOY_HOOK != '' }}
+        run: curl --fail --show-error --silent -X POST "$BACKEND_DEPLOY_HOOK"
+
+      - name: Skip backend deploy when hook is not configured
+        if: ${{ env.BACKEND_DEPLOY_HOOK == '' }}
+        run: echo "RENDER_BACKEND_DEPLOY_HOOK is not configured; skipping backend deploy trigger."
+
+      - name: Trigger frontend deploy
+        if: ${{ env.FRONTEND_DEPLOY_HOOK != '' }}
+        run: curl --fail --show-error --silent -X POST "$FRONTEND_DEPLOY_HOOK"
+
+      - name: Skip frontend deploy when hook is not configured
+        if: ${{ env.FRONTEND_DEPLOY_HOOK == '' }}
+        run: echo "RENDER_FRONTEND_DEPLOY_HOOK is not configured; skipping frontend deploy trigger."

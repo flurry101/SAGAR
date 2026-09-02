@@ -112,7 +112,10 @@ def supervisor_node(state: Dict[str, Any]) -> Dict[str, Any]:
     # --- LLM-based intent understanding & task decomposition ---
     task_plan = _default_task_plan(user_message)
 
-    if user_message:
+    # Use the LLM only for trip/safety routed requests. Deterministic knowledge and
+    # visualization requests should prefer the keyword path so they do not get
+    # incorrectly escalated to a risk-first fallback by the underlying Qwen/Gemini LLM.
+    if user_message and task_plan.get("requires_safety_assessment"):
         try:
             from app.core.llm import get_llm
             from langchain_core.messages import SystemMessage, HumanMessage

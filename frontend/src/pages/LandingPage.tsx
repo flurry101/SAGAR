@@ -71,18 +71,15 @@ export const LandingPage: React.FC = () => {
       {/* 1. MAJESTIC PARALLAX HERO SECTION */}
       <ParallaxOceanHero />
 
-      {/* Wave Transition */}
-      <WaveDivider fillColor="#edf5fa" secondaryFill="rgba(224, 242, 254, 0.45)" height={56} />
-
       {/* 2. INTERACTIVE 4D VOYAGE RISK SIMULATOR SECTION */}
       <motion.section
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.6 }}
-        className="bg-sagar-canvasAlt py-12 px-4 sm:px-6 lg:px-8 border-y border-sagar-borderLight"
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.5 }}
+        className="bg-sagar-canvasAlt py-8 px-4 sm:px-6 lg:px-8 border-y border-sagar-borderLight"
       >
-        <div className="max-w-7xl mx-auto space-y-8">
+        <div className="max-w-7xl mx-auto space-y-6">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-sky-900 border border-sky-200 text-xs font-bold shadow-soft-sm">
               <Sparkles className="w-3.5 h-3.5 text-sky-600" />
@@ -99,9 +96,6 @@ export const LandingPage: React.FC = () => {
           <InteractiveVoyageSimulator />
         </div>
       </motion.section>
-
-      {/* Wave Transition back */}
-      <WaveDivider fillColor="#f6f9fc" secondaryFill="rgba(237, 245, 250, 0.7)" height={56} flip />
 
       {/* 3. OPERATIONAL VOYAGE SCENARIOS SHOWCASE */}
       <motion.section

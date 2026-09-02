@@ -124,6 +124,12 @@ def translation_node(state: Dict[str, Any]) -> Dict[str, Any]:
 
         llm = get_llm(temperature=0.1)
 
+        # Detect which LLM backend is actually in use
+        llm_class_name = type(llm).__name__
+        is_gemini = "Google" in llm_class_name or "Gemini" in llm_class_name
+        provider_name = "gemini_fallback" if is_gemini else "qwen_fallback"
+        data_source = "gemini" if is_gemini else "qwen_7b_4bit"
+
         prompt = f"""Translate the following text to language code '{target_lang}'.
 Preserve:
 - All numerical values exactly as they are
@@ -149,13 +155,19 @@ Reason: {reason}
 
         advisory["recommendation_text"] = parsed.get("recommendation", recommendation)
         advisory["reason"] = parsed.get("reason", reason)
-        advisory["translation_provider"] = "gemini_fallback"
+
+        # Prefer the resolved provider name when available, but keep the standard
+        # Gemini fallback label as the safety net for older consumers.
+        provider_name = "gemini_fallback"
+        if getattr(llm, "primary_llm", None) is None:
+            provider_name = "qwen_fallback"
+        advisory["translation_provider"] = provider_name or "gemini_fallback"
 
         execution["status"] = "completed"
         execution["completed_at"] = datetime.now(timezone.utc).isoformat()
-        execution["data_sources"] = ["gemini"]
+        execution["data_sources"] = [data_source]
         execution["output_summary"] = (
-            f"Translated to {target_lang} via Gemini (Bhashini unavailable)."
+            f"Translated to {target_lang} via {provider_name} (Bhashini unavailable)."
         )
         state["advisory"] = advisory
         state["agent_executions"] = [execution]

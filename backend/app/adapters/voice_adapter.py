@@ -135,7 +135,7 @@ class VoiceAdapter:
                 return run_translation
             except Exception as e:
                 logger.warning(f"Real IndicTrans2 load failed: {e}. Using mock.")
-                return lambda txt: f"Mock translated text ({direction})"
+                return lambda txt: f"IndicTrans2 mock translated text ({direction})"
             
         model = model_manager.load_model(f"indictrans2-{direction}", trans2_loader, preferred_device="cuda")
         result = model(text)

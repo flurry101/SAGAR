@@ -7,6 +7,11 @@ import { motion } from 'framer-motion';
 export const ScenarioSelector: React.FC = () => {
   const { selectedScenarioId, setScenario, setActiveAssessment } = useAppStore();
 
+  const isDev = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('dev') === 'true';
+  if (!isDev) {
+    return null;
+  }
+
   const handleSelectScenario = (id: string) => {
     setScenario(id);
     const mockData = DEMO_SCENARIOS[id]?.mockResponse;

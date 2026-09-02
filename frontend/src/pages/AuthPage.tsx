@@ -169,161 +169,176 @@ export const AuthPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Current status card */}
-        {isAuthenticated && userProfile && (
-          <div className="p-3.5 bg-sagar-canvasAlt border border-sagar-borderLight rounded-xl space-y-2 text-xs">
-            <div className="flex items-center justify-between">
-              <span className="text-emerald-700 font-bold flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4" />
-                <span>Currently Signed In</span>
-              </span>
+        {/* Current status card when logged in */}
+        {isAuthenticated && userProfile ? (
+          <div className="space-y-4">
+            <div className="p-4 bg-sagar-canvasAlt border border-sagar-borderLight rounded-xl space-y-3 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-emerald-700 font-bold flex items-center gap-1.5 text-sm">
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Currently Signed In</span>
+                </span>
+                <button
+                  onClick={handleSignOut}
+                  className="text-xs text-rose-700 hover:text-rose-900 font-bold flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors touch-target"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+              <div className="text-slate-700 space-y-1 pt-1 border-t border-sagar-borderLight">
+                <div>Name: <strong className="text-sagar-navy">{userProfile.name}</strong></div>
+                <div>Base Harbor: <strong className="text-sagar-navy">{userProfile.port}</strong></div>
+                {userProfile.email && <div>Email: <span className="text-slate-600 font-mono">{userProfile.email}</span></div>}
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-sagar-border space-y-2">
+              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">Quick Navigation</span>
               <button
-                onClick={handleSignOut}
-                className="text-[11px] text-rose-700 hover:text-rose-900 font-bold flex items-center gap-1 touch-target"
+                type="button"
+                onClick={() => setCurrentView('chat')}
+                className="w-full py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-soft-sm flex items-center justify-between transition-all touch-target cursor-pointer"
               >
-                <LogOut className="w-3.5 h-3.5" />
-                <span>Sign Out</span>
+                <span>Go to Trip Planner</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setCurrentView('vessel')}
+                  className="py-2.5 px-3 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy font-bold text-xs border border-sagar-border flex items-center justify-center gap-2 transition-all touch-target cursor-pointer shadow-soft-sm"
+                >
+                  <Anchor className="w-3.5 h-3.5 text-sky-600" />
+                  <span>Vessel Profile</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCurrentView('history')}
+                  className="py-2.5 px-3 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy font-bold text-xs border border-sagar-border flex items-center justify-center gap-2 transition-all touch-target cursor-pointer shadow-soft-sm"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-sky-600" />
+                  <span>Voyage History</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* ── Google Sign‑in Button ─────────────────────────────────── */}
+            <button
+              type="button"
+              onClick={handleGoogleSignIn}
+              disabled={loading}
+              className="w-full flex items-center justify-center gap-3 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 shadow-soft-sm text-sm font-semibold text-slate-700 transition-all disabled:opacity-50 touch-target cursor-pointer"
+            >
+              <GoogleLogo className="w-5 h-5" />
+              <span>Sign in with Google</span>
+            </button>
+
+            {/* ── OR divider ────────────────────────────────────────────── */}
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-sagar-border" />
+              <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">or</span>
+              <div className="flex-1 h-px bg-sagar-border" />
+            </div>
+
+            {/* Tab Selection */}
+            <div className="grid grid-cols-2 gap-2 bg-sagar-canvasAlt p-1 rounded-xl border border-sagar-borderLight text-xs">
+              <button
+                type="button"
+                onClick={() => setAuthMode('signin')}
+                className={`py-2 rounded-lg font-bold transition-colors touch-target ${
+                  authMode === 'signin'
+                    ? 'bg-white text-sky-900 shadow-soft-sm border border-sagar-border/60'
+                    : 'text-slate-500 hover:text-sagar-navy'
+                }`}
+              >
+                Sign In
+              </button>
+              <button
+                type="button"
+                onClick={() => setAuthMode('signup')}
+                className={`py-2 rounded-lg font-bold transition-colors touch-target ${
+                  authMode === 'signup'
+                    ? 'bg-white text-sky-900 shadow-soft-sm border border-sagar-border/60'
+                    : 'text-slate-500 hover:text-sagar-navy'
+                }`}
+              >
+                Register / Sign Up
               </button>
             </div>
-            <div className="text-slate-700 space-y-0.5">
-              <div>Name: <strong className="text-sagar-navy">{userProfile.name}</strong></div>
-              <div>Base Harbor: <strong className="text-sagar-navy">{userProfile.port}</strong></div>
-              {userProfile.email && <div>Email: <span className="text-slate-500 font-mono">{userProfile.email}</span></div>}
-            </div>
-          </div>
+
+            <form onSubmit={handleEmailAuth} className="space-y-3.5 text-xs">
+              {authMode === 'signup' && (
+                <div>
+                  <label className="font-semibold text-slate-700 block mb-1">Operator Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
+                  />
+                </div>
+              )}
+
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">Base Port / Home Harbor</label>
+                <input
+                  type="text"
+                  required
+                  value={port}
+                  onChange={(e) => setHomePort(e.target.value)}
+                  className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1 flex items-center gap-1">
+                  <Mail className="w-3.5 h-3.5 text-sky-600" />
+                  <span>Email Address</span>
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1 flex items-center gap-1">
+                  <Lock className="w-3.5 h-3.5 text-sky-600" />
+                  <span>Password</span>
+                </label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white font-bold text-xs shadow-soft-sm flex items-center justify-center gap-2 transition-all mt-2 touch-target"
+              >
+                <span>
+                  {loading
+                    ? 'Authenticating...'
+                    : authMode === 'signup'
+                    ? 'Create Account & Sync Profile'
+                    : 'Sign In to SAGAR'}
+                </span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </form>
+          </>
         )}
-
-        {/* Status / Error Messages */}
-        {errorMessage && (
-          <div className="p-3 bg-rose-50 border border-rose-300 rounded-xl text-rose-950 text-xs flex items-center gap-2 font-medium">
-            <AlertCircle className="w-4 h-4 text-rose-700 shrink-0" />
-            <span>{errorMessage}</span>
-          </div>
-        )}
-
-        {statusMessage && (
-          <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-950 text-xs flex items-center gap-2 font-medium">
-            <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
-            <span>{statusMessage}</span>
-          </div>
-        )}
-
-        {/* ── Google Sign‑in Button ─────────────────────────────────── */}
-        {!isAuthenticated && (
-          <button
-            type="button"
-            onClick={handleGoogleSignIn}
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-3 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 shadow-soft-sm text-sm font-semibold text-slate-700 transition-all disabled:opacity-50 touch-target cursor-pointer"
-          >
-            <GoogleLogo className="w-5 h-5" />
-            <span>Sign in with Google</span>
-          </button>
-        )}
-
-        {/* ── OR divider ────────────────────────────────────────────── */}
-        {!isAuthenticated && (
-          <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-sagar-border" />
-            <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">or</span>
-            <div className="flex-1 h-px bg-sagar-border" />
-          </div>
-        )}
-
-        {/* Tab Selection */}
-        <div className="grid grid-cols-2 gap-2 bg-sagar-canvasAlt p-1 rounded-xl border border-sagar-borderLight text-xs">
-          <button
-            type="button"
-            onClick={() => setAuthMode('signin')}
-            className={`py-2 rounded-lg font-bold transition-colors touch-target ${
-              authMode === 'signin'
-                ? 'bg-white text-sky-900 shadow-soft-sm border border-sagar-border/60'
-                : 'text-slate-500 hover:text-sagar-navy'
-            }`}
-          >
-            Sign In
-          </button>
-          <button
-            type="button"
-            onClick={() => setAuthMode('signup')}
-            className={`py-2 rounded-lg font-bold transition-colors touch-target ${
-              authMode === 'signup'
-                ? 'bg-white text-sky-900 shadow-soft-sm border border-sagar-border/60'
-                : 'text-slate-500 hover:text-sagar-navy'
-            }`}
-          >
-            Register / Sign Up
-          </button>
-        </div>
-
-        <form onSubmit={handleEmailAuth} className="space-y-3.5 text-xs">
-          {authMode === 'signup' && (
-            <div>
-              <label className="font-semibold text-slate-700 block mb-1">Operator Full Name</label>
-              <input
-                type="text"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
-              />
-            </div>
-          )}
-
-          <div>
-            <label className="font-semibold text-slate-700 block mb-1">Base Port / Home Harbor</label>
-            <input
-              type="text"
-              required
-              value={port}
-              onChange={(e) => setHomePort(e.target.value)}
-              className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="font-semibold text-slate-700 block mb-1 flex items-center gap-1">
-              <Mail className="w-3.5 h-3.5 text-sky-600" />
-              <span>Email Address</span>
-            </label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="font-semibold text-slate-700 block mb-1 flex items-center gap-1">
-              <Lock className="w-3.5 h-3.5 text-sky-600" />
-              <span>Password</span>
-            </label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white font-bold text-xs shadow-soft-sm flex items-center justify-center gap-2 transition-all mt-2 touch-target"
-          >
-            <span>
-              {loading
-                ? 'Authenticating...'
-                : authMode === 'signup'
-                ? 'Create Account & Sync Profile'
-                : 'Sign In to SAGAR'}
-            </span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </form>
       </motion.div>
     </main>
   );

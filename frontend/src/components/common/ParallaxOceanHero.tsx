@@ -31,7 +31,7 @@ export const ParallaxOceanHero: React.FC = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden pt-8 sm:pt-14 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto select-none">
+    <section className="relative overflow-hidden pt-6 sm:pt-10 pb-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto select-none">
       {/* Background Parallax Layer 1: Nautical Depth Contours & Compass Grid */}
       <motion.div
         style={{ y: shouldReduceMotion ? 0 : yBg }}
@@ -48,38 +48,14 @@ export const ParallaxOceanHero: React.FC = () => {
         </svg>
       </motion.div>
 
-      {/* Layer 2: Multi-Layered Fluid Animated SVG Waves at Bottom */}
-      <div className="absolute inset-x-0 bottom-0 pointer-events-none z-0 overflow-hidden h-44 opacity-80">
-        {/* Wave Layer 1: Deep Slow Current */}
-        <div className="absolute inset-x-0 bottom-0 w-[200%] h-36 animate-wave-drift-slow">
-          <svg className="w-full h-full fill-sky-200/40" viewBox="0 0 1440 160" preserveAspectRatio="none">
-            <path d="M0,48 C150,96 350,0 500,48 C650,96 850,0 1000,48 C1150,96 1350,0 1440,48 L1440,160 L0,160 Z"></path>
-          </svg>
-        </div>
-
-        {/* Wave Layer 2: Mid-level Undulating Swell */}
-        <div className="absolute inset-x-0 bottom-0 w-[200%] h-28 animate-wave-drift-fast opacity-90">
-          <svg className="w-full h-full fill-sky-100/70" viewBox="0 0 1440 160" preserveAspectRatio="none">
-            <path d="M0,64 C200,16 400,112 600,64 C800,16 1000,112 1200,64 C1350,32 1400,80 1440,64 L1440,160 L0,160 Z"></path>
-          </svg>
-        </div>
-
-        {/* Wave Layer 3: Foam Crest Line */}
-        <div className="absolute inset-x-0 bottom-0 w-[200%] h-16 animate-wave-drift-slow opacity-60">
-          <svg className="w-full h-full fill-sagar-canvas" viewBox="0 0 1440 160" preserveAspectRatio="none">
-            <path d="M0,80 C240,40 480,120 720,80 C960,40 1200,120 1440,80 L1440,160 L0,160 Z"></path>
-          </svg>
-        </div>
-      </div>
-
       {/* Main Hero Content */}
       <motion.div
         style={{ y: shouldReduceMotion ? 0 : yContent, opacity: opacityHero }}
-        className="relative z-10 space-y-10"
+        className="relative z-10 space-y-8"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Left Column: Brand & Value Prop */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          <div className="lg:col-span-7 space-y-5 text-left">
             {/* Majestic SAGAR Badge */}
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -90,23 +66,23 @@ export const ParallaxOceanHero: React.FC = () => {
               <div className="w-5 h-5 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold">
                 <Anchor className="w-3 h-3" />
               </div>
-              <span>SAGAR — Maritime Voyage Decision Support</span>
+              <span>SAGAR — Marine Safety & Decision Support</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
             </motion.div>
 
             {/* Majestic SAGAR Heading */}
             <div className="space-y-3">
-              <h1 className="text-4xl sm:text-6xl font-black text-sagar-navy tracking-tight leading-[1.08]">
+              <h1 className="text-3xl sm:text-5xl font-black text-sagar-navy tracking-tight leading-[1.1]">
                 <span className="bg-gradient-to-r from-sky-700 via-sky-600 to-teal-700 bg-clip-text text-transparent">
                   SAGAR
                 </span>
-                <span className="block text-2xl sm:text-4xl font-extrabold text-slate-800 mt-1">
-                  4D Spatio-Temporal Voyage Safety & Decision Support
+                <span className="block text-xl sm:text-3xl font-extrabold text-slate-800 mt-1">
+                  Voice-First Multilingual Marine Safety Assistant
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal max-w-2xl">
-                Calm morning seas at departure can turn into hazardous afternoon swell surges during return transit. SAGAR evaluates your entire voyage across <strong className="text-sagar-navy font-bold">exact future transit hours at every waypoint</strong>, matching live ocean forecasts against your boat's physical beam stability limits.
+              <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal max-w-2xl">
+                SAGAR is a voice-first, multilingual marine safety assistant for fishermen, researchers and coastal authorities, combining ocean forecasting, geofencing, and explainable advisory logic into a single operational decision-support system.
               </p>
             </div>
 

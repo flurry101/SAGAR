@@ -33,7 +33,7 @@ export class VexylClient {
           this.options.onStateChange('listening');
         } catch (e: any) {
           console.error('[VEXYL] Failed to start recording on socket open:', e);
-          this.options.onError(e);
+          this.options.onError(e instanceof Error ? e : new Error(String(e)));
           this.stop();
         }
       };
@@ -80,7 +80,7 @@ export class VexylClient {
 
     } catch (e: any) {
       console.error('[VEXYL] Start failed:', e);
-      this.options.onError(e);
+      this.options.onError(e instanceof Error ? e : new Error(String(e)));
       this.stop();
     }
   }
