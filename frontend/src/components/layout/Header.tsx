@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppStore, AppView } from '../../state/appStore';
 import { LanguageSelector } from '../common/LanguageSelector';
-import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X } from 'lucide-react';
+import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X, Waves } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Header: React.FC = () => {
@@ -12,6 +12,7 @@ export const Header: React.FC = () => {
   const navItems: { id: AppView; label: string; shortLabel: string; icon: React.ReactNode }[] = [
     { id: 'landing', label: 'Overview', shortLabel: 'Overview', icon: <Compass className="w-4 h-4 shrink-0" /> },
     { id: 'chat', label: 'Trip Planner', shortLabel: 'Trip Planner', icon: <Anchor className="w-4 h-4 shrink-0" /> },
+    { id: 'conditions', label: 'Live Conditions', shortLabel: 'Conditions', icon: <Waves className="w-4 h-4 shrink-0" /> },
     { id: 'advisory', label: 'Advisory Dashboard', shortLabel: 'Advisory', icon: <ShieldAlert className="w-4 h-4 shrink-0" /> },
     { id: 'knowledge', label: 'Marine Knowledge', shortLabel: 'Knowledge', icon: <BookOpen className="w-4 h-4 shrink-0" /> },
   ];

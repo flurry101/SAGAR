@@ -139,7 +139,7 @@ class GEBCOAdapter(MarineDataAdapter):
                 "locations": f"{lat},{lon}",
             }
 
-            with httpx.Client(timeout=_TIMEOUT_S) as client:
+            with httpx.Client(timeout=_TIMEOUT_S, trust_env=False) as client:
                 response = client.get(_OPENTOPODATA_URL, params=params)
                 response.raise_for_status()
                 data = response.json()

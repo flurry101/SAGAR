@@ -8,6 +8,7 @@ import { OfflineBanner } from './components/layout/OfflineBanner';
 import { OceanBackground } from './components/common/OceanBackground';
 import { LandingPage } from './pages/LandingPage';
 import { TripPlannerPage } from './pages/TripPlannerPage';
+import { LiveConditionsPage } from './pages/LiveConditionsPage';
 import { AdvisoryPage } from './pages/AdvisoryPage';
 import { VesselProfilePage } from './pages/VesselProfilePage';
 import { KnowledgeChatPage } from './pages/KnowledgeChatPage';
@@ -113,6 +114,8 @@ export function App() {
         return <LandingPage />;
       case 'chat':
         return <TripPlannerPage />;
+      case 'conditions':
+        return <LiveConditionsPage />;
       case 'advisory':
         return <AdvisoryPage />;
       case 'vessel':

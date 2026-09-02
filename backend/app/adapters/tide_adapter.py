@@ -153,7 +153,7 @@ class TideAdapter(MarineDataAdapter):
                 "key": worldtides_api_key,
             }
 
-            with httpx.Client(timeout=_TIMEOUT_S) as client:
+            with httpx.Client(timeout=_TIMEOUT_S, trust_env=False) as client:
                 response = client.get(_WORLDTIDES_API_URL, params=params)
                 response.raise_for_status()
                 data = response.json()
