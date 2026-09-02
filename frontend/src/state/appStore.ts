@@ -3,7 +3,7 @@ import { APIResponse } from '../types/api';
 import { mockAdapter } from '../api/mock/mockAdapter';
 import { sanitizeSagarText } from '../utils/brand';
 
-export type AppView = 'landing' | 'chat' | 'advisory' | 'vessel' | 'knowledge' | 'history' | 'auth';
+export type AppView = 'landing' | 'chat' | 'conditions' | 'advisory' | 'vessel' | 'knowledge' | 'history' | 'auth';
 export type AppLanguage = 'en' | 'hi' | 'ta' | 'te' | 'kn' | 'ml' | 'bn' | 'mr' | 'gu' | 'pa' | 'or';
 
 export interface ChatMessage {

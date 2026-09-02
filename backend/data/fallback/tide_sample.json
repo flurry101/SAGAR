@@ -1,51 +1,249 @@
 {
-  "hand_built_metadata": "Rolling fallback: hour_offset is hours from the current UTC hour, resolved at read time. Based on average Indian coastal tide tables (6-7m tidal range in Arabian Sea).",
+  "hand_built_metadata": "Rolling fallback: hour_offset is hours from current UTC hour (-48 to +72h, 3h resolution).",
   "time_mode": "relative_hourly",
   "tide_records": [
     {
       "hour_offset": -48,
-      "tide_height_m": 1.2,
+      "tide_height_m": 1.8,
       "next_high_time_iso": null,
       "next_low_time_iso": null
     },
     {
-      "hour_offset": -24,
-      "tide_height_m": 0.8,
-      "next_high_time_iso": null,
-      "next_low_time_iso": null
-    },
-    {
-      "hour_offset": -12,
-      "tide_height_m": 2.1,
-      "next_high_time_iso": null,
-      "next_low_time_iso": null
-    },
-    {
-      "hour_offset": -6,
+      "hour_offset": -45,
       "tide_height_m": 3.2,
       "next_high_time_iso": null,
       "next_low_time_iso": null
     },
     {
+      "hour_offset": -42,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -39,
+      "tide_height_m": 0.4,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -36,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -33,
+      "tide_height_m": 3.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -30,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -27,
+      "tide_height_m": 0.4,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -24,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -21,
+      "tide_height_m": 3.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -18,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -15,
+      "tide_height_m": 0.4,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -12,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -9,
+      "tide_height_m": 3.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -6,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": -3,
+      "tide_height_m": 0.4,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
       "hour_offset": 0,
-      "tide_height_m": 2.8,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 3,
+      "tide_height_m": 3.2,
       "next_high_time_iso": null,
       "next_low_time_iso": null
     },
     {
       "hour_offset": 6,
-      "tide_height_m": 1.5,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 9,
+      "tide_height_m": 0.4,
       "next_high_time_iso": null,
       "next_low_time_iso": null
     },
     {
       "hour_offset": 12,
-      "tide_height_m": 0.3,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 15,
+      "tide_height_m": 3.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 18,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 21,
+      "tide_height_m": 0.4,
       "next_high_time_iso": null,
       "next_low_time_iso": null
     },
     {
       "hour_offset": 24,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 27,
+      "tide_height_m": 3.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 30,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 33,
+      "tide_height_m": 0.4,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 36,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 39,
+      "tide_height_m": 3.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 42,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 45,
+      "tide_height_m": 0.4,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 48,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 51,
+      "tide_height_m": 3.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 54,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 57,
+      "tide_height_m": 0.4,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 60,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 63,
+      "tide_height_m": 3.2,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 66,
+      "tide_height_m": 1.8,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 69,
+      "tide_height_m": 0.4,
+      "next_high_time_iso": null,
+      "next_low_time_iso": null
+    },
+    {
+      "hour_offset": 72,
       "tide_height_m": 1.8,
       "next_high_time_iso": null,
       "next_low_time_iso": null

@@ -55,7 +55,9 @@ def fetch_marine_hourly(
         "timezone": "UTC",
         "forecast_days": forecast_days,
     }
-    with httpx.Client(timeout=timeout_s) as client:
+    # Public data adapters must not inherit a workstation's proxy settings.
+    # A stale proxy should not turn a directly reachable public API into Tier 3.
+    with httpx.Client(timeout=timeout_s, trust_env=False) as client:
         resp = client.get(MARINE_URL, params=params)
         resp.raise_for_status()
         data = resp.json()
@@ -83,7 +85,7 @@ def fetch_weather_hourly(
         "timezone": "UTC",
         "forecast_days": forecast_days,
     }
-    with httpx.Client(timeout=timeout_s) as client:
+    with httpx.Client(timeout=timeout_s, trust_env=False) as client:
         resp = client.get(WEATHER_URL, params=params)
         resp.raise_for_status()
         data = resp.json()
