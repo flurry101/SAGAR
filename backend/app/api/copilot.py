@@ -24,6 +24,7 @@ async def _execute_copilot_chat(
     conversation_history: Optional[List[Dict[str, Any]]] = None,
     trip_id: Optional[str] = None,
     fisher_id: Optional[str] = None,
+    language: str = "en",
 ) -> Dict[str, Any]:
     try:
         from app.chatbot.chatbot import chat as copilot_chat
@@ -32,6 +33,7 @@ async def _execute_copilot_chat(
             conversation_history=conversation_history,
             trip_id=trip_id,
             fisher_id=fisher_id,
+            language=language,
         )
     except ImportError as e:
         logger.warning(f"chatbot dependencies not installed: {e}")
@@ -58,6 +60,7 @@ async def chat_with_copilot(
     """
     request_id = getattr(request.state, "request_id", str(uuid.uuid4()))
     fisher_id = payload.fisher_id or (str(current_user.id) if current_user else None)
+    language = request.headers.get("Accept-Language", "en")
 
     history = []
     if payload.conversation_history:
@@ -73,6 +76,7 @@ async def chat_with_copilot(
             conversation_history=history if history else None,
             trip_id=payload.trip_id,
             fisher_id=fisher_id,
+            language=language,
         )
 
         response_data = CopilotResponse(
