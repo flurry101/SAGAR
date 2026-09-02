@@ -80,7 +80,7 @@ export const ParallaxOceanHero: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left Column: Brand & Value Prop */}
           <div className="lg:col-span-7 space-y-6 text-left">
-            {/* Majestic SAGAR Badge */}
+            {/* Operational Badge */}
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -90,27 +90,27 @@ export const ParallaxOceanHero: React.FC = () => {
               <div className="w-5 h-5 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold">
                 <Anchor className="w-3 h-3" />
               </div>
-              <span>SAGAR — Maritime Voyage Decision Support</span>
+              <span>SAGAR — Coastal Marine Safety System</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
             </motion.div>
 
-            {/* Majestic SAGAR Heading */}
+            {/* Clear Actionable Heading */}
             <div className="space-y-3">
-              <h1 className="text-4xl sm:text-6xl font-black text-sagar-navy tracking-tight leading-[1.08]">
+              <h1 className="text-4xl sm:text-5xl font-black text-sagar-navy tracking-tight leading-[1.1]">
                 <span className="bg-gradient-to-r from-sky-700 via-sky-600 to-teal-700 bg-clip-text text-transparent">
-                  SAGAR
+                  Know If Your Fishing Trip Is Safe
                 </span>
-                <span className="block text-2xl sm:text-4xl font-extrabold text-slate-800 mt-1">
-                  4D Spatio-Temporal Voyage Safety & Decision Support
+                <span className="block text-2xl sm:text-3xl font-extrabold text-slate-800 mt-1.5">
+                  Before You Leave Harbor
                 </span>
               </h1>
 
               <p className="text-base sm:text-lg text-slate-700 leading-relaxed font-normal max-w-2xl">
-                Calm morning seas at departure can turn into hazardous afternoon swell surges during return transit. SAGAR evaluates your entire voyage across <strong className="text-sagar-navy font-bold">exact future transit hours at every waypoint</strong>, matching live ocean forecasts against your boat's physical beam stability limits.
+                Morning waters may look calm, but dangerous afternoon swells can cause small boats to capsize during return trips. SAGAR checks sea forecasts for your exact return time and warns you if wave heights exceed your boat's safe limits.
               </p>
             </div>
 
-            {/* Interactive CTAs with Ripple Physics */}
+            {/* Direct Action CTAs */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <RippleButton
                 variant="primary"
@@ -119,143 +119,114 @@ export const ParallaxOceanHero: React.FC = () => {
                 iconRight={<ArrowRight className="w-5 h-5" />}
                 onClick={() => setCurrentView('chat')}
               >
-                Plan Maritime Voyage
+                Check Trip Safety
               </RippleButton>
 
               <RippleButton
                 variant="secondary"
                 size="lg"
-                icon={<ShieldAlert className="w-5 h-5 text-amber-600" />}
-                onClick={() => handleLaunchScenario('SCENARIO_3_SEVERE_RETURN')}
+                icon={<Ship className="w-5 h-5 text-sky-700" />}
+                onClick={() => setCurrentView('vessel')}
               >
-                Simulate Afternoon Swell Surge
+                Set Boat Dimensions
               </RippleButton>
             </div>
 
-            {/* Live Marine Features Strip */}
+            {/* Core Capability Strip */}
             <div className="grid grid-cols-3 gap-3 pt-4 border-t border-sagar-borderLight max-w-xl text-left">
-              <div className="p-3.5 bg-white/90 rounded-2xl border border-sagar-borderLight shadow-soft-sm hover:border-sky-300 transition-colors">
-                <div className="text-[10px] font-extrabold uppercase text-sky-800 tracking-wider">Spatial Engine</div>
-                <div className="text-xs sm:text-sm font-extrabold text-sagar-navy mt-0.5">4D Coastal Grids</div>
+              <div className="p-3.5 bg-white/90 rounded-2xl border border-sagar-borderLight shadow-soft-sm">
+                <div className="text-[10px] font-extrabold uppercase text-sky-800 tracking-wider">Sea Forecasts</div>
+                <div className="text-xs sm:text-sm font-extrabold text-sagar-navy mt-0.5">Wave & Tide Alerts</div>
               </div>
-              <div className="p-3.5 bg-white/90 rounded-2xl border border-sagar-borderLight shadow-soft-sm hover:border-teal-300 transition-colors">
-                <div className="text-[10px] font-extrabold uppercase text-teal-800 tracking-wider">Stability Rule</div>
-                <div className="text-xs sm:text-sm font-extrabold text-sagar-navy mt-0.5">Beam / 4.0 SVAS</div>
+              <div className="p-3.5 bg-white/90 rounded-2xl border border-sagar-borderLight shadow-soft-sm">
+                <div className="text-[10px] font-extrabold uppercase text-teal-800 tracking-wider">Boat Stability</div>
+                <div className="text-xs sm:text-sm font-extrabold text-sagar-navy mt-0.5">Capsize Wave Limits</div>
               </div>
-              <div className="p-3.5 bg-white/90 rounded-2xl border border-sagar-borderLight shadow-soft-sm hover:border-indigo-300 transition-colors">
-                <div className="text-[10px] font-extrabold uppercase text-indigo-800 tracking-wider">Provenance</div>
-                <div className="text-xs sm:text-sm font-extrabold text-sagar-navy mt-0.5">Tier 1–3 Verified</div>
+              <div className="p-3.5 bg-white/90 rounded-2xl border border-sagar-borderLight shadow-soft-sm">
+                <div className="text-[10px] font-extrabold uppercase text-indigo-800 tracking-wider">Voice First</div>
+                <div className="text-xs sm:text-sm font-extrabold text-sagar-navy mt-0.5">10+ Indian Languages</div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Dynamic 4D Journey Simulator Card */}
+          {/* Right Column: 3-Second Maritime Safety Verdict Card */}
           <div className="lg:col-span-5">
-            <div className="relative bg-white/95 backdrop-blur-sm rounded-3xl p-6 sm:p-7 border border-sagar-border shadow-soft-lg space-y-4 overflow-hidden">
-              {/* Top Badge */}
+            <div className="relative bg-white rounded-3xl p-6 sm:p-7 border border-sagar-border shadow-soft-lg space-y-4 overflow-hidden text-left">
+              {/* Card Header */}
               <div className="flex items-center justify-between border-b border-sagar-borderLight pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-sky-500 animate-ping" />
-                  <span className="text-xs font-extrabold text-sagar-navy">Voyage Spatio-Temporal Journey</span>
+                  <ShieldAlert className="w-4 h-4 text-amber-600" />
+                  <span className="text-xs font-black text-sagar-navy uppercase tracking-wider">
+                    Instant Voyage Verdict
+                  </span>
                 </div>
-                <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-sagar-powder text-sky-900 border border-sky-200">
-                  12.87°N, 74.84°E
+                <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
+                  Live Coastal Sample
                 </span>
               </div>
 
-              {/* Journey Stages with Animated Progression */}
-              <div className="space-y-2.5">
-                {/* 1. Departure */}
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-sagar-canvasAlt border border-sagar-borderLight hover:border-sky-200 transition-colors">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-mono font-bold text-xs shrink-0">
-                    05:00
-                  </div>
-                  <div className="flex-1 min-w-0 text-left">
-                    <div className="flex items-center justify-between text-xs font-bold text-sagar-navy">
-                      <span>Harbor Departure</span>
-                      <span className="text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full border border-emerald-300">
-                        SAFE (0.8m Wave)
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 truncate">Calm morning coastal sea state</p>
-                  </div>
-                </div>
-
-                {/* 2. Outbound Transit */}
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-sagar-canvasAlt border border-sagar-borderLight hover:border-sky-200 transition-colors">
-                  <div className="w-8 h-8 rounded-xl bg-sky-100 text-sky-800 flex items-center justify-center font-mono font-bold text-xs shrink-0">
-                    07:30
-                  </div>
-                  <div className="flex-1 min-w-0 text-left">
-                    <div className="flex items-center justify-between text-xs font-bold text-sagar-navy">
-                      <span>Outbound Transit (30 km)</span>
-                      <span className="text-[10px] font-extrabold text-sky-800 bg-sky-100 px-2 py-0.5 rounded-full border border-sky-300">
-                        FAVOURABLE
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 truncate">Transit corridor clear, wind 12 km/h</p>
-                  </div>
-                </div>
-
-                {/* 3. Target PFZ Ground */}
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-sagar-canvasAlt border border-sagar-borderLight hover:border-teal-200 transition-colors">
-                  <div className="w-8 h-8 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-mono font-bold text-xs shrink-0">
-                    10:00
-                  </div>
-                  <div className="flex-1 min-w-0 text-left">
-                    <div className="flex items-center justify-between text-xs font-bold text-sagar-navy">
-                      <span>Target PFZ Ground</span>
-                      <span className="text-[10px] font-extrabold text-teal-800 bg-teal-100 px-2 py-0.5 rounded-full border border-teal-300">
-                        AGGREGATION ACTIVE
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 truncate">Thermal front convergence active</p>
-                  </div>
-                </div>
-
-                {/* 4. Return Hazard */}
-                <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-rose-50 border border-rose-300 shadow-soft-sm">
-                  <div className="w-8 h-8 rounded-xl bg-rose-200 text-rose-900 flex items-center justify-center font-mono font-black text-xs shrink-0">
-                    16:00
-                  </div>
-                  <div className="flex-1 min-w-0 text-left">
-                    <div className="flex items-center justify-between text-xs font-extrabold text-rose-950">
-                      <span>Return Leg Swell Surge</span>
-                      <span className="text-[10px] font-black text-rose-900 bg-rose-100 px-2 py-0.5 rounded-full border border-rose-300">
-                        SEVERE HAZARD (2.1m)
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-rose-800 font-medium leading-tight mt-0.5">
-                      Afternoon wave surge exceeds trawler stability beam limit (1.1m)
-                    </p>
-                  </div>
+              {/* 3-Second Rule: 1. Is it safe? */}
+              <div className="p-3.5 bg-amber-50/90 border border-amber-300 rounded-2xl space-y-1">
+                <div className="text-[10px] font-black text-amber-800 uppercase tracking-wider">1. Is it safe?</div>
+                <div className="text-sm font-black text-amber-950 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shrink-0" />
+                  <span>CAUTION: Safe to depart, but dangerous after 1:00 PM</span>
                 </div>
               </div>
 
-              {/* Bottom Insight Banner */}
-              <div className="bg-sagar-powder/80 p-3.5 rounded-2xl border border-sky-200 text-xs text-sky-950 flex items-center gap-2.5">
-                <ShieldCheck className="w-4 h-4 text-sky-700 shrink-0" />
-                <span>
-                  <strong>SAGAR Reasoning:</strong> Warns of return hazards before departure.
-                </span>
+              {/* 3-Second Rule: 2. Why? */}
+              <div className="p-3.5 bg-sagar-canvasAlt border border-sagar-borderLight rounded-2xl space-y-1.5">
+                <div className="text-[10px] font-black text-slate-500 uppercase tracking-wider">2. Why?</div>
+                <div className="text-xs text-slate-800 leading-relaxed space-y-1">
+                  <div>🌊 <strong>Afternoon sea swell:</strong> Waves climb to <strong className="text-rose-700">2.1m</strong> off Malpe by 16:00.</div>
+                  <div>🚤 <strong>Your boat limit:</strong> Safe wave limit for your FRP boat is <strong className="text-sagar-navy">1.1m</strong>.</div>
+                </div>
+              </div>
+
+              {/* 3-Second Rule: 3. What to do next? */}
+              <div className="p-3.5 bg-emerald-50/80 border border-emerald-300 rounded-2xl space-y-1">
+                <div className="text-[10px] font-black text-emerald-800 uppercase tracking-wider">3. What should I do?</div>
+                <div className="text-xs font-extrabold text-emerald-950">
+                  ⏰ Depart at 05:00 AM • Return to dock before 12:00 PM
+                </div>
+              </div>
+
+              {/* Quick Action Buttons */}
+              <div className="pt-2 flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setCurrentView('chat')}
+                  className="flex-1 py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-soft-sm flex items-center justify-center gap-2 transition-all touch-target cursor-pointer"
+                >
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Check My Port & Boat</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLaunchScenario('SCENARIO_3_SEVERE_RETURN')}
+                  className="py-3 px-3.5 rounded-xl bg-sagar-canvasAlt hover:bg-slate-100 text-sagar-navy font-bold text-xs border border-sagar-border shadow-soft-sm transition-all touch-target cursor-pointer"
+                  title="Inspect detailed return swell advisory"
+                >
+                  View Details
+                </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Dedicated Voyage Journey Workflow Strip: PLAN → TRAVEL → MONITOR → RETURN SAFELY */}
+        {/* Voyage Journey Workflow Strip: PLAN → DEPART → FISH → RETURN SAFELY */}
         <div className="bg-white/90 backdrop-blur-md rounded-3xl p-5 sm:p-6 border border-sagar-border shadow-soft-md space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-sagar-borderLight pb-3">
             <div className="flex items-center gap-2">
               <span className="text-xs font-extrabold uppercase tracking-wider text-sky-900 bg-sagar-powder px-3 py-1 rounded-full border border-sky-200">
-                Continuous Voyage Safety Lifecycle
+                Simple 4-Step Safety Flow
               </span>
               <span className="text-xs font-extrabold text-sagar-navy">
-                PLAN → TRAVEL → MONITOR → RETURN SAFELY
+                CHECK WEATHER → SET RETURN TIME → FISH SAFELY → DOCK BEFORE SWELL
               </span>
             </div>
             <span className="text-[11px] text-slate-500 font-medium hidden md:inline">
-              End-to-end spatio-temporal vessel safety matching
+              Protecting lives & vessels at sea
             </span>
           </div>
 
