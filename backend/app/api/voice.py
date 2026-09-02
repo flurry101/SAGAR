@@ -1,12 +1,18 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 import logging
+import os
 
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+# Optional shared-secret for webhook authentication.
+# Only enforced when VEXYL_WEBHOOK_TOKEN is set in the environment.
+_WEBHOOK_TOKEN = os.environ.get("VEXYL_WEBHOOK_TOKEN", "")
+
 
 class VexylMessage(BaseModel):
     role: str
@@ -25,13 +31,18 @@ class VexylWebhookResponse(BaseModel):
 
 @router.post("/webhook", response_model=VexylWebhookResponse)
 async def voice_webhook(
-    payload: VexylWebhookRequest
+    payload: VexylWebhookRequest,
+    x_webhook_token: Optional[str] = Header(None, alias="X-Webhook-Token"),
 ):
     """
     Webhook for VEXYL Gateway Custom LLM.
     Receives transcribed text -> calls ORCA Conversational Copilot -> returns text for TTS.
     """
-    logger.debug(f"[VOICE] Received webhook for call {payload.sessionId}")
+    # Verify shared-secret when configured
+    if _WEBHOOK_TOKEN and x_webhook_token != _WEBHOOK_TOKEN:
+        raise HTTPException(status_code=401, detail="Invalid or missing webhook token")
+
+    logger.debug(f"[VOICE] Received webhook for session {payload.sessionId}")
     
     if not payload.message:
         return VexylWebhookResponse(response="I didn't catch that.", action="continue")

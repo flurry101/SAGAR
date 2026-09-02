@@ -21,6 +21,7 @@ from app.api.weather import router as weather_router
 from app.api.marine import router as marine_router
 from app.api.risk import router as risk_router
 from app.api.vessel import router as vessel_router
+from app.services.ais_websocket import AISWebSocketListener
 from app.api.voice import router as voice_router
 from app.api.google_oauth import router as google_oauth_router
 
@@ -35,7 +36,13 @@ async def lifespan(app: FastAPI):
         logger.info("Database initialized successfully.")
     except Exception as e:
         logger.warning(f"Database initialization deferred or offline: {e}")
-    yield
+    ais_listener = AISWebSocketListener()
+    await ais_listener.start()
+    app.state.ais_listener = ais_listener
+    try:
+        yield
+    finally:
+        await ais_listener.stop()
 
 
 app = FastAPI(

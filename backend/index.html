@@ -113,7 +113,7 @@
     <canvas id="canvas"></canvas>
     <div id="caption" aria-live="polite"></div>
 
-    <script src="aivg-sdk.js?v=1.0.11"></script>
+    <script src="sdk.js?v=1.0.11"></script>
     <script>
         // --- SUBTITLE (assistant reply only; textContent — LLM text is untrusted) ---
         // Text arrives faster than speech (a short reply streams in a few ms and
@@ -201,7 +201,7 @@
             },
 
             // AIVG Server Configuration
-            serverUrl: `ws://${window.location.hostname}:8081`,
+            serverUrl: `ws://${window.location.hostname}:8082`,
             language: 'en-IN'
         };
 
