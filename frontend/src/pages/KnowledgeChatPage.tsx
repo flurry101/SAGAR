@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { BookOpen, Send, Database, ShieldAlert, Sparkles, HelpCircle, ArrowRight } from 'lucide-react';
 import { sanitizeSagarText } from '../utils/brand';
 import { apiRequest } from '../api/client';
@@ -6,11 +7,12 @@ import { RippleButton } from '../components/common/RippleButton';
 import { motion } from 'framer-motion';
 
 export const KnowledgeChatPage: React.FC = () => {
+  const { t } = useLingui();
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState<any[]>([
     {
       sender: 'bot',
-      text: 'Welcome to the SAGAR Marine Knowledge Copilot. You can ask grounded domain questions regarding INCOIS Potential Fishing Zones (PFZ), SVAS vessel stability safety formulas, Marine Protected Area rules, or satellite oceanography data.',
+      text: t`Welcome to the <Trans>SAGAR Marine Knowledge Copilot</Trans>. You can ask grounded domain questions regarding INCOIS Potential Fishing Zones (PFZ), SVAS vessel stability safety formulas, Marine Protected Area rules, or satellite oceanography data.`,
       sources: ['INCOIS PFZ Operational Guidelines', 'SVAS Small Vessel Stability Standard']
     }
   ]);
@@ -18,20 +20,20 @@ export const KnowledgeChatPage: React.FC = () => {
 
   const sampleQueries = [
     {
-      category: 'PFZ Satellite Data',
-      question: 'How is Potential Fishing Zone (PFZ) calculated from satellite SST?',
+      category: t`PFZ Satellite Data`,
+      question: t`How is Potential Fishing Zone (PFZ) calculated from satellite SST?`,
     },
     {
-      category: 'Vessel Stability Rule',
-      question: 'What is the SVAS capsize wave height limit formula for a 4.5m beam trawler?',
+      category: t`Vessel Stability Rule`,
+      question: t`What is the SVAS capsize wave height limit formula for a 4.5m beam trawler?`,
     },
     {
-      category: 'Marine Protected Area',
-      question: 'What marine protected areas exist near the Gulf of Mannar?',
+      category: t`Marine Protected Area`,
+      question: t`What marine protected areas exist near the Gulf of Mannar?`,
     },
     {
-      category: 'Diurnal Swell Dynamics',
-      question: 'Why does afternoon wave surge increase risk for small motorized crafts?',
+      category: t`Diurnal Swell Dynamics`,
+      question: t`Why does afternoon wave surge increase risk for small motorized crafts?`,
     }
   ];
 
@@ -67,7 +69,7 @@ export const KnowledgeChatPage: React.FC = () => {
         ...prev,
         {
           sender: 'bot',
-          text: 'I am sorry, but I am currently unable to connect to the knowledge base. Please ensure your backend is running or check your network connection.',
+          text: t`I am sorry, but I am currently unable to connect to the knowledge base. Please ensure your backend is running or check your network connection.`,
         },
       ]);
       setLoading(false);
@@ -84,18 +86,18 @@ export const KnowledgeChatPage: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-base sm:text-lg font-bold text-sagar-navy">SAGAR Marine Knowledge Copilot</h2>
+              <h2 className="text-base sm:text-lg font-bold text-sagar-navy"><Trans>SAGAR Marine Knowledge Copilot</Trans></h2>
               <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-sagar-powder text-sky-900 border border-sky-200 uppercase">
-                Grounded Q&A
+                <Trans>Grounded Q&A</Trans>
               </span>
             </div>
-            <p className="text-xs text-slate-500">Technical Q&A based on verified oceanographic & marine safety documentation.</p>
+            <p className="text-xs text-slate-500"><Trans>Technical Q&A based on verified oceanographic & marine safety documentation.</Trans></p>
           </div>
         </div>
 
         <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-600 bg-sagar-canvasAlt px-3 py-1.5 rounded-xl border border-sagar-border font-medium">
           <Database className="w-3.5 h-3.5 text-sky-600" />
-          <span>Curated Marine Repository</span>
+          <span><Trans>Curated Marine Repository</Trans></span>
         </div>
       </div>
 
@@ -103,7 +105,7 @@ export const KnowledgeChatPage: React.FC = () => {
       <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-950 flex items-center gap-2">
         <ShieldAlert className="w-4 h-4 text-amber-700 shrink-0" />
         <span>
-          <strong>Note:</strong> This knowledge assistant answers domain questions. To evaluate safety for a specific planned voyage, use the <strong>Trip Planner</strong>.
+          <Trans><strong>Note:</strong> This knowledge assistant answers domain questions. To evaluate safety for a specific planned voyage, use the <strong>Trip Planner</strong>.</Trans>
         </span>
       </div>
 
@@ -128,7 +130,7 @@ export const KnowledgeChatPage: React.FC = () => {
                 <div className="pt-2.5 border-t border-sagar-borderLight space-y-1.5">
                   <span className="text-[10px] text-sky-800 font-bold uppercase tracking-wider block flex items-center gap-1">
                     <Database className="w-3 h-3" />
-                    <span>Grounded Sources & Documentation:</span>
+                    <span><Trans>Grounded Sources & Documentation:</Trans></span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {m.sources.map((src: string, i: number) => (
@@ -146,7 +148,7 @@ export const KnowledgeChatPage: React.FC = () => {
         {loading && (
           <div className="flex items-center gap-2.5 p-3.5 bg-white rounded-xl border border-sagar-border text-xs text-slate-600 shadow-soft-sm">
             <div className="w-4 h-4 border-2 border-sky-600 border-t-transparent rounded-full animate-spin"></div>
-            <span>Retrieving grounded marine knowledge...</span>
+            <span><Trans>Retrieving grounded marine knowledge...</Trans></span>
           </div>
         )}
       </div>
@@ -155,7 +157,7 @@ export const KnowledgeChatPage: React.FC = () => {
       <div className="space-y-2.5 pt-3 border-t border-sagar-borderLight">
         <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700">
           <Sparkles className="w-3.5 h-3.5 text-sky-600 shrink-0" />
-          <span>Recommended Marine Knowledge Inquiries:</span>
+          <span><Trans>Recommended Marine Knowledge Inquiries:</Trans></span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -193,7 +195,7 @@ export const KnowledgeChatPage: React.FC = () => {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Ask about PFZ methods, SVAS stability formulas, MPAs, or weather datasets..."
+          placeholder="{t`Ask about PFZ methods, SVAS stability formulas, MPAs, or weather datasets...`}"
           className="flex-1 bg-transparent px-3.5 py-2.5 text-xs sm:text-sm text-sagar-navy placeholder-slate-400 focus:outline-none"
         />
         <RippleButton
@@ -203,7 +205,7 @@ export const KnowledgeChatPage: React.FC = () => {
           size="md"
           icon={<Send className="w-4 h-4" />}
         >
-          Ask
+          <Trans>Ask</Trans>
         </RippleButton>
       </form>
     </main>

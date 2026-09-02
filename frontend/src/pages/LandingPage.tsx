@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/react/macro';
 import { useAppStore } from '../state/appStore';
 import { DEMO_SCENARIOS } from '../api/mock/scenarios';
 import { WaveDivider } from '../components/common/WaveDivider';
@@ -83,13 +84,13 @@ export const LandingPage: React.FC = () => {
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-sky-900 border border-sky-200 text-xs font-bold shadow-soft-sm">
               <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-              <span>Interactive Decision Testbed</span>
+              <span><Trans>Interactive Decision Testbed</Trans></span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-black text-sagar-navy tracking-tight">
-              Test Vessel Stability & Diurnal Swell in Real Time
+              <Trans>Test Vessel Stability & Diurnal Swell in Real Time</Trans>
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              See why a 2.1m afternoon return swell is dangerous for a 2.2m beam boat, but safe for a 6.0m seiner.
+              <Trans>See why a 2.1m afternoon return swell is dangerous for a 2.2m beam boat, but safe for a 6.0m seiner.</Trans>
             </p>
           </div>
 
@@ -109,13 +110,13 @@ export const LandingPage: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-extrabold text-sky-700 uppercase tracking-wider mb-1">
               <Sparkles className="w-4 h-4 text-sky-600" />
-              <span>Verified Test Scenarios</span>
+              <span><Trans>Verified Test Scenarios</Trans></span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-sagar-navy tracking-tight">
-              Explore Real Operational Scenarios
+              <Trans>Explore Real Operational Scenarios</Trans>
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
-              Launch pre-computed spatio-temporal scenarios to inspect how SAGAR detects return swell hazards, geofence breaches, and multi-PFZ optimization.
+              <Trans>Launch pre-computed spatio-temporal scenarios to inspect how SAGAR detects return swell hazards, geofence breaches, and multi-PFZ optimization.</Trans>
             </p>
           </div>
         </motion.div>
@@ -158,7 +159,7 @@ export const LandingPage: React.FC = () => {
 
                 <div className="pt-3 border-t border-sagar-borderLight flex items-center justify-between">
                   <span className="text-xs font-extrabold text-sky-700 group-hover:text-sky-900 flex items-center gap-1.5">
-                    <span>Launch Advisory Dashboard</span>
+                    <span><Trans>Launch Advisory Dashboard</Trans></span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
                   <span className="text-[10px] font-mono font-bold text-slate-400">MapLibre + Deck.gl</span>
@@ -180,10 +181,10 @@ export const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto space-y-8">
           <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto space-y-2">
             <h2 className="text-2xl sm:text-3xl font-black text-sagar-navy tracking-tight">
-              Deterministic Physics & Spatio-Temporal Intelligence
+              <Trans>Deterministic Physics & Spatio-Temporal Intelligence</Trans>
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              Why static weather cards fail maritime operators — and how SAGAR provides true voyage decision support.
+              <Trans>Why static weather cards fail maritime operators — and how SAGAR provides true voyage decision support.</Trans>
             </p>
           </motion.div>
 
@@ -197,12 +198,12 @@ export const LandingPage: React.FC = () => {
               <div className="w-12 h-12 rounded-2xl bg-sagar-powder text-sky-700 flex items-center justify-center font-bold">
                 <Clock className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-extrabold text-sagar-navy">4D Spatio-Temporal Matching</h3>
+              <h3 className="text-base font-extrabold text-sagar-navy"><Trans>4D Spatio-Temporal Matching</Trans></h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Weather is not a static 2D snapshot. SAGAR models your trip across time and space — evaluating forecasted wave height, period, and wind speed at the exact future ETA of each waypoint.
+                <Trans>Weather is not a static 2D snapshot. SAGAR models your trip across time and space — evaluating forecasted wave height, period, and wind speed at the exact future ETA of each waypoint.</Trans>
               </p>
               <div className="pt-2 text-xs font-bold text-sky-700 flex items-center gap-1">
-                <span>Evaluates departure, transit, & return legs</span>
+                <span><Trans>Evaluates departure, transit, & return legs</Trans></span>
               </div>
             </motion.div>
 
@@ -215,9 +216,9 @@ export const LandingPage: React.FC = () => {
               <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center font-bold">
                 <Ship className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-extrabold text-sagar-navy">Deterministic Stability (SVAS)</h3>
+              <h3 className="text-base font-extrabold text-sagar-navy"><Trans>Deterministic Stability (SVAS)</Trans></h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                A 1.8m wave is safe for a 30m steel trawler but dangerous for a 5m motorized canoe. SAGAR computes physical capsize limits tailored to your boat's beam width:
+                <Trans>A 1.8m wave is safe for a 30m steel trawler but dangerous for a 5m motorized canoe. SAGAR computes physical capsize limits tailored to your boat's beam width:</Trans>
               </p>
               <div className="p-2.5 rounded-xl bg-sagar-canvasAlt font-mono text-xs text-sagar-navy border border-sagar-borderLight font-bold">
                 max_safe_wave = beam_width / 4.0
@@ -233,12 +234,12 @@ export const LandingPage: React.FC = () => {
               <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center font-bold">
                 <FileCheck className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-extrabold text-sagar-navy">Full Data Provenance</h3>
+              <h3 className="text-base font-extrabold text-sagar-navy"><Trans>Full Data Provenance</Trans></h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Operators need to trust their advice. Every advisory provides complete provenance tiers (Tier 1 Live API, Tier 2 Numerical Forecast, Tier 3 Historical Baseline) with confidence ratings.
+                <Trans>Operators need to trust their advice. Every advisory provides complete provenance tiers (Tier 1 Live API, Tier 2 Numerical Forecast, Tier 3 Historical Baseline) with confidence ratings.</Trans>
               </p>
               <div className="pt-2 text-xs font-bold text-emerald-700 flex items-center gap-1">
-                <span>Expandable "See Why" evidence registry</span>
+                <span><Trans>Expandable "See Why" evidence registry</Trans></span>
               </div>
             </motion.div>
           </div>
@@ -257,13 +258,13 @@ export const LandingPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-3 text-left">
               <span className="text-xs font-black uppercase tracking-wider text-sky-950 px-3 py-1 rounded-full bg-white/90 border border-sky-300">
-                Built for Coastal Operations
+                <Trans>Built for Coastal Operations</Trans>
               </span>
               <h3 className="text-2xl sm:text-4xl font-black text-sagar-navy tracking-tight">
-                Designed for Outdoor Visibility, Mobile Touch & Regional Languages
+                <Trans>Designed for Outdoor Visibility, Mobile Touch & Regional Languages</Trans>
               </h3>
               <p className="text-xs sm:text-sm text-slate-700 leading-relaxed max-w-2xl font-medium">
-                SAGAR features high-contrast typography readable under bright marine sunlight, 44px+ touch targets for vessel operations, multilingual support across coastal regions, and offline progressive caching.
+                <Trans>SAGAR features high-contrast typography readable under bright marine sunlight, 44px+ touch targets for vessel operations, multilingual support across coastal regions, and offline progressive caching.</Trans>
               </p>
             </div>
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
@@ -273,7 +274,7 @@ export const LandingPage: React.FC = () => {
                 icon={<Navigation className="w-4 h-4" />}
                 onClick={() => setCurrentView('chat')}
               >
-                Start Voyage Assessment
+                <Trans>Start Voyage Assessment</Trans>
               </RippleButton>
               <RippleButton
                 variant="secondary"
@@ -281,7 +282,7 @@ export const LandingPage: React.FC = () => {
                 icon={<Ship className="w-4 h-4 text-sky-700" />}
                 onClick={() => setCurrentView('vessel')}
               >
-                Configure Boat Profile
+                <Trans>Configure Boat Profile</Trans>
               </RippleButton>
             </div>
           </div>

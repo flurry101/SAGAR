@@ -8,6 +8,7 @@ import { PFZZone, VisualizationSpec, RouteCandidate } from '../../types/api';
 import { useAppStore } from '../../state/appStore';
 import { Navigation, Maximize2, ShieldAlert, Sparkles, MapPin, Anchor, Waves, Info } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 interface Props {
   trajectory?: Trajectory;
@@ -43,6 +44,7 @@ export const TrajectoryMap: React.FC<Props> = ({
   const animFrameRef = useRef<number | null>(null);
   const vesselAnimRef = useRef<number | null>(null);
 
+  const { t } = useLingui();
   const shouldReduceMotion = useReducedMotion();
   const { selectedWaypointIndex, setSelectedWaypointIndex, selectedRouteCandidateId } = useAppStore();
 
@@ -215,15 +217,15 @@ export const TrajectoryMap: React.FC<Props> = ({
                   setTooltip({
                     x: info.x,
                     y: info.y,
-                    title: props.name || (specLayer as any).title || `Marine Zone (${specLayer.layer_id})`,
-                    subtitle: props.hazard_type || props.type || 'Regulated Boundary',
+                    title: props.name || (specLayer as any).title || t`Marine Zone (${specLayer.layer_id})`,
+                    subtitle: props.hazard_type || props.type || t`Regulated Boundary`,
                     riskBadge: {
-                      text: props.severity || 'RESTRICTED / GEOFENCE',
+                      text: props.severity || t`RESTRICTED / GEOFENCE`,
                       bg: '#fef2f2',
                       border: '#fecaca',
                       color: '#991b1b',
                     },
-                    hazardDetail: props.description || 'Monitored via spatio-temporal boundary geofence.',
+                    hazardDetail: props.description || t`Monitored via spatio-temporal boundary geofence.`,
                   });
                 } else {
                   setTooltip(null);
@@ -260,10 +262,10 @@ export const TrajectoryMap: React.FC<Props> = ({
                 setTooltip({
                   x: info.x,
                   y: info.y,
-                  title: c.name || `Alternative Route (${c.route_id})`,
-                  subtitle: `Safety Score: ${c.score}/100`,
+                  title: c.name || t`Alternative Route (${c.route_id})`,
+                  subtitle: t`Safety Score: ${c.score}/100`,
                   riskBadge: {
-                    text: c.score >= 70 ? 'FAVOURABLE' : 'MODERATE RISK',
+                    text: c.score >= 70 ? t`FAVOURABLE` : t`MODERATE RISK`,
                     bg: c.score >= 70 ? '#f0fdf4' : '#fffbeb',
                     border: c.score >= 70 ? '#86efac' : '#fcd34d',
                     color: c.score >= 70 ? '#166534' : '#92400e',
@@ -352,19 +354,19 @@ export const TrajectoryMap: React.FC<Props> = ({
               setTooltip({
                 x: info.x,
                 y: info.y,
-                title: `Potential Fishing Zone (${pfz.pfz_id})`,
-                subtitle: 'Satellite Pelagic Fish Aggregation Area',
+                title: t`Potential Fishing Zone (${pfz.pfz_id})`,
+                subtitle: t`Satellite Pelagic Fish Aggregation Area`,
                 coords: `${pfz.coordinates.lat.toFixed(2)}°N, ${pfz.coordinates.lon.toFixed(2)}°E`,
                 riskBadge: {
-                  text: pfz.available ? 'PFZ ACTIVE' : 'PFZ EXPIRED',
+                  text: pfz.available ? t`PFZ ACTIVE` : t`PFZ EXPIRED`,
                   bg: '#ecfdf5',
                   border: '#a7f3d0',
                   color: '#065f46',
                 },
                 pfzDetail: {
-                  sst: `${pfz.distance_from_origin_km} km Outbound`,
-                  chlorophyll: 'Satellite Aggregation',
-                  confidence: 'INCOIS Verified',
+                  sst: t`${pfz.distance_from_origin_km} km Outbound`,
+                  chlorophyll: t`Satellite Aggregation`,
+                  confidence: t`INCOIS Verified`,
                 },
               });
             } else {
@@ -406,25 +408,25 @@ export const TrajectoryMap: React.FC<Props> = ({
               setTooltip({
                 x: info.x,
                 y: info.y,
-                title: wp.name || `Waypoint ${wp.waypoint_index + 1}`,
+                title: wp.name || t`Waypoint ${wp.waypoint_index + 1}`,
                 phase: wp.phase,
                 eta: wp.eta_iso ? new Date(wp.eta_iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : undefined,
                 coords: `${wp.lat.toFixed(2)}°N, ${wp.lon.toFixed(2)}°E`,
                 riskBadge: hazard
                   ? {
-                      text: `SEVERE: ${hazard.hazard_type.replace(/_/g, ' ')}`,
+                      text: t`SEVERE: ${hazard.hazard_type.replace(/_/g, ' ')}`,
                       bg: '#fef2f2',
                       border: '#fecaca',
                       color: '#991b1b',
                     }
                   : {
-                      text: 'FAVOURABLE SEA STATE',
+                      text: t`FAVOURABLE SEA STATE`,
                       bg: '#f0fdf4',
                       border: '#bbf7d0',
                       color: '#166534',
                     },
                 hazardDetail: hazard
-                  ? `${hazard.observed_value}m wave surge exceeds your boat's SVAS limit of ${hazard.threshold_value}m`
+                  ? t`${hazard.observed_value}m wave surge exceeds your boat's SVAS limit of ${hazard.threshold_value}m`
                   : undefined,
               });
             } else {
@@ -476,10 +478,10 @@ export const TrajectoryMap: React.FC<Props> = ({
               setTooltip({
                 x: info.x,
                 y: info.y,
-                title: 'Simulated Boat Transit Position',
-                subtitle: '4D Spatio-Temporal Journey Tracking',
+                title: t`Simulated Boat Transit Position`,
+                subtitle: t`4D Spatio-Temporal Journey Tracking`,
                 riskBadge: {
-                  text: 'LIVE SIMULATION',
+                  text: t`LIVE SIMULATION`,
                   bg: '#e0f2fe',
                   border: '#bae6fd',
                   color: '#0369a1',
@@ -549,10 +551,10 @@ export const TrajectoryMap: React.FC<Props> = ({
       <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-md border border-sagar-border px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-2 text-sagar-navy shadow-soft-sm font-semibold">
         <Navigation className="w-4 h-4 text-sky-600 shrink-0" />
         <span className="truncate max-w-[200px] sm:max-w-none font-bold">
-          {activeCandidate ? activeCandidate.name : '4D Trajectory & Spatio-Temporal Hazards'}
+          {activeCandidate ? activeCandidate.name : <Trans>4D Trajectory & Spatio-Temporal Hazards</Trans>}
         </span>
         <span className="text-[10px] font-mono font-bold text-sky-800 bg-sagar-powder px-2.5 py-0.5 rounded-full border border-sky-200 ml-1 shrink-0">
-          4D Marine Intelligence
+          <Trans>4D Marine Intelligence</Trans>
         </span>
       </div>
 
@@ -561,27 +563,27 @@ export const TrajectoryMap: React.FC<Props> = ({
         <button
           onClick={handleResetBounds}
           className="bg-white/95 backdrop-blur-md hover:bg-sagar-canvasAlt border border-sagar-border text-sagar-navy px-3 py-1.5 rounded-xl text-xs font-semibold shadow-soft-sm flex items-center gap-1.5 transition-all touch-target cursor-pointer"
-          title="Reset map view to full voyage"
+          title={t`Reset map view to full voyage`}
         >
           <Maximize2 className="w-3.5 h-3.5 text-sky-600" />
-          <span>Full Voyage</span>
+          <span><Trans>Full Voyage</Trans></span>
         </button>
 
         <div className="hidden sm:flex items-center gap-3 bg-white/95 backdrop-blur-md border border-sagar-border px-3 py-1.5 rounded-xl text-[11px] font-medium text-slate-700 shadow-soft-sm">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-sky-600" />
-            <span>Trajectory</span>
+            <span><Trans>Trajectory</Trans></span>
           </div>
           {pfzZones.length > 0 && (
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-600" />
-              <span>PFZ Zone</span>
+              <span><Trans>PFZ Zone</Trans></span>
             </div>
           )}
           {hazardFlags.length > 0 && (
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-pulse" />
-              <span>Hazard Alert</span>
+              <span><Trans>Hazard Alert</Trans></span>
             </div>
           )}
         </div>
@@ -614,8 +616,8 @@ export const TrajectoryMap: React.FC<Props> = ({
 
           {tooltip.phase && (
             <div className="text-[11px] text-slate-600 flex items-center justify-between gap-2">
-              <span>Phase: <strong className="text-sagar-navy">{tooltip.phase}</strong></span>
-              {tooltip.eta && <span>ETA: <strong className="text-sagar-navy">{tooltip.eta} IST</strong></span>}
+              <span><Trans>Phase:</Trans> <strong className="text-sagar-navy">{tooltip.phase}</strong></span>
+              {tooltip.eta && <span><Trans>ETA:</Trans> <strong className="text-sagar-navy">{tooltip.eta} IST</strong></span>}
             </div>
           )}
 

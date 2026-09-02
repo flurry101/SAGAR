@@ -2,344 +2,197 @@ import React, { useState } from 'react';
 import { useAppStore } from '../state/appStore';
 import { supabase, isSupabaseConfigured } from '../api/supabaseClient';
 import { API_BASE_URL } from '../api/client';
-import { userApi } from '../api/userApi';
-import { User, Mail, Lock, ArrowRight, ShieldCheck, LogOut, AlertCircle, Anchor } from 'lucide-react';
-import { motion } from 'framer-motion';
-
-/** Inline Google "G" logo SVG — avoids external dependency */
-const GoogleLogo: React.FC<{ className?: string }> = ({ className }) => (
-  <svg className={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
-    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-  </svg>
-);
+import { Anchor, ArrowRight, ShieldCheck, Mail, Lock, User, CheckCircle2 } from 'lucide-react';
+import { RippleButton } from '../components/common/RippleButton';
+import { useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
 
 export const AuthPage: React.FC = () => {
-  const { isAuthenticated, userProfile, setAuthenticated, setCurrentView, selectedLanguage } = useAppStore();
-  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
-  const [email, setEmail] = useState('ops.sagar@marine.mission');
-  const [password, setPassword] = useState('sagar12345');
-  const [name, setName] = useState(userProfile?.name || 'Marine Operator');
-  const [port, setHomePort] = useState(userProfile?.port || 'Mangalore Port');
+  const { setCurrentView } = useAppStore();
+  const { t } = useLingui();
+  
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  // ── Google OAuth ───────────────────────────────────────────────────
-  const handleGoogleSignIn = async () => {
+  const handleAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!supabase) {
+      setError('Supabase is not configured.');
+      return;
+    }
     setLoading(true);
-    setErrorMessage(null);
-    setStatusMessage(null);
+    setError(null);
 
     try {
-      if (isSupabaseConfigured && supabase) {
-        // Preferred path: Supabase handles the full OAuth redirect flow
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: window.location.origin,
-          },
+      if (isLogin) {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { full_name: fullName } }
         });
         if (error) throw error;
-        // Supabase will redirect away; the auth listener in App.tsx
-        // handles the session when the user comes back.
-        return;
       }
-
-      // Fallback: redirect to backend OAuth endpoint
-      window.location.href = `${API_BASE_URL}/login/google`;
+      setCurrentView('landing');
     } catch (err: any) {
-      setErrorMessage(err.message || 'Google sign-in failed.');
-      setLoading(false);
-    }
-  };
-
-  // ── Email / password auth ──────────────────────────────────────────
-  const handleEmailAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setErrorMessage(null);
-    setStatusMessage(null);
-
-    try {
-      if (isSupabaseConfigured && supabase) {
-        if (authMode === 'signup') {
-          const { data, error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-              data: {
-                name,
-                home_port: port,
-                preferred_language: selectedLanguage,
-              },
-            },
-          });
-          if (error) throw error;
-
-          const sessionToken = data.session?.access_token || null;
-          setAuthenticated(
-            true,
-            { name, port, email, userId: data.user?.id },
-            sessionToken
-          );
-
-          // Sync with backend API
-          try {
-            await userApi.createUser({
-              name,
-              home_port: port,
-              preferred_language: selectedLanguage,
-            });
-          } catch (syncErr) {
-            console.warn('Backend user sync note:', syncErr);
-          }
-
-          setStatusMessage('Account created and synced successfully!');
-          setTimeout(() => setCurrentView('chat'), 1000);
-        } else {
-          // Sign In
-          const { data, error } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-          });
-          if (error) throw error;
-
-          const sessionToken = data.session?.access_token || null;
-          setAuthenticated(
-            true,
-            { name: data.user?.user_metadata?.name || name, port: data.user?.user_metadata?.home_port || port, email, userId: data.user?.id },
-            sessionToken
-          );
-
-          // Fetch profile from backend
-          try {
-            const meRes = await userApi.getCurrentUser();
-            if (meRes.status === 'success' && meRes.data) {
-              setAuthenticated(true, {
-                name: meRes.data.name || name,
-                port: meRes.data.home_port || port,
-                email: meRes.data.email || email,
-                userId: meRes.data.user_id,
-              }, sessionToken);
-            }
-          } catch (meErr) {
-            console.warn('Backend user/me note:', meErr);
-          }
-
-          setStatusMessage('Signed in successfully!');
-          setTimeout(() => setCurrentView('chat'), 800);
-        }
-      } else {
-        // Explicitly reject unauthenticated demo logins; require a configured auth provider.
-        setAuthenticated(false, undefined, null);
-        setErrorMessage('Authentication is not configured for this deployment. Configure Supabase or Google OAuth before signing in.');
-      }
-    } catch (err: any) {
-      setErrorMessage(err.message || 'Authentication failed. Please check credentials.');
+      setError(err.message || 'Authentication failed.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSignOut = async () => {
-    if (supabase) {
-      await supabase.auth.signOut().catch(() => {});
-    }
-    setAuthenticated(false, undefined, null);
-    setStatusMessage('You have been signed out.');
+  const handleGoogleSignIn = () => {
+    window.location.href = `${API_BASE_URL}/login/google`;
   };
 
   return (
-    <main className="max-w-md mx-auto px-4 py-8 text-sagar-navy">
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white border border-sagar-border rounded-2xl p-6 sm:p-8 shadow-soft-md space-y-5"
-      >
-        <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-sagar-powder text-sky-700 flex items-center justify-center mx-auto font-bold shadow-soft-sm">
-            <User className="w-6 h-6" />
+    <div className="min-h-screen bg-sagar-canvas flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-soft-xl border border-sagar-border overflow-hidden">
+        
+        {/* Header Section */}
+        <div className="bg-sagar-navy p-8 text-center relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-4 opacity-10">
+            <img src="/sagar-logo.png" alt="" className="w-32 h-32 object-contain" />
           </div>
-          <h1 className="text-lg sm:text-xl font-bold text-sagar-navy">Operator Identity & Authentication</h1>
-          <p className="text-xs text-slate-500">
-            Authenticate to sync your vessel profile and voyage safety records across maritime operations.
-          </p>
+          
+          <div className="relative z-10 flex flex-col items-center gap-4">
+            <img
+              src="/sagar-logo.png"
+              alt="SAGAR Logo"
+              className="w-16 h-16 object-contain rounded-full shadow-soft-lg ring-4 ring-white/20 bg-sky-950/40 p-0.5"
+            />
+            
+            <div className="space-y-1">
+              <h2 className="text-2xl font-black text-white tracking-wide">
+                <Trans>SAGAR Identity</Trans>
+              </h2>
+              <p className="text-sky-200 text-sm font-medium">
+                <Trans>Secure Coastal Decision Support Access</Trans>
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Current status card when logged in */}
-        {isAuthenticated && userProfile ? (
-          <div className="space-y-4">
-            <div className="p-4 bg-sagar-canvasAlt border border-sagar-borderLight rounded-xl space-y-3 text-xs">
-              <div className="flex items-center justify-between">
-                <span className="text-emerald-700 font-bold flex items-center gap-1.5 text-sm">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>Currently Signed In</span>
-                </span>
-                <button
-                  onClick={handleSignOut}
-                  className="text-xs text-rose-700 hover:text-rose-900 font-bold flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors touch-target"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span>Sign Out</span>
-                </button>
-              </div>
-              <div className="text-slate-700 space-y-1 pt-1 border-t border-sagar-borderLight">
-                <div>Name: <strong className="text-sagar-navy">{userProfile.name}</strong></div>
-                <div>Base Harbor: <strong className="text-sagar-navy">{userProfile.port}</strong></div>
-                {userProfile.email && <div>Email: <span className="text-slate-600 font-mono">{userProfile.email}</span></div>}
-              </div>
+        {/* Form Section */}
+        <div className="p-8 space-y-6">
+          {error && (
+            <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-sm rounded-xl font-medium">
+              {error}
             </div>
+          )}
 
-            <div className="pt-2 border-t border-sagar-border space-y-2">
-              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">Quick Navigation</span>
-              <button
-                type="button"
-                onClick={() => setCurrentView('chat')}
-                className="w-full py-3 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-soft-sm flex items-center justify-between transition-all touch-target cursor-pointer"
-              >
-                <span>Go to Trip Planner</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setCurrentView('vessel')}
-                  className="py-2.5 px-3 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy font-bold text-xs border border-sagar-border flex items-center justify-center gap-2 transition-all touch-target cursor-pointer shadow-soft-sm"
-                >
-                  <Anchor className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Vessel Profile</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCurrentView('history')}
-                  className="py-2.5 px-3 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy font-bold text-xs border border-sagar-border flex items-center justify-center gap-2 transition-all touch-target cursor-pointer shadow-soft-sm"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Voyage History</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <>
-            {/* ── Google Sign‑in Button ─────────────────────────────────── */}
-            <button
-              type="button"
-              onClick={handleGoogleSignIn}
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-3 py-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 shadow-soft-sm text-sm font-semibold text-slate-700 transition-all disabled:opacity-50 touch-target cursor-pointer"
-            >
-              <GoogleLogo className="w-5 h-5" />
-              <span>Sign in with Google</span>
-            </button>
-
-            {/* ── OR divider ────────────────────────────────────────────── */}
-            <div className="flex items-center gap-3">
-              <div className="flex-1 h-px bg-sagar-border" />
-              <span className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">or</span>
-              <div className="flex-1 h-px bg-sagar-border" />
-            </div>
-
-            {/* Tab Selection */}
-            <div className="grid grid-cols-2 gap-2 bg-sagar-canvasAlt p-1 rounded-xl border border-sagar-borderLight text-xs">
-              <button
-                type="button"
-                onClick={() => setAuthMode('signin')}
-                className={`py-2 rounded-lg font-bold transition-colors touch-target ${
-                  authMode === 'signin'
-                    ? 'bg-white text-sky-900 shadow-soft-sm border border-sagar-border/60'
-                    : 'text-slate-500 hover:text-sagar-navy'
-                }`}
-              >
-                Sign In
-              </button>
-              <button
-                type="button"
-                onClick={() => setAuthMode('signup')}
-                className={`py-2 rounded-lg font-bold transition-colors touch-target ${
-                  authMode === 'signup'
-                    ? 'bg-white text-sky-900 shadow-soft-sm border border-sagar-border/60'
-                    : 'text-slate-500 hover:text-sagar-navy'
-                }`}
-              >
-                Register / Sign Up
-              </button>
-            </div>
-
-            <form onSubmit={handleEmailAuth} className="space-y-3.5 text-xs">
-              {authMode === 'signup' && (
-                <div>
-                  <label className="font-semibold text-slate-700 block mb-1">Operator Full Name</label>
+          <form onSubmit={handleAuth} className="space-y-4">
+            {!isLogin && (
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-700 uppercase tracking-wider ml-1">
+                  <Trans>Full Name</Trans>
+                </label>
+                <div className="relative">
+                  <User className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                   <input
                     type="text"
                     required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder={t`Enter your full name`}
+                    className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:border-sky-500 focus:ring-2 focus:ring-sky-200 transition-all outline-none"
                   />
                 </div>
-              )}
-
-              <div>
-                <label className="font-semibold text-slate-700 block mb-1">Base Port / Home Harbor</label>
-                <input
-                  type="text"
-                  required
-                  value={port}
-                  onChange={(e) => setHomePort(e.target.value)}
-                  className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
-                />
               </div>
+            )}
 
-              <div>
-                <label className="font-semibold text-slate-700 block mb-1 flex items-center gap-1">
-                  <Mail className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Email Address</span>
-                </label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider ml-1">
+                <Trans>Email Address</Trans>
+              </label>
+              <div className="relative">
+                <Mail className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
+                  placeholder={t`marine.operator@example.com`}
+                  className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:border-sky-500 focus:ring-2 focus:ring-sky-200 transition-all outline-none"
                 />
               </div>
+            </div>
 
-              <div>
-                <label className="font-semibold text-slate-700 block mb-1 flex items-center gap-1">
-                  <Lock className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Password</span>
-                </label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider ml-1">
+                <Trans>Password</Trans>
+              </label>
+              <div className="relative">
+                <Lock className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-white border border-sagar-border rounded-xl px-3.5 py-2.5 text-sagar-navy focus:border-sky-500 focus:outline-none"
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:border-sky-500 focus:ring-2 focus:ring-sky-200 transition-all outline-none"
                 />
               </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white font-bold text-xs shadow-soft-sm flex items-center justify-center gap-2 transition-all mt-2 touch-target"
-              >
-                <span>
-                  {loading
-                    ? 'Authenticating...'
-                    : authMode === 'signup'
-                    ? 'Create Account & Sync Profile'
-                    : 'Sign In to SAGAR'}
-                </span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
-          </>
-        )}
-      </motion.div>
-    </main>
+            <RippleButton
+              variant="primary"
+              size="lg"
+              className="w-full mt-2"
+              iconRight={<ArrowRight className="w-4 h-4" />}
+            >
+              {isLogin ? <Trans>Sign In to SAGAR</Trans> : <Trans>Create Account</Trans>}
+            </RippleButton>
+          </form>
+
+          <div className="flex items-center gap-3">
+            <div className="h-px bg-slate-200 flex-1"></div>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider"><Trans>OR</Trans></span>
+            <div className="h-px bg-slate-200 flex-1"></div>
+          </div>
+
+          <button
+            onClick={handleGoogleSignIn}
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border-2 border-slate-200 hover:border-slate-300 rounded-xl text-sm font-bold text-slate-700 transition-colors"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+            </svg>
+            <Trans>Continue with Google</Trans>
+          </button>
+
+          <div className="text-center pt-2">
+            <button 
+              onClick={() => setIsLogin(!isLogin)}
+              className="text-sm font-bold text-sky-600 hover:text-sky-700 transition-colors"
+            >
+              {isLogin ? <Trans>Need an account? Sign up</Trans> : <Trans>Already have an account? Sign in</Trans>}
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      {/* Footer Trust Markers */}
+      <div className="mt-8 flex gap-6 text-xs font-bold text-slate-500 uppercase tracking-widest">
+        <div className="flex items-center gap-1.5">
+          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+          <Trans>Tier 1 Data</Trans>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+          <Trans>SVAS Compliant</Trans>
+        </div>
+      </div>
+    </div>
   );
 };

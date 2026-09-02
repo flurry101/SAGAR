@@ -1,13 +1,13 @@
 # ==============================================================================
 # Stage 1: Build static assets with Node.js
 # ==============================================================================
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
 # Install dependencies using npm ci for deterministic builds
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # Vite build-time environment variable arguments
 ARG VITE_API_BASE_URL

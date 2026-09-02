@@ -3,6 +3,7 @@ import { ChatMessage } from '../../state/appStore';
 import { User, Anchor } from 'lucide-react';
 import { sanitizeSagarText } from '../../utils/brand';
 import { motion } from 'framer-motion';
+import { Trans } from '@lingui/react/macro';
 
 interface Props {
   message: ChatMessage;
@@ -19,9 +20,11 @@ export const MessageBubble: React.FC<Props> = ({ message }) => {
       className={`flex gap-3 ${isUser ? 'justify-end' : 'justify-start'}`}
     >
       {!isUser && (
-        <div className="w-8 h-8 rounded-full bg-sagar-powder border border-sky-200 flex items-center justify-center text-sky-700 shrink-0 mt-0.5 shadow-soft-sm">
-          <Anchor className="w-4 h-4" />
-        </div>
+        <img
+          src="/sagar-logo.png"
+          alt="SAGAR"
+          className="w-8 h-8 rounded-full object-contain shrink-0 mt-0.5 shadow-soft-sm"
+        />
       )}
 
       <div
@@ -33,7 +36,7 @@ export const MessageBubble: React.FC<Props> = ({ message }) => {
       >
         <div className="flex items-center justify-between gap-4 text-[10px] font-medium">
           <span className={`font-bold ${isUser ? 'text-sky-100' : 'text-sky-800'}`}>
-            {isUser ? 'You' : 'SAGAR Safety Decision Support'}
+            {isUser ? <Trans>You</Trans> : <Trans>SAGAR Safety Decision Support</Trans>}
           </span>
           <span className={`font-mono ${isUser ? 'text-sky-200' : 'text-slate-500'}`}>{message.timestamp}</span>
         </div>

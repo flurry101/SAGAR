@@ -50,7 +50,7 @@ export function initAuthListener(): (() => void) | null {
     async (event, session) => {
       const store = useAppStore.getState();
 
-      if (event === 'SIGNED_IN' && session) {
+      if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session) {
         const user = session.user;
         const meta = user.user_metadata || {};
 

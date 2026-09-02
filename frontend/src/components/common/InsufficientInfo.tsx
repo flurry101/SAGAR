@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/react/macro';
 import { InsufficientInfoData } from '../../types/api';
 import { AlertOctagon, RefreshCw } from 'lucide-react';
 import { useAppStore } from '../../state/appStore';
@@ -19,21 +20,22 @@ export const InsufficientInfo: React.FC<Props> = ({ data }) => {
 
       <div>
         <span className="text-xs font-bold px-3 py-1 rounded-full bg-sagar-canvasAlt text-slate-700 border border-sagar-border uppercase tracking-widest">
-          INSUFFICIENT INFORMATION
+          <Trans>INSUFFICIENT INFORMATION</Trans>
         </span>
         <h2 className="text-lg sm:text-xl font-bold text-sagar-navy mt-3 mb-2">
-          Unable to Safely Assess Your Voyage
+          <Trans>Unable to Safely Assess Your Voyage</Trans>
         </h2>
         <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto leading-relaxed font-normal">
-          {sanitizeSagarText(data?.recommendation_text) ||
-            'SAGAR never fabricates or guesses safety-critical parameters. Assessment was paused because required vessel dimensions or temporal data is missing.'}
+          {sanitizeSagarText(data?.recommendation_text) || (
+            <Trans>SAGAR never fabricates or guesses safety-critical parameters. Assessment was paused because required vessel dimensions or temporal data is missing.</Trans>
+          )}
         </p>
       </div>
 
       {data?.missing_data && data.missing_data.length > 0 && (
         <div className="bg-sagar-canvasAlt p-4 rounded-xl border border-sagar-borderLight text-left max-w-md mx-auto space-y-2 text-xs">
           <span className="font-bold text-slate-600 block uppercase tracking-wider text-[10px]">
-            Missing Safety Parameters:
+            <Trans>Missing Safety Parameters:</Trans>
           </span>
           <ul className="space-y-1.5">
             {data.missing_data.map((item, idx) => (
@@ -54,7 +56,7 @@ export const InsufficientInfo: React.FC<Props> = ({ data }) => {
           className="px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-soft-sm flex items-center gap-2 transition-all touch-target"
         >
           <RefreshCw className="w-4 h-4" />
-          <span>Provide Missing Parameters in Planner</span>
+          <span><Trans>Provide Missing Parameters in Planner</Trans></span>
         </button>
       </div>
 

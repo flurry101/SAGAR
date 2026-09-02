@@ -87,15 +87,19 @@ export async function apiRequest<T = any>(
     }
   }
 
-  // Retrieve Supabase JWT Token for backend authorization
+  const store = useAppStore.getState();
   let authToken = await getSupabaseAccessToken();
   if (!authToken) {
-    authToken = useAppStore.getState().supabaseToken;
+    authToken = store.supabaseToken;
   }
 
   const authHeaders: Record<string, string> = {};
   if (authToken) {
     authHeaders['Authorization'] = `Bearer ${authToken}`;
+  }
+  
+  if (store.selectedLanguage) {
+    authHeaders['Accept-Language'] = store.selectedLanguage;
   }
 
   // HTTP Fetch Call to FastAPI

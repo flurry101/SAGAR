@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 import { useAppStore, AppView } from '../../state/appStore';
 import { LanguageSelector } from '../common/LanguageSelector';
-import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X } from 'lucide-react';
+import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 export const Header: React.FC = () => {
-  const { currentView, setCurrentView, isAuthenticated, userProfile } = useAppStore();
+  const { currentView, setCurrentView, isAuthenticated, userProfile, setSosModalOpen } = useAppStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const { t } = useLingui();
 
   const navItems: { id: AppView; label: string; shortLabel: string; icon: React.ReactNode }[] = [
-    { id: 'landing', label: 'Overview', shortLabel: 'Overview', icon: <Compass className="w-4 h-4 shrink-0" /> },
-    { id: 'chat', label: 'Trip Planner', shortLabel: 'Trip Planner', icon: <Anchor className="w-4 h-4 shrink-0" /> },
-    { id: 'advisory', label: 'Advisory Dashboard', shortLabel: 'Advisory', icon: <ShieldAlert className="w-4 h-4 shrink-0" /> },
-    { id: 'knowledge', label: 'Marine Knowledge', shortLabel: 'Knowledge', icon: <BookOpen className="w-4 h-4 shrink-0" /> },
+    { id: 'landing', label: t`Overview`, shortLabel: t`Overview`, icon: <Compass className="w-4 h-4 shrink-0" /> },
+    { id: 'chat', label: t`Trip Planner`, shortLabel: t`Trip Planner`, icon: <Anchor className="w-4 h-4 shrink-0" /> },
+    { id: 'advisory', label: t`Advisory Dashboard`, shortLabel: t`Advisory`, icon: <ShieldAlert className="w-4 h-4 shrink-0" /> },
+    { id: 'knowledge', label: t`Marine Knowledge`, shortLabel: t`Knowledge`, icon: <BookOpen className="w-4 h-4 shrink-0" /> },
   ];
 
   const profileMenuItems: { id: AppView; label: string; icon: React.ReactNode }[] = [
-    { id: 'auth', label: isAuthenticated ? 'Profile' : 'Sign In', icon: <UserCheck className="w-4 h-4 shrink-0" /> },
-    { id: 'vessel', label: 'Vessel Profile', icon: <Ship className="w-4 h-4 shrink-0" /> },
-    { id: 'history', label: 'Voyage History', icon: <History className="w-4 h-4 shrink-0" /> },
+    { id: 'auth', label: isAuthenticated ? t`Profile` : t`Sign In`, icon: <UserCheck className="w-4 h-4 shrink-0" /> },
+    { id: 'vessel', label: t`Vessel Profile`, icon: <Ship className="w-4 h-4 shrink-0" /> },
+    { id: 'history', label: t`Voyage History`, icon: <History className="w-4 h-4 shrink-0" /> },
   ];
 
-  const fullDisplayName = isAuthenticated ? userProfile?.name || 'Marine Operator' : 'Sign In';
-  const shortDisplayName = isAuthenticated ? (userProfile?.name || 'Operator') : 'Sign In';
+  const fullDisplayName = isAuthenticated ? userProfile?.name || t`Marine Operator` : t`Sign In`;
+  const shortDisplayName = isAuthenticated ? (userProfile?.name || t`Operator`) : t`Sign In`;
 
   return (
     <header className="w-full bg-white/95 backdrop-blur-md border-b border-sagar-border sticky top-0 z-40 shadow-soft-sm">
@@ -32,24 +34,26 @@ export const Header: React.FC = () => {
           {/* 1. Brand Identity */}
           <div
             onClick={() => setCurrentView('landing')}
-            className="flex items-center gap-2.5 cursor-pointer group select-none shrink-0"
+            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group select-none shrink-0"
             role="button"
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && setCurrentView('landing')}
-            aria-label="SAGAR Home"
+            aria-label={t`SAGAR Home`}
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-br from-sky-600 to-sky-800 flex items-center justify-center text-white shadow-soft-sm group-hover:scale-105 transition-transform shrink-0">
-              <Anchor className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-            </div>
+            <img
+              src="/sagar-logo.png"
+              alt="SAGAR Logo"
+              className="w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-full shadow-soft-sm group-hover:scale-105 transition-transform shrink-0"
+            />
             <div className="shrink-0">
               <div className="flex items-center gap-1.5">
                 <span className="font-black text-lg sm:text-xl text-sagar-navy tracking-tight">SAGAR</span>
                 <span className="text-[9px] sm:text-[10px] uppercase font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-sagar-powder text-sky-900 border border-sky-200 shrink-0">
-                  Decision Support
+                  <Trans>Decision Support</Trans>
                 </span>
               </div>
               <p className="text-[10px] text-sagar-textMuted font-medium hidden md:block">
-                4D Marine Voyage Safety System
+                <Trans>4D Marine Voyage Safety System</Trans>
               </p>
             </div>
           </div>
@@ -108,8 +112,21 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* 4. Right Controls: Language & Profile Access - Guaranteed Fully Visible */}
+          {/* 4. Right Controls: SOS, Language & Profile Access */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
+            {/* SOS Emergency Button */}
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={() => setSosModalOpen(true)}
+              className="flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full bg-[#d63031] hover:bg-red-600 text-white text-xs font-black shadow-[0_2px_10px_rgba(214,48,49,0.35)] transition-all touch-target cursor-pointer shrink-0 border border-red-400/40"
+              title={t`Coast Guard Emergency Distress (1554)`}
+              aria-label={t`Emergency Distress SOS 1554`}
+            >
+              <AlertTriangle className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span className="tracking-wide">SOS 1554</span>
+            </motion.button>
+
             {/* Language Selector */}
             <div className="hidden sm:block shrink-0">
               <LanguageSelector />
@@ -168,7 +185,7 @@ export const Header: React.FC = () => {
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 rounded-xl bg-white text-slate-700 hover:text-sagar-navy border border-sagar-border touch-target flex items-center justify-center shadow-soft-sm cursor-pointer shrink-0"
-                aria-label="Toggle navigation menu"
+                aria-label={t`Toggle navigation menu`}
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
@@ -187,8 +204,20 @@ export const Header: React.FC = () => {
             transition={{ duration: 0.2 }}
             className="min-[1180px]:hidden border-t border-sagar-border bg-white px-4 pt-3 pb-5 space-y-2 shadow-soft-lg overflow-hidden"
           >
-            <div className="sm:hidden pb-2 mb-2 border-b border-sagar-borderLight">
-              <LanguageSelector />
+            <div className="pb-2 mb-2 border-b border-sagar-borderLight space-y-2">
+              <button
+                onClick={() => {
+                  setSosModalOpen(true);
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-[#d63031] hover:bg-red-600 text-white text-xs font-black shadow-md touch-target cursor-pointer border border-red-400/40"
+              >
+                <AlertTriangle className="w-4 h-4 stroke-[2.5]" />
+                <span>SOS 1554 - <Trans>Coast Guard Emergency</Trans></span>
+              </button>
+              <div className="sm:hidden">
+                <LanguageSelector />
+              </div>
             </div>
             {navItems.map((item) => (
               <button

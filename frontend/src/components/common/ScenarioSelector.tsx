@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/react/macro';
 import { useAppStore } from '../../state/appStore';
 import { DEMO_SCENARIOS } from '../../api/mock/scenarios';
 import { Sparkles } from 'lucide-react';
@@ -25,7 +26,7 @@ export const ScenarioSelector: React.FC = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5">
         <div className="flex items-center gap-2 text-sky-900 font-extrabold shrink-0">
           <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-          <span>Operational Scenario Testbed:</span>
+          <span><Trans>Operational Scenario Testbed:</Trans></span>
         </div>
         <div className="flex flex-wrap items-center gap-2 max-w-full">
           {Object.values(DEMO_SCENARIOS).map((sc) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { RuleResult } from '../../types/risk';
 import { ShieldCheck, CheckCircle2, XCircle } from 'lucide-react';
 import { sanitizeSagarText } from '../../utils/brand';
+import { Trans } from '@lingui/react/macro';
 
 interface Props {
   ruleResults?: RuleResult[];
@@ -16,11 +17,11 @@ export const RuleResultsPanel: React.FC<Props> = ({ ruleResults = [] }) => {
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-sky-600" />
           <h3 className="text-xs font-bold text-sagar-navy uppercase tracking-wider">
-            Deterministic Stability & Safety Rules
+            <Trans>Deterministic Stability & Safety Rules</Trans>
           </h3>
         </div>
         <span className="text-[10px] text-slate-500 font-mono">
-          {ruleResults.filter((r) => r.status === 'PASSED').length}/{ruleResults.length} Rules Passed
+          <Trans>{ruleResults.filter((r) => r.status === 'PASSED').length}/{ruleResults.length} Rules Passed</Trans>
         </span>
       </div>
 

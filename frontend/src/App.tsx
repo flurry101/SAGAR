@@ -14,10 +14,11 @@ import { KnowledgeChatPage } from './pages/KnowledgeChatPage';
 import { AssessmentHistoryPage } from './pages/AssessmentHistoryPage';
 import { AuthPage } from './pages/AuthPage';
 import { VoiceWidget } from './components/VoiceAssistant/VoiceWidget';
+import { SosEmergencyModal } from './components/common/SosEmergencyModal';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function App() {
-  const { currentView, setAuthenticated, setCurrentView } = useAppStore();
+  const { currentView, setAuthenticated, setCurrentView, isSosModalOpen, setSosModalOpen } = useAppStore();
 
   // ── Handle backend OAuth redirect using a one-time auth code exchange ─
   useEffect(() => {
@@ -147,6 +148,10 @@ export function App() {
         </AnimatePresence>
       </main>
       <VoiceWidget />
+      <SosEmergencyModal
+        isOpen={isSosModalOpen}
+        onClose={() => setSosModalOpen(false)}
+      />
     </div>
   );
 }

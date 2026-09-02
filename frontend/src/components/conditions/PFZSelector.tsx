@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PFZZone } from '../../types/api';
 import { Waves, Navigation, Check, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Trans } from '@lingui/react/macro';
 
 interface Props {
   pfzZones?: PFZZone[];
@@ -32,20 +33,20 @@ export const PFZSelector: React.FC<Props> = ({
       <div className="flex items-center justify-between border-b border-sagar-borderLight pb-3">
         <div className="flex items-center gap-2 text-sagar-navy font-bold text-xs sm:text-sm">
           <Waves className="w-4 h-4 text-emerald-600" />
-          <span>Candidate Potential Fishing Zones (PFZ)</span>
+          <span><Trans>Candidate Potential Fishing Zones (PFZ)</Trans></span>
         </div>
         <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono">
-          {pfzZones.length} Zones Available
+          <Trans>{pfzZones.length} Zones Available</Trans>
         </span>
       </div>
 
       <div className="p-3.5 bg-sagar-powder/50 border border-sky-200 rounded-xl text-xs text-sky-950 space-y-1">
         <div className="flex items-center gap-1.5 text-sky-800 font-bold text-xs">
           <Info className="w-3.5 h-3.5 shrink-0" />
-          <span>Oceanographic Aggregation Signals</span>
+          <span><Trans>Oceanographic Aggregation Signals</Trans></span>
         </div>
         <p className="text-[11px] text-slate-700 leading-relaxed font-normal">
-          PFZs identify thermal boundaries and chlorophyll fronts derived from satellite data. They indicate higher probability of pelagic fish aggregation, but do not guarantee catch.
+          <Trans>PFZs identify thermal boundaries and chlorophyll fronts derived from satellite data. They indicate higher probability of pelagic fish aggregation, but do not guarantee catch.</Trans>
         </p>
       </div>
 
@@ -75,22 +76,22 @@ export const PFZSelector: React.FC<Props> = ({
                 {isSelected ? (
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
                     <Check className="w-3 h-3 text-emerald-700" />
-                    <span>Selected</span>
+                    <span><Trans>Selected</Trans></span>
                   </span>
                 ) : (
                   <span className="text-[10px] text-slate-500 px-2 py-0.5 rounded-full bg-sagar-canvasAlt border border-sagar-border">
-                    Candidate
+                    <Trans>Candidate</Trans>
                   </span>
                 )}
               </div>
 
               <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
                 <div className="bg-sagar-canvasAlt p-2.5 rounded-lg border border-sagar-borderLight">
-                  <span className="text-slate-500 block text-[10px] font-sans">Offshore Distance</span>
+                  <span className="text-slate-500 block text-[10px] font-sans"><Trans>Offshore Distance</Trans></span>
                   <span className="text-sagar-navy font-bold">{pfz.distance_from_origin_km} km</span>
                 </div>
                 <div className="bg-sagar-canvasAlt p-2.5 rounded-lg border border-sagar-borderLight">
-                  <span className="text-slate-500 block text-[10px] font-sans">Coordinates</span>
+                  <span className="text-slate-500 block text-[10px] font-sans"><Trans>Coordinates</Trans></span>
                   <span className="text-sagar-navy font-bold">
                     {pfz.coordinates.lat.toFixed(2)}°N, {pfz.coordinates.lon.toFixed(2)}°E
                   </span>
@@ -98,8 +99,8 @@ export const PFZSelector: React.FC<Props> = ({
               </div>
 
               <div className="text-[10px] text-slate-500 flex items-center justify-between pt-1 border-t border-sagar-borderLight">
-                <span>Valid: {new Date(pfz.valid_until).toLocaleDateString()}</span>
-                <span className="text-emerald-700 font-bold">Route Verified</span>
+                <span><Trans>Valid:</Trans> {new Date(pfz.valid_until).toLocaleDateString()}</span>
+                <span className="text-emerald-700 font-bold"><Trans>Route Verified</Trans></span>
               </div>
             </motion.div>
           );

@@ -3,8 +3,10 @@ import { useAppStore } from '../../state/appStore';
 import { vesselApi } from '../../api/vesselApi';
 import { Ship, Ruler, Gauge, Save, ShieldCheck, Anchor } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 export const VesselForm: React.FC = () => {
+  const { t } = useLingui();
   const { userVessel, setUserVessel } = useAppStore();
 
   const [vesselType, setVesselType] = useState(userVessel?.vessel_type || 'Mechanized Trawler');
@@ -61,9 +63,9 @@ export const VesselForm: React.FC = () => {
           <Ship className="w-6 h-6" />
         </div>
         <div>
-          <h2 className="text-base sm:text-lg font-bold text-sagar-navy">Vessel Specification Profile</h2>
+          <h2 className="text-base sm:text-lg font-bold text-sagar-navy"><Trans>Vessel Specification Profile</Trans></h2>
           <p className="text-xs text-slate-500">
-            Physical boat dimensions determine deterministic SVAS capsize wave safety limits.
+            <Trans>Physical boat dimensions determine deterministic SVAS capsize wave safety limits.</Trans>
           </p>
         </div>
       </div>
@@ -71,21 +73,21 @@ export const VesselForm: React.FC = () => {
       {saved && (
         <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs flex items-center gap-2 font-medium">
           <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
-          <span>Vessel profile updated & SVAS max safe wave limit recalculated!</span>
+          <span><Trans>Vessel profile updated & SVAS max safe wave limit recalculated!</Trans></span>
         </div>
       )}
 
       {/* Quick Indian Coastal Presets */}
       <div className="space-y-2">
         <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-          Standard Coastal Boat Presets:
+          <Trans>Standard Coastal Boat Presets:</Trans>
         </span>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
           {[
-            { label: 'Mechanized Trawler', type: 'Mechanized Trawler', beam: 4.5, len: 14.5, spd: 15.0 },
-            { label: 'Motorized FRP Boat', type: 'Motorized Fibre Craft', beam: 2.2, len: 8.5, spd: 18.0 },
-            { label: 'Deep Sea Seiner', type: 'Deep Sea Purse Seiner', beam: 6.0, len: 24.0, spd: 16.0 },
-            { label: 'Traditional Catamaran', type: 'Traditional Non-Motorized Catamaran', beam: 1.8, len: 6.0, spd: 8.0 },
+            { label: t`Mechanized Trawler`, type: 'Mechanized Trawler', beam: 4.5, len: 14.5, spd: 15.0 },
+            { label: t`Motorized FRP Boat`, type: 'Motorized Fibre Craft', beam: 2.2, len: 8.5, spd: 18.0 },
+            { label: t`Deep Sea Seiner`, type: 'Deep Sea Purse Seiner', beam: 6.0, len: 24.0, spd: 16.0 },
+            { label: t`Traditional Catamaran`, type: 'Traditional Non-Motorized Catamaran', beam: 1.8, len: 6.0, spd: 8.0 },
           ].map((preset, idx) => (
             <button
               key={idx}
@@ -103,17 +105,17 @@ export const VesselForm: React.FC = () => {
       {/* Computed Limit Live Badge */}
       <div className="p-4 bg-sagar-canvasAlt border border-sagar-borderLight rounded-xl flex items-center justify-between text-xs">
         <div>
-          <span className="text-slate-500 font-medium block">Computed SVAS Max Wave Limit:</span>
-          <span className="text-xl font-extrabold text-sagar-navy font-mono">{maxSafeWave.toFixed(3)} meters</span>
+          <span className="text-slate-500 font-medium block"><Trans>Computed SVAS Max Wave Limit:</Trans></span>
+          <span className="text-xl font-extrabold text-sagar-navy font-mono">{maxSafeWave.toFixed(3)} <Trans>meters</Trans></span>
         </div>
         <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 rounded-full bg-sagar-powder text-sky-800 border border-sky-200 font-mono">
-          Formula: Beam / 4.0
+          <Trans>Formula:</Trans> Beam / 4.0
         </span>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="text-xs font-semibold text-slate-700 block mb-1">Vessel Type</label>
+          <label className="text-xs font-semibold text-slate-700 block mb-1"><Trans>Vessel Type</Trans></label>
           <input
             type="text"
             value={vesselType}
@@ -123,7 +125,7 @@ export const VesselForm: React.FC = () => {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-slate-700 block mb-1">Beam Width (meters)</label>
+          <label className="text-xs font-semibold text-slate-700 block mb-1"><Trans>Beam Width (meters)</Trans></label>
           <input
             type="number"
             step="0.1"
@@ -134,7 +136,7 @@ export const VesselForm: React.FC = () => {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-slate-700 block mb-1">Overall Length (meters)</label>
+          <label className="text-xs font-semibold text-slate-700 block mb-1"><Trans>Overall Length (meters)</Trans></label>
           <input
             type="number"
             step="0.1"
@@ -145,7 +147,7 @@ export const VesselForm: React.FC = () => {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-slate-700 block mb-1">Cruising Speed (km/h)</label>
+          <label className="text-xs font-semibold text-slate-700 block mb-1"><Trans>Cruising Speed (km/h)</Trans></label>
           <input
             type="number"
             step="0.5"
@@ -156,7 +158,7 @@ export const VesselForm: React.FC = () => {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-slate-700 block mb-1">Registration Number</label>
+          <label className="text-xs font-semibold text-slate-700 block mb-1"><Trans>Registration Number</Trans></label>
           <input
             type="text"
             value={registration}
@@ -166,7 +168,7 @@ export const VesselForm: React.FC = () => {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-slate-700 block mb-1">Base Port / Harbor</label>
+          <label className="text-xs font-semibold text-slate-700 block mb-1"><Trans>Base Port / Harbor</Trans></label>
           <input
             type="text"
             value={homePort}
@@ -185,7 +187,7 @@ export const VesselForm: React.FC = () => {
           className="w-4 h-4 rounded bg-white border-sagar-border text-sky-600 focus:ring-sky-500"
         />
         <label htmlFor="hasAis" className="text-xs text-slate-700 cursor-pointer font-medium">
-          Equipped with active AIS Transponder / VMS Beacon
+          <Trans>Equipped with active AIS Transponder / VMS Beacon</Trans>
         </label>
       </div>
 
@@ -194,7 +196,7 @@ export const VesselForm: React.FC = () => {
         className="w-full py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs sm:text-sm shadow-soft-sm flex items-center justify-center gap-2 transition-all touch-target"
       >
         <Save className="w-4 h-4" />
-        <span>Save Vessel Profile</span>
+        <span><Trans>Save Vessel Profile</Trans></span>
       </button>
     </form>
   );

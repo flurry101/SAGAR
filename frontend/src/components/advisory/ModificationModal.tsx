@@ -3,6 +3,7 @@ import { useAppStore } from '../../state/appStore';
 import { tripApi } from '../../api/tripApi';
 import { X, RefreshCw, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 interface Props {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const { t } = useLingui();
   const { activeAssessment, setActiveAssessment } = useAppStore();
   const tripContext = activeAssessment?.data?.trip_context;
 
@@ -24,8 +26,8 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
     setLoading(true);
 
     const effectiveReturn = customReturn || returnTime;
-    const message = `Modify trip parameters: Departure at ${departureTime} from ${
-      tripContext?.origin || 'Mangalore Port'
+    const message = t`Modify trip parameters: Departure at ${departureTime} from ${
+      tripContext?.origin || t`Mangalore Port`
     }, return earlier at ${effectiveReturn} IST to avoid return wave hazard.`;
 
     try {
@@ -56,7 +58,7 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
         <div className="flex items-center justify-between border-b border-sagar-borderLight pb-3">
           <div className="flex items-center gap-2 text-sky-800 font-bold text-sm">
             <RefreshCw className="w-4 h-4 text-sky-600" />
-            <span>Modify Voyage Timing & Route</span>
+            <span><Trans>Modify Voyage Timing & Route</Trans></span>
           </div>
           <button
             onClick={onClose}
@@ -70,7 +72,7 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
         {/* Quick Suggestion Presets */}
         <div className="space-y-2">
           <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-            Suggested Mitigations:
+            <Trans>Suggested Mitigations:</Trans>
           </span>
           <div className="grid grid-cols-2 gap-2 text-xs">
             <button
@@ -81,8 +83,8 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
               }}
               className="p-3 rounded-xl bg-sagar-canvasAlt hover:bg-sagar-powder border border-sagar-borderLight text-sky-900 font-semibold text-left transition-colors touch-target shadow-soft-sm"
             >
-              <div className="font-bold">Return at 12:00 PM</div>
-              <div className="text-[10px] text-slate-500">Beat afternoon wave surge</div>
+              <div className="font-bold"><Trans>Return at 12:00 PM</Trans></div>
+              <div className="text-[10px] text-slate-500"><Trans>Beat afternoon wave surge</Trans></div>
             </button>
 
             <button
@@ -93,8 +95,8 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
               }}
               className="p-3 rounded-xl bg-sagar-canvasAlt hover:bg-sagar-powder border border-sagar-borderLight text-sky-900 font-semibold text-left transition-colors touch-target shadow-soft-sm"
             >
-              <div className="font-bold">Return at 1:00 PM</div>
-              <div className="text-[10px] text-slate-500">Reduce return exposure</div>
+              <div className="font-bold"><Trans>Return at 1:00 PM</Trans></div>
+              <div className="text-[10px] text-slate-500"><Trans>Reduce return exposure</Trans></div>
             </button>
           </div>
         </div>
@@ -103,7 +105,7 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
           <div>
             <label className="text-xs font-semibold text-slate-700 block mb-1.5 flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-sky-600" />
-              <span>Custom Departure Time (IST):</span>
+              <span><Trans>Custom Departure Time (IST):</Trans></span>
             </label>
             <input
               type="time"
@@ -116,7 +118,7 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
           <div>
             <label className="text-xs font-semibold text-slate-700 block mb-1.5 flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-sky-600" />
-              <span>Custom Expected Return Time (IST):</span>
+              <span><Trans>Custom Expected Return Time (IST):</Trans></span>
             </label>
             <input
               type="time"
@@ -125,7 +127,7 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
               className="w-full bg-white border border-sagar-border rounded-xl px-3 py-2.5 text-sm text-sagar-navy focus:border-sky-500 focus:outline-none font-mono"
             />
             <p className="text-[11px] text-sky-800 mt-1.5 leading-relaxed font-medium">
-              Note: Changing return timing recalculates sea state wave heights for every waypoint along the return route.
+              <Trans>Note: Changing return timing recalculates sea state wave heights for every waypoint along the return route.</Trans>
             </p>
           </div>
 
@@ -142,7 +144,7 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
               disabled={loading}
               className="flex-1 px-4 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-soft-sm disabled:opacity-50 transition-all touch-target"
             >
-              {loading ? 'Re-evaluating...' : 'Re-assess Voyage'}
+              {loading ? t`Re-evaluating...` : t`Re-assess Voyage`}
             </button>
           </div>
         </form>

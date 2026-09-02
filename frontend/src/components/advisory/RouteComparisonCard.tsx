@@ -3,6 +3,7 @@ import { RouteCandidate } from '../../types/api';
 import { useAppStore } from '../../state/appStore';
 import { Navigation, Check, Award } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Trans } from '@lingui/react/macro';
 
 interface Props {
   routeCandidates?: RouteCandidate[];
@@ -21,16 +22,16 @@ export const RouteComparisonCard: React.FC<Props> = ({ routeCandidates = [] }) =
         <div className="flex items-center gap-2">
           <Navigation className="w-4 h-4 text-sky-600" />
           <h3 className="text-xs font-bold text-sagar-navy uppercase tracking-wider">
-            Route Candidate Evaluation & Scoring
+            <Trans>Route Candidate Evaluation & Scoring</Trans>
           </h3>
         </div>
         <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-sagar-powder text-sky-800 border border-sky-200">
-          {routeCandidates.length} Scored Trajectories
+          <Trans>{routeCandidates.length} Scored Trajectories</Trans>
         </span>
       </div>
 
       <p className="text-xs text-slate-600">
-        SAGAR evaluates and scores candidate corridors against sea-state wave models, distance, and geofence boundaries:
+        <Trans>SAGAR evaluates and scores candidate corridors against sea-state wave models, distance, and geofence boundaries:</Trans>
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -59,7 +60,7 @@ export const RouteComparisonCard: React.FC<Props> = ({ routeCandidates = [] }) =
                   {isRecommended && (
                     <span className="inline-flex items-center gap-1 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
                       <Award className="w-3 h-3 text-emerald-700" />
-                      Recommended
+                      <Trans>Recommended</Trans>
                     </span>
                   )}
                 </div>
@@ -74,12 +75,12 @@ export const RouteComparisonCard: React.FC<Props> = ({ routeCandidates = [] }) =
               {/* Stats Grid */}
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="bg-sagar-canvasAlt p-2.5 rounded-lg border border-sagar-borderLight font-mono">
-                  <span className="text-[10px] text-slate-500 block font-sans">Voyage Distance</span>
+                  <span className="text-[10px] text-slate-500 block font-sans"><Trans>Voyage Distance</Trans></span>
                   <span className="font-bold text-sagar-navy">{route.distance_nm} NM ({Math.round(route.distance_nm * 1.852)} km)</span>
                 </div>
                 <div className="bg-sagar-canvasAlt p-2.5 rounded-lg border border-sagar-borderLight font-mono">
-                  <span className="text-[10px] text-slate-500 block font-sans">Est. Voyage Time</span>
-                  <span className="font-bold text-sagar-navy">{route.duration_hours} Hours</span>
+                  <span className="text-[10px] text-slate-500 block font-sans"><Trans>Est. Voyage Time</Trans></span>
+                  <span className="font-bold text-sagar-navy">{route.duration_hours} <Trans>Hours</Trans></span>
                 </div>
               </div>
 
@@ -87,15 +88,15 @@ export const RouteComparisonCard: React.FC<Props> = ({ routeCandidates = [] }) =
               {route.penalty_breakdown && (
                 <div className="pt-2 border-t border-sagar-borderLight text-[11px] space-y-1">
                   <div className="flex justify-between text-slate-600">
-                    <span>Weather Risk Penalty:</span>
+                    <span><Trans>Weather Risk Penalty:</Trans></span>
                     <span className={route.penalty_breakdown.weather_risk > 0.2 ? 'text-rose-700 font-bold font-mono' : 'text-slate-800 font-mono'}>
                       {(route.penalty_breakdown.weather_risk * 100).toFixed(0)}%
                     </span>
                   </div>
                   <div className="flex justify-between text-slate-600">
-                    <span>Geofence Constraint:</span>
+                    <span><Trans>Geofence Constraint:</Trans></span>
                     <span className={route.penalty_breakdown.geofence_penalty > 0 ? 'text-rose-700 font-bold' : 'text-emerald-700 font-bold'}>
-                      {route.penalty_breakdown.geofence_penalty > 0 ? 'Boundary Violation' : 'Clear'}
+                      {route.penalty_breakdown.geofence_penalty > 0 ? <Trans>Boundary Violation</Trans> : <Trans>Clear</Trans>}
                     </span>
                   </div>
                 </div>
@@ -103,15 +104,15 @@ export const RouteComparisonCard: React.FC<Props> = ({ routeCandidates = [] }) =
 
               {/* Selection Status */}
               <div className="flex items-center justify-between pt-1 text-[11px]">
-                <span className="text-slate-500 capitalize">{route.route_type} Corridor</span>
+                <span className="text-slate-500 capitalize">{route.route_type} <Trans>Corridor</Trans></span>
                 <span className={`font-bold flex items-center gap-1 ${isSelected ? 'text-sky-700' : 'text-slate-400'}`}>
                   {isSelected ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-sky-700" />
-                      <span>Active on Map</span>
+                      <span><Trans>Active on Map</Trans></span>
                     </>
                   ) : (
-                    <span>Click to Inspect</span>
+                    <span><Trans>Click to Inspect</Trans></span>
                   )}
                 </span>
               </div>
