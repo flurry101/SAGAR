@@ -33,38 +33,18 @@ from app.chatbot.tools.live_data_tools import LIVE_DATA_TOOLS
 ALL_COPILOT_TOOLS = ORCA_CONTEXT_TOOLS + KNOWLEDGE_TOOLS + LIVE_DATA_TOOLS
 
 
-def get_copilot_chain(llm=None):
-    """Create the ORCA Fisherman Copilot chain with tool calling.
-
-    This creates a LangChain agent that:
-    1. Receives the fisherman's message + conversation history
-    2. Uses the system prompt to enforce safety boundaries
-    3. Selects and calls the appropriate tools (ORCA context, knowledge, live data)
-    4. Generates an evidence-grounded, multilingual response
-
-    Args:
-        llm: Optional LLM instance. If None, creates a default one.
-
-    Returns:
-        A runnable chain that accepts {"messages": [...]} and returns an AIMessage.
-
-    Usage:
-        chain = get_copilot_chain()
-        result = chain.invoke({
-            "messages": [
-                HumanMessage(content="Why did ORCA say my trip is risky?")
-            ]
-        })
-    """
+def get_copilot_chain(llm=None, language="en"):
     if llm is None:
         llm = _get_default_llm()
 
     # Bind all tools to the LLM
     llm_with_tools = llm.bind_tools(ALL_COPILOT_TOOLS) if llm else None
+    
+    language_instruction = f"IMPORTANT INSTRUCTION: You MUST respond to the user entirely in the language with locale code '{language}'. Do not use English unless the locale code is 'en'."
 
     # Build the prompt template
     prompt = ChatPromptTemplate.from_messages([
-        SystemMessage(content=COPILOT_SYSTEM_PROMPT + "\n\n" + COPILOT_TOOL_INSTRUCTIONS),
+        SystemMessage(content=COPILOT_SYSTEM_PROMPT + "\n\n" + COPILOT_TOOL_INSTRUCTIONS + "\n\n" + language_instruction),
         MessagesPlaceholder(variable_name="messages"),
     ])
 
@@ -120,6 +100,7 @@ async def chat(
     conversation_history: list[dict] | None = None,
     trip_id: str | None = None,
     fisher_id: str | None = None,
+    language: str = "en",
 ) -> dict:
     """High-level chat interface for the ORCA Fisherman Copilot.
 
@@ -130,6 +111,7 @@ async def chat(
         conversation_history: Previous messages in the conversation.
         trip_id: Optional trip ID for context-aware responses.
         fisher_id: Optional fisher ID for personalized responses.
+        language: The locale code requested by the user.
 
     Returns:
         Dict with 'response' (the assistant's message) and 'tool_calls' (if any).
@@ -151,7 +133,7 @@ async def chat(
     messages.append(HumanMessage(content=user_message))
 
     # Get the chain
-    chain = get_copilot_chain()
+    chain = get_copilot_chain(language=language)
 
     if chain is None:
         # Fallback when LLM is not configured
