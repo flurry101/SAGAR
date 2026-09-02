@@ -71,37 +71,31 @@ export const LandingPage: React.FC = () => {
       {/* 1. MAJESTIC PARALLAX HERO SECTION */}
       <ParallaxOceanHero />
 
-      {/* Wave Transition */}
-      <WaveDivider fillColor="#edf5fa" secondaryFill="rgba(224, 242, 254, 0.45)" height={56} />
-
-      {/* 2. INTERACTIVE VOYAGE RISK SIMULATOR SECTION */}
+      {/* 2. INTERACTIVE 4D VOYAGE RISK SIMULATOR SECTION */}
       <motion.section
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.6 }}
-        className="bg-sagar-canvasAlt py-12 px-4 sm:px-6 lg:px-8 border-y border-sagar-borderLight"
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.5 }}
+        className="bg-sagar-canvasAlt py-8 px-4 sm:px-6 lg:px-8 border-y border-sagar-borderLight"
       >
-        <div className="max-w-7xl mx-auto space-y-8">
+        <div className="max-w-7xl mx-auto space-y-6">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-sky-900 border border-sky-200 text-xs font-bold shadow-soft-sm">
-              <ShieldAlert className="w-3.5 h-3.5 text-sky-600" />
-              <span>Wave & Boat Safety</span>
+              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
+              <span>Interactive Decision Testbed</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-black text-sagar-navy tracking-tight">
-              Test Your Boat's Stability Before Heading Out
+              Test Vessel Stability & Diurnal Swell in Real Time
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              Morning seas can be deceptively calm. See how afternoon swells create capsize danger for small boats vs larger trawlers.
+              See why a 2.1m afternoon return swell is dangerous for a 2.2m beam boat, but safe for a 6.0m seiner.
             </p>
           </div>
 
           <InteractiveVoyageSimulator />
         </div>
       </motion.section>
-
-      {/* Wave Transition back */}
-      <WaveDivider fillColor="#f6f9fc" secondaryFill="rgba(237, 245, 250, 0.7)" height={56} flip />
 
       {/* 3. OPERATIONAL VOYAGE SCENARIOS SHOWCASE */}
       <motion.section
@@ -115,13 +109,13 @@ export const LandingPage: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-extrabold text-sky-700 uppercase tracking-wider mb-1">
               <Sparkles className="w-4 h-4 text-sky-600" />
-              <span>Coastal Voyage Examples</span>
+              <span>Verified Test Scenarios</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-sagar-navy tracking-tight">
-              Real Marine Safety Decisions
+              Explore Real Operational Scenarios
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
-              See how SAGAR alerts fishermen to dangerous return swells, international boundary zones, and high-catch fishing grounds.
+              Launch pre-computed spatio-temporal scenarios to inspect how SAGAR detects return swell hazards, geofence breaches, and multi-PFZ optimization.
             </p>
           </div>
         </motion.div>
@@ -164,10 +158,10 @@ export const LandingPage: React.FC = () => {
 
                 <div className="pt-3 border-t border-sagar-borderLight flex items-center justify-between">
                   <span className="text-xs font-extrabold text-sky-700 group-hover:text-sky-900 flex items-center gap-1.5">
-                    <span>View Safety Assessment</span>
+                    <span>Launch Advisory Dashboard</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
-                  <span className="text-[10px] font-bold text-slate-400">Interactive Map</span>
+                  <span className="text-[10px] font-mono font-bold text-slate-400">MapLibre + Deck.gl</span>
                 </div>
               </motion.div>
             );
@@ -186,10 +180,10 @@ export const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto space-y-8">
           <motion.div variants={itemVariants} className="text-center max-w-3xl mx-auto space-y-2">
             <h2 className="text-2xl sm:text-3xl font-black text-sagar-navy tracking-tight">
-              How SAGAR Keeps Fishermen Safe
+              Deterministic Physics & Spatio-Temporal Intelligence
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              Clear, transparent decision support built for real conditions at sea.
+              Why static weather cards fail maritime operators — and how SAGAR provides true voyage decision support.
             </p>
           </motion.div>
 
@@ -197,57 +191,54 @@ export const LandingPage: React.FC = () => {
             {/* Pillar 1 */}
             <motion.div
               variants={itemVariants}
-              className="bg-white p-6 rounded-3xl border border-sagar-border shadow-soft-sm space-y-4 hover:shadow-soft-md transition-shadow text-left"
+              className="bg-white p-6 rounded-3xl border border-sagar-border shadow-soft-sm space-y-4 hover:shadow-soft-md transition-shadow"
               whileHover={{ y: -4 }}
             >
               <div className="w-12 h-12 rounded-2xl bg-sagar-powder text-sky-700 flex items-center justify-center font-bold">
                 <Clock className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-extrabold text-sagar-navy">Full Trip Wave Tracking</h3>
+              <h3 className="text-base font-extrabold text-sagar-navy">4D Spatio-Temporal Matching</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Weather changes constantly. SAGAR forecasts wave heights, tides, and wind at your departure time, fishing grounds, and return hour.
+                Weather is not a static 2D snapshot. SAGAR models your trip across time and space — evaluating forecasted wave height, period, and wind speed at the exact future ETA of each waypoint.
               </p>
               <div className="pt-2 text-xs font-bold text-sky-700 flex items-center gap-1">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Checks departure, transit, & return hours</span>
+                <span>Evaluates departure, transit, & return legs</span>
               </div>
             </motion.div>
 
             {/* Pillar 2 */}
             <motion.div
               variants={itemVariants}
-              className="bg-white p-6 rounded-3xl border border-sagar-border shadow-soft-sm space-y-4 hover:shadow-soft-md transition-shadow text-left"
+              className="bg-white p-6 rounded-3xl border border-sagar-border shadow-soft-sm space-y-4 hover:shadow-soft-md transition-shadow"
               whileHover={{ y: -4 }}
             >
               <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center font-bold">
                 <Ship className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-extrabold text-sagar-navy">Matched to Your Boat's Size</h3>
+              <h3 className="text-base font-extrabold text-sagar-navy">Deterministic Stability (SVAS)</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                A 1.8m wave is safe for a large steel trawler but dangerous for a small FRP boat. SAGAR calculates safe wave limits based on your boat's width.
+                A 1.8m wave is safe for a 30m steel trawler but dangerous for a 5m motorized canoe. SAGAR computes physical capsize limits tailored to your boat's beam width:
               </p>
-              <div className="pt-2 text-xs font-bold text-amber-800 flex items-center gap-1">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Customized to your boat width</span>
+              <div className="p-2.5 rounded-xl bg-sagar-canvasAlt font-mono text-xs text-sagar-navy border border-sagar-borderLight font-bold">
+                max_safe_wave = beam_width / 4.0
               </div>
             </motion.div>
 
             {/* Pillar 3 */}
             <motion.div
               variants={itemVariants}
-              className="bg-white p-6 rounded-3xl border border-sagar-border shadow-soft-sm space-y-4 hover:shadow-soft-md transition-shadow text-left"
+              className="bg-white p-6 rounded-3xl border border-sagar-border shadow-soft-sm space-y-4 hover:shadow-soft-md transition-shadow"
               whileHover={{ y: -4 }}
             >
               <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center font-bold">
                 <FileCheck className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-extrabold text-sagar-navy">Explainable Advice You Can Trust</h3>
+              <h3 className="text-base font-extrabold text-sagar-navy">Full Data Provenance</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Every advisory clearly explains why an action is suggested, giving you live wave measurements, wind speeds, and boundary alerts.
+                Operators need to trust their advice. Every advisory provides complete provenance tiers (Tier 1 Live API, Tier 2 Numerical Forecast, Tier 3 Historical Baseline) with confidence ratings.
               </p>
               <div className="pt-2 text-xs font-bold text-emerald-700 flex items-center gap-1">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Clear "See Why" explanations</span>
+                <span>Expandable "See Why" evidence registry</span>
               </div>
             </motion.div>
           </div>
@@ -266,13 +257,13 @@ export const LandingPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-3 text-left">
               <span className="text-xs font-black uppercase tracking-wider text-sky-950 px-3 py-1 rounded-full bg-white/90 border border-sky-300">
-                Built for Coastal Fishermen & Authorities
+                Built for Coastal Operations
               </span>
               <h3 className="text-2xl sm:text-4xl font-black text-sagar-navy tracking-tight">
-                High Sunlight Visibility, Mobile Touch & Voice in Your Language
+                Designed for Outdoor Visibility, Mobile Touch & Regional Languages
               </h3>
               <p className="text-xs sm:text-sm text-slate-700 leading-relaxed max-w-2xl font-medium">
-                Designed for bright glare at sea, big buttons easy to tap on rolling decks, regional Indian languages, and offline caching when cellular signal drops.
+                SAGAR features high-contrast typography readable under bright marine sunlight, 44px+ touch targets for vessel operations, multilingual support across coastal regions, and offline progressive caching.
               </p>
             </div>
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
@@ -282,7 +273,7 @@ export const LandingPage: React.FC = () => {
                 icon={<Navigation className="w-4 h-4" />}
                 onClick={() => setCurrentView('chat')}
               >
-                Check Trip Safety Now
+                Start Voyage Assessment
               </RippleButton>
               <RippleButton
                 variant="secondary"
@@ -290,7 +281,7 @@ export const LandingPage: React.FC = () => {
                 icon={<Ship className="w-4 h-4 text-sky-700" />}
                 onClick={() => setCurrentView('vessel')}
               >
-                Set Boat Details
+                Configure Boat Profile
               </RippleButton>
             </div>
           </div>

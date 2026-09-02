@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAppStore, AppView } from '../../state/appStore';
+import { LanguageSelector } from '../common/LanguageSelector';
 import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -15,15 +16,11 @@ export const Header: React.FC = () => {
     { id: 'knowledge', label: 'Marine Knowledge', shortLabel: 'Knowledge', icon: <BookOpen className="w-4 h-4 shrink-0" /> },
   ];
 
-  const profileMenuItems: { id: AppView; label: string; icon: React.ReactNode }[] = isAuthenticated
-    ? [
-        { id: 'auth', label: 'Operator Profile', icon: <UserCheck className="w-4 h-4 shrink-0" /> },
-        { id: 'vessel', label: 'Vessel Profile', icon: <Ship className="w-4 h-4 shrink-0" /> },
-        { id: 'history', label: 'Voyage History', icon: <History className="w-4 h-4 shrink-0" /> },
-      ]
-    : [
-        { id: 'auth', label: 'Sign In', icon: <UserCheck className="w-4 h-4 shrink-0" /> },
-      ];
+  const profileMenuItems: { id: AppView; label: string; icon: React.ReactNode }[] = [
+    { id: 'auth', label: isAuthenticated ? 'Profile' : 'Sign In', icon: <UserCheck className="w-4 h-4 shrink-0" /> },
+    { id: 'vessel', label: 'Vessel Profile', icon: <Ship className="w-4 h-4 shrink-0" /> },
+    { id: 'history', label: 'Voyage History', icon: <History className="w-4 h-4 shrink-0" /> },
+  ];
 
   const fullDisplayName = isAuthenticated ? userProfile?.name || 'Marine Operator' : 'Sign In';
   const shortDisplayName = isAuthenticated ? (userProfile?.name || 'Operator') : 'Sign In';
@@ -111,20 +108,19 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* 4. Right Controls: Profile Access - Guaranteed Fully Visible */}
+          {/* 4. Right Controls: Language & Profile Access - Guaranteed Fully Visible */}
           <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 ml-auto">
+            {/* Language Selector */}
+            <div className="hidden sm:block shrink-0">
+              <LanguageSelector />
+            </div>
+
             {/* Profile Button - Never Squeezed or Clipped */}
             <div className="relative shrink-0">
               <motion.button
                 whileHover={{ y: -1, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  if (!isAuthenticated) {
-                    setCurrentView('auth');
-                  } else {
-                    setProfileMenuOpen((prev) => !prev);
-                  }
-                }}
+                onClick={() => setProfileMenuOpen((prev) => !prev)}
                 className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy text-xs font-extrabold border border-sagar-border transition-all shadow-soft-sm touch-target cursor-pointer shrink-0"
                 title={fullDisplayName}
                 aria-label={fullDisplayName}
@@ -141,7 +137,7 @@ export const Header: React.FC = () => {
               </motion.button>
 
               <AnimatePresence>
-                {isAuthenticated && profileMenuOpen && (
+                {profileMenuOpen && (
                   <motion.div
                     initial={{ opacity: 0, y: -8, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -191,7 +187,9 @@ export const Header: React.FC = () => {
             transition={{ duration: 0.2 }}
             className="min-[1180px]:hidden border-t border-sagar-border bg-white px-4 pt-3 pb-5 space-y-2 shadow-soft-lg overflow-hidden"
           >
-            <div className="pt-1"></div>
+            <div className="sm:hidden pb-2 mb-2 border-b border-sagar-borderLight">
+              <LanguageSelector />
+            </div>
             {navItems.map((item) => (
               <button
                 key={item.id}
