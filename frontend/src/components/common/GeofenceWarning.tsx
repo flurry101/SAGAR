@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/react/macro';
 import { GeofenceIntersection } from '../../types/trip';
 import { ShieldAlert, MapPin } from 'lucide-react';
 
@@ -13,7 +14,7 @@ export const GeofenceWarning: React.FC<Props> = ({ intersections }) => {
     <div className="bg-rose-50 border border-rose-300 rounded-2xl p-5 sm:p-6 shadow-soft-sm space-y-3.5">
       <div className="flex items-center gap-2.5 text-rose-950 font-extrabold text-sm border-b border-rose-200 pb-3">
         <ShieldAlert className="w-5 h-5 text-rose-700 shrink-0" />
-        <span>GEOFENCE WARNING: Restricted Marine Zone Intersection</span>
+        <span><Trans>GEOFENCE WARNING: Restricted Marine Zone Intersection</Trans></span>
       </div>
 
       {intersections.map((geo, idx) => (
@@ -29,13 +30,15 @@ export const GeofenceWarning: React.FC<Props> = ({ intersections }) => {
           </div>
 
           <p className="text-slate-800 leading-relaxed font-medium">
-            Your planned route trajectory intersects this protected boundary at waypoint indices{' '}
-            <strong className="text-rose-700 font-mono font-bold">{geo.affected_waypoints?.join(', ')}</strong>. Navigation and harvesting inside this zone are restricted under national maritime and environmental regulations.
+            <Trans>
+              Your planned route trajectory intersects this protected boundary at waypoint indices{' '}
+              <strong className="text-rose-700 font-mono font-bold">{geo.affected_waypoints?.join(', ')}</strong>. Navigation and harvesting inside this zone are restricted under national maritime and environmental regulations.
+            </Trans>
           </p>
 
           <div className="text-[10px] text-slate-500 flex items-center justify-between pt-1.5 border-t border-sagar-borderLight">
-            <span>GIS Source: <strong className="text-sagar-navy">{geo.source}</strong></span>
-            <span className="text-sky-800 font-bold">Suggested Action: Select coastal or offshore bypass corridor</span>
+            <span><Trans>GIS Source:</Trans> <strong className="text-sagar-navy">{geo.source}</strong></span>
+            <span className="text-sky-800 font-bold"><Trans>Suggested Action: Select coastal or offshore bypass corridor</Trans></span>
           </div>
         </div>
       ))}

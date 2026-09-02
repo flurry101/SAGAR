@@ -1,6 +1,7 @@
 import React from 'react';
 import { HazardFlag } from '../../types/risk';
 import { ShieldAlert, Clock, Database, Ruler } from 'lucide-react';
+import { Trans } from '@lingui/react/macro';
 
 interface Props {
   hazard: HazardFlag;
@@ -25,20 +26,20 @@ export const HazardAlert: React.FC<Props> = ({ hazard }) => {
           </span>
         </div>
         <span className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-white border border-rose-200 text-slate-700 shadow-soft-sm">
-          Leg: {hazard.trip_phase}
+          <Trans>Leg: {hazard.trip_phase}</Trans>
         </span>
       </div>
 
       {/* Value Comparison */}
       <div className="grid grid-cols-2 gap-3 bg-white p-3.5 rounded-xl border border-rose-200/80 text-xs shadow-soft-sm">
         <div>
-          <span className="text-slate-500 text-[10px] block uppercase font-bold">Observed Forecast</span>
+          <span className="text-slate-500 text-[10px] block uppercase font-bold"><Trans>Observed Forecast</Trans></span>
           <span className={`text-base font-extrabold font-mono ${isSevere ? 'text-rose-700' : 'text-amber-700'}`}>
             {hazard.observed_value} {hazard.unit || ''}
           </span>
         </div>
         <div>
-          <span className="text-slate-500 text-[10px] block uppercase font-bold">Boat Safety Limit</span>
+          <span className="text-slate-500 text-[10px] block uppercase font-bold"><Trans>Boat Safety Limit</Trans></span>
           <span className="text-base font-extrabold text-sagar-navy font-mono">
             {hazard.threshold_value} {hazard.unit || ''}
           </span>
@@ -49,11 +50,11 @@ export const HazardAlert: React.FC<Props> = ({ hazard }) => {
       <div className="space-y-1.5 text-xs text-slate-700">
         <div className="flex items-center gap-2">
           <Ruler className="w-3.5 h-3.5 text-sky-700 shrink-0" />
-          <span>Rule Applied: <strong className="text-sagar-navy font-mono">{hazard.rule_applied}</strong></span>
+          <span><Trans>Rule Applied:</Trans> <strong className="text-sagar-navy font-mono">{hazard.rule_applied}</strong></span>
         </div>
         <div className="flex items-center gap-2">
           <Clock className="w-3.5 h-3.5 text-sky-700 shrink-0" />
-          <span>Hazard Time: <strong className="text-sagar-navy font-mono">{new Date(hazard.time_iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} IST</strong></span>
+          <span><Trans>Hazard Time:</Trans> <strong className="text-sagar-navy font-mono">{new Date(hazard.time_iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} IST</strong></span>
         </div>
       </div>
 
@@ -65,7 +66,7 @@ export const HazardAlert: React.FC<Props> = ({ hazard }) => {
             <span className="truncate max-w-[180px] font-medium">{hazard.provenance.source}</span>
           </div>
           <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white text-sky-900 border border-sky-200 shadow-soft-sm">
-            Tier {hazard.provenance.fallback_tier} • {hazard.provenance.confidence} CONFIDENCE
+            Tier {hazard.provenance.fallback_tier} • {hazard.provenance.confidence} <Trans>CONFIDENCE</Trans>
           </span>
         </div>
       )}

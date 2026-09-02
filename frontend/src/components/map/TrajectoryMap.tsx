@@ -21,6 +21,7 @@ import {
   Compass,
 } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 interface Props {
   trajectory?: Trajectory;
@@ -66,6 +67,7 @@ export const TrajectoryMap: React.FC<Props> = ({
   const pfzSourceId = 'native-pfz-zones';
   const pfzGeometrySourceId = 'native-pfz-geometry';
 
+  const { t } = useLingui();
   const shouldReduceMotion = useReducedMotion();
   const { selectedWaypointIndex, setSelectedWaypointIndex, selectedRouteCandidateId } = useAppStore();
 
@@ -281,15 +283,15 @@ export const TrajectoryMap: React.FC<Props> = ({
                   setTooltip({
                     x: info.x,
                     y: info.y,
-                    title: props.name || specLayer.layer_id || 'Restricted Hazard Zone',
-                    subtitle: props.hazard_type || 'Geofence Warning Boundary',
+                    title: props.name || (specLayer as any).title || t`Marine Hazard Zone (${specLayer.layer_id})`,
+                    subtitle: props.hazard_type || || props.type || 'Geofence Warning Boundary',
                     riskBadge: {
                       text: props.severity || 'RESTRICTED AREA',
                       bg: '#450a0a',
                       border: '#991b1b',
                       color: '#fca5a5',
                     },
-                    hazardDetail: props.description || 'Spatial boundary alert monitored via ORCA risk engine.',
+                    hazardDetail: props.description || 'Spatial boundary alert monitored via SAGAR risk engine.',
                   });
                 } else {
                   setTooltip(null);
@@ -320,6 +322,25 @@ export const TrajectoryMap: React.FC<Props> = ({
             getPath: (d: any) => d.path,
             getColor: [148, 163, 184, 130], // Muted slate
             getWidth: 2.5,
+            onHover: (info: any) => {
+              if (info.object && info.x && info.y) {
+                const c = info.object.candidate;
+                setTooltip({
+                  x: info.x,
+                  y: info.y,
+                  title: c.name || t`Alternative Route (${c.route_id})`,
+                  subtitle: t`Safety Score: ${c.score}/100`,
+                  riskBadge: {
+                    text: c.score >= 70 ? t`FAVOURABLE` : t`MODERATE RISK`,
+                    bg: c.score >= 70 ? '#f0fdf4' : '#fffbeb',
+                    border: c.score >= 70 ? '#86efac' : '#fcd34d',
+                    color: c.score >= 70 ? '#166534' : '#92400e',
+                  },
+                });
+              } else {
+                setTooltip(null);
+              }
+            },
           })
         );
       }
@@ -481,7 +502,7 @@ export const TrajectoryMap: React.FC<Props> = ({
               setTooltip({
                 x: info.x,
                 y: info.y,
-                title: wp.name || `Waypoint ${wp.waypoint_index + 1}`,
+                title: wp.name || t`Waypoint ${wp.waypoint_index + 1}`,
                 phase: wp.phase,
                 eta: wp.eta_iso ? new Date(wp.eta_iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : undefined,
                 coords: `${wp.lat.toFixed(2)}°N, ${wp.lon.toFixed(2)}°E`,
@@ -723,14 +744,14 @@ export const TrajectoryMap: React.FC<Props> = ({
       {/* MapLibre GL Canvas Container */}
       <div ref={mapContainer} className="w-full h-full" />
 
-      {/* Floating Header Bar */}
-      <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-md border border-slate-300 px-3.5 py-2 rounded-xl text-xs flex items-center gap-2.5 text-slate-800 shadow-lg">
+      {/* Floating Header Tag */}
+      <div className="absolute top-3 left-3 z-10 bg-white/95 backdrop-blur-md border border-sagar-border px-3.5 py-1.5 rounded-xl text-xs flex items-center gap-2 text-sagar-navy shadow-soft-sm font-semibold">
         <Compass className="w-4 h-4 text-sky-400 shrink-0 animate-pulse" />
         <span className="font-bold truncate max-w-[180px] sm:max-w-none">
-          {activeCandidate ? activeCandidate.name : '4D Marine Safety & Trajectory Map'}
+          {activeCandidate ? activeCandidate.name : <Trans>4D Marine Safety & Trajectory Map</Trans>}
         </span>
-        <span className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-300">
-          Light Map
+        <span className="text-[10px] font-mono font-bold text-sky-800 bg-sagar-powder px-2.5 py-0.5 rounded-full border border-sky-200 ml-1 shrink-0">
+          <Trans>Light Map</Trans>
         </span>
       </div>
 
@@ -785,17 +806,17 @@ export const TrajectoryMap: React.FC<Props> = ({
       <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2">
         <button
           onClick={handleResetBounds}
-          className="bg-slate-900/90 backdrop-blur-md hover:bg-slate-800 border border-slate-700 text-slate-200 px-3 py-1.5 rounded-xl text-xs font-semibold shadow-md flex items-center gap-1.5 transition-all touch-target cursor-pointer"
-          title="Reset map view to full voyage"
+          className="bg-white/95 backdrop-blur-md hover:bg-sagar-canvasAlt border border-sagar-border text-sagar-navy px-3 py-1.5 rounded-xl text-xs font-semibold shadow-soft-sm flex items-center gap-1.5 transition-all touch-target cursor-pointer"
+          title={t`Reset map view to full voyage`}
         >
-          <Maximize2 className="w-3.5 h-3.5 text-sky-400" />
-          <span>Reset View</span>
+          <Maximize2 className="w-3.5 h-3.5 text-sky-600" />
+          <span><Trans>Reset View</Trans></span>
         </button>
 
         <div className="hidden sm:flex items-center gap-3 bg-slate-900/90 backdrop-blur-md border border-slate-700 px-3 py-1.5 rounded-xl text-[11px] font-medium text-slate-300 shadow-md">
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-sky-500" />
-            <span>Safe Segment</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-sky-600" />
+            <span><Trans>Safe Segment</Trans></span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
@@ -803,14 +824,14 @@ export const TrajectoryMap: React.FC<Props> = ({
           </div>
           {hazardFlags.length > 0 && (
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" />
-              <span>Severe Risk</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600" />
+              <span><Trans>Severe Risk</Trans></span>
             </div>
           )}
           {pfzZones.length > 0 && (
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-              <span>PFZ Glow Zone</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span><Trans>PFZ Glow Zone</Trans></span>
             </div>
           )}
         </div>
@@ -942,9 +963,9 @@ export const TrajectoryMap: React.FC<Props> = ({
           {tooltip.subtitle && <p className="text-[11px] text-slate-400 font-medium">{tooltip.subtitle}</p>}
 
           {tooltip.phase && (
-            <div className="text-[11px] text-slate-400 flex items-center justify-between gap-2">
-              <span>Phase: <strong className="text-slate-200">{tooltip.phase}</strong></span>
-              {tooltip.eta && <span>ETA: <strong className="text-slate-200">{tooltip.eta} UTC</strong></span>}
+            <div className="text-[11px] text-slate-600 flex items-center justify-between gap-2">
+              <span><Trans>Phase:</Trans> <strong className="text-sagar-navy">{tooltip.phase}</strong></span>
+              {tooltip.eta && <span><Trans>ETA:</Trans> <strong className="text-sagar-navy">{tooltip.eta} IST</strong></span>}
             </div>
           )}
 

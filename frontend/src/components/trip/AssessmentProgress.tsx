@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Clock, Loader2, Shield, Compass, Waves, CloudRain, FileCheck, Navigation } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 interface Step {
   id: string;
@@ -9,14 +10,14 @@ interface Step {
   icon: React.ReactNode;
 }
 
-const STEPS: Step[] = [
-  { id: '1', label: 'Understanding your trip', sublabel: 'Extracting departure, destination & vessel schedule', icon: <Compass className="w-4 h-4" /> },
-  { id: '2', label: 'Finding your fishing zone', sublabel: 'Querying PFZ thermal & chlorophyll coordinates', icon: <Waves className="w-4 h-4" /> },
-  { id: '3', label: 'Calculating your route', sublabel: 'Generating 4D waypoints and transit ETAs', icon: <Navigation className="w-4 h-4" /> },
-  { id: '4', label: 'Checking sea conditions', sublabel: 'Retrieving marine wave and current observations', icon: <Waves className="w-4 h-4" /> },
-  { id: '5', label: 'Checking weather forecast', sublabel: 'Evaluating wind, wave & swell across all trip phases', icon: <CloudRain className="w-4 h-4" /> },
-  { id: '6', label: 'Assessing safety', sublabel: 'Applying deterministic SVAS vessel stability limits', icon: <Shield className="w-4 h-4" /> },
-  { id: '7', label: 'Preparing your advisory', sublabel: 'Formulating explainable recommendations & evidence', icon: <FileCheck className="w-4 h-4" /> }
+const getSteps = (t: any): Step[] => [
+  { id: '1', label: t`Understanding your trip`, sublabel: t`Extracting departure, destination & vessel schedule`, icon: <Compass className="w-4 h-4" /> },
+  { id: '2', label: t`Finding your fishing zone`, sublabel: t`Querying PFZ thermal & chlorophyll coordinates`, icon: <Waves className="w-4 h-4" /> },
+  { id: '3', label: t`Calculating your route`, sublabel: t`Generating 4D waypoints and transit ETAs`, icon: <Navigation className="w-4 h-4" /> },
+  { id: '4', label: t`Checking sea conditions`, sublabel: t`Retrieving marine wave and current observations`, icon: <Waves className="w-4 h-4" /> },
+  { id: '5', label: t`Checking weather forecast`, sublabel: t`Evaluating wind, wave & swell across all trip phases`, icon: <CloudRain className="w-4 h-4" /> },
+  { id: '6', label: t`Assessing safety`, sublabel: t`Applying deterministic SVAS vessel stability limits`, icon: <Shield className="w-4 h-4" /> },
+  { id: '7', label: t`Preparing your advisory`, sublabel: t`Formulating explainable recommendations & evidence`, icon: <FileCheck className="w-4 h-4" /> }
 ];
 
 interface Props {
@@ -25,6 +26,8 @@ interface Props {
 }
 
 export const AssessmentProgress: React.FC<Props> = ({ onComplete, speedMs = 350 }) => {
+  const { t } = useLingui();
+  const STEPS = getSteps(t);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   useEffect(() => {
@@ -41,7 +44,7 @@ export const AssessmentProgress: React.FC<Props> = ({ onComplete, speedMs = 350 
         return () => clearTimeout(completeTimer);
       }
     }
-  }, [currentStepIndex, speedMs, onComplete]);
+  }, [currentStepIndex, speedMs, onComplete, STEPS.length]);
 
   return (
     <motion.div
@@ -54,8 +57,8 @@ export const AssessmentProgress: React.FC<Props> = ({ onComplete, speedMs = 350 
           <Loader2 className="w-5 h-5 animate-spin" />
         </div>
         <div>
-          <h3 className="text-sm font-bold text-sagar-navy tracking-wide">Evaluating Spatio-Temporal Safety</h3>
-          <p className="text-xs text-slate-500">SAGAR is checking sea state and boat stability limits across all legs.</p>
+          <h3 className="text-sm font-bold text-sagar-navy tracking-wide"><Trans>Evaluating Spatio-Temporal Safety</Trans></h3>
+          <p className="text-xs text-slate-500"><Trans>SAGAR is checking sea state and boat stability limits across all legs.</Trans></p>
         </div>
       </div>
 
@@ -106,12 +109,12 @@ export const AssessmentProgress: React.FC<Props> = ({ onComplete, speedMs = 350 
               <div>
                 {isDone && (
                   <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
-                    Done
+                    <Trans>Done</Trans>
                   </span>
                 )}
                 {isCurrent && (
                   <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300 animate-pulse">
-                    Evaluating...
+                    <Trans>Evaluating...</Trans>
                   </span>
                 )}
               </div>
@@ -123,7 +126,7 @@ export const AssessmentProgress: React.FC<Props> = ({ onComplete, speedMs = 350 
       <div className="text-center pt-1">
         <p className="text-[11px] text-slate-500 flex items-center justify-center gap-1.5">
           <Clock className="w-3.5 h-3.5 text-sky-600" />
-          <span>Processing forecast models & deterministic SVAS stability rules...</span>
+          <span><Trans>Processing forecast models & deterministic SVAS stability rules...</Trans></span>
         </p>
       </div>
     </motion.div>

@@ -1,10 +1,12 @@
 import React from 'react';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useAppStore, HistoricalAssessment } from '../state/appStore';
 import { History, Clock, MapPin, CheckCircle2, AlertTriangle, ShieldAlert, ArrowRight, Trash2, Shield, Navigation } from 'lucide-react';
 import { sanitizeSagarText } from '../utils/brand';
 import { motion } from 'framer-motion';
 
 export const AssessmentHistoryPage: React.FC = () => {
+  const { t } = useLingui();
   const { assessmentHistory, setActiveAssessment, setCurrentView, clearHistory } = useAppStore();
 
   const handleReplay = (item: HistoricalAssessment) => {
@@ -18,32 +20,32 @@ export const AssessmentHistoryPage: React.FC = () => {
         return {
           bg: 'bg-emerald-100 text-emerald-800 border-emerald-300',
           icon: <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />,
-          label: 'SAFE'
+          label: t`SAFE`
         };
       case 'MODERATE':
       case 'ELEVATED':
         return {
           bg: 'bg-amber-100 text-amber-800 border-amber-300',
           icon: <AlertTriangle className="w-3.5 h-3.5 text-amber-700" />,
-          label: 'MODERATE'
+          label: t`MODERATE`
         };
       case 'HIGH':
         return {
           bg: 'bg-orange-100 text-orange-800 border-orange-300',
           icon: <AlertTriangle className="w-3.5 h-3.5 text-orange-700" />,
-          label: 'HIGH RISK'
+          label: t`HIGH RISK`
         };
       case 'SEVERE':
         return {
           bg: 'bg-rose-100 text-rose-900 border-rose-300',
           icon: <ShieldAlert className="w-3.5 h-3.5 text-rose-700" />,
-          label: 'SEVERE HAZARD'
+          label: t`SEVERE HAZARD`
         };
       default:
         return {
           bg: 'bg-slate-100 text-slate-800 border-slate-300',
           icon: <Shield className="w-3.5 h-3.5 text-slate-600" />,
-          label: 'UNKNOWN'
+          label: t`UNKNOWN`
         };
     }
   };
@@ -57,9 +59,9 @@ export const AssessmentHistoryPage: React.FC = () => {
             <History className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-base sm:text-lg font-bold text-sagar-navy">Voyage Assessment History</h1>
+            <h1 className="text-base sm:text-lg font-bold text-sagar-navy"><Trans>Voyage Assessment History</Trans></h1>
             <p className="text-xs text-slate-500">
-              Audit log of previous voyage safety evaluations and advisory outputs
+              <Trans>Audit log of previous voyage safety evaluations and advisory outputs</Trans>
             </p>
           </div>
         </div>
@@ -70,7 +72,7 @@ export const AssessmentHistoryPage: React.FC = () => {
             className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sagar-canvasAlt hover:bg-rose-50 text-slate-600 hover:text-rose-700 text-xs border border-sagar-border hover:border-rose-200 transition-colors touch-target font-semibold"
           >
             <Trash2 className="w-3.5 h-3.5" />
-            <span>Clear History</span>
+            <span><Trans>Clear History</Trans></span>
           </button>
         )}
       </div>
@@ -81,15 +83,15 @@ export const AssessmentHistoryPage: React.FC = () => {
           <div className="w-12 h-12 rounded-2xl bg-sagar-powder text-sky-700 flex items-center justify-center mx-auto font-bold">
             <Clock className="w-6 h-6" />
           </div>
-          <h2 className="text-sm sm:text-base font-bold text-sagar-navy">No Previous Trip Assessments Found</h2>
+          <h2 className="text-sm sm:text-base font-bold text-sagar-navy"><Trans>No Previous Trip Assessments Found</Trans></h2>
           <p className="text-xs text-slate-500 max-w-md mx-auto">
-            When you evaluate a voyage in the Trip Planner, the assessment parameters and safety advisories will be archived here.
+            <Trans>When you evaluate a voyage in the Trip Planner, the assessment parameters and safety advisories will be archived here.</Trans>
           </p>
           <button
             onClick={() => setCurrentView('chat')}
             className="px-5 py-2.5 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold shadow-soft-sm transition-colors touch-target"
           >
-            Plan a New Voyage
+            <Trans>Plan a New Voyage</Trans>
           </button>
         </div>
       ) : (
@@ -119,7 +121,7 @@ export const AssessmentHistoryPage: React.FC = () => {
                   </div>
 
                   <span className="text-xs font-bold text-sky-700 group-hover:text-sky-900 flex items-center gap-1 self-start sm:self-auto">
-                    <span>Inspect Advisory</span>
+                    <span><Trans>Inspect Advisory</Trans></span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>
@@ -131,7 +133,7 @@ export const AssessmentHistoryPage: React.FC = () => {
                       <span>{item.origin} → {item.destination}</span>
                     </div>
                     <p className="text-[11px] text-slate-500 font-mono">
-                      Departure: {new Date(item.departureTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • Return: {new Date(item.returnTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      <Trans>Departure:</Trans> {new Date(item.departureTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • <Trans>Return:</Trans> {new Date(item.returnTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </p>
                   </div>
 

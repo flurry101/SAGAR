@@ -1,0 +1,1678 @@
+msgid ""
+msgstr ""
+"Language: mr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: SAGAR Marine i18n Engine (Coastal 22-Language Support)\n"
+"Language-Team: SAGAR Marathi (मराठी)\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Plural-Forms: \n"
+
+#: src/components/conditions/MarineCard.tsx:69
+msgid "(HAB DETECTED)"
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:69
+msgid "(Low)"
+msgstr ""
+
+#. placeholder {0}: pfz.distance_from_origin_km
+#: src/components/map/TrajectoryMap.tsx:367
+msgid "{0} km Outbound"
+msgstr ""
+
+#. placeholder {0}: trajectory.total_distance_km
+#: src/components/advisory/TripTimeline.tsx:80
+msgid "{0} km voyage"
+msgstr ""
+
+#. placeholder {0}: returnWave.toFixed(1)
+#. placeholder {0}: svasLimit.toFixed(2)
+#: src/components/common/InteractiveVoyageSimulator.tsx:125
+#: src/components/common/InteractiveVoyageSimulator.tsx:160
+msgid "{0} meters"
+msgstr ""
+
+#. placeholder {0}: routeCandidates.length
+#: src/components/advisory/RouteComparisonCard.tsx:29
+msgid "{0} Scored Trajectories"
+msgstr ""
+
+#. placeholder {0}: pfzZones.length
+#: src/components/conditions/PFZSelector.tsx:39
+msgid "{0} Zones Available"
+msgstr ""
+
+#. placeholder {0}: ruleResults.filter((r) => r.status === 'PASSED').length
+#. placeholder {1}: ruleResults.length
+#: src/components/advisory/RuleResultsPanel.tsx:24
+msgid "{0}/{1} Rules Passed"
+msgstr ""
+
+#. placeholder {0}: hazard.observed_value
+#. placeholder {1}: hazard.threshold_value
+#: src/components/map/TrajectoryMap.tsx:429
+msgid "{0}m wave surge exceeds your boat's SVAS limit of {1}m"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:137
+msgid "{returnHour}:00 IST"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:43
+msgid "{triggersCount} Hazard Triggers"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:108
+msgid "<0>Note:</0> This knowledge assistant answers domain questions. To evaluate safety for a specific planned voyage, use the <1>Trip Planner</1>."
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:152
+msgid "06:00 (Calm 0.8m)"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:97
+msgid "1. Select Boat Hull Specification:"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:153
+msgid "12:00 (Mid-day 1.2m)"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:154
+msgid "16:00+ (Surge 2.1m)"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:134
+msgid "2. Adjust Expected Return Hour:"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:101
+msgid "2.2m beam"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:29
+msgid "30km Corridor"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:102
+msgid "4.5m beam"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:115
+msgid "4D Coastal Grids"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:557
+msgid "4D Marine Intelligence"
+msgstr ""
+
+#: src/components/layout/Header.tsx:56
+msgid "4D Marine Voyage Safety System"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:196
+msgid "4D Safety Evaluation"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:482
+msgid "4D Spatio-Temporal Journey Tracking"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:201
+msgid "4D Spatio-Temporal Matching"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:554
+msgid "4D Trajectory & Spatio-Temporal Hazards"
+msgstr ""
+
+#: src/components/advisory/TripTimeline.tsx:74
+msgid "4D Voyage Journey Timeline"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:65
+msgid "4D Voyage Plan Summary"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:103
+msgid "6.0m beam"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:221
+msgid "A 1.8m wave is safe for a 30m steel trawler but dangerous for a 5m motorized canoe. SAGAR computes physical capsize limits tailored to your boat's beam width:"
+msgstr ""
+
+#. placeholder {0}: alerts.length
+#: src/components/advisory/AlertBannerList.tsx:44
+msgid "Active Hazard Alerts ({0})"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:112
+msgid "Active on Map"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:30
+msgid "Active PFZ"
+msgstr ""
+
+#: src/components/layout/Header.tsx:17
+msgid "Advisory"
+msgstr ""
+
+#: src/components/layout/Header.tsx:17
+msgid "Advisory Dashboard"
+msgstr "सल्लागार डॅशबोर्ड"
+
+#. placeholder {0}: advisory.affected_phase
+#: src/components/advisory/AdvisoryCard.tsx:23
+msgid "Affected: {0}"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:205
+msgid "Afternoon wave surge exceeds trawler stability beam limit (1.1m)"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:122
+msgid "Agent"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:185
+msgid "AGGREGATION ACTIVE"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:179
+msgid "Already have an account? Sign in"
+msgstr ""
+
+#. placeholder {0}: c.route_id
+#: src/components/map/TrajectoryMap.tsx:265
+msgid "Alternative Route ({0})"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:176
+msgid "Analysis complete [{cat}]: {text}"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:208
+msgid "Ask"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:199
+msgid "Assess My Trip"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:315
+msgid "Assess Voyage"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:172
+msgid "Assessment complete"
+msgstr ""
+
+#. placeholder {0}: response.error?.message || 'Failed to complete safety assessment.'
+#: src/components/chat/ChatInterface.tsx:116
+msgid "Assessment error: {0}"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:91
+msgid "Attribution & Tiers"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:64
+msgid "Audit log of previous voyage safety evaluations and advisory outputs"
+msgstr ""
+
+#: src/pages/AdvisoryPage.tsx:96
+msgid "Back to Trip Planner"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:171
+msgid "Base Port / Harbor"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:193
+msgid "Base Port / Home Harbor"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:171
+msgid "beam"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:166
+msgid "Beam (m)"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:128
+msgid "Beam Width (meters)"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:87
+msgid "Beat afternoon wave surge"
+msgstr ""
+
+#: src/components/advisory/HazardAlert.tsx:42
+msgid "Boat Safety Limit"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:99
+msgid "Boundary Violation"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:261
+msgid "Built for Coastal Operations"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:28
+msgid "Calm (0.8m)"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:156
+msgid "Calm morning coastal sea state"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:191
+msgid "Cancel"
+msgstr ""
+
+#: src/components/conditions/PFZSelector.tsx:83
+msgid "Candidate"
+msgstr ""
+
+#: src/components/conditions/PFZSelector.tsx:36
+msgid "Candidate Potential Fishing Zones (PFZ)"
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:59
+msgid "Chlorophyll-a:"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:99
+msgid "Clear"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:75
+msgid "Clear History"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:115
+msgid "Click to Inspect"
+msgstr ""
+
+#: src/components/advisory/TripTimeline.tsx:76
+msgid "Click waypoints to focus map camera & ETA conditions"
+msgstr ""
+
+#: src/components/layout/Header.tsx:216
+msgid "Coast Guard Emergency"
+msgstr ""
+
+#: src/components/layout/Header.tsx:123
+msgid "Coast Guard Emergency Distress (1554)"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:108
+msgid "Computed SVAS Max Wave Limit:"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:85
+msgid "CONDITIONS FAVORABLE"
+msgstr ""
+
+#: src/components/advisory/TripTimeline.tsx:42
+msgid "Conditions within limits"
+msgstr ""
+
+#: src/components/advisory/HazardAlert.tsx:69
+msgid "CONFIDENCE"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:285
+msgid "Configure Boat Profile"
+msgstr ""
+
+#: src/components/advisory/ConflictInfoCard.tsx:18
+msgid "Conflicting Data Sources Detected (Multi-Source Comparison)"
+msgstr ""
+
+#: src/components/VoiceAssistant/VoiceWidget.tsx:75
+msgid "connecting..."
+msgstr ""
+
+#: src/pages/AuthPage.tsx:171
+msgid "Continue with Google"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:227
+msgid "Continuous Voyage Safety Lifecycle"
+msgstr ""
+
+#: src/components/conditions/PFZSelector.tsx:94
+msgid "Coordinates"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:107
+msgid "Corridor"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:151
+msgid "Create Account"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:189
+msgid "Critical 4D Spatio-Temporal Hazard Explanation"
+msgstr ""
+
+#: src/components/advisory/AdvisoryCard.tsx:53
+msgid "Critical Time Window"
+msgstr ""
+
+#: src/components/advisory/AdvisoryCard.tsx:65
+msgid "Critical Zone"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:150
+msgid "Cruising Speed (km/h)"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:100
+msgid "Curated Marine Repository"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:163
+msgid "Current model cycle"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:108
+msgid "Custom Departure Time (IST):"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:121
+msgid "Custom Expected Return Time (IST):"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:33
+msgid "Data Evidence & Operational Provenance (\"See Why\")"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:149
+msgid "Dataset Attribution & Fallback Tiers:"
+msgstr ""
+
+#: src/components/layout/Header.tsx:52
+msgid "Decision Support"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:89
+msgid "Deep Sea Seiner"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:28
+msgid "Departure"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:38
+msgid "Departure 5 AM from Mangalore, return 6 PM with mechanized trawler (missing beam example)"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:85
+msgid "Departure Harbor"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:136
+msgid "Departure:"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:264
+msgid "Designed for Outdoor Visibility, Mobile Touch & Regional Languages"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:184
+msgid "Deterministic Physics & Spatio-Temporal Intelligence"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:219
+msgid "Deterministic Stability (SVAS)"
+msgstr ""
+
+#: src/components/advisory/RuleResultsPanel.tsx:20
+msgid "Deterministic Stability & Safety Rules"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:124
+msgid "Deterministic SVAS Limit (Beam/4.0):"
+msgstr ""
+
+#: src/components/advisory/ConflictInfoCard.tsx:22
+msgid "Different authoritative weather/marine models report divergent values for your voyage window. SAGAR presents both sources transparently without fabricating an ungrounded consensus:"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:35
+msgid "Diurnal Swell Dynamics"
+msgstr ""
+
+#: src/components/trip/AssessmentProgress.tsx:112
+#: src/components/trip/TripConfirmation.tsx:75
+msgid "Done"
+msgstr ""
+
+#: src/components/chat/ClarificationPrompt.tsx:47
+msgid "e.g. Departure 5:00 AM, Mechanized Trawler with 4.5m beam width..."
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:201
+msgid "e.g. Mangalore Old Port"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:171
+msgid "e.g. Ramesh Sagar"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:75
+msgid "Edit Details"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:80
+msgid "ELEVATED SWELL CAUTION"
+msgstr ""
+
+#: src/components/advisory/TripTimeline.tsx:34
+msgid "Elevated wave swell"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:179
+#: src/pages/AuthPage.tsx:113
+msgid "Email Address"
+msgstr ""
+
+#: src/components/layout/Header.tsx:124
+msgid "Emergency Distress SOS 1554"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:234
+msgid "End-to-end spatio-temporal vessel safety matching"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:104
+msgid "Enter your full name"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:190
+msgid "Equipped with active AIS Transponder / VMS Beacon"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:82
+msgid "Est. Voyage Time"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:620
+msgid "ETA:"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:206
+msgid "Evaluates departure, transit, & return legs"
+msgstr ""
+
+#: src/components/trip/AssessmentProgress.tsx:60
+msgid "Evaluating Spatio-Temporal Safety"
+msgstr ""
+
+#: src/components/trip/AssessmentProgress.tsx:117
+msgid "Evaluating..."
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:80
+msgid "Evidence Registry ({registryCount})"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:242
+msgid "Expandable \"See Why\" evidence registry"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:116
+msgid "Explore Real Operational Scenarios"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:157
+msgid "Failed to process clarification response."
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:169
+#: src/components/map/TrajectoryMap.tsx:268
+msgid "FAVOURABLE"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:423
+msgid "FAVOURABLE SEA STATE"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:138
+msgid "Fisherman & Operator Profile"
+msgstr ""
+
+#. placeholder {0}: svasLimit.toFixed(2)
+#. placeholder {1}: returnWave.toFixed(1)
+#: src/components/common/InteractiveVoyageSimulator.tsx:196
+msgid "For your <0>{vesselType}</0>, the safe capsize limit is <1>{0} m</1>. By <2>{returnHour}:00 IST</2>, forecasted coastal wave height climbs to <3>{1} m</3>. Leaving early or returning before 12:00 PM prevents capsizing risks."
+msgstr ""
+
+#: src/components/advisory/AlertBannerList.tsx:89
+msgid "Forecast: "
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:158
+msgid "Forecasted Sea Wave at {returnHour}:00:"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:112
+msgid "Formula:"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:101
+msgid "FRP Boat"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:237
+msgid "Full Data Provenance"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:95
+msgid "Full Name"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:569
+msgid "Full Voyage"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:97
+msgid "Geofence Constraint:"
+msgstr ""
+
+#: src/components/common/GeofenceWarning.tsx:17
+msgid "GEOFENCE WARNING: Restricted Marine Zone Intersection"
+msgstr ""
+
+#: src/components/common/GeofenceWarning.tsx:40
+msgid "GIS Source:"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:91
+msgid "Grounded Q&A"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:133
+msgid "Grounded Sources & Documentation:"
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:66
+msgid "HAB Risk:"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:27
+msgid "Harbor Base"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:151
+msgid "Harbor Departure"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:586
+msgid "Hazard Alert"
+msgstr ""
+
+#: src/components/advisory/HazardAlert.tsx:57
+msgid "Hazard Time:"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:69
+msgid "Hazard Triggers ({triggersCount})"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:36
+msgid "HIGH RISK"
+msgstr ""
+
+#: src/components/advisory/AdvisoryBanner.tsx:36
+msgid "HIGH RISK — ROUTE OR TIME MODIFICATION RECOMMENDED"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:83
+msgid "Hours"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:24
+msgid "How is Potential Fishing Zone (PFZ) calculated from satellite SST?"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:72
+msgid "I am sorry, but I am currently unable to connect to the knowledge base. Please ensure your backend is running or check your network connection."
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:111
+msgid "I have extracted your 4D voyage schedule. Please review the departure, destination, and return timing below before beginning safety assessment."
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:89
+msgid "I need a few missing parameters to safely evaluate your voyage:"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:179
+msgid "ℹ Note:"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:369
+msgid "INCOIS Verified"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:124
+msgid "Inspect Advisory"
+msgstr ""
+
+#: src/components/advisory/AdvisoryBanner.tsx:51
+msgid "INSUFFICIENT DATA — UNABLE TO SAFELY ASSESS VOYAGE"
+msgstr ""
+
+#: src/components/common/InsufficientInfo.tsx:23
+msgid "INSUFFICIENT INFORMATION"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:48
+msgid "Interactive 4D Voyage Risk Simulator"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:87
+msgid "Interactive Decision Testbed"
+msgstr ""
+
+#: src/components/layout/Header.tsx:18
+msgid "Knowledge"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:162
+msgid "Launch Advisory Dashboard"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:119
+msgid "Launch pre-computed spatio-temporal scenarios to inspect how SAGAR detects return swell hazards, geofence breaches, and multi-PFZ optimization."
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:36
+msgid "Leave at 5 AM from Mangalore to nearest PFZ and return by 2 PM"
+msgstr ""
+
+#. placeholder {0}: hazard.trip_phase
+#: src/components/advisory/HazardAlert.tsx:29
+msgid "Leg: {0}"
+msgstr ""
+
+#: src/components/VoiceAssistant/VoiceWidget.tsx:75
+msgid "listening..."
+msgstr ""
+
+#: src/components/conditions/WeatherCard.tsx:42
+msgid "Live Model"
+msgstr ""
+
+#: src/components/layout/OfflineBanner.tsx:35
+msgid "Live sea state and atmospheric forecasts require an active connection. Showing cached vessel profile and offline guidance."
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:484
+msgid "LIVE SIMULATION"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:50
+msgid "Live SVAS Engine"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:30
+msgid "Mangalore Port"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:191
+msgid "Marginal Safety Clearance Warning"
+msgstr ""
+
+#: src/components/layout/Header.tsx:18
+msgid "Marine Knowledge"
+msgstr "सागरी ज्ञान केंद्र"
+
+#: src/components/layout/Header.tsx:27
+msgid "Marine Operator"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:31
+msgid "Marine Protected Area"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:69
+msgid "Marine Safety & Decision Support"
+msgstr ""
+
+#. placeholder {0}: specLayer.layer_id
+#: src/components/map/TrajectoryMap.tsx:220
+msgid "Marine Zone ({0})"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:122
+msgid "marine.operator@example.com"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:87
+msgid "Mechanized Trawler"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:13
+msgid "Mechanized Trawler (4.5m)"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:109
+msgid "meters"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:151
+msgid "Missing details received. Please review your trip summary before starting safety evaluation."
+msgstr ""
+
+#: src/components/common/InsufficientInfo.tsx:38
+msgid "Missing Safety Parameters:"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:30
+msgid "MODERATE"
+msgstr ""
+
+#: src/components/advisory/TripTimeline.tsx:33
+#: src/components/map/TrajectoryMap.tsx:268
+msgid "MODERATE RISK"
+msgstr ""
+
+#: src/components/advisory/AdvisoryBanner.tsx:29
+msgid "MODERATE RISK — PROCEED WITH CAUTION"
+msgstr ""
+
+#: src/pages/AdvisoryPage.tsx:110
+msgid "Modify Route or Return Time"
+msgstr ""
+
+#. placeholder {0}: tripContext?.origin || t`Mangalore Port`
+#: src/components/advisory/ModificationModal.tsx:29
+msgid "Modify trip parameters: Departure at {departureTime} from {0}, return earlier at {effectiveReturn} IST to avoid return wave hazard."
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:61
+msgid "Modify Voyage Timing & Route"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:228
+msgid "Monitored via spatio-temporal boundary geofence."
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:88
+msgid "Motorized FRP Boat"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:200
+msgid "Natural language voyage planning with vessel stability limits"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:179
+msgid "Need an account? Sign up"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:122
+msgid "Network error encountered while connecting to SAGAR decision-support service."
+msgstr ""
+
+#: src/components/advisory/AlertBannerList.tsx:17
+msgid "No active extreme weather or maritime hazard alerts for this operational window."
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:101
+msgid "No deterministic safety threshold violations were triggered across any leg of your trip."
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:34
+msgid "No oceanographic satellite observations available for this trajectory."
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:86
+msgid "No Previous Trip Assessments Found"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:130
+msgid "Note: Changing return timing recalculates sea state wave heights for every waypoint along the return route."
+msgstr ""
+
+#: src/components/advisory/HazardAlert.tsx:36
+msgid "Observed Forecast"
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:18
+msgid "Oceanographic & PFZ Satellite Signals"
+msgstr ""
+
+#: src/components/conditions/PFZSelector.tsx:46
+msgid "Oceanographic Aggregation Signals"
+msgstr ""
+
+#: src/components/layout/OfflineBanner.tsx:35
+msgid "Offline Mode:"
+msgstr ""
+
+#: src/components/conditions/PFZSelector.tsx:90
+msgid "Offshore Distance"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:30
+msgid "Operational Area"
+msgstr ""
+
+#: src/components/common/DisclaimerFooter.tsx:15
+msgid "Operational Decision-Support Disclaimer"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:103
+msgid "Operational Destination"
+msgstr ""
+
+#: src/components/common/ScenarioSelector.tsx:29
+msgid "Operational Scenario Testbed:"
+msgstr ""
+
+#: src/components/layout/Header.tsx:28
+msgid "Operator"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:162
+msgid "Operator Full Name"
+msgstr ""
+
+#: src/pages/VesselProfilePage.tsx:25
+msgid "Operator Identity"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:149
+msgid "Operator profile updated and synced successfully!"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:186
+msgid "operator@marine.mission"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:239
+msgid "Operators need to trust their advice. Every advisory provides complete provenance tiers (Tier 1 Live API, Tier 2 Numerical Forecast, Tier 3 Historical Baseline) with confidence ratings."
+msgstr ""
+
+#: src/pages/AuthPage.tsx:157
+msgid "OR"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:27
+msgid "Origin"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:29
+msgid "Outbound"
+msgstr ""
+
+#. placeholder {0}: returnHazard.observed_value
+#. placeholder {1}: returnHazard.threshold_value
+#: src/pages/AdvisoryPage.tsx:143
+msgid "Outbound conditions at 05:00 departure may be calm, but afternoon wave height is forecasted to build to <0>{0} m</0> near the coastal approach by 16:00 return time, exceeding your boat’s physical capsize stability limit of <1>{1} m</1>."
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:167
+msgid "Outbound Transit (30 km)"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:139
+msgid "Overall Length (meters)"
+msgstr ""
+
+#: src/components/layout/Header.tsx:15
+#: src/components/layout/Header.tsx:15
+msgid "Overview"
+msgstr "आढावा"
+
+#: src/components/advisory/ConflictInfoCard.tsx:28
+msgid "Parameter:"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:130
+msgid "Password"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:141
+msgid "Personal identity, base harbor, and language settings for localized advisories."
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:361
+msgid "PFZ ACTIVE"
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:28
+msgid "PFZ CLOUD OBSTRUCTED"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:361
+msgid "PFZ EXPIRED"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:23
+msgid "PFZ Satellite Data"
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:28
+msgid "PFZ SIGNALS ACTIVE"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:580
+msgid "PFZ Zone"
+msgstr ""
+
+#: src/components/conditions/PFZSelector.tsx:49
+msgid "PFZs identify thermal boundaries and chlorophyll fronts derived from satellite data. They indicate higher probability of pelagic fish aggregation, but do not guarantee catch."
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:619
+msgid "Phase:"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:68
+msgid "Physical boat dimensions determine deterministic SVAS capsize wave safety limits."
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:94
+msgid "Plan a New Voyage"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:98
+msgid "Plan Maritime Voyage"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:229
+msgid "Plan My Maritime Voyage"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:222
+msgid "Plan Your Voyage Safely"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:37
+msgid "Planning trip from Malpe at 6 AM, 4 hours fishing, return at 4 PM"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:66
+msgid "Please review what SAGAR understood before starting safety evaluation."
+msgstr ""
+
+#. placeholder {0}: pfz.pfz_id
+#: src/components/map/TrajectoryMap.tsx:357
+msgid "Potential Fishing Zone ({0})"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:208
+msgid "Preferred Advisory Language"
+msgstr ""
+
+#: src/components/advisory/AdvisoryCard.tsx:31
+msgid "Primary Safety Factor:"
+msgstr ""
+
+#: src/components/trip/AssessmentProgress.tsx:129
+msgid "Processing forecast models & deterministic SVAS stability rules..."
+msgstr ""
+
+#: src/components/VoiceAssistant/VoiceWidget.tsx:75
+msgid "processing..."
+msgstr ""
+
+#: src/components/layout/Header.tsx:22
+msgid "Profile"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:122
+msgid "Provenance"
+msgstr ""
+
+#: src/components/common/InsufficientInfo.tsx:59
+msgid "Provide Missing Parameters in Planner"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:210
+msgid "Quick Sample"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:147
+msgid "Re-assess Voyage"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:147
+msgid "Re-evaluating..."
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:220
+msgid "Ready to assess your real voyage coordinates and 4D trajectory?"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:63
+msgid "Recommended"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:160
+msgid "Recommended Marine Knowledge Inquiries:"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:99
+msgid "Reduce return exposure"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:161
+msgid "Registration Number"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:221
+msgid "Regulated Boundary"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:566
+msgid "Reset map view to full voyage"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:223
+msgid "RESTRICTED / GEOFENCE"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:151
+msgid "Retrieving grounded marine knowledge..."
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:259
+msgid "Retrieving marine sea-state forecasts & spatial geofences"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:98
+msgid "Return at 1:00 PM"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:86
+msgid "Return at 12:00 PM"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:199
+msgid "Return Leg Swell Surge"
+msgstr ""
+
+#: src/pages/AdvisoryPage.tsx:136
+msgid "Return Phase Spatio-Temporal Hazard Alert"
+msgstr ""
+
+#: src/pages/AdvisoryPage.tsx:60
+msgid "Return to Trip Planner"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:31
+msgid "Return Transit"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:136
+msgid "Return:"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:25
+msgid "Route Candidate Evaluation & Scoring"
+msgstr ""
+
+#: src/components/conditions/PFZSelector.tsx:103
+msgid "Route Verified"
+msgstr ""
+
+#: src/components/advisory/HazardAlert.tsx:53
+msgid "Rule Applied:"
+msgstr ""
+
+#: src/components/advisory/TripTimeline.tsx:41
+#: src/pages/AssessmentHistoryPage.tsx:23
+msgid "SAFE"
+msgstr ""
+
+#: src/components/advisory/AdvisoryBanner.tsx:21
+msgid "SAFE — CONDITIONS FAVORABLE"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:153
+msgid "SAFE (0.8m Wave)"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:32
+msgid "Safe Arrival"
+msgstr ""
+
+#: src/components/advisory/AlertBannerList.tsx:94
+msgid "Safe Limit: "
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:192
+msgid "Safe Navigation Profile"
+msgstr ""
+
+#: src/pages/AdvisoryPage.tsx:52
+msgid "Safety Decision Service Unavailable"
+msgstr ""
+
+#: src/components/advisory/AdvisoryCard.tsx:19
+msgid "Safety Reasoning & Context"
+msgstr ""
+
+#. placeholder {0}: c.score
+#: src/components/map/TrajectoryMap.tsx:266
+msgid "Safety Score: {0}/100"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:257
+msgid "SAGAR Decision Pipeline is executing..."
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:34
+msgid "SAGAR evaluates and scores candidate corridors against sea-state wave models, distance, and geofence boundaries:"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:267
+msgid "SAGAR features high-contrast typography readable under bright marine sunlight, 44px+ touch targets for vessel operations, multilingual support across coastal regions, and offline progressive caching."
+msgstr ""
+
+#: src/components/layout/Header.tsx:41
+msgid "SAGAR Home"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:74
+msgid "SAGAR Identity"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:85
+msgid "SAGAR is a voice-first, multilingual marine safety assistant for fishermen, researchers and coastal authorities, combining ocean forecasting, geofencing, and explainable advisory logic into a single operational decision-support system."
+msgstr ""
+
+#: src/components/trip/AssessmentProgress.tsx:61
+msgid "SAGAR is checking sea state and boat stability limits across all legs."
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:89
+msgid "SAGAR Marine Knowledge Copilot"
+msgstr ""
+
+#: src/components/common/InsufficientInfo.tsx:30
+msgid "SAGAR never fabricates or guesses safety-critical parameters. Assessment was paused because required vessel dimensions or temporal data is missing."
+msgstr ""
+
+#: src/components/chat/ClarificationPrompt.tsx:28
+msgid "SAGAR never guesses safety-critical voyage or boat parameters. Please provide the missing details below:"
+msgstr ""
+
+#: src/components/chat/MessageBubble.tsx:39
+msgid "SAGAR Safety Decision Support"
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:194
+msgid "SAGAR Spatio-Temporal Voyage Planner"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:180
+msgid "SAGAR will correlate this 4D timeline with ocean wave forecasts and geofenced boundaries."
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:231
+msgid "Sample Voyage Inquiries:"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:368
+msgid "Satellite Aggregation"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:358
+msgid "Satellite Pelagic Fish Aggregation Area"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:230
+msgid "Save Operator Profile"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:199
+msgid "Save Vessel Profile"
+msgstr ""
+
+#: src/components/profile/OperatorProfileForm.tsx:230
+msgid "Saving Profile..."
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:121
+msgid "Schedule (Departure → Return)"
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:52
+msgid "Sea Surface Temp:"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:77
+msgid "Secure Coastal Decision Support Access"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:93
+msgid "See why a 2.1m afternoon return swell is dangerous for a 2.2m beam boat, but safe for a 6.0m seiner."
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:103
+msgid "Seiner"
+msgstr ""
+
+#: src/components/conditions/PFZSelector.tsx:79
+msgid "Selected"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:75
+msgid "SEVERE CAPSIZE HAZARD"
+msgstr ""
+
+#: src/components/advisory/AlertBannerList.tsx:77
+#: src/components/advisory/TripTimeline.tsx:26
+#: src/pages/AssessmentHistoryPage.tsx:42
+msgid "SEVERE HAZARD"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:201
+msgid "SEVERE HAZARD (2.1m)"
+msgstr ""
+
+#: src/components/advisory/AdvisoryBanner.tsx:43
+msgid "SEVERE HAZARD DETECTED — VOYAGE NOT RECOMMENDED"
+msgstr ""
+
+#. placeholder {0}: hazard.hazard_type.replace(/_/g, ' ')
+#: src/components/map/TrajectoryMap.tsx:417
+msgid "SEVERE: {0}"
+msgstr ""
+
+#: src/components/layout/Header.tsx:22
+#: src/components/layout/Header.tsx:27
+#: src/components/layout/Header.tsx:28
+msgid "Sign In"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:151
+msgid "Sign In to SAGAR"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:107
+msgid "Simulate Afternoon Swell Surge"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:481
+msgid "Simulated Boat Transit Position"
+msgstr ""
+
+#: src/components/advisory/ConflictInfoCard.tsx:38
+msgid "Source A:"
+msgstr ""
+
+#: src/components/advisory/ConflictInfoCard.tsx:49
+msgid "Source B:"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:133
+msgid "Source: "
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:114
+msgid "Spatial Engine"
+msgstr ""
+
+#: src/pages/AdvisoryPage.tsx:178
+msgid "Spatio-Temporal Trajectory & Environmental Layers"
+msgstr ""
+
+#: src/components/VoiceAssistant/VoiceWidget.tsx:75
+msgid "speaking..."
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:224
+msgid "Specify your departure time, origin harbor, operational area, and expected return time. SAGAR evaluates sea state forecasts, geofencing, and capsize stability limits across every phase of your journey."
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:118
+msgid "Stability Rule"
+msgstr ""
+
+#: src/components/conditions/WeatherCard.tsx:38
+msgid "STALE"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:83
+msgid "Standard Coastal Boat Presets:"
+msgstr ""
+
+#: src/components/advisory/AlertBannerList.tsx:46
+msgid "Standard Maritime Thresholds"
+msgstr ""
+
+#: src/components/VoiceAssistant/VoiceWidget.tsx:51
+msgid "Start Voice Assistant"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:277
+msgid "Start Voyage Assessment"
+msgstr ""
+
+#: src/components/VoiceAssistant/VoiceWidget.tsx:82
+msgid "Stop Voice Assistant"
+msgstr ""
+
+#: src/components/chat/ClarificationPrompt.tsx:55
+msgid "Submit"
+msgstr ""
+
+#: src/components/common/GeofenceWarning.tsx:41
+msgid "Suggested Action: Select coastal or offshore bypass corridor"
+msgstr ""
+
+#: src/components/advisory/ModificationModal.tsx:75
+msgid "Suggested Mitigations:"
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:75
+msgid "Surface Currents:"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:193
+msgid "SVAS Compliant"
+msgstr ""
+
+#: src/pages/AdvisoryPage.tsx:139
+msgid "SVAS Stability Threshold Breached"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:32
+msgid "SVAS Verified"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:31
+msgid "Swell Evaluated"
+msgstr ""
+
+#: src/components/conditions/WeatherCard.tsx:66
+msgid "Swell:"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:183
+msgid "Target PFZ Ground"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:94
+msgid "Technical Q&A based on verified oceanographic & marine safety documentation."
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:54
+msgid "Test how boat physical beam width and return hour determine capsize risk in real time."
+msgstr ""
+
+#: src/pages/LandingPage.tsx:90
+msgid "Test Vessel Stability & Diurnal Swell in Real Time"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:188
+msgid "Thermal front convergence active"
+msgstr ""
+
+#: src/pages/AuthPage.tsx:189
+msgid "Tier 1 Data"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:175
+msgid "Tier 1 Live"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:123
+msgid "Tier 1–3 Verified"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:175
+msgid "Tier 2 ML"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:175
+msgid "Tier 3 Ref"
+msgstr ""
+
+#: src/components/advisory/ConflictInfoCard.tsx:42
+#: src/components/advisory/ConflictInfoCard.tsx:53
+msgid "Timestamp:"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:141
+msgid "to"
+msgstr ""
+
+#: src/components/layout/Header.tsx:188
+msgid "Toggle navigation menu"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:90
+msgid "Traditional Catamaran"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:575
+msgid "Trajectory"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:172
+msgid "Transit corridor clear, wind 12 km/h"
+msgstr ""
+
+#: src/pages/AdvisoryPage.tsx:102
+msgid "Translation:"
+msgstr ""
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:102
+msgid "Trawler"
+msgstr ""
+
+#: src/components/layout/Header.tsx:16
+#: src/components/layout/Header.tsx:16
+msgid "Trip Planner"
+msgstr "प्रवास नियोजक"
+
+#: src/components/chat/ChatInterface.tsx:307
+msgid "Type your voyage details (e.g. Leave Mangalore 5 AM, return 2 PM)..."
+msgstr ""
+
+#: src/components/chat/ChatInterface.tsx:97
+msgid "Unable to assess safety due to missing vessel or trip parameters."
+msgstr ""
+
+#: src/pages/AdvisoryPage.tsx:54
+msgid "Unable to connect to SAGAR safety decision service. Please verify network connection and retry."
+msgstr ""
+
+#: src/components/common/InsufficientInfo.tsx:26
+msgid "Unable to Safely Assess Your Voyage"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:48
+msgid "UNKNOWN"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:163
+#: src/components/conditions/PFZSelector.tsx:102
+msgid "Valid:"
+msgstr ""
+
+#: src/components/advisory/EvidencePanel.tsx:36
+msgid "Verified dataset attribution, confidence ratings, and safety threshold triggers"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:113
+msgid "Verified Test Scenarios"
+msgstr ""
+
+#: src/components/trip/TripConfirmation.tsx:150
+msgid "Vessel & Stability Baseline"
+msgstr ""
+
+#: src/components/layout/Header.tsx:23
+msgid "Vessel Profile"
+msgstr "नौका प्रोफाइल"
+
+#: src/components/vessel/VesselForm.tsx:76
+msgid "Vessel profile updated & SVAS max safe wave limit recalculated!"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:66
+msgid "Vessel Specification Profile"
+msgstr ""
+
+#: src/pages/VesselProfilePage.tsx:37
+msgid "Vessel Specifications"
+msgstr ""
+
+#: src/components/advisory/AdvisoryCard.tsx:42
+msgid "Vessel Stability Context:"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:27
+msgid "Vessel Stability Rule"
+msgstr ""
+
+#: src/components/vessel/VesselForm.tsx:118
+msgid "Vessel Type"
+msgstr ""
+
+#: src/components/conditions/WeatherCard.tsx:73
+msgid "Visibility:"
+msgstr ""
+
+#: src/components/VoiceAssistant/VoiceWidget.tsx:21
+msgid "Voice unavailable"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:80
+msgid "Voice-First Multilingual Marine Safety Assistant"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:62
+msgid "Voyage Assessment History"
+msgstr ""
+
+#: src/components/chat/ClarificationPrompt.tsx:25
+msgid "Voyage Clarification Required"
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:78
+msgid "Voyage Distance"
+msgstr ""
+
+#: src/components/layout/Header.tsx:24
+msgid "Voyage History"
+msgstr "प्रवास इतिहास"
+
+#: src/components/common/ParallaxOceanHero.tsx:135
+msgid "Voyage Spatio-Temporal Journey"
+msgstr ""
+
+#: src/components/advisory/AlertBannerList.tsx:77
+msgid "WARNING"
+msgstr ""
+
+#: src/components/common/ParallaxOceanHero.tsx:215
+msgid "Warns of return hazards before departure."
+msgstr ""
+
+#. placeholder {0}: hazard.observed_value
+#. placeholder {1}: hazard.threshold_value
+#: src/components/advisory/TripTimeline.tsx:27
+msgid "Wave {0}m > {1}m limit"
+msgstr ""
+
+#: src/components/conditions/WeatherCard.tsx:50
+msgid "Wave Height:"
+msgstr ""
+
+#. placeholder {0}: returnWave.toFixed(1)
+#. placeholder {1}: svasLimit.toFixed(2)
+#: src/components/common/InteractiveVoyageSimulator.tsx:203
+msgid "Wave heights at <0>{returnHour}:00 IST ({0} m)</0> are close to your boat limit of <1>{1} m</1>. Exercise caution during return approach."
+msgstr ""
+
+#. placeholder {0}: returnWave.toFixed(1)
+#. placeholder {1}: svasLimit.toFixed(2)
+#: src/components/common/InteractiveVoyageSimulator.tsx:208
+msgid "Wave heights during <0>{returnHour}:00 IST ({0} m)</0> remain comfortably under your vessel's safe limit of <1>{1} m</1>."
+msgstr ""
+
+#. placeholder {0}: idx + 1
+#. placeholder {0}: wp.waypoint_index + 1
+#: src/components/advisory/TripTimeline.tsx:135
+#: src/components/map/TrajectoryMap.tsx:411
+msgid "Waypoint {0}"
+msgstr ""
+
+#: src/components/conditions/WeatherCard.tsx:23
+msgid "Waypoint Interpolated"
+msgstr ""
+
+#: src/components/conditions/WeatherCard.tsx:19
+msgid "Weather & Sea State Forecast (Time-Aligned)"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:203
+msgid "Weather is not a static 2D snapshot. SAGAR models your trip across time and space — evaluating forecasted wave height, period, and wind speed at the exact future ETA of each waypoint."
+msgstr ""
+
+#: src/components/advisory/RouteComparisonCard.tsx:91
+msgid "Weather Risk Penalty:"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:15
+msgid "Welcome to the <Trans>SAGAR Marine Knowledge Copilot</Trans>. You can ask grounded domain questions regarding INCOIS Potential Fishing Zones (PFZ), SVAS vessel stability safety formulas, Marine Protected Area rules, or satellite oceanography data."
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:28
+msgid "What is the SVAS capsize wave height limit formula for a 4.5m beam trawler?"
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:32
+msgid "What marine protected areas exist near the Gulf of Mannar?"
+msgstr ""
+
+#: src/pages/AssessmentHistoryPage.tsx:88
+msgid "When you evaluate a voyage in the Trip Planner, the assessment parameters and safety advisories will be archived here."
+msgstr ""
+
+#: src/pages/KnowledgeChatPage.tsx:36
+msgid "Why does afternoon wave surge increase risk for small motorized crafts?"
+msgstr ""
+
+#: src/pages/LandingPage.tsx:187
+msgid "Why static weather cards fail maritime operators — and how SAGAR provides true voyage decision support."
+msgstr ""
+
+#: src/components/conditions/WeatherCard.tsx:59
+msgid "Wind Speed:"
+msgstr ""
+
+#: src/components/chat/MessageBubble.tsx:39
+msgid "You"
+msgstr ""
+
+#. placeholder {0}: geo.affected_waypoints?.join(', ')
+#: src/components/common/GeofenceWarning.tsx:33
+msgid "Your planned route trajectory intersects this protected boundary at waypoint indices <0>{0}</0>. Navigation and harvesting inside this zone are restricted under national maritime and environmental regulations."
+msgstr ""
+
+#: src/components/conditions/MarineCard.tsx:42
+msgid "Zone"
+msgstr ""

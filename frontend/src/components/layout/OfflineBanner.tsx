@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { WifiOff, AlertTriangle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Trans } from '@lingui/react/macro';
 
 export const OfflineBanner: React.FC = () => {
   const [isOffline, setIsOffline] = useState(
@@ -31,7 +32,7 @@ export const OfflineBanner: React.FC = () => {
         >
           <WifiOff className="w-4 h-4 text-amber-700 shrink-0" />
           <span>
-            <strong>Offline Mode:</strong> Live sea state and atmospheric forecasts require an active connection. Showing cached vessel profile and offline guidance.
+            <strong><Trans>Offline Mode:</Trans></strong> <Trans>Live sea state and atmospheric forecasts require an active connection. Showing cached vessel profile and offline guidance.</Trans>
           </span>
         </motion.div>
       )}

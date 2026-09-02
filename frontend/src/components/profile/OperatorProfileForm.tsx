@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useAppStore, AppLanguage } from '../../state/appStore';
 import { userApi } from '../../api/userApi';
+import { LANGUAGE_REGISTRY, INDIAN_LOCALES, SupportedLocale } from '../../i18n/lingui';
 import { User, Mail, Anchor, Globe, Save, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Trans, useLingui } from '@lingui/react/macro';
 
-const LANGUAGE_OPTIONS: { code: AppLanguage; label: string; native: string }[] = [
-  { code: 'en', label: 'English', native: 'English' },
-  { code: 'hi', label: 'Hindi', native: 'हिन्दी' },
-  { code: 'kn', label: 'Kannada', native: 'ಕನ್ನಡ' },
-  { code: 'ta', label: 'Tamil', native: 'தமிழ்' },
-  { code: 'ml', label: 'Malayalam', native: 'മലയാളം' },
-  { code: 'te', label: 'Telugu', native: 'తెలుగు' },
-  { code: 'bn', label: 'Bengali', native: 'বাংলা' },
-  { code: 'mr', label: 'Marathi', native: 'मराठी' },
-  { code: 'gu', label: 'Gujarati', native: 'ગુજરાતી' },
-  { code: 'or', label: 'Odia', native: 'ଓଡ଼ିଆ' },
-  { code: 'pa', label: 'Punjabi', native: 'ਪੰਜਾਬੀ' },
-];
+const LANGUAGE_OPTIONS = (INDIAN_LOCALES as readonly SupportedLocale[]).map((code) => ({
+  code,
+  label: LANGUAGE_REGISTRY[code]?.label || code,
+  native: LANGUAGE_REGISTRY[code]?.regional || code,
+  coastal: LANGUAGE_REGISTRY[code]?.isCoastal,
+}));
 
 export const OperatorProfileForm: React.FC = () => {
+  const { t } = useLingui();
   const {
     isAuthenticated,
     userProfile,
@@ -139,10 +135,10 @@ export const OperatorProfileForm: React.FC = () => {
         </div>
         <div>
           <h2 className="text-base sm:text-lg font-bold text-sagar-navy">
-            Fisherman & Operator Profile
+            <Trans>Fisherman & Operator Profile</Trans>
           </h2>
           <p className="text-xs text-slate-500">
-            Personal identity, base harbor, and language settings for localized advisories.
+            <Trans>Personal identity, base harbor, and language settings for localized advisories.</Trans>
           </p>
         </div>
       </div>
@@ -150,7 +146,7 @@ export const OperatorProfileForm: React.FC = () => {
       {saved && (
         <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs flex items-center gap-2 font-medium">
           <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
-          <span>Operator profile updated and synced successfully!</span>
+          <span><Trans>Operator profile updated and synced successfully!</Trans></span>
         </div>
       )}
 
@@ -163,7 +159,7 @@ export const OperatorProfileForm: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="text-xs font-semibold text-slate-700 block mb-1">
-            Operator Full Name
+            <Trans>Operator Full Name</Trans>
           </label>
           <div className="relative">
             <input
@@ -172,7 +168,7 @@ export const OperatorProfileForm: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full bg-white border border-sagar-border rounded-xl px-3 py-2 text-xs sm:text-sm text-sagar-navy focus:border-sky-500 focus:outline-none"
-              placeholder="e.g. Ramesh Sagar"
+              placeholder={t`e.g. Ramesh Sagar`}
             />
           </div>
         </div>
@@ -180,21 +176,21 @@ export const OperatorProfileForm: React.FC = () => {
         <div>
           <label className="text-xs font-semibold text-slate-700 block mb-1 flex items-center gap-1">
             <Mail className="w-3.5 h-3.5 text-sky-600" />
-            <span>Email Address</span>
+            <span><Trans>Email Address</Trans></span>
           </label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full bg-white border border-sagar-border rounded-xl px-3 py-2 text-xs sm:text-sm text-sagar-navy focus:border-sky-500 focus:outline-none"
-            placeholder="operator@marine.mission"
+            placeholder={t`operator@marine.mission`}
           />
         </div>
 
         <div>
           <label className="text-xs font-semibold text-slate-700 block mb-1 flex items-center gap-1">
             <Anchor className="w-3.5 h-3.5 text-sky-600" />
-            <span>Base Port / Home Harbor</span>
+            <span><Trans>Base Port / Home Harbor</Trans></span>
           </label>
           <input
             type="text"
@@ -202,14 +198,14 @@ export const OperatorProfileForm: React.FC = () => {
             value={port}
             onChange={(e) => setPort(e.target.value)}
             className="w-full bg-white border border-sagar-border rounded-xl px-3 py-2 text-xs sm:text-sm text-sagar-navy focus:border-sky-500 focus:outline-none"
-            placeholder="e.g. Mangalore Old Port"
+            placeholder={t`e.g. Mangalore Old Port`}
           />
         </div>
 
         <div>
           <label className="text-xs font-semibold text-slate-700 block mb-1 flex items-center gap-1">
             <Globe className="w-3.5 h-3.5 text-sky-600" />
-            <span>Preferred Advisory Language</span>
+            <span><Trans>Preferred Advisory Language</Trans></span>
           </label>
           <select
             value={language}
@@ -231,7 +227,7 @@ export const OperatorProfileForm: React.FC = () => {
         className="w-full py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white font-bold text-xs sm:text-sm shadow-soft-sm flex items-center justify-center gap-2 transition-all touch-target cursor-pointer"
       >
         <Save className="w-4 h-4" />
-        <span>{saving ? 'Saving Profile...' : 'Save Operator Profile'}</span>
+        <span>{saving ? <Trans>Saving Profile...</Trans> : <Trans>Save Operator Profile</Trans>}</span>
       </button>
     </form>
   );

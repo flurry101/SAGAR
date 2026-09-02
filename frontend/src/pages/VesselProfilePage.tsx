@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Trans } from '@lingui/react/macro';
 import { VesselForm } from '../components/vessel/VesselForm';
 import { OperatorProfileForm } from '../components/profile/OperatorProfileForm';
 import { User, Ship } from 'lucide-react';
@@ -21,7 +22,7 @@ export const VesselProfilePage: React.FC = () => {
             }`}
           >
             <User className="w-4 h-4 text-sky-600" />
-            <span>Operator Identity</span>
+            <span><Trans>Operator Identity</Trans></span>
           </button>
           <button
             type="button"
@@ -33,7 +34,7 @@ export const VesselProfilePage: React.FC = () => {
             }`}
           >
             <Ship className="w-4 h-4 text-sky-600" />
-            <span>Vessel Specifications</span>
+            <span><Trans>Vessel Specifications</Trans></span>
           </button>
         </div>
       </div>
