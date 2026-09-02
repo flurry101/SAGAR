@@ -155,7 +155,13 @@ Reason: {reason}
 
         advisory["recommendation_text"] = parsed.get("recommendation", recommendation)
         advisory["reason"] = parsed.get("reason", reason)
-        advisory["translation_provider"] = provider_name
+
+        # Prefer the resolved provider name when available, but keep the standard
+        # Gemini fallback label as the safety net for older consumers.
+        provider_name = "gemini_fallback"
+        if getattr(llm, "primary_llm", None) is None:
+            provider_name = "qwen_fallback"
+        advisory["translation_provider"] = provider_name or "gemini_fallback"
 
         execution["status"] = "completed"
         execution["completed_at"] = datetime.now(timezone.utc).isoformat()
