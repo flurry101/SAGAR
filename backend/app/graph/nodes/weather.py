@@ -157,18 +157,25 @@ def _generate_alerts(weather_observations: List[Dict[str, Any]], hazard_data: Di
     return list(seen.values())
 
 
+import logging
+import time
+
+_weather_logger = logging.getLogger(__name__)
+
 def weather_node(state: Dict[str, Any]) -> Dict[str, Any]:
     """
     Fetch weather (and optional hazards) for trajectory waypoints in `state`.
     Reads spatial_constraints for bbox.
     Now also generates structured alerts from weather conditions.
     """
+    t0 = time.monotonic()
     trajectory = state.get("trajectory") or {}
     waypoints: List[Dict[str, Any]] = state.get("waypoints") or trajectory.get("waypoints", [])
     
     updates: Dict[str, Any] = {}
     if waypoints:
         updates["weather_observations"] = fetch_weather_forecast_batch(waypoints)
+        _weather_logger.info(f"[WEATHER] Batch weather fetch took {time.monotonic()-t0:.2f}s for {len(waypoints)} waypoints")
 
     # Extract bbox from state directly or from spatial_constraints
     spatial_constraints = state.get("spatial_constraints", [])

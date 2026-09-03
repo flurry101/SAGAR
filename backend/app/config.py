@@ -123,6 +123,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(
         env_file=(
+            os.path.join(os.path.dirname(__file__), "..", ".env"),
             os.getenv("ENV_FILE", ".env"),
             "../.env",
             ".env",

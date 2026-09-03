@@ -7,16 +7,31 @@ interface Props {
   missingFields?: any[];
 }
 
-export const ClarificationPrompt: React.FC<Props> = ({ onProvideInfo, missingFields }) => {
+export const ClarificationPrompt: React.FC<Props> = ({ onProvideInfo, missingFields = [] }) => {
   const { t } = useLingui();
-  const [responseInput, setResponseInput] = useState('');
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [fallbackInput, setFallbackInput] = useState('');
+
+  const isMulti = missingFields && missingFields.length > 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!responseInput.trim()) return;
-    onProvideInfo(responseInput.trim());
-    setResponseInput('');
+    if (isMulti) {
+      // combine answers into a sentence so the LLM understands it easily
+      const combined = missingFields
+        .map(f => `${f.field.replace(/_/g, ' ')} is ${answers[f.field] || 'unknown'}`)
+        .join('. ');
+      onProvideInfo(combined);
+    } else {
+      if (!fallbackInput.trim()) return;
+      onProvideInfo(fallbackInput.trim());
+      setFallbackInput('');
+    }
   };
+
+  const isSubmitDisabled = isMulti 
+    ? missingFields.some(f => !answers[f.field]?.trim()) 
+    : !fallbackInput.trim();
 
   return (
     <div className="my-4 p-5 bg-amber-50 border border-amber-300 rounded-2xl shadow-soft-sm">
@@ -28,33 +43,45 @@ export const ClarificationPrompt: React.FC<Props> = ({ onProvideInfo, missingFie
         <Trans>SAGAR never guesses safety-critical voyage or boat parameters. Please provide the missing details below:</Trans>
       </p>
 
-      {missingFields && missingFields.length > 0 && (
-        <div className="space-y-1.5 mb-3 bg-white p-3.5 rounded-xl border border-amber-200 shadow-soft-sm">
-          {missingFields.map((field, idx) => (
-            <div key={idx} className="text-xs text-amber-950 flex items-start gap-2 font-medium">
-              <span className="text-amber-600 font-bold">•</span>
-              <span>{field.question || `${field.field}: ${field.reason || 'Required for safety calculation'}`}</span>
-            </div>
-          ))}
-        </div>
-      )}
+      <form onSubmit={handleSubmit} className="space-y-3">
+        {isMulti ? (
+          <div className="space-y-3 bg-white p-4 rounded-xl border border-amber-200 shadow-soft-sm">
+            {missingFields.map((f, idx) => (
+              <div key={idx} className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-amber-900 capitalize flex items-center gap-1.5">
+                  <span className="text-amber-600 font-bold">•</span>
+                  {f.field.replace(/_/g, ' ')} <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={answers[f.field] || ''}
+                  onChange={(e) => setAnswers(prev => ({ ...prev, [f.field]: e.target.value }))}
+                  placeholder={`Enter ${f.field.replace(/_/g, ' ')}...`}
+                  className="w-full bg-slate-50 border border-sagar-border focus:border-sky-500 rounded-lg px-3 py-2 text-sm text-sagar-navy placeholder-slate-400 focus:outline-none"
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <input
+            type="text"
+            value={fallbackInput}
+            onChange={(e) => setFallbackInput(e.target.value)}
+            placeholder={t`e.g. Departure 5:00 AM, Mechanized Trawler with 4.5m beam width...`}
+            className="w-full bg-white border border-sagar-border focus:border-sky-500 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-sagar-navy placeholder-slate-400 focus:outline-none shadow-soft-sm"
+          />
+        )}
 
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          type="text"
-          value={responseInput}
-          onChange={(e) => setResponseInput(e.target.value)}
-          placeholder={t`e.g. Departure 5:00 AM, Mechanized Trawler with 4.5m beam width...`}
-          className="flex-1 bg-white border border-sagar-border focus:border-sky-500 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-sagar-navy placeholder-slate-400 focus:outline-none shadow-soft-sm"
-        />
-        <button
-          type="submit"
-          disabled={!responseInput.trim()}
-          className="bg-amber-600 hover:bg-amber-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs sm:text-sm flex items-center gap-1.5 disabled:opacity-50 transition-all shadow-soft-sm shrink-0 touch-target"
-        >
-          <span><Trans>Submit</Trans></span>
-          <Send className="w-3.5 h-3.5" />
-        </button>
+        <div className="flex justify-end pt-2">
+          <button
+            type="submit"
+            disabled={isSubmitDisabled}
+            className="bg-amber-600 hover:bg-amber-500 text-white font-bold px-5 py-2.5 rounded-xl text-sm flex items-center gap-2 disabled:opacity-50 transition-all shadow-soft-sm touch-target"
+          >
+            <span><Trans>Submit Details</Trans></span>
+            <Send className="w-4 h-4" />
+          </button>
+        </div>
       </form>
     </div>
   );

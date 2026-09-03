@@ -75,10 +75,13 @@ def supervisor_router(state: OrcaState) -> str:
     if workflow == "CLARIFICATION_REQUIRED" or task_plan.get("clarification_required"):
         return "clarify"
 
-    # If only knowledge/copilot is needed — skip the data pipeline entirely
+    intent = task_plan.get("intent", "")
+
+    # If it's a conversational or knowledge query, skip the data pipeline entirely
     caps = set(task_plan.get("required_capabilities", []))
     knowledge_only = caps.issubset({"knowledge", "copilot"})
-    if knowledge_only and caps:
+    
+    if intent in ["conversational", "informational", "knowledge_question"] or (knowledge_only and caps):
         return "knowledge"
 
     return "proceed"

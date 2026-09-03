@@ -10,8 +10,11 @@
  * Sanitizes any raw string from backend responses or mock data
  * to replace legacy codenames or internal labels with SAGAR terminology.
  */
-export function sanitizeSagarText(text?: string | null): string {
+export function sanitizeSagarText(text?: any): string {
   if (!text) return '';
+  if (typeof text !== 'string') {
+    text = Array.isArray(text) ? JSON.stringify(text) : String(text);
+  }
   return text
     .replace(/ORCA/gi, 'SAGAR')
     .replace(/PathFinder/gi, 'SAGAR')

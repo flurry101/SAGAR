@@ -221,6 +221,11 @@ class AmfitriteHABAdapter(MarineDataAdapter):
 
     @staticmethod
     def _demo_hab_mock_enabled() -> bool:
+        try:
+            from dotenv import load_dotenv
+            load_dotenv(override=True)
+        except Exception:
+            pass
         val = os.environ.get("DEMO_HAB_MOCK", "").strip().lower()
         return val in {"1", "true", "yes", "on"}
 
@@ -255,9 +260,40 @@ class AmfitriteHABAdapter(MarineDataAdapter):
         """
         Original lat>20 heuristic, only when DEMO_HAB_MOCK is set.
         Labelled as Tier 3 demo — not live imagery or model inference.
+        Includes a lightning-fast STAC search just for map tile visualization.
         """
         is_toxic_zone = lat > 20.0
         prob = 0.95 if is_toxic_zone else 0.05
+        
+        # Fast STAC search for map visualization (takes <1 sec)
+        map_url = None
+        item_id = None
+        try:
+            try:
+                target_dt = datetime.fromisoformat(time_iso.replace("Z", "+00:00"))
+            except:
+                target_dt = datetime.now(timezone.utc)
+            start_dt = target_dt - timedelta(days=30)
+            dt_range = f"{start_dt.strftime('%Y-%m-%dT00:00:00Z')}/{target_dt.strftime('%Y-%m-%dT23:59:59Z')}"
+            roi_bbox = [round(lon - 0.05, 4), round(lat - 0.05, 4), round(lon + 0.05, 4), round(lat + 0.05, 4)]
+            payload = {
+                "collections": ["sentinel-2-l2a"],
+                "bbox": roi_bbox,
+                "datetime": dt_range,
+                "query": {"eo:cloud_cover": {"lt": 80.0}},
+                "sortby": [{"field": "properties.datetime", "direction": "desc"}],
+                "limit": 1
+            }
+            resp = httpx.post("https://planetarycomputer.microsoft.com/api/stac/v1/search", json=payload, timeout=3.0)
+            if resp.status_code == 200:
+                features = resp.json().get("features", [])
+                if features:
+                    item_id = features[0].get("id")
+                    if item_id:
+                        map_url = f"https://planetarycomputer.microsoft.com/api/data/v1/item/map?collection=sentinel-2-l2a&item={item_id}&assets=visual"
+        except Exception:
+            pass
+
         return {
             "lat":                    lat,
             "lon":                    lon,
@@ -281,6 +317,8 @@ class AmfitriteHABAdapter(MarineDataAdapter):
                 "confidence":             "LOW",
                 "demo_mode":              True,
                 "rdnet_received_real_pixels": False,
+                "satellite_tile_url":     map_url,
+                "sentinel2_item_id":      item_id
             },
         }
 

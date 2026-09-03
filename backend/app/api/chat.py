@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import logging
 import uuid
+import json
 from typing import Any, Dict
 from fastapi import APIRouter, Depends, Request
+from fastapi.responses import StreamingResponse
 from app.core.auth import get_current_user_optional
 from app.schemas.common import APIResponse, Meta
 from app.schemas.trip import ChatRequest, TripResponseData
@@ -98,3 +100,70 @@ async def chat_with_trip_planner(
         raise e
 # attr: m1
 
+
+@router.post("/chat/stream")
+async def chat_stream(
+    payload: ChatRequest,
+    request: Request,
+    user=Depends(get_current_user_optional),
+    graph=Depends(get_graph),
+):
+    request_id = getattr(request.state, "request_id", str(uuid.uuid4()))
+    session_id = payload.session_id or str(uuid.uuid4())
+    fisher_id = payload.fisher_id or (str(user.user_id) if user and hasattr(user, "user_id") else None)
+    language = payload.language or (user.preferred_language if user and hasattr(user, "preferred_language") else "en")
+
+    initial_state: Dict[str, Any] = {
+        "conversation_history": [{"role": "user", "content": payload.message}],
+        "trip_context": {
+            "fisher_id": fisher_id or "anonymous",
+            "language": language,
+        },
+        "language": language,
+    }
+
+    if payload.vessel_profile:
+        initial_state["vessel_profile"] = payload.vessel_profile.model_dump()
+
+    config = {"configurable": {"thread_id": session_id}}
+
+    async def event_generator():
+        try:
+            yield f"event: connected\ndata: {json.dumps({'session_id': session_id})}\n\n"
+            
+            async for chunk in graph.astream(initial_state, config=config):
+                for node_name, state_update in chunk.items():
+                    yield f"event: agent_status\ndata: {json.dumps({'agent': node_name, 'status': 'completed'})}\n\n"
+            
+            final_state = graph.get_state(config).values
+            workflow_status = final_state.get("workflow_status", "COMPLETED")
+            status = "needs_clarification" if workflow_status == "CLARIFICATION_REQUIRED" else "success"
+            
+            response_data = TripResponseData(
+                session_id=session_id,
+                trip_id=final_state.get("trip_context", {}).get("trip_id"),
+                workflow_status=workflow_status,
+                task_plan=final_state.get("task_plan"),
+                trip_context=final_state.get("trip_context"),
+                vessel_profile=final_state.get("vessel_profile"),
+                trajectory=final_state.get("trajectory") if isinstance(final_state.get("trajectory"), dict) else None,
+                weather_observations=final_state.get("weather_observations"),
+                marine_observations=final_state.get("marine_observations"),
+                pfz_data=final_state.get("pfz_data"),
+                alerts=final_state.get("alerts"),
+                risk_evidence=final_state.get("risk_evidence"),
+                overall_risk_level=final_state.get("overall_risk_level"),
+                advisory=final_state.get("advisory"),
+                visualization_spec=final_state.get("visualization_spec"),
+                report=final_state.get("report"),
+                persistence_status=final_state.get("persistence_status"),
+                errors=final_state.get("errors"),
+            )
+            api_response = APIResponse(status=status, data=response_data, meta=Meta(request_id=request_id))
+            yield f"event: completed\ndata: {api_response.model_dump_json()}\n\n"
+            
+        except Exception as e:
+            logger.error(f"error during stream: {e}", exc_info=True)
+            yield f"event: error\ndata: {json.dumps({'error': str(e)})}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")

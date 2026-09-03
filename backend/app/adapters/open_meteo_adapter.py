@@ -67,7 +67,7 @@ class OpenMeteoAdapter(MarineDataAdapter):
 
     MARINE_URL  = "https://marine-api.open-meteo.com/v1/marine"
     WEATHER_URL = "https://api.open-meteo.com/v1/forecast"
-    TIMEOUT_S   = 10.0   # seconds before falling back to Tier 3
+    TIMEOUT_S   = 5.0    # seconds before falling back to Tier 3
     MAX_TIME_DIFF_S = 10800  # 3 hours — max deviation before fallback
 
     # -----------------------------------------------------------------------
