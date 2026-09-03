@@ -3,7 +3,8 @@ import { useAppStore } from '../../state/appStore';
 import { vesselApi } from '../../api/vesselApi';
 import { Ship, Ruler, Gauge, Save, ShieldCheck, Anchor } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 export const VesselForm: React.FC = () => {
   const { t } = useLingui();

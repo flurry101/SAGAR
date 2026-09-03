@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HelpCircle, Send } from 'lucide-react';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 interface Props {
   onProvideInfo: (infoText: string) => void;

@@ -9,7 +9,8 @@ import { TripContext } from '../../types/trip';
 import { Send, Navigation, Anchor, RefreshCw, AlertCircle, ShieldAlert } from 'lucide-react';
 import { sanitizeSagarText } from '../../utils/brand';
 import { motion } from 'framer-motion';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 export const ChatInterface: React.FC = () => {
   const { t } = useLingui();

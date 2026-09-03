@@ -3,7 +3,8 @@ import { TripContext } from '../../types/trip';
 import { VesselProfile } from '../../types/vessel';
 import { MapPin, Navigation, Clock, Ship, Check, Edit3, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 interface Props {
   tripContext: Partial<TripContext>;

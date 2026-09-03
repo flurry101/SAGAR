@@ -3,7 +3,8 @@ import { useAppStore } from '../../state/appStore';
 import { tripApi } from '../../api/tripApi';
 import { X, RefreshCw, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 interface Props {
   isOpen: boolean;

@@ -3,7 +3,8 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion
 import { Anchor, Compass, ShieldAlert, Navigation, ArrowRight, Sparkles, Waves, ShieldCheck, MapPin, Wind, Ship, ArrowDownRight } from 'lucide-react';
 import { RippleButton } from './RippleButton';
 import { useAppStore } from '../../state/appStore';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 export const ParallaxOceanHero: React.FC = () => {
   const { setCurrentView, setScenario } = useAppStore();
@@ -77,12 +78,12 @@ export const ParallaxOceanHero: React.FC = () => {
                   SAGAR
                 </span>
                 <span className="block text-xl sm:text-3xl font-extrabold text-slate-800 mt-1">
-                  <Trans>Voice-First Multilingual Marine Safety Assistant</Trans>
+                  <Trans>Smart Agentic Grid for Aquatic Reasoning</Trans>
                 </span>
               </h1>
 
               <p className="text-sm sm:text-base text-slate-700 leading-relaxed font-normal max-w-2xl">
-                <Trans>SAGAR is a voice-first, multilingual marine safety assistant for fishermen, researchers and coastal authorities, combining ocean forecasting, geofencing, and explainable advisory logic into a single operational decision-support system.</Trans>
+                <Trans>SAGAR is a marine safety assistant for fishermen, researchers and coastal authorities, combining ocean forecasting, geofencing, and explainable advisory logic into a single operational decision-support system.</Trans>
               </p>
             </div>
 

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Clock, Loader2, Shield, Compass, Waves, CloudRain, FileCheck, Navigation } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 interface Step {
   id: string;

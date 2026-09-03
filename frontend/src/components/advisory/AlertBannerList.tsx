@@ -2,7 +2,8 @@ import React from 'react';
 import { AlertItem } from '../../types/risk';
 import { ShieldAlert, Waves, Wind, Eye, CloudLightning } from 'lucide-react';
 import { sanitizeSagarText } from '../../utils/brand';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 interface Props {
   alerts?: AlertItem[];

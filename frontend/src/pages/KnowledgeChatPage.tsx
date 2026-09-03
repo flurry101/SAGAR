@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 import { BookOpen, Send, Database, ShieldAlert, Sparkles, HelpCircle, ArrowRight } from 'lucide-react';
 import { sanitizeSagarText } from '../utils/brand';
 import { apiRequest } from '../api/client';
@@ -12,7 +13,7 @@ export const KnowledgeChatPage: React.FC = () => {
   const [messages, setMessages] = useState<any[]>([
     {
       sender: 'bot',
-      text: t`Welcome to the <Trans>SAGAR Marine Knowledge Copilot</Trans>. You can ask grounded domain questions regarding INCOIS Potential Fishing Zones (PFZ), SVAS vessel stability safety formulas, Marine Protected Area rules, or satellite oceanography data.`,
+      text: t`Welcome to the SAGAR Marine Knowledge Copilot. You can ask grounded domain questions regarding INCOIS Potential Fishing Zones (PFZ), SVAS vessel stability safety formulas, Marine Protected Area rules, or satellite oceanography data.`,
       sources: ['INCOIS PFZ Operational Guidelines', 'SVAS Small Vessel Stability Standard']
     }
   ]);
