@@ -20,6 +20,8 @@ export const ChatInterface: React.FC = () => {
     setCurrentView,
     userVessel,
     selectedLanguage,
+    sessionId,
+    threadId,
   } = useAppStore();
 
   const [inputMessage, setInputMessage] = useState('');
@@ -60,6 +62,12 @@ export const ChatInterface: React.FC = () => {
     const messageText = textToSend || inputMessage.trim();
     if (!messageText || loading) return;
 
+    if (needsClarification) {
+      handleClarificationResponse(messageText);
+      setInputMessage('');
+      return;
+    }
+
     setPendingConfirmation(null);
     setIsAssessingSteps(false);
 
@@ -71,24 +79,20 @@ export const ChatInterface: React.FC = () => {
     try {
       const response = await tripApi.assessTrip({
         message: messageText,
-        thread_id: `thread-${Date.now()}`,
-        session_id: `sess-${Date.now()}`,
+        thread_id: threadId,
+        session_id: sessionId,
         language: selectedLanguage,
-        vessel_profile: userVessel || {
-          vessel_type: 'Mechanized Trawler',
-          beam_width_m: 4.5,
-          length_m: 14.5,
-        },
+        vessel_profile: userVessel || undefined,
       });
 
       if (response.status === 'needs_clarification') {
         setNeedsClarification(true);
-        setClarificationFields(response.data?.missing_fields || []);
+        setClarificationFields(response.data?.task_plan?.missing_fields || []);
+        const question = response.data?.task_plan?.clarification_question || 'I need a few missing parameters to safely evaluate your voyage:';
         addChatMessage({
           sender: 'sagar',
-          text: t`I need a few missing parameters to safely evaluate your voyage:`,
+          text: question,
           isClarification: true,
-          missingFields: response.data?.missing_fields || [],
         });
       } else if (response.status === 'insufficient_information') {
         setActiveAssessment(response);
@@ -97,6 +101,11 @@ export const ChatInterface: React.FC = () => {
           text: sanitizeSagarText(response.data?.recommendation_text) || t`Unable to assess safety due to missing vessel or trip parameters.`,
         });
         setCurrentView('advisory');
+      } else if (response.data?.workflow_status === 'KNOWLEDGE_RESPONSE') {
+        addChatMessage({
+          sender: 'sagar',
+          text: response.data?.advisory?.recommendation_text || 'This is a knowledge question. Use the ORCA Copilot for detailed answers.',
+        });
       } else if (response.status === 'success') {
         setCachedResponse(response);
         const tripContext = response.data?.trip_context || {
@@ -133,11 +142,16 @@ export const ChatInterface: React.FC = () => {
 
     try {
       const response = await tripApi.continueTrip({
-        session_id: `sess-${Date.now()}`,
+        session_id: sessionId,
         message: answerText,
       });
 
-      if (response.status === 'success') {
+      if (response.data?.workflow_status === 'KNOWLEDGE_RESPONSE') {
+        addChatMessage({
+          sender: 'sagar',
+          text: response.data?.advisory?.recommendation_text || 'This is a knowledge question. Use the ORCA Copilot for detailed answers.',
+        });
+      } else if (response.status === 'success') {
         setCachedResponse(response);
         const tripContext = response.data?.trip_context || {
           origin: 'Mangalore Port',
@@ -149,6 +163,27 @@ export const ChatInterface: React.FC = () => {
         addChatMessage({
           sender: 'sagar',
           text: t`Missing details received. Please review your trip summary before starting safety evaluation.`,
+        });
+      } else if (response.status === 'needs_clarification') {
+        setNeedsClarification(true);
+        setClarificationFields(response.data?.task_plan?.missing_fields || []);
+        const question = response.data?.task_plan?.clarification_question || 'I need a few missing parameters to safely evaluate your voyage:';
+        addChatMessage({
+          sender: 'sagar',
+          text: question,
+          isClarification: true,
+        });
+      } else if (response.status === 'insufficient_information') {
+        setActiveAssessment(response);
+        addChatMessage({
+          sender: 'sagar',
+          text: sanitizeSagarText(response.data?.recommendation_text) || 'Unable to assess safety due to missing vessel or trip parameters.',
+        });
+        setCurrentView('advisory');
+      } else if (response.status === 'error') {
+        addChatMessage({
+          sender: 'sagar',
+          text: `Assessment error: ${response.error?.message || 'Failed to complete safety assessment.'}`,
         });
       }
     } catch (err) {

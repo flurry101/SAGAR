@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppStore, AppView } from '../../state/appStore';
 import { LanguageSelector } from '../common/LanguageSelector';
-import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X, AlertTriangle } from 'lucide-react';
+import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X, AlertTriangle, Waves } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trans, useLingui } from '@lingui/react/macro';
 

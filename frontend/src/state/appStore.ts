@@ -44,6 +44,8 @@ interface AppState {
   userProfile: { name: string; port: string; email?: string; userId?: string; preferred_language?: AppLanguage } | null;
   supabaseToken: string | null;
   isSosModalOpen: boolean;
+  sessionId: string;
+  threadId: string;
 
   // Actions
   setCurrentView: (view: AppView) => void;
@@ -64,6 +66,8 @@ interface AppState {
     profile?: { name: string; port: string; email?: string; userId?: string; preferred_language?: AppLanguage },
     token?: string | null
   ) => void;
+  setSessionId: (id: string) => void;
+  setThreadId: (id: string) => void;
 }
 
 const loadStoredHistory = (): HistoricalAssessment[] => {
@@ -108,6 +112,8 @@ export const useAppStore = create<AppState>()(
       userProfile: null,
       supabaseToken: null,
       isSosModalOpen: false,
+      sessionId: `sess-${Date.now()}`,
+      threadId: `thread-${Date.now()}`,
 
       setCurrentView: (view) => set({ currentView: view }),
       setLanguage: (lang) => {
@@ -184,6 +190,8 @@ export const useAppStore = create<AppState>()(
           supabaseToken: token || null,
         });
       },
+      setSessionId: (id) => set({ sessionId: id }),
+      setThreadId: (id) => set({ threadId: id }),
     }),
     {
       name: 'sagar_app_store',
@@ -193,6 +201,8 @@ export const useAppStore = create<AppState>()(
         supabaseToken: state.supabaseToken,
         currentView: state.currentView,
         userVessel: state.userVessel,
+        sessionId: state.sessionId,
+        threadId: state.threadId,
       }),
     }
   )

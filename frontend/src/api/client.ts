@@ -3,7 +3,10 @@ import { mockAdapter } from './mock/mockAdapter';
 import { getSupabaseAccessToken } from './supabaseClient';
 import { useAppStore } from '../state/appStore';
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+let baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
+if (!baseUrl.endsWith('/api/v1')) baseUrl += '/api/v1';
+export const API_BASE_URL = baseUrl;
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_API !== 'false';
 
 export async function apiRequest<T = any>(

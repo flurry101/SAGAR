@@ -284,7 +284,7 @@ export const TrajectoryMap: React.FC<Props> = ({
                     x: info.x,
                     y: info.y,
                     title: props.name || (specLayer as any).title || t`Marine Hazard Zone (${specLayer.layer_id})`,
-                    subtitle: props.hazard_type || || props.type || 'Geofence Warning Boundary',
+                    subtitle: props.hazard_type || props.type || 'Geofence Warning Boundary',
                     riskBadge: {
                       text: props.severity || 'RESTRICTED AREA',
                       bg: '#450a0a',

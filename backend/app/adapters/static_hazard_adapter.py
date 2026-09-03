@@ -657,6 +657,11 @@ class StaticHazardAdapter(MarineDataAdapter):
             data = json.load(fh)
 
         # If demo mode is enabled, load demo hazards from a separate file
+        try:
+            from dotenv import load_dotenv
+            load_dotenv(override=True)
+        except Exception:
+            pass
         demo_mode = os.getenv("PF_DEMO_MODE", "false").lower() in ("1", "true", "yes")
         if demo_mode:
             demo_path = os.path.normpath(

@@ -48,7 +48,7 @@ from .base_adapter import MarineDataAdapter
 # Live API endpoint — WorldTides (free tier available)
 # ---------------------------------------------------------------------------
 _WORLDTIDES_API_URL = "https://www.worldtides.info/api/v3"
-_TIMEOUT_S = 10.0
+_TIMEOUT_S = 3.0
 _MAX_DIFF_S = 10800  # 3 hours — maximum acceptable time offset
 
 # Attempt to read API key from environment; fallback to None for Tier 3

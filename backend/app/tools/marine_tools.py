@@ -241,6 +241,8 @@ def fetch_marine_forecast_batch(
     HAB is evaluated once per trajectory at the fishing-phase centroid
     and reused for every waypoint.
     """
+    import concurrent.futures
+    
     results: List[Dict[str, Any]] = []
 
     # ---------------------------------------------------------------
@@ -265,10 +267,7 @@ def fetch_marine_forecast_batch(
             "resolved": False,
         }
 
-    # ---------------------------------------------------------------
-    # Process every waypoint
-    # ---------------------------------------------------------------
-    for wp in waypoints:
+    def fetch_single_wp(wp):
         wp = _normalize_waypoint_contract(wp)
 
         lat = float(wp["lat"])
@@ -329,12 +328,8 @@ def fetch_marine_forecast_batch(
 
             "sst_celsius": sst_obs.get("sst_celsius"),
 
-            "chlorophyll_mg_m3": chlorophyll_obs.get(
-                "chlorophyll_mg_m3"
-            ),
-            "chlorophyll_mgm3": chlorophyll_obs.get(
-                "chlorophyll_mgm3"
-            ),
+            "chlorophyll_mg_m3": chlorophyll_obs.get("chlorophyll_mg_m3"),
+            "chlorophyll_mgm3": chlorophyll_obs.get("chlorophyll_mgm3"),
 
             "hab_detected": hab_obs.get("hab_detected"),
             "hab_probability": hab_obs.get("hab_probability"),
@@ -351,13 +346,16 @@ def fetch_marine_forecast_batch(
             "provenance": merged_provenance,
         }
 
-        results.append({
+        return {
             "waypoint_index": idx,
             "phase": phase,
             "lat": lat,
             "lon": lon,
             "time_iso": eta_iso,
             "marine": marine_obs,
-        })
+        }
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        results = list(executor.map(fetch_single_wp, waypoints))
 
     return results

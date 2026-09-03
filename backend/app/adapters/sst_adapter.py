@@ -53,7 +53,7 @@ from .open_meteo_client import fetch_marine_hourly
 # Live API endpoint — Open-Meteo Marine (no credentials required)
 # ---------------------------------------------------------------------------
 _MARINE_API_URL = "https://marine-api.open-meteo.com/v1/marine"
-_TIMEOUT_S      = 10.0   # seconds
+_TIMEOUT_S      = 5.0   # seconds
 _MAX_DIFF_S     = 10800  # 3 hours — maximum acceptable time offset
 
 # ---------------------------------------------------------------------------

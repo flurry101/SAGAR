@@ -271,6 +271,41 @@ class Report(TypedDict, total=False):
 # The main LangGraph state object
 # ---------------------------------------------------------------------------
 
+from typing import Annotated
+import operator
+
+class TripContext(TypedDict, total=False):
+    trip_id: str
+    fisher_id: str
+    language: str
+    origin: str
+    destination_lat: float
+    destination_lon: float
+    departure_time_iso: str
+    last_route_id: str | None
+    last_risk_level: str | None
+    last_assessment_id: str | None
+
+def update_trip_context(left: TripContext, right: TripContext) -> TripContext:
+    """Merges two trip_context dicts so state isn't overwritten by the FastAPI router."""
+    if not left:
+        return right or {}
+    if not right:
+        return left
+    res = left.copy()
+    res.update(right)
+    return res
+
+def update_vessel_profile(left: VesselProfile, right: VesselProfile) -> VesselProfile:
+    """Merges two vessel_profile dicts so state isn't overwritten by the FastAPI router."""
+    if not left:
+        return right or {}
+    if not right:
+        return left
+    res = left.copy()
+    res.update(right)
+    return res
+
 class OrcaState(TypedDict, total=False):
     """LangGraph Shared State — the single data object passed between all nodes.
 
@@ -302,14 +337,16 @@ class OrcaState(TypedDict, total=False):
     """
 
     # --- Conversation ---
-    conversation_history: list[dict[str, str]]
+    original_query: str
+    resolved_query: str
+    conversation_history: Annotated[list[dict[str, str]], operator.add]
 
     # --- Supervisor & Autonomous Planning ---
     task_plan: TaskPlan
 
     # --- Trip & Vessel ---
-    trip_context: TripContext
-    vessel_profile: VesselProfile
+    trip_context: Annotated[TripContext, update_trip_context]
+    vessel_profile: Annotated[VesselProfile, update_vessel_profile]
 
     # --- Geospatial ---
     trajectory: list[Waypoint]
