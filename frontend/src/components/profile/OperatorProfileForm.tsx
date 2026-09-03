@@ -3,7 +3,8 @@ import { useAppStore, AppLanguage } from '../../state/appStore';
 import { userApi } from '../../api/userApi';
 import { LANGUAGE_REGISTRY, INDIAN_LOCALES, SupportedLocale } from '../../i18n/lingui';
 import { User, Mail, Anchor, Globe, Save, ShieldCheck, CheckCircle2 } from 'lucide-react';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 const LANGUAGE_OPTIONS = (INDIAN_LOCALES as readonly SupportedLocale[]).map((code) => ({
   code,

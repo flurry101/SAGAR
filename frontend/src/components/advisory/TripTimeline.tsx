@@ -4,7 +4,8 @@ import { HazardFlag } from '../../types/risk';
 import { useAppStore } from '../../state/appStore';
 import { Clock, MapPin, AlertTriangle, ShieldCheck, Navigation, ArrowRight, Waves } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 interface Props {
   trajectory: Trajectory;

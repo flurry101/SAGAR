@@ -21,7 +21,8 @@ import {
   Compass,
 } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 interface Props {
   trajectory?: Trajectory;

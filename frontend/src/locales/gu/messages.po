@@ -21,11 +21,6 @@ msgstr ""
 msgid "(Low)"
 msgstr ""
 
-#. placeholder {0}: pfz.distance_from_origin_km
-#: src/components/map/TrajectoryMap.tsx:367
-msgid "{0} km Outbound"
-msgstr ""
-
 #. placeholder {0}: trajectory.total_distance_km
 #: src/components/advisory/TripTimeline.tsx:80
 msgid "{0} km voyage"
@@ -52,12 +47,6 @@ msgstr ""
 #. placeholder {1}: ruleResults.length
 #: src/components/advisory/RuleResultsPanel.tsx:24
 msgid "{0}/{1} Rules Passed"
-msgstr ""
-
-#. placeholder {0}: hazard.observed_value
-#. placeholder {1}: hazard.threshold_value
-#: src/components/map/TrajectoryMap.tsx:429
-msgid "{0}m wave surge exceeds your boat's SVAS limit of {1}m"
 msgstr ""
 
 #: src/components/common/InteractiveVoyageSimulator.tsx:137
@@ -108,28 +97,20 @@ msgstr ""
 msgid "4D Coastal Grids"
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:557
-msgid "4D Marine Intelligence"
+#: src/components/map/TrajectoryMap.tsx:751
+msgid "4D Marine Safety & Trajectory Map"
 msgstr ""
 
-#: src/components/layout/Header.tsx:56
+#: src/components/layout/Header.tsx:57
 msgid "4D Marine Voyage Safety System"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:196
+#: src/components/chat/ChatInterface.tsx:231
 msgid "4D Safety Evaluation"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:482
-msgid "4D Spatio-Temporal Journey Tracking"
 msgstr ""
 
 #: src/pages/LandingPage.tsx:201
 msgid "4D Spatio-Temporal Matching"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:554
-msgid "4D Trajectory & Spatio-Temporal Hazards"
 msgstr ""
 
 #: src/components/advisory/TripTimeline.tsx:74
@@ -191,11 +172,11 @@ msgid "Already have an account? Sign in"
 msgstr ""
 
 #. placeholder {0}: c.route_id
-#: src/components/map/TrajectoryMap.tsx:265
+#: src/components/map/TrajectoryMap.tsx:331
 msgid "Alternative Route ({0})"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:176
+#: src/components/chat/ChatInterface.tsx:211
 msgid "Analysis complete [{cat}]: {text}"
 msgstr ""
 
@@ -207,16 +188,16 @@ msgstr ""
 msgid "Assess My Trip"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:315
+#: src/components/chat/ChatInterface.tsx:350
 msgid "Assess Voyage"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:172
+#: src/components/chat/ChatInterface.tsx:207
 msgid "Assessment complete"
 msgstr ""
 
 #. placeholder {0}: response.error?.message || 'Failed to complete safety assessment.'
-#: src/components/chat/ChatInterface.tsx:116
+#: src/components/chat/ChatInterface.tsx:125
 msgid "Assessment error: {0}"
 msgstr ""
 
@@ -308,11 +289,11 @@ msgstr ""
 msgid "Click waypoints to focus map camera & ETA conditions"
 msgstr ""
 
-#: src/components/layout/Header.tsx:216
+#: src/components/layout/Header.tsx:217
 msgid "Coast Guard Emergency"
 msgstr ""
 
-#: src/components/layout/Header.tsx:123
+#: src/components/layout/Header.tsx:124
 msgid "Coast Guard Emergency Distress (1554)"
 msgstr ""
 
@@ -404,7 +385,7 @@ msgstr ""
 msgid "Dataset Attribution & Fallback Tiers:"
 msgstr ""
 
-#: src/components/layout/Header.tsx:52
+#: src/components/layout/Header.tsx:53
 msgid "Decision Support"
 msgstr ""
 
@@ -416,7 +397,7 @@ msgstr ""
 msgid "Departure"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:38
+#: src/components/chat/ChatInterface.tsx:40
 msgid "Departure 5 AM from Mangalore, return 6 PM with mechanized trawler (missing beam example)"
 msgstr ""
 
@@ -461,7 +442,7 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: src/components/chat/ClarificationPrompt.tsx:47
+#: src/components/chat/ClarificationPrompt.tsx:70
 msgid "e.g. Departure 5:00 AM, Mechanized Trawler with 4.5m beam width..."
 msgstr ""
 
@@ -490,7 +471,7 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: src/components/layout/Header.tsx:124
+#: src/components/layout/Header.tsx:125
 msgid "Emergency Distress SOS 1554"
 msgstr ""
 
@@ -510,7 +491,7 @@ msgstr ""
 msgid "Est. Voyage Time"
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:620
+#: src/components/map/TrajectoryMap.tsx:968
 msgid "ETA:"
 msgstr ""
 
@@ -538,17 +519,13 @@ msgstr ""
 msgid "Explore Real Operational Scenarios"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:157
+#: src/components/chat/ChatInterface.tsx:192
 msgid "Failed to process clarification response."
 msgstr ""
 
 #: src/components/common/ParallaxOceanHero.tsx:169
-#: src/components/map/TrajectoryMap.tsx:268
+#: src/components/map/TrajectoryMap.tsx:334
 msgid "FAVOURABLE"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:423
-msgid "FAVOURABLE SEA STATE"
 msgstr ""
 
 #: src/components/profile/OperatorProfileForm.tsx:138
@@ -585,10 +562,6 @@ msgstr ""
 msgid "Full Name"
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:569
-msgid "Full Voyage"
-msgstr ""
-
 #: src/components/advisory/RouteComparisonCard.tsx:97
 msgid "Geofence Constraint:"
 msgstr ""
@@ -621,10 +594,6 @@ msgstr ""
 msgid "Harbor Departure"
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:586
-msgid "Hazard Alert"
-msgstr ""
-
 #: src/components/advisory/HazardAlert.tsx:57
 msgid "Hazard Time:"
 msgstr ""
@@ -653,20 +622,12 @@ msgstr ""
 msgid "I am sorry, but I am currently unable to connect to the knowledge base. Please ensure your backend is running or check your network connection."
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:111
+#: src/components/chat/ChatInterface.tsx:120
 msgid "I have extracted your 4D voyage schedule. Please review the departure, destination, and return timing below before beginning safety assessment."
-msgstr ""
-
-#: src/components/chat/ChatInterface.tsx:89
-msgid "I need a few missing parameters to safely evaluate your voyage:"
 msgstr ""
 
 #: src/components/trip/TripConfirmation.tsx:179
 msgid "ℹ Note:"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:369
-msgid "INCOIS Verified"
 msgstr ""
 
 #: src/pages/AssessmentHistoryPage.tsx:124
@@ -689,7 +650,7 @@ msgstr ""
 msgid "Interactive Decision Testbed"
 msgstr ""
 
-#: src/components/layout/Header.tsx:18
+#: src/components/layout/Header.tsx:19
 msgid "Knowledge"
 msgstr ""
 
@@ -701,13 +662,17 @@ msgstr ""
 msgid "Launch pre-computed spatio-temporal scenarios to inspect how SAGAR detects return swell hazards, geofence breaches, and multi-PFZ optimization."
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:36
+#: src/components/chat/ChatInterface.tsx:38
 msgid "Leave at 5 AM from Mangalore to nearest PFZ and return by 2 PM"
 msgstr ""
 
 #. placeholder {0}: hazard.trip_phase
 #: src/components/advisory/HazardAlert.tsx:29
 msgid "Leg: {0}"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:754
+msgid "Light Map"
 msgstr ""
 
 #: src/components/VoiceAssistant/VoiceWidget.tsx:75
@@ -722,10 +687,6 @@ msgstr ""
 msgid "Live sea state and atmospheric forecasts require an active connection. Showing cached vessel profile and offline guidance."
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:484
-msgid "LIVE SIMULATION"
-msgstr ""
-
 #: src/components/common/InteractiveVoyageSimulator.tsx:50
 msgid "Live SVAS Engine"
 msgstr ""
@@ -738,11 +699,16 @@ msgstr ""
 msgid "Marginal Safety Clearance Warning"
 msgstr ""
 
-#: src/components/layout/Header.tsx:18
+#. placeholder {0}: specLayer.layer_id
+#: src/components/map/TrajectoryMap.tsx:286
+msgid "Marine Hazard Zone ({0})"
+msgstr ""
+
+#: src/components/layout/Header.tsx:19
 msgid "Marine Knowledge"
 msgstr "દરિયાઈ જ્ઞાન કેન્દ્ર"
 
-#: src/components/layout/Header.tsx:27
+#: src/components/layout/Header.tsx:28
 msgid "Marine Operator"
 msgstr ""
 
@@ -752,11 +718,6 @@ msgstr ""
 
 #: src/components/common/ParallaxOceanHero.tsx:69
 msgid "Marine Safety & Decision Support"
-msgstr ""
-
-#. placeholder {0}: specLayer.layer_id
-#: src/components/map/TrajectoryMap.tsx:220
-msgid "Marine Zone ({0})"
 msgstr ""
 
 #: src/pages/AuthPage.tsx:122
@@ -775,7 +736,7 @@ msgstr ""
 msgid "meters"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:151
+#: src/components/chat/ChatInterface.tsx:165
 msgid "Missing details received. Please review your trip summary before starting safety evaluation."
 msgstr ""
 
@@ -788,7 +749,7 @@ msgid "MODERATE"
 msgstr ""
 
 #: src/components/advisory/TripTimeline.tsx:33
-#: src/components/map/TrajectoryMap.tsx:268
+#: src/components/map/TrajectoryMap.tsx:334
 msgid "MODERATE RISK"
 msgstr ""
 
@@ -809,15 +770,11 @@ msgstr ""
 msgid "Modify Voyage Timing & Route"
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:228
-msgid "Monitored via spatio-temporal boundary geofence."
-msgstr ""
-
 #: src/components/vessel/VesselForm.tsx:88
 msgid "Motorized FRP Boat"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:200
+#: src/components/chat/ChatInterface.tsx:235
 msgid "Natural language voyage planning with vessel stability limits"
 msgstr ""
 
@@ -825,7 +782,7 @@ msgstr ""
 msgid "Need an account? Sign up"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:122
+#: src/components/chat/ChatInterface.tsx:131
 msgid "Network error encountered while connecting to SAGAR decision-support service."
 msgstr ""
 
@@ -881,11 +838,11 @@ msgstr ""
 msgid "Operational Destination"
 msgstr ""
 
-#: src/components/common/ScenarioSelector.tsx:29
+#: src/components/common/ScenarioSelector.tsx:33
 msgid "Operational Scenario Testbed:"
 msgstr ""
 
-#: src/components/layout/Header.tsx:28
+#: src/components/layout/Header.tsx:29
 msgid "Operator"
 msgstr ""
 
@@ -952,16 +909,12 @@ msgstr ""
 msgid "Personal identity, base harbor, and language settings for localized advisories."
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:361
-msgid "PFZ ACTIVE"
-msgstr ""
-
 #: src/components/conditions/MarineCard.tsx:28
 msgid "PFZ CLOUD OBSTRUCTED"
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:361
-msgid "PFZ EXPIRED"
+#: src/components/map/TrajectoryMap.tsx:834
+msgid "PFZ Glow Zone"
 msgstr ""
 
 #: src/pages/KnowledgeChatPage.tsx:23
@@ -972,15 +925,11 @@ msgstr ""
 msgid "PFZ SIGNALS ACTIVE"
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:580
-msgid "PFZ Zone"
-msgstr ""
-
 #: src/components/conditions/PFZSelector.tsx:49
 msgid "PFZs identify thermal boundaries and chlorophyll fronts derived from satellite data. They indicate higher probability of pelagic fish aggregation, but do not guarantee catch."
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:619
+#: src/components/map/TrajectoryMap.tsx:967
 msgid "Phase:"
 msgstr ""
 
@@ -1000,21 +949,16 @@ msgstr ""
 msgid "Plan My Maritime Voyage"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:222
+#: src/components/chat/ChatInterface.tsx:257
 msgid "Plan Your Voyage Safely"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:37
+#: src/components/chat/ChatInterface.tsx:39
 msgid "Planning trip from Malpe at 6 AM, 4 hours fishing, return at 4 PM"
 msgstr ""
 
 #: src/components/trip/TripConfirmation.tsx:66
 msgid "Please review what SAGAR understood before starting safety evaluation."
-msgstr ""
-
-#. placeholder {0}: pfz.pfz_id
-#: src/components/map/TrajectoryMap.tsx:357
-msgid "Potential Fishing Zone ({0})"
 msgstr ""
 
 #: src/components/profile/OperatorProfileForm.tsx:208
@@ -1033,7 +977,7 @@ msgstr ""
 msgid "processing..."
 msgstr ""
 
-#: src/components/layout/Header.tsx:22
+#: src/components/layout/Header.tsx:23
 msgid "Profile"
 msgstr ""
 
@@ -1045,7 +989,7 @@ msgstr ""
 msgid "Provide Missing Parameters in Planner"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:210
+#: src/components/chat/ChatInterface.tsx:245
 msgid "Quick Sample"
 msgstr ""
 
@@ -1077,23 +1021,19 @@ msgstr ""
 msgid "Registration Number"
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:221
-msgid "Regulated Boundary"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:566
+#: src/components/map/TrajectoryMap.tsx:810
 msgid "Reset map view to full voyage"
 msgstr ""
 
-#: src/components/map/TrajectoryMap.tsx:223
-msgid "RESTRICTED / GEOFENCE"
+#: src/components/map/TrajectoryMap.tsx:813
+msgid "Reset View"
 msgstr ""
 
 #: src/pages/KnowledgeChatPage.tsx:151
 msgid "Retrieving grounded marine knowledge..."
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:259
+#: src/components/chat/ChatInterface.tsx:294
 msgid "Retrieving marine sea-state forecasts & spatial geofences"
 msgstr ""
 
@@ -1162,6 +1102,10 @@ msgstr ""
 msgid "Safe Navigation Profile"
 msgstr ""
 
+#: src/components/map/TrajectoryMap.tsx:819
+msgid "Safe Segment"
+msgstr ""
+
 #: src/pages/AdvisoryPage.tsx:52
 msgid "Safety Decision Service Unavailable"
 msgstr ""
@@ -1171,11 +1115,11 @@ msgid "Safety Reasoning & Context"
 msgstr ""
 
 #. placeholder {0}: c.score
-#: src/components/map/TrajectoryMap.tsx:266
+#: src/components/map/TrajectoryMap.tsx:332
 msgid "Safety Score: {0}/100"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:257
+#: src/components/chat/ChatInterface.tsx:292
 msgid "SAGAR Decision Pipeline is executing..."
 msgstr ""
 
@@ -1187,7 +1131,7 @@ msgstr ""
 msgid "SAGAR features high-contrast typography readable under bright marine sunlight, 44px+ touch targets for vessel operations, multilingual support across coastal regions, and offline progressive caching."
 msgstr ""
 
-#: src/components/layout/Header.tsx:41
+#: src/components/layout/Header.tsx:42
 msgid "SAGAR Home"
 msgstr ""
 
@@ -1211,7 +1155,7 @@ msgstr ""
 msgid "SAGAR never fabricates or guesses safety-critical parameters. Assessment was paused because required vessel dimensions or temporal data is missing."
 msgstr ""
 
-#: src/components/chat/ClarificationPrompt.tsx:28
+#: src/components/chat/ClarificationPrompt.tsx:43
 msgid "SAGAR never guesses safety-critical voyage or boat parameters. Please provide the missing details below:"
 msgstr ""
 
@@ -1219,7 +1163,7 @@ msgstr ""
 msgid "SAGAR Safety Decision Support"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:194
+#: src/components/chat/ChatInterface.tsx:229
 msgid "SAGAR Spatio-Temporal Voyage Planner"
 msgstr ""
 
@@ -1227,16 +1171,8 @@ msgstr ""
 msgid "SAGAR will correlate this 4D timeline with ocean wave forecasts and geofenced boundaries."
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:231
+#: src/components/chat/ChatInterface.tsx:266
 msgid "Sample Voyage Inquiries:"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:368
-msgid "Satellite Aggregation"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:358
-msgid "Satellite Pelagic Fish Aggregation Area"
 msgstr ""
 
 #: src/components/profile/OperatorProfileForm.tsx:230
@@ -1293,14 +1229,13 @@ msgstr ""
 msgid "SEVERE HAZARD DETECTED — VOYAGE NOT RECOMMENDED"
 msgstr ""
 
-#. placeholder {0}: hazard.hazard_type.replace(/_/g, ' ')
-#: src/components/map/TrajectoryMap.tsx:417
-msgid "SEVERE: {0}"
+#: src/components/map/TrajectoryMap.tsx:828
+msgid "Severe Risk"
 msgstr ""
 
-#: src/components/layout/Header.tsx:22
-#: src/components/layout/Header.tsx:27
+#: src/components/layout/Header.tsx:23
 #: src/components/layout/Header.tsx:28
+#: src/components/layout/Header.tsx:29
 msgid "Sign In"
 msgstr ""
 
@@ -1310,10 +1245,6 @@ msgstr ""
 
 #: src/components/common/ParallaxOceanHero.tsx:107
 msgid "Simulate Afternoon Swell Surge"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:481
-msgid "Simulated Boat Transit Position"
 msgstr ""
 
 #: src/components/advisory/ConflictInfoCard.tsx:38
@@ -1340,7 +1271,7 @@ msgstr ""
 msgid "speaking..."
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:224
+#: src/components/chat/ChatInterface.tsx:259
 msgid "Specify your departure time, origin harbor, operational area, and expected return time. SAGAR evaluates sea state forecasts, geofencing, and capsize stability limits across every phase of your journey."
 msgstr ""
 
@@ -1372,8 +1303,8 @@ msgstr ""
 msgid "Stop Voice Assistant"
 msgstr ""
 
-#: src/components/chat/ClarificationPrompt.tsx:55
-msgid "Submit"
+#: src/components/chat/ClarificationPrompt.tsx:81
+msgid "Submit Details"
 msgstr ""
 
 #: src/components/common/GeofenceWarning.tsx:41
@@ -1457,16 +1388,12 @@ msgstr ""
 msgid "to"
 msgstr ""
 
-#: src/components/layout/Header.tsx:188
+#: src/components/layout/Header.tsx:189
 msgid "Toggle navigation menu"
 msgstr ""
 
 #: src/components/vessel/VesselForm.tsx:90
 msgid "Traditional Catamaran"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:575
-msgid "Trajectory"
 msgstr ""
 
 #: src/components/common/ParallaxOceanHero.tsx:172
@@ -1486,11 +1413,11 @@ msgstr ""
 msgid "Trip Planner"
 msgstr "પ્રવાસ આયોજક"
 
-#: src/components/chat/ChatInterface.tsx:307
+#: src/components/chat/ChatInterface.tsx:342
 msgid "Type your voyage details (e.g. Leave Mangalore 5 AM, return 2 PM)..."
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:97
+#: src/components/chat/ChatInterface.tsx:101
 msgid "Unable to assess safety due to missing vessel or trip parameters."
 msgstr ""
 
@@ -1523,7 +1450,7 @@ msgstr ""
 msgid "Vessel & Stability Baseline"
 msgstr ""
 
-#: src/components/layout/Header.tsx:23
+#: src/components/layout/Header.tsx:24
 msgid "Vessel Profile"
 msgstr "બોટ પ્રોફાઇલ"
 
@@ -1567,7 +1494,7 @@ msgstr ""
 msgid "Voyage Assessment History"
 msgstr ""
 
-#: src/components/chat/ClarificationPrompt.tsx:25
+#: src/components/chat/ClarificationPrompt.tsx:40
 msgid "Voyage Clarification Required"
 msgstr ""
 
@@ -1575,7 +1502,7 @@ msgstr ""
 msgid "Voyage Distance"
 msgstr ""
 
-#: src/components/layout/Header.tsx:24
+#: src/components/layout/Header.tsx:25
 msgid "Voyage History"
 msgstr "પ્રવાસ ઇતિહાસ"
 
@@ -1616,7 +1543,7 @@ msgstr ""
 #. placeholder {0}: idx + 1
 #. placeholder {0}: wp.waypoint_index + 1
 #: src/components/advisory/TripTimeline.tsx:135
-#: src/components/map/TrajectoryMap.tsx:411
+#: src/components/map/TrajectoryMap.tsx:505
 msgid "Waypoint {0}"
 msgstr ""
 
@@ -1637,7 +1564,7 @@ msgid "Weather Risk Penalty:"
 msgstr ""
 
 #: src/pages/KnowledgeChatPage.tsx:15
-msgid "Welcome to the <Trans>SAGAR Marine Knowledge Copilot</Trans>. You can ask grounded domain questions regarding INCOIS Potential Fishing Zones (PFZ), SVAS vessel stability safety formulas, Marine Protected Area rules, or satellite oceanography data."
+msgid "Welcome to the SAGAR Marine Knowledge Copilot. You can ask grounded domain questions regarding INCOIS Potential Fishing Zones (PFZ), SVAS vessel stability safety formulas, Marine Protected Area rules, or satellite oceanography data."
 msgstr ""
 
 #: src/pages/KnowledgeChatPage.tsx:28

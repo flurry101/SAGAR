@@ -1,5 +1,6 @@
 import React from 'react';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 import { useAppStore, HistoricalAssessment } from '../state/appStore';
 import { History, Clock, MapPin, CheckCircle2, AlertTriangle, ShieldAlert, ArrowRight, Trash2, Shield, Navigation } from 'lucide-react';
 import { sanitizeSagarText } from '../utils/brand';

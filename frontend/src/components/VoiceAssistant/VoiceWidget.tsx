@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Mic, Square, Loader2, Volume2, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VexylClient, VoiceState } from './vexylClient';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 export const VoiceWidget: React.FC = () => {
   const { t } = useLingui();

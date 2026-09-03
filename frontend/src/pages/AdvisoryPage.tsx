@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 import { useAppStore } from '../state/appStore';
 import { AdvisoryBanner } from '../components/advisory/AdvisoryBanner';
 import { AdvisoryCard } from '../components/advisory/AdvisoryCard';
