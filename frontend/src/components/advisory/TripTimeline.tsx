@@ -4,6 +4,7 @@ import { HazardFlag } from '../../types/risk';
 import { useAppStore } from '../../state/appStore';
 import { Clock, MapPin, AlertTriangle, ShieldCheck, Navigation, ArrowRight, Waves } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 interface Props {
   trajectory: Trajectory;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const TripTimeline: React.FC<Props> = ({ trajectory, hazardFlags = [] }) => {
+  const { t } = useLingui();
   const { selectedWaypointIndex, setSelectedWaypointIndex } = useAppStore();
 
   const getWaypointRisk = (index: number, phase: string) => {
@@ -21,23 +23,23 @@ export const TripTimeline: React.FC<Props> = ({ trajectory, hazardFlags = [] }) 
         ? {
             dotClass: 'bg-rose-600 text-white ring-4 ring-rose-100',
             badgeClass: 'bg-rose-50 text-rose-800 border-rose-200',
-            badge: 'SEVERE HAZARD',
-            label: `Wave ${hazard.observed_value}m > ${hazard.threshold_value}m limit`,
+            badge: t`SEVERE HAZARD`,
+            label: t`Wave ${hazard.observed_value}m > ${hazard.threshold_value}m limit`,
             isSevere: true,
           }
         : {
             dotClass: 'bg-amber-500 text-white ring-4 ring-amber-100',
             badgeClass: 'bg-amber-50 text-amber-800 border-amber-200',
-            badge: 'MODERATE RISK',
-            label: 'Elevated wave swell',
+            badge: t`MODERATE RISK`,
+            label: t`Elevated wave swell`,
             isSevere: false,
           };
     }
     return {
       dotClass: 'bg-emerald-600 text-white ring-4 ring-emerald-100',
       badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      badge: 'SAFE',
-      label: 'Conditions within limits',
+      badge: t`SAFE`,
+      label: t`Conditions within limits`,
       isSevere: false,
     };
   };
@@ -69,13 +71,13 @@ export const TripTimeline: React.FC<Props> = ({ trajectory, hazardFlags = [] }) 
           </div>
           <div>
             <h3 className="text-sm font-bold text-sagar-navy">
-              4D Voyage Journey Timeline
+              <Trans>4D Voyage Journey Timeline</Trans>
             </h3>
-            <p className="text-[11px] text-sagar-textMuted">Click waypoints to focus map camera & ETA conditions</p>
+            <p className="text-[11px] text-sagar-textMuted"><Trans>Click waypoints to focus map camera & ETA conditions</Trans></p>
           </div>
         </div>
         <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-sagar-canvasAlt text-slate-700 border border-sagar-border">
-          {trajectory.total_distance_km} km voyage
+          <Trans>{trajectory.total_distance_km} km voyage</Trans>
         </span>
       </div>
 
@@ -130,7 +132,7 @@ export const TripTimeline: React.FC<Props> = ({ trajectory, hazardFlags = [] }) 
               {/* Waypoint Name & Position */}
               <div className="flex items-center gap-1.5 text-xs text-sagar-navy font-bold">
                 <MapPin className="w-3.5 h-3.5 text-sky-600 shrink-0" />
-                <span>{wp.name || `Waypoint ${idx + 1}`}</span>
+                <span>{wp.name || t`Waypoint ${idx + 1}`}</span>
               </div>
 
               {/* Details & Wave Status */}

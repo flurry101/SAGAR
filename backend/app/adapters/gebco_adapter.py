@@ -45,7 +45,7 @@ from .base_adapter import MarineDataAdapter
 # Live API endpoint — OpenTopoData ETOPO1 (NOAA global relief model, no auth)
 # ---------------------------------------------------------------------------
 _OPENTOPODATA_URL = "https://api.opentopodata.org/v1/etopo1"
-_TIMEOUT_S = 10.0
+_TIMEOUT_S = 3.0
 _MAX_DIFF_S = 10800  # 3 hours — maximum acceptable time offset (unused for depth, but kept for consistency)
 
 # Path to the static fallback file (relative to this file)
@@ -139,7 +139,7 @@ class GEBCOAdapter(MarineDataAdapter):
                 "locations": f"{lat},{lon}",
             }
 
-            with httpx.Client(timeout=_TIMEOUT_S) as client:
+            with httpx.Client(timeout=_TIMEOUT_S, trust_env=False) as client:
                 response = client.get(_OPENTOPODATA_URL, params=params)
                 response.raise_for_status()
                 data = response.json()

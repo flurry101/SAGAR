@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useAppStore } from '../state/appStore';
 import { AdvisoryBanner } from '../components/advisory/AdvisoryBanner';
 import { AdvisoryCard } from '../components/advisory/AdvisoryCard';
@@ -22,6 +23,7 @@ import { sanitizeSagarText, formatSagarDisclaimer } from '../utils/brand';
 import { motion } from 'framer-motion';
 
 export const AdvisoryPage: React.FC = () => {
+  const { t } = useLingui();
   const { activeAssessment, setCurrentView } = useAppStore();
   const [isModifying, setIsModifying] = useState(false);
 
@@ -47,15 +49,15 @@ export const AdvisoryPage: React.FC = () => {
           <div className="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center mx-auto font-bold">
             <ShieldAlert className="w-6 h-6" />
           </div>
-          <h1 className="text-lg font-extrabold text-rose-950">Safety Decision Service Unavailable</h1>
+          <h1 className="text-lg font-extrabold text-rose-950"><Trans>Safety Decision Service Unavailable</Trans></h1>
           <p className="text-xs text-slate-700 leading-relaxed">
-            {sanitizeSagarText(activeAssessment?.error?.message) || 'Unable to connect to SAGAR safety decision service. Please verify network connection and retry.'}
+            {sanitizeSagarText(activeAssessment?.error?.message) || t`Unable to connect to SAGAR safety decision service. Please verify network connection and retry.`}
           </p>
           <button
             onClick={() => setCurrentView('chat')}
             className="px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-soft-sm transition-all touch-target"
           >
-            Return to Trip Planner
+            <Trans>Return to Trip Planner</Trans>
           </button>
         </main>
       </div>
@@ -91,13 +93,13 @@ export const AdvisoryPage: React.FC = () => {
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy text-xs font-bold border border-sagar-border transition-all shadow-soft-sm touch-target"
           >
             <ArrowLeft className="w-4 h-4 text-sky-600" />
-            <span>Back to Trip Planner</span>
+            <span><Trans>Back to Trip Planner</Trans></span>
           </button>
 
           <div className="flex items-center gap-3">
             {translationProvider && (
               <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-sagar-powder text-sky-900 border border-sky-200 font-mono">
-                Translation: <strong className="text-sky-800 uppercase">{translationProvider}</strong>
+                <Trans>Translation:</Trans> <strong className="text-sky-800 uppercase">{translationProvider}</strong>
               </span>
             )}
             <button
@@ -105,7 +107,7 @@ export const AdvisoryPage: React.FC = () => {
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold shadow-soft-sm transition-all touch-target"
             >
               <RefreshCw className="w-4 h-4" />
-              <span>Modify Route or Return Time</span>
+              <span><Trans>Modify Route or Return Time</Trans></span>
             </button>
           </div>
         </div>
@@ -131,16 +133,16 @@ export const AdvisoryPage: React.FC = () => {
             <div className="flex-1 text-xs space-y-1.5">
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <span className="font-extrabold text-rose-950 uppercase tracking-wide">
-                  Return Phase Spatio-Temporal Hazard Alert
+                  <Trans>Return Phase Spatio-Temporal Hazard Alert</Trans>
                 </span>
                 <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-900 border border-rose-300">
-                  SVAS Stability Threshold Breached
+                  <Trans>SVAS Stability Threshold Breached</Trans>
                 </span>
               </div>
               <p className="text-slate-800 leading-relaxed font-medium">
-                Outbound conditions at 05:00 departure may be calm, but afternoon wave height is forecasted to build to{' '}
+                <Trans>Outbound conditions at 05:00 departure may be calm, but afternoon wave height is forecasted to build to{' '}
                 <strong className="text-rose-700 font-mono font-bold">{returnHazard.observed_value} m</strong> near the coastal approach by 16:00 return time, exceeding your boat’s physical capsize stability limit of{' '}
-                <strong className="text-sagar-navy font-mono font-bold">{returnHazard.threshold_value} m</strong>.
+                <strong className="text-sagar-navy font-mono font-bold">{returnHazard.threshold_value} m</strong>.</Trans>
               </p>
             </div>
           </motion.div>
@@ -173,7 +175,7 @@ export const AdvisoryPage: React.FC = () => {
               <div className="flex items-center justify-between mb-3 px-1">
                 <div className="flex items-center gap-2 text-xs font-bold text-sagar-navy">
                   <Anchor className="w-4 h-4 text-sky-600" />
-                  <span>Spatio-Temporal Trajectory & Environmental Layers</span>
+                  <span><Trans>Spatio-Temporal Trajectory & Environmental Layers</Trans></span>
                 </div>
                 <span className="text-[10px] text-slate-500 font-mono font-semibold">MapLibre GL 4D</span>
               </div>
@@ -183,6 +185,8 @@ export const AdvisoryPage: React.FC = () => {
                 pfzZones={pfzZones}
                 visualizationSpec={visualizationSpec}
                 routeCandidates={routeCandidates}
+                weatherForecasts={weatherForecasts}
+                marineObservations={marineObservations}
               />
             </div>
 

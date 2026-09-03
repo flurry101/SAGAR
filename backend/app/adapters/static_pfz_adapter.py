@@ -156,7 +156,7 @@ class StaticPFZAdapter(MarineDataAdapter):
         )
 
         try:
-            with httpx.Client(timeout=_TIMEOUT_S, follow_redirects=True) as client:
+            with httpx.Client(timeout=_TIMEOUT_S, follow_redirects=True, trust_env=False) as client:
                 resp = client.get(url)
                 resp.raise_for_status()
                 data = resp.json()
@@ -351,7 +351,7 @@ class StaticPFZAdapter(MarineDataAdapter):
         )
 
         try:
-            with httpx.Client(timeout=_TIMEOUT_S, follow_redirects=True) as client:
+            with httpx.Client(timeout=_TIMEOUT_S, follow_redirects=True, trust_env=False) as client:
                 chl_resp = client.get(chl_url)
                 if chl_resp.status_code != 200:
                     return None

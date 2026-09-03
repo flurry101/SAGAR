@@ -67,7 +67,8 @@ async def assess_trip(
         vessel_profile = {"vessel_id": current_user.vessel_id, "beam_width_m": 4.5}
 
     state_input = {
-        "conversation_history": initial_conversation,
+        # Only send the new user message. LangGraph's reducer and PostgresSaver will accumulate history.
+        "conversation_history": [{"role": "user", "content": request_data.message}],
         "trip_context": trip_ctx,
         "vessel_profile": vessel_profile,
         "workflow_status": "RECEIVED",
@@ -75,8 +76,12 @@ async def assess_trip(
     }
 
     try:
+        import time as _time
+        _t_start = _time.monotonic()
         config = {"configurable": {"thread_id": session_id}}
         result = await graph.ainvoke(state_input, config=config)
+        _t_end = _time.monotonic()
+        logger.info(f"[PIPELINE] Total graph.ainvoke took {_t_end - _t_start:.2f}s")
 
         status_type = "success"
         workflow_status = result.get("workflow_status", "COMPLETED")

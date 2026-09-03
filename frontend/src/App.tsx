@@ -8,16 +8,18 @@ import { OfflineBanner } from './components/layout/OfflineBanner';
 import { OceanBackground } from './components/common/OceanBackground';
 import { LandingPage } from './pages/LandingPage';
 import { TripPlannerPage } from './pages/TripPlannerPage';
+import { LiveConditionsPage } from './pages/LiveConditionsPage';
 import { AdvisoryPage } from './pages/AdvisoryPage';
 import { VesselProfilePage } from './pages/VesselProfilePage';
 import { KnowledgeChatPage } from './pages/KnowledgeChatPage';
 import { AssessmentHistoryPage } from './pages/AssessmentHistoryPage';
 import { AuthPage } from './pages/AuthPage';
 import { VoiceWidget } from './components/VoiceAssistant/VoiceWidget';
+import { SosEmergencyModal } from './components/common/SosEmergencyModal';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function App() {
-  const { currentView, setAuthenticated, setCurrentView } = useAppStore();
+  const { currentView, setAuthenticated, setCurrentView, isSosModalOpen, setSosModalOpen } = useAppStore();
 
   // ── Handle backend OAuth redirect using a one-time auth code exchange ─
   useEffect(() => {
@@ -113,6 +115,8 @@ export function App() {
         return <LandingPage />;
       case 'chat':
         return <TripPlannerPage />;
+      case 'conditions':
+        return <LiveConditionsPage />;
       case 'advisory':
         return <AdvisoryPage />;
       case 'vessel':
@@ -147,6 +151,10 @@ export function App() {
         </AnimatePresence>
       </main>
       <VoiceWidget />
+      <SosEmergencyModal
+        isOpen={isSosModalOpen}
+        onClose={() => setSosModalOpen(false)}
+      />
     </div>
   );
 }

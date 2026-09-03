@@ -1,0 +1,59 @@
+name: Auto-Translate UI Strings
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'frontend/src/**/*.{ts,tsx}'
+      - 'frontend/translate_po.py'
+  pull_request:
+    paths:
+      - 'frontend/src/**/*.{ts,tsx}'
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Required for git-auto-commit-action to be able to trigger other actions
+          # or simply to push back to the repo
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+          
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install Python dependencies
+        run: pip install deep-translator
+        
+      - name: Install Node dependencies
+        working-directory: ./frontend
+        run: npm ci --legacy-peer-deps
+        
+      - name: Extract, Translate, and Compile
+        working-directory: ./frontend
+        run: |
+          npm run extract
+          python3 translate_po.py
+          npm run compile
+          
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(i18n): auto-translate missing strings [skip ci]"
+          file_pattern: 'frontend/src/locales/**/*.po frontend/src/locales/**/*.mjs frontend/src/locales/**/*.ts'
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com

@@ -101,87 +101,93 @@ def supervisor_node(state: Dict[str, Any]) -> Dict[str, Any]:
         "error": None,
     }
 
-    history = state.get("conversation_history", [])
     trip = state.get("trip_context", {})
     vessel = state.get("vessel_profile", {})
-    user_message = ""
+    
+    # Use the context-resolved query, falling back to original history if missing
+    user_message = state.get("resolved_query", "").strip()
+    if not user_message:
+        history = state.get("conversation_history", [])
+        if history:
+            user_message = history[-1].get("content", "")
 
-    if history:
-        user_message = history[-1].get("content", "")
+    # Check for simple conversational greetings (fast path)
+    greetings = ["hello", "hi", "hey", "thanks", "thank you", "good morning", "good evening", "what can you do"]
+    msg_clean = user_message.lower().strip()
+    if msg_clean in greetings or (len(msg_clean.split()) <= 4 and any(g == msg_clean for g in greetings)):
+        task_plan = {
+            "intent": "conversational",
+            "required_capabilities": [],
+            "priority": "information",
+            "requires_safety_assessment": False,
+            "requires_route": False,
+            "requires_visualization": False,
+            "requires_report": False,
+            "clarification_required": False,
+            "reasoning_summary": "Trivial greeting detected.",
+        }
+        state["task_plan"] = task_plan
+        state["workflow_status"] = "TASK_PLANNED"
+        
+        execution["status"] = "completed"
+        execution["completed_at"] = datetime.now(timezone.utc).isoformat()
+        if "agent_executions" not in state:
+            state["agent_executions"] = []
+        state["agent_executions"].append(execution)
+        return state
 
-    # --- LLM-based intent understanding & task decomposition ---
-    task_plan = _default_task_plan(user_message)
+    from app.core.llm import get_llm
+    from app.core.llm_utils import normalize_content, extract_json, parse_natural_time
+    from langchain_core.messages import SystemMessage, HumanMessage
 
-    # Use the LLM only for trip/safety routed requests. Deterministic knowledge and
-    # visualization requests should prefer the keyword path so they do not get
-    # incorrectly escalated to a risk-first fallback by the underlying Qwen/Gemini LLM.
-    if user_message and task_plan.get("requires_safety_assessment"):
+    llm = get_llm()
+    task_plan = None
+
+    if llm:
+        system_prompt = f"""You are the ORCA Supervisor Agent.
+Your job is to analyze the user's natural language request and output a structured task plan.
+
+AVAILABLE CAPABILITIES:
+{json.dumps(APPROVED_CAPABILITIES)}
+
+INTENT TIERS:
+1. "conversational": Simple chat, greeting, thanks. (Capabilities: [])
+2. "informational": General questions (e.g. "What is SST?"). (Capabilities: ["knowledge"])
+3. "operational": Search or planning (e.g. "Find PFZ near Malpe"). (Capabilities: ["marine", "geo", "visualization"])
+4. "safety_critical": Any voyage, route, or safety assessment (e.g. "Is it safe to go fishing tomorrow?"). (Capabilities: ["geo", "weather", "marine", "risk", "visualization", "reporting"])
+
+Respond ONLY with valid JSON in this exact schema:
+```json
+{{
+  "intent": "conversational" | "informational" | "operational" | "safety_critical",
+  "required_capabilities": ["list", "of", "capabilities"],
+  "priority": "safety" | "information",
+  "requires_safety_assessment": boolean,
+  "requires_route": boolean,
+  "requires_visualization": boolean,
+  "requires_report": boolean,
+  "clarification_required": boolean,
+  "clarification_question": "string or null",
+  "reasoning_summary": "string explaining capability selection",
+  "extracted_origin": "string or null",
+  "extracted_departure_time": "string (e.g. '5 AM', 'tomorrow'). Assume IST timezone. or null",
+  "extracted_beam_width": number or null,
+  "extracted_cruising_speed_kmh": number or null,
+  "extracted_language": "en" | "hi" | "kn" | "ta" | "ml" | "or" | "gu" | "mr" | "te" | "bn"
+}}
+```"""
         try:
-            from app.core.llm import get_llm
-            from langchain_core.messages import SystemMessage, HumanMessage
-
-            llm = get_llm(temperature=0.1)
-
-            prompt = f"""You are the ORCA Supervisor Agent for a marine intelligence platform.
-
-Analyze the user's message and produce a structured task plan.
-
-APPROVED CAPABILITIES (you may ONLY select from these):
-- geo: geospatial calculations, trajectory, bounding box, geofencing
-- marine: PFZ, SST, chlorophyll, marine observations
-- weather: wind, waves, forecast, hazard alerts, cyclone, lightning
-- ocean_analytics: correlate SST + chlorophyll + PFZ for fishing opportunity
-- route: route optimization considering weather and geofences
-- risk: deterministic safety assessment (REQUIRED for any trip/navigation)
-- visualization: generate map layer specifications
-- reporting: generate structured evidence-backed report
-- knowledge: search marine knowledge base (RAG) for general questions
-- copilot: general conversational response
-
-RULES:
-1. For trip/navigation/safety questions → MUST include geo, weather, marine, risk
-2. For general knowledge questions (e.g. "What is SST?") → use knowledge only
-3. For PFZ queries → include marine, geo, visualization
-4. For weather queries → include weather, geo
-5. For route queries → include geo, marine, weather, route, risk, visualization
-
-Also extract trip details from the message if present:
-- origin: string (port/city name)
-- departure_time_iso: ISO 8601 string or null
-- language: ISO 639-1 code (en, hi, ta, te, kn, ml, mr, bn, gu, or)
-
-Return ONLY a JSON object with these keys:
-- intent: string describing what user wants
-- required_capabilities: list of capability strings
-- priority: "safety" | "information" | "planning"
-- requires_safety_assessment: boolean
-- requires_route: boolean
-- requires_visualization: boolean
-- requires_report: boolean
-- clarification_required: boolean
-- clarification_question: string or null
-- reasoning_summary: brief rationale
-- extracted_origin: string or null
-- extracted_departure_time: string or null
-- extracted_language: string (default "en")
-
-User message: {user_message}
-"""
             resp = llm.invoke([
-                SystemMessage(content="You are an intent classification and task decomposition assistant."),
-                HumanMessage(content=prompt),
+                SystemMessage(content=system_prompt),
+                HumanMessage(content=user_message)
             ])
-
-            raw = resp.content.strip().strip("```json").strip("```").strip()
-            parsed = json.loads(raw)
+            raw_text = normalize_content(resp.content)
+            parsed = extract_json(raw_text)
 
             task_plan = {
-                "intent": parsed.get("intent", "unknown"),
-                "required_capabilities": [
-                    c for c in parsed.get("required_capabilities", [])
-                    if c in APPROVED_CAPABILITIES
-                ],
-                "priority": parsed.get("priority", "information"),
+                "intent": parsed.get("intent", "safety_critical"),
+                "required_capabilities": parsed.get("required_capabilities", []),
+                "priority": parsed.get("priority", "safety"),
                 "requires_safety_assessment": parsed.get("requires_safety_assessment", False),
                 "requires_route": parsed.get("requires_route", False),
                 "requires_visualization": parsed.get("requires_visualization", False),
@@ -195,38 +201,79 @@ User message: {user_message}
             if parsed.get("extracted_origin"):
                 trip["origin"] = parsed["extracted_origin"]
             if parsed.get("extracted_departure_time"):
-                trip["departure_time_iso"] = parsed["extracted_departure_time"]
+                trip["departure_time_iso"] = parse_natural_time(parsed["extracted_departure_time"])
             if parsed.get("extracted_language"):
                 trip["language"] = parsed["extracted_language"]
+            if parsed.get("extracted_beam_width"):
+                try:
+                    vessel["beam_width_m"] = float(parsed["extracted_beam_width"])
+                except (ValueError, TypeError):
+                    pass
+            if parsed.get("extracted_cruising_speed_kmh"):
+                try:
+                    vessel["cruising_speed_kmh"] = float(parsed["extracted_cruising_speed_kmh"])
+                except (ValueError, TypeError):
+                    pass
 
         except Exception as e:
-            execution["error"] = f"Supervisor LLM failed: {e}"
-            # Fall back to default task plan
+            execution["error"] = f"LLM parsing failed: {e}. Falling back to default plan."
 
-    # --- Apply Safety Guard ---
+    # If LLM failed, fallback to keyword extraction
+    if not task_plan:
+        task_plan = _default_task_plan(user_message)
+
+    # --- Knowledge Guard ---
+    # Force knowledge intent for explicit questions to prevent them from triggering the trip pipeline
+    msg_clean_lower = user_message.lower().strip()
+    knowledge_starters = ["what is", "what are", "what does", "explain", "why", "how", "tell me", "can you explain"]
+    if any(msg_clean_lower.startswith(kw) for kw in knowledge_starters):
+        task_plan["intent"] = "informational"
+        task_plan["required_capabilities"] = ["knowledge"]
+        task_plan["requires_safety_assessment"] = False
+        task_plan["requires_route"] = False
+        task_plan["requires_visualization"] = False
+        task_plan["requires_report"] = False
+
+    # --- Enforce Safety Guard ---
     task_plan = enforce_safety_requirements(task_plan, user_message)
 
-    # --- Apply Dependency Resolver ---
+    # --- Resolve Dependencies ---
     from app.graph.routing import resolve_dependencies
     task_plan = resolve_dependencies(task_plan)
 
     # --- Check for clarification needs ---
+    task_plan["clarification_required"] = False
+    task_plan["clarification_question"] = None
+    task_plan["missing_fields"] = []
+
     if task_plan.get("requires_safety_assessment"):
         required_trip = ["origin", "departure_time_iso"]
         missing = [f for f in required_trip if not trip.get(f)]
         if not vessel.get("beam_width_m"):
             missing.append("beam_width_m")
+        if not vessel.get("cruising_speed_kmh"):
+            missing.append("cruising_speed_kmh")
 
         if missing:
+            friendly_names = {
+                "origin": "origin port",
+                "departure_time_iso": "departure time",
+                "beam_width_m": "vessel beam width (meters)",
+                "cruising_speed_kmh": "vessel cruising speed (km/h)"
+            }
+            friendly_missing = [friendly_names.get(m, m) for m in missing]
+            
             task_plan["clarification_required"] = True
             task_plan["clarification_question"] = (
                 f"I need more information to assess safety. "
-                f"Please provide: {', '.join(missing)}"
+                f"Please provide: {', '.join(friendly_missing)}"
             )
+            task_plan["missing_fields"] = [{"field": m, "reason": "Required for safety calculation"} for m in missing]
 
     # --- Update state ---
     state["task_plan"] = task_plan
     state["trip_context"] = trip
+    state["vessel_profile"] = vessel
     state["workflow_status"] = (
         "CLARIFICATION_REQUIRED" if task_plan.get("clarification_required")
         else "TASK_PLANNED"
@@ -239,7 +286,10 @@ User message: {user_message}
         "capabilities": task_plan.get("required_capabilities"),
         "safety_required": task_plan.get("requires_safety_assessment"),
     }
-    state["agent_executions"] = [execution]
+    # Ensure agent_executions list exists
+    if "agent_executions" not in state:
+        state["agent_executions"] = []
+    state["agent_executions"].append(execution)
 
     return state
 

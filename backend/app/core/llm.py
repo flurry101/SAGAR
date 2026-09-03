@@ -3,6 +3,7 @@ import logging
 from typing import List, Any
 from langchain_core.messages import SystemMessage, HumanMessage, BaseMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
+import re
 
 from app.services.model_manager import model_manager
 
@@ -10,59 +11,59 @@ logger = logging.getLogger(__name__)
 
 class QwenFallbackLLM:
     """
-    Duck-types LangChain LLM invoke() to provide Qwen 7B 4-bit fallback.
+    Wraps LangChain's ChatOllama to provide Qwen fallback.
     """
+    def __init__(self):
+        try:
+            from langchain_ollama import ChatOllama
+            import os
+            # Fallback to the model the user explicitly pulled
+            model_name = os.environ.get("OLLAMA_MODEL", "qwen3:8b")
+            self.ollama = ChatOllama(model=model_name, temperature=0.1, format="json")
+        except ImportError:
+            self.ollama = None
+
     def invoke(self, messages: List[BaseMessage]) -> Any:
-        logger.info("Executing Qwen 7B 4-bit Fallback via ModelManager.")
+        logger.info("Executing Qwen 7B Fallback via Ollama.")
         
-        # Format LangChain messages into a single prompt for Qwen
+        if self.ollama:
+            try:
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                    future = executor.submit(self.ollama.invoke, messages)
+                    return future.result(timeout=120.0)
+            except Exception as e:
+                logger.warning(f"Failed to connect to Ollama (timeout/error): {e}. Using mock fallback.")
+        else:
+            logger.warning("langchain-ollama not installed. Using mock fallback.")
+
+        # Smart mock fallback if Ollama fails (e.g. server not running)
         prompt = "\n".join([f"{msg.type}: {msg.content}" for msg in messages])
         
-        def qwen_loader(device: str):
-            logger.info(f"Loading Qwen 7B 4-bit model weights on {device}")
-            try:
-                from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
-                import torch
-                
-                # Path matches the local_dir from scripts/download_models.py
-                model_id = os.environ.get("QWEN_MODEL_PATH", os.path.join(os.path.dirname(__file__), "..", "..", "models", "qwen-7b"))
-                
-                bnb_config = None
-                if device == "cuda":
-                    bnb_config = BitsAndBytesConfig(
-                        load_in_4bit=True,
-                        bnb_4bit_compute_dtype=torch.float16,
-                        bnb_4bit_use_double_quant=True
-                    )
-                
-                # local_files_only=True guarantees no internet connection is required
-                tokenizer = AutoTokenizer.from_pretrained(model_id, local_files_only=True)
-                model = AutoModelForCausalLM.from_pretrained(
-                    model_id,
-                    quantization_config=bnb_config,
-                    device_map="auto" if device == "cuda" else "cpu",
-                    local_files_only=True
-                )
-                
-                def run_qwen(prompt_text):
-                    inputs = tokenizer(prompt_text, return_tensors="pt").to(device)
-                    outputs = model.generate(**inputs, max_new_tokens=256)
-                    return tokenizer.decode(outputs[0], skip_special_tokens=True)
-                return run_qwen
-                
-            except Exception as e:
-                logger.warning(f"Failed to load real Qwen model: {e}. Using mock fallback.")
-                return lambda p: "{\n  \"intent\": \"trip_assessment\",\n  \"required_capabilities\": [\"geo\", \"weather\", \"marine\", \"risk\"],\n  \"priority\": \"safety\",\n  \"requires_safety_assessment\": true,\n  \"requires_route\": false,\n  \"requires_visualization\": false,\n  \"requires_report\": false,\n  \"clarification_required\": false,\n  \"reasoning_summary\": \"Fallback Qwen response\",\n  \"recommendation\": \"Safe to proceed.\",\n  \"reason\": \"Fallback Qwen evaluation.\",\n  \"recommendation_text\": \"Fallback Qwen recommendation.\"\n}"
-            
-        model = model_manager.load_model("qwen-7b-4bit", qwen_loader, preferred_device="cuda")
+        from datetime import datetime, timezone
+        now_iso = datetime.now(timezone.utc).isoformat()
         
-        # Inference
-        result_text = model(prompt)
+        orig_match = re.search(r'(?i)(?:from|origin is)\s+([a-zA-Z\s]+?)(?:\s+at|,|\.|\n|$)', prompt)
+        beam_match = re.search(r'(?i)beam width.*?([\d.]+)', prompt)
         
-        # Unload Qwen from VRAM immediately after generating response (Sequential GPU strategy)
-        model_manager.unload_model("qwen-7b-4bit")
-        
-        # Duck-type the response object LangChain expects
+        ext_orig = f'"{orig_match.group(1).strip()}"' if orig_match else '"Mangalore"'
+        ext_beam = beam_match.group(1).strip() if beam_match else "4.5"
+        ext_dep = f'"{now_iso}"'
+
+        result_text = f"""{{
+  "intent": "trip_assessment",
+  "required_capabilities": ["geo", "weather", "marine", "risk"],
+  "priority": "safety",
+  "requires_safety_assessment": true,
+  "requires_route": false,
+  "requires_visualization": false,
+  "requires_report": false,
+  "clarification_required": false,
+  "reasoning_summary": "Fallback Qwen response",
+  "extracted_origin": {ext_orig},
+  "extracted_departure_time": {ext_dep},
+  "extracted_beam_width": {ext_beam}
+}}"""
         class MockResponse:
             def __init__(self, content):
                 self.content = content
@@ -81,9 +82,10 @@ class ResilientLLM:
         
         if self.api_key:
             self.primary_llm = ChatGoogleGenerativeAI(
-                model="gemini-3.6-flash",
+                model="gemini-3.1-flash-lite",
                 google_api_key=self.api_key,
-                temperature=self.temperature
+                temperature=self.temperature,
+                max_retries=0
             )
         else:
             self.primary_llm = None
@@ -93,7 +95,19 @@ class ResilientLLM:
     def invoke(self, messages: List[BaseMessage]) -> Any:
         if self.primary_llm:
             try:
-                return self.primary_llm.invoke(messages)
+                import time
+                t0 = time.monotonic()
+                # Use a concurrent future to enforce a timeout
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                    future = executor.submit(self.primary_llm.invoke, messages)
+                    result = future.result(timeout=45.0) # 45s hard timeout
+                t1 = time.monotonic()
+                logger.info(f"[LLM] Gemini API call took {t1-t0:.2f}s")
+                return result
+            except concurrent.futures.TimeoutError:
+                logger.warning(f"Primary Gemini LLM timed out after 45s. Falling back to Qwen 7B 4-bit.")
+                return self.fallback_llm.invoke(messages)
             except Exception as e:
                 logger.warning(f"Primary Gemini LLM failed: {e}. Falling back to Qwen 7B 4-bit.")
                 return self.fallback_llm.invoke(messages)

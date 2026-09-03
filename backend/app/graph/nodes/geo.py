@@ -39,7 +39,20 @@ def geo_node(state: Dict[str, Any]) -> Dict[str, Any]:
     speed_knots = speed_kmh * 0.539957
 
     # Resolve origin coords
-    origin_lat, origin_lon = geocode(origin)
+    try:
+        origin_lat, origin_lon = geocode(origin)
+    except ValueError as e:
+        state["workflow_status"] = "CLARIFICATION_REQUIRED"
+        state["errors"] = [{"node": "geo", "message": str(e)}]
+        # Tell the supervisor we need clarification on the location
+        if "task_plan" not in state:
+            state["task_plan"] = {}
+        state["task_plan"]["clarification_question"] = f"I could not recognize the location '{origin}'. Could you please provide a valid coastal port or landing center?"
+        if "missing_fields" not in state["task_plan"]:
+            state["task_plan"]["missing_fields"] = []
+        state["task_plan"]["missing_fields"].append({"field": "origin", "reason": str(e)})
+        return state
+        
     origin_name = origin
     
     # Destination

@@ -9,8 +9,10 @@ import { TripContext } from '../../types/trip';
 import { Send, Navigation, Anchor, RefreshCw, AlertCircle, ShieldAlert } from 'lucide-react';
 import { sanitizeSagarText } from '../../utils/brand';
 import { motion } from 'framer-motion';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 export const ChatInterface: React.FC = () => {
+  const { t } = useLingui();
   const {
     chatHistory,
     addChatMessage,
@@ -18,6 +20,8 @@ export const ChatInterface: React.FC = () => {
     setCurrentView,
     userVessel,
     selectedLanguage,
+    sessionId,
+    threadId,
   } = useAppStore();
 
   const [inputMessage, setInputMessage] = useState('');
@@ -31,9 +35,9 @@ export const ChatInterface: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const sampleInputs = [
-    'Leave at 5 AM from Mangalore to nearest PFZ and return by 2 PM',
-    'Planning trip from Malpe at 6 AM, 4 hours fishing, return at 4 PM',
-    'Departure 5 AM from Mangalore, return 6 PM with mechanized trawler (missing beam example)'
+    t`Leave at 5 AM from Mangalore to nearest PFZ and return by 2 PM`,
+    t`Planning trip from Malpe at 6 AM, 4 hours fishing, return at 4 PM`,
+    t`Departure 5 AM from Mangalore, return 6 PM with mechanized trawler (missing beam example)`
   ];
 
   useEffect(() => {
@@ -58,6 +62,12 @@ export const ChatInterface: React.FC = () => {
     const messageText = textToSend || inputMessage.trim();
     if (!messageText || loading) return;
 
+    if (needsClarification) {
+      handleClarificationResponse(messageText);
+      setInputMessage('');
+      return;
+    }
+
     setPendingConfirmation(null);
     setIsAssessingSteps(false);
 
@@ -69,32 +79,33 @@ export const ChatInterface: React.FC = () => {
     try {
       const response = await tripApi.assessTrip({
         message: messageText,
-        thread_id: `thread-${Date.now()}`,
-        session_id: `sess-${Date.now()}`,
+        thread_id: threadId,
+        session_id: sessionId,
         language: selectedLanguage,
-        vessel_profile: userVessel || {
-          vessel_type: 'Mechanized Trawler',
-          beam_width_m: 4.5,
-          length_m: 14.5,
-        },
+        vessel_profile: userVessel || undefined,
       });
 
       if (response.status === 'needs_clarification') {
         setNeedsClarification(true);
-        setClarificationFields(response.data?.missing_fields || []);
+        setClarificationFields(response.data?.task_plan?.missing_fields || []);
+        const question = response.data?.task_plan?.clarification_question || 'I need a few missing parameters to safely evaluate your voyage:';
         addChatMessage({
           sender: 'sagar',
-          text: 'I need a few missing parameters to safely evaluate your voyage:',
+          text: question,
           isClarification: true,
-          missingFields: response.data?.missing_fields || [],
         });
       } else if (response.status === 'insufficient_information') {
         setActiveAssessment(response);
         addChatMessage({
           sender: 'sagar',
-          text: sanitizeSagarText(response.data?.recommendation_text) || 'Unable to assess safety due to missing vessel or trip parameters.',
+          text: sanitizeSagarText(response.data?.recommendation_text) || t`Unable to assess safety due to missing vessel or trip parameters.`,
         });
         setCurrentView('advisory');
+      } else if (response.data?.workflow_status === 'KNOWLEDGE_RESPONSE') {
+        addChatMessage({
+          sender: 'sagar',
+          text: response.data?.advisory?.recommendation_text || 'This is a knowledge question. Use the ORCA Copilot for detailed answers.',
+        });
       } else if (response.status === 'success') {
         setCachedResponse(response);
         const tripContext = response.data?.trip_context || {
@@ -106,18 +117,18 @@ export const ChatInterface: React.FC = () => {
         setPendingConfirmation(tripContext);
         addChatMessage({
           sender: 'sagar',
-          text: 'I have extracted your 4D voyage schedule. Please review the departure, destination, and return timing below before beginning safety assessment.',
+          text: t`I have extracted your 4D voyage schedule. Please review the departure, destination, and return timing below before beginning safety assessment.`,
         });
       } else if (response.status === 'error') {
         addChatMessage({
           sender: 'sagar',
-          text: `Assessment error: ${response.error?.message || 'Failed to complete safety assessment.'}`,
+          text: t`Assessment error: ${response.error?.message || 'Failed to complete safety assessment.'}`,
         });
       }
     } catch (err: any) {
       addChatMessage({
         sender: 'sagar',
-        text: 'Network error encountered while connecting to SAGAR decision-support service.',
+        text: t`Network error encountered while connecting to SAGAR decision-support service.`,
       });
     } finally {
       setLoading(false);
@@ -131,11 +142,16 @@ export const ChatInterface: React.FC = () => {
 
     try {
       const response = await tripApi.continueTrip({
-        session_id: `sess-${Date.now()}`,
+        session_id: sessionId,
         message: answerText,
       });
 
-      if (response.status === 'success') {
+      if (response.data?.workflow_status === 'KNOWLEDGE_RESPONSE') {
+        addChatMessage({
+          sender: 'sagar',
+          text: response.data?.advisory?.recommendation_text || 'This is a knowledge question. Use the ORCA Copilot for detailed answers.',
+        });
+      } else if (response.status === 'success') {
         setCachedResponse(response);
         const tripContext = response.data?.trip_context || {
           origin: 'Mangalore Port',
@@ -146,13 +162,34 @@ export const ChatInterface: React.FC = () => {
         setPendingConfirmation(tripContext);
         addChatMessage({
           sender: 'sagar',
-          text: 'Missing details received. Please review your trip summary before starting safety evaluation.',
+          text: t`Missing details received. Please review your trip summary before starting safety evaluation.`,
+        });
+      } else if (response.status === 'needs_clarification') {
+        setNeedsClarification(true);
+        setClarificationFields(response.data?.task_plan?.missing_fields || []);
+        const question = response.data?.task_plan?.clarification_question || 'I need a few missing parameters to safely evaluate your voyage:';
+        addChatMessage({
+          sender: 'sagar',
+          text: question,
+          isClarification: true,
+        });
+      } else if (response.status === 'insufficient_information') {
+        setActiveAssessment(response);
+        addChatMessage({
+          sender: 'sagar',
+          text: sanitizeSagarText(response.data?.recommendation_text) || 'Unable to assess safety due to missing vessel or trip parameters.',
+        });
+        setCurrentView('advisory');
+      } else if (response.status === 'error') {
+        addChatMessage({
+          sender: 'sagar',
+          text: `Assessment error: ${response.error?.message || 'Failed to complete safety assessment.'}`,
         });
       }
     } catch (err) {
       addChatMessage({
         sender: 'sagar',
-        text: 'Failed to process clarification response.',
+        text: t`Failed to process clarification response.`,
       });
     } finally {
       setLoading(false);
@@ -167,11 +204,11 @@ export const ChatInterface: React.FC = () => {
   const handleProgressComplete = () => {
     if (cachedResponse) {
       setActiveAssessment(cachedResponse);
-      const cat = cachedResponse.data?.advisory?.advisory_category || 'Assessment complete';
+      const cat = cachedResponse.data?.advisory?.advisory_category || t`Assessment complete`;
       const text = sanitizeSagarText(cachedResponse.data?.advisory?.recommendation_text) || '';
       addChatMessage({
         sender: 'sagar',
-        text: `Analysis complete [${cat}]: ${text}`,
+        text: t`Analysis complete [${cat}]: ${text}`,
       });
       setCurrentView('advisory');
     }
@@ -182,18 +219,20 @@ export const ChatInterface: React.FC = () => {
       {/* Header Info Bar */}
       <div className="bg-white border border-sagar-border rounded-2xl p-4 mb-3 flex items-center justify-between shadow-soft-sm">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-sagar-powder text-sky-700 flex items-center justify-center font-bold shrink-0">
-            <Anchor className="w-5 h-5" />
-          </div>
+          <img
+            src="/sagar-logo.png"
+            alt="SAGAR Logo"
+            className="w-10 h-10 object-contain rounded-full shadow-soft-sm shrink-0"
+          />
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-sm sm:text-base font-bold text-sagar-navy">SAGAR Spatio-Temporal Voyage Planner</h1>
+              <h1 className="text-sm sm:text-base font-bold text-sagar-navy"><Trans>SAGAR Spatio-Temporal Voyage Planner</Trans></h1>
               <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-sagar-powder text-sky-800 border border-sky-200">
-                4D Safety Evaluation
+                <Trans>4D Safety Evaluation</Trans>
               </span>
             </div>
             <p className="text-xs text-slate-500">
-              Natural language voyage planning with vessel stability limits
+              <Trans>Natural language voyage planning with vessel stability limits</Trans>
             </p>
           </div>
         </div>
@@ -203,7 +242,7 @@ export const ChatInterface: React.FC = () => {
           className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sagar-canvasAlt hover:bg-sagar-powder text-sky-800 text-xs font-bold border border-sagar-border transition-colors touch-target"
         >
           <Navigation className="w-3.5 h-3.5" />
-          <span>Quick Sample</span>
+          <span><Trans>Quick Sample</Trans></span>
         </button>
       </div>
 
@@ -215,16 +254,16 @@ export const ChatInterface: React.FC = () => {
               <Navigation className="w-7 h-7" />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg font-bold text-sagar-navy mb-1">Plan Your Voyage Safely</h2>
+              <h2 className="text-base sm:text-lg font-bold text-sagar-navy mb-1"><Trans>Plan Your Voyage Safely</Trans></h2>
               <p className="text-xs max-w-md text-slate-600 leading-relaxed">
-                Specify your departure time, origin harbor, operational area, and expected return time. SAGAR evaluates sea state forecasts, geofencing, and capsize stability limits across every phase of your journey.
+                <Trans>Specify your departure time, origin harbor, operational area, and expected return time. SAGAR evaluates sea state forecasts, geofencing, and capsize stability limits across every phase of your journey.</Trans>
               </p>
             </div>
 
             {/* Quick Prompts */}
             <div className="w-full max-w-lg space-y-2.5 pt-2">
               <span className="text-[11px] font-extrabold text-slate-600 uppercase tracking-wider block text-left">
-                Sample Voyage Inquiries:
+                <Trans>Sample Voyage Inquiries:</Trans>
               </span>
               <div className="space-y-2">
                 {sampleInputs.map((sample, idx) => (
@@ -250,9 +289,9 @@ export const ChatInterface: React.FC = () => {
             <div className="flex items-center gap-3">
               <RefreshCw className="w-4 h-4 text-sky-600 animate-spin shrink-0" />
               <div>
-                <span className="font-bold block">SAGAR Decision Pipeline is executing...</span>
+                <span className="font-bold block"><Trans>SAGAR Decision Pipeline is executing...</Trans></span>
                 <span className="text-[11px] text-slate-500">
-                  Retrieving marine sea-state forecasts & spatial geofences
+                  <Trans>Retrieving marine sea-state forecasts & spatial geofences</Trans>
                 </span>
               </div>
             </div>
@@ -300,7 +339,7 @@ export const ChatInterface: React.FC = () => {
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Type your voyage details (e.g. Leave Mangalore 5 AM, return 2 PM)..."
+            placeholder={t`Type your voyage details (e.g. Leave Mangalore 5 AM, return 2 PM)...`}
             className="flex-1 bg-transparent px-3.5 py-2.5 text-xs sm:text-sm text-sagar-navy placeholder-slate-400 focus:outline-none"
           />
           <button
@@ -308,7 +347,7 @@ export const ChatInterface: React.FC = () => {
             disabled={!inputMessage.trim() || loading}
             className="bg-sky-600 hover:bg-sky-500 text-white font-bold px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm flex items-center gap-2 disabled:opacity-40 transition-all shadow-soft-sm shrink-0 touch-target"
           >
-            <span>Assess Voyage</span>
+            <span><Trans>Assess Voyage</Trans></span>
             <Send className="w-4 h-4" />
           </button>
         </form>

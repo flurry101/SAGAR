@@ -88,11 +88,15 @@ class Settings(BaseSettings):
         frontend_origin = self.FRONTEND_URL.strip().rstrip("/")
         if frontend_origin and frontend_origin not in origins:
             origins.insert(0, frontend_origin)
-        if not origins:
-            origins.extend([
+        if not self.is_production:
+            for local_origin in [
                 "http://localhost:5173",
                 "http://127.0.0.1:5173",
-            ])
+                "http://localhost:3000",
+                "http://127.0.0.1:3000",
+            ]:
+                if local_origin not in origins:
+                    origins.append(local_origin)
         return origins
 
     @property
@@ -119,6 +123,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(
         env_file=(
+            os.path.join(os.path.dirname(__file__), "..", ".env"),
             os.getenv("ENV_FILE", ".env"),
             "../.env",
             ".env",

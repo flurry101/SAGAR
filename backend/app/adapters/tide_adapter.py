@@ -48,7 +48,7 @@ from .base_adapter import MarineDataAdapter
 # Live API endpoint — WorldTides (free tier available)
 # ---------------------------------------------------------------------------
 _WORLDTIDES_API_URL = "https://www.worldtides.info/api/v3"
-_TIMEOUT_S = 10.0
+_TIMEOUT_S = 3.0
 _MAX_DIFF_S = 10800  # 3 hours — maximum acceptable time offset
 
 # Attempt to read API key from environment; fallback to None for Tier 3
@@ -153,7 +153,7 @@ class TideAdapter(MarineDataAdapter):
                 "key": worldtides_api_key,
             }
 
-            with httpx.Client(timeout=_TIMEOUT_S) as client:
+            with httpx.Client(timeout=_TIMEOUT_S, trust_env=False) as client:
                 response = client.get(_WORLDTIDES_API_URL, params=params)
                 response.raise_for_status()
                 data = response.json()

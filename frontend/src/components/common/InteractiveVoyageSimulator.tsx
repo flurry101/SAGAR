@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { motion } from 'framer-motion';
 import { Clock, Ship, Waves, AlertTriangle, ShieldCheck, ArrowRight, Compass, Navigation } from 'lucide-react';
 import { RippleButton } from './RippleButton';
@@ -6,9 +7,10 @@ import { useAppStore } from '../../state/appStore';
 
 export const InteractiveVoyageSimulator: React.FC = () => {
   const { setCurrentView, setScenario, setActiveAssessment } = useAppStore();
+  const { t } = useLingui();
   const [beamWidth, setBeamWidth] = useState<number>(4.5);
   const [returnHour, setReturnHour] = useState<number>(16); // 16:00 IST
-  const [vesselType, setVesselType] = useState<string>('Mechanized Trawler (4.5m)');
+  const [vesselType, setVesselType] = useState<string>(t`Mechanized Trawler (4.5m)`);
 
   // Deterministic SVAS Limit: beam / 4.0
   const svasLimit = beamWidth / 4.0;
@@ -43,13 +45,13 @@ export const InteractiveVoyageSimulator: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-base font-extrabold text-sagar-navy">Interactive 4D Voyage Risk Simulator</h3>
+              <h3 className="text-base font-extrabold text-sagar-navy"><Trans>Interactive 4D Voyage Risk Simulator</Trans></h3>
               <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-sagar-powder text-sky-800 border border-sky-200">
-                Live SVAS Engine
+                <Trans>Live SVAS Engine</Trans>
               </span>
             </div>
             <p className="text-xs text-slate-500">
-              Test how boat physical beam width and return hour determine capsize risk in real time.
+              <Trans>Test how boat physical beam width and return hour determine capsize risk in real time.</Trans>
             </p>
           </div>
         </div>
@@ -70,17 +72,17 @@ export const InteractiveVoyageSimulator: React.FC = () => {
           {isSevere ? (
             <>
               <AlertTriangle className="w-4 h-4 text-rose-700 shrink-0 animate-bounce" />
-              <span>SEVERE CAPSIZE HAZARD</span>
+              <span><Trans>SEVERE CAPSIZE HAZARD</Trans></span>
             </>
           ) : isCaution ? (
             <>
               <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
-              <span>ELEVATED SWELL CAUTION</span>
+              <span><Trans>ELEVATED SWELL CAUTION</Trans></span>
             </>
           ) : (
             <>
               <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
-              <span>CONDITIONS FAVORABLE</span>
+              <span><Trans>CONDITIONS FAVORABLE</Trans></span>
             </>
           )}
         </motion.div>
@@ -92,13 +94,13 @@ export const InteractiveVoyageSimulator: React.FC = () => {
         <div className="space-y-3">
           <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
             <Ship className="w-4 h-4 text-sky-600" />
-            <span>1. Select Boat Hull Specification:</span>
+            <span><Trans>1. Select Boat Hull Specification:</Trans></span>
           </label>
           <div className="grid grid-cols-3 gap-2">
             {[
-              { label: 'FRP Boat', beam: 2.2, desc: '2.2m beam' },
-              { label: 'Trawler', beam: 4.5, desc: '4.5m beam' },
-              { label: 'Seiner', beam: 6.0, desc: '6.0m beam' },
+              { label: t`FRP Boat`, beam: 2.2, desc: t`2.2m beam` },
+              { label: t`Trawler`, beam: 4.5, desc: t`4.5m beam` },
+              { label: t`Seiner`, beam: 6.0, desc: t`6.0m beam` },
             ].map((v) => (
               <button
                 key={v.label}
@@ -119,8 +121,8 @@ export const InteractiveVoyageSimulator: React.FC = () => {
           </div>
 
           <div className="p-3 bg-sagar-canvasAlt rounded-xl border border-sagar-borderLight flex items-center justify-between text-xs font-mono">
-            <span className="text-slate-600 font-sans font-medium">Deterministic SVAS Limit (Beam/4.0):</span>
-            <strong className="text-sky-800 font-bold text-sm">{svasLimit.toFixed(2)} meters</strong>
+            <span className="text-slate-600 font-sans font-medium"><Trans>Deterministic SVAS Limit (Beam/4.0):</Trans></span>
+            <strong className="text-sky-800 font-bold text-sm"><Trans>{svasLimit.toFixed(2)} meters</Trans></strong>
           </div>
         </div>
 
@@ -129,10 +131,10 @@ export const InteractiveVoyageSimulator: React.FC = () => {
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
               <Clock className="w-4 h-4 text-sky-600" />
-              <span>2. Adjust Expected Return Hour:</span>
+              <span><Trans>2. Adjust Expected Return Hour:</Trans></span>
             </label>
             <span className="text-xs font-mono font-extrabold px-2.5 py-0.5 rounded-full bg-sagar-powder text-sky-900 border border-sky-200">
-              {returnHour}:00 IST
+              <Trans>{returnHour}:00 IST</Trans>
             </span>
           </div>
 
@@ -147,15 +149,15 @@ export const InteractiveVoyageSimulator: React.FC = () => {
           />
 
           <div className="flex justify-between text-[11px] text-slate-500 font-mono">
-            <span>06:00 (Calm 0.8m)</span>
-            <span>12:00 (Mid-day 1.2m)</span>
-            <span className="text-rose-700 font-bold">16:00+ (Surge 2.1m)</span>
+            <span><Trans>06:00 (Calm 0.8m)</Trans></span>
+            <span><Trans>12:00 (Mid-day 1.2m)</Trans></span>
+            <span className="text-rose-700 font-bold"><Trans>16:00+ (Surge 2.1m)</Trans></span>
           </div>
 
           <div className="p-3 bg-sagar-canvasAlt rounded-xl border border-sagar-borderLight flex items-center justify-between text-xs font-mono">
-            <span className="text-slate-600 font-sans font-medium">Forecasted Sea Wave at {returnHour}:00:</span>
+            <span className="text-slate-600 font-sans font-medium"><Trans>Forecasted Sea Wave at {returnHour}:00:</Trans></span>
             <strong className={`font-bold text-sm ${isSevere ? 'text-rose-700' : 'text-sagar-navy'}`}>
-              {returnWave.toFixed(1)} meters
+              <Trans>{returnWave.toFixed(1)} meters</Trans>
             </strong>
           </div>
         </div>
@@ -184,29 +186,29 @@ export const InteractiveVoyageSimulator: React.FC = () => {
         <div className="flex-1 space-y-1">
           <div className="font-extrabold text-xs uppercase tracking-wide">
             {isSevere
-              ? 'Critical 4D Spatio-Temporal Hazard Explanation'
+              ? <Trans>Critical 4D Spatio-Temporal Hazard Explanation</Trans>
               : isCaution
-              ? 'Marginal Safety Clearance Warning'
-              : 'Safe Navigation Profile'}
+              ? <Trans>Marginal Safety Clearance Warning</Trans>
+              : <Trans>Safe Navigation Profile</Trans>}
           </div>
           <p className="text-xs leading-relaxed text-slate-800 font-medium">
             {isSevere ? (
-              <>
+              <Trans>
                 For your <strong>{vesselType}</strong>, the safe capsize limit is{' '}
                 <strong className="font-mono">{svasLimit.toFixed(2)} m</strong>. By{' '}
                 <strong>{returnHour}:00 IST</strong>, forecasted coastal wave height climbs to{' '}
                 <strong className="font-mono text-rose-700">{returnWave.toFixed(1)} m</strong>. Leaving early or returning before 12:00 PM prevents capsizing risks.
-              </>
+              </Trans>
             ) : isCaution ? (
-              <>
+              <Trans>
                 Wave heights at <strong>{returnHour}:00 IST ({returnWave.toFixed(1)} m)</strong> are close to your boat limit of{' '}
                 <strong className="font-mono">{svasLimit.toFixed(2)} m</strong>. Exercise caution during return approach.
-              </>
+              </Trans>
             ) : (
-              <>
+              <Trans>
                 Wave heights during <strong>{returnHour}:00 IST ({returnWave.toFixed(1)} m)</strong> remain comfortably under your vessel's safe limit of{' '}
                 <strong className="font-mono">{svasLimit.toFixed(2)} m</strong>.
-              </>
+              </Trans>
             )}
           </p>
         </div>
@@ -215,7 +217,7 @@ export const InteractiveVoyageSimulator: React.FC = () => {
       {/* Action Footer */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
         <span className="text-xs text-slate-500 font-medium text-center sm:text-left">
-          Ready to assess your real voyage coordinates and 4D trajectory?
+          <Trans>Ready to assess your real voyage coordinates and 4D trajectory?</Trans>
         </span>
         <RippleButton
           variant="primary"
@@ -224,7 +226,7 @@ export const InteractiveVoyageSimulator: React.FC = () => {
           iconRight={<ArrowRight className="w-4 h-4" />}
           onClick={() => setCurrentView('chat')}
         >
-          Plan My Maritime Voyage
+          <Trans>Plan My Maritime Voyage</Trans>
         </RippleButton>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/react/macro';
 import { useAppStore } from '../../state/appStore';
 import { DEMO_SCENARIOS } from '../../api/mock/scenarios';
 import { Sparkles } from 'lucide-react';
@@ -6,6 +7,11 @@ import { motion } from 'framer-motion';
 
 export const ScenarioSelector: React.FC = () => {
   const { selectedScenarioId, setScenario, setActiveAssessment } = useAppStore();
+
+  const isDev = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('dev') === 'true';
+  if (!isDev) {
+    return null;
+  }
 
   const handleSelectScenario = (id: string) => {
     setScenario(id);
@@ -15,12 +21,16 @@ export const ScenarioSelector: React.FC = () => {
     }
   };
 
+  // Scenario buttons replace real assessments with fixture data. They must not
+  // be offered when the application is configured for the live backend.
+  if (import.meta.env.VITE_USE_MOCK_API === 'false') return null;
+
   return (
     <div className="bg-sagar-canvasAlt/90 backdrop-blur-md border-y border-sagar-borderLight px-4 py-2.5 text-xs">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5">
         <div className="flex items-center gap-2 text-sky-900 font-extrabold shrink-0">
           <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-          <span>Operational Scenario Testbed:</span>
+          <span><Trans>Operational Scenario Testbed:</Trans></span>
         </div>
         <div className="flex flex-wrap items-center gap-2 max-w-full">
           {Object.values(DEMO_SCENARIOS).map((sc) => {

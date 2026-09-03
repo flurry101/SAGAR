@@ -1,11 +1,17 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { lingui } from '@lingui/vite-plugin';
 import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: ['@lingui/babel-plugin-lingui-macro'],
+      },
+    }),
+    lingui(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
@@ -36,7 +42,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           maplibre: ['maplibre-gl'],
-          vendor: ['react', 'react-dom', 'zustand', '@tanstack/react-query', 'i18next', 'react-i18next']
+          vendor: ['react', 'react-dom', 'zustand', '@tanstack/react-query', '@lingui/core', '@lingui/react']
         }
       }
     },

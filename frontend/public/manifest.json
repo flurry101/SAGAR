@@ -3,8 +3,8 @@
   "name": "SAGAR — Marine Decision-Support System",
   "icons": [
     {
-      "src": "/favicon.svg",
-      "type": "image/svg+xml",
+      "src": "/sagar-logo.png",
+      "type": "image/png",
       "sizes": "192x192 512x512"
     }
   ],

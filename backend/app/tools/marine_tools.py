@@ -22,6 +22,7 @@ from typing import Any, Dict, List, Tuple
 from app.adapters.amfitrite_hab_adapter import AmfitriteHABAdapter
 from app.adapters.sst_adapter import SSTAdapter
 from app.adapters.static_pfz_adapter import StaticPFZAdapter
+from app.adapters.chlorophyll_adapter import ChlorophyllAdapter
 
 # ---------------------------------------------------------------------------
 # Module-level adapter singletons (instantiated once per process)
@@ -31,6 +32,7 @@ from app.adapters.static_pfz_adapter import StaticPFZAdapter
 _hab_adapter = AmfitriteHABAdapter()
 _sst_adapter = SSTAdapter()
 _pfz_adapter = StaticPFZAdapter()
+_chlorophyll_adapter = ChlorophyllAdapter()
 
 # One HAB inference per ~0.1° ROI (matches Sentinel-2 search bbox scale)
 _HAB_ROI_CACHE: Dict[Tuple[float, float], Dict[str, Any]] = {}
@@ -231,96 +233,129 @@ def fetch_marine_forecast_batch(
     """
     Fetch a complete MarineObservation for every waypoint in a trajectory.
 
-    Combines SST (from SSTAdapter) and HAB detection (from AmfitriteHABAdapter).
-    HAB is evaluated once per trajectory at the fishing-phase centroid (or the
-    waypoint centroid) and reused for every waypoint — not once per waypoint.
+    Combines:
+        - SST from SSTAdapter
+        - Chlorophyll from ChlorophyllAdapter
+        - HAB from AmfitriteHABAdapter
 
-    Invoked by: Marine Agent (batch collection for the Environmental Cube)
-
-    Parameters
-    ----------
-    waypoints : List of waypoint dicts, each containing at minimum:
-        {
-            "waypoint_index": int,
-            "phase"         : str,
-            "lat"           : float,
-            "lon"           : float,
-            "eta_iso"       : str    # ISO 8601 UTC ETA
-        }
-
-    Returns
-    -------
-    List of WaypointForecast dicts (Step 07, Section 2.7):
-        {
-            "waypoint_index": int,
-            "phase"         : str,
-            "lat"           : float,
-            "lon"           : float,
-            "time_iso"      : str,
-            "marine"        : MarineObservation  -- merged observation dict
-        }
-
-    Individual waypoint errors are silently absorbed -- the observation for
-    that waypoint will have resolved=False rather than raising an exception.
+    HAB is evaluated once per trajectory at the fishing-phase centroid
+    and reused for every waypoint.
     """
+    import concurrent.futures
+    
     results: List[Dict[str, Any]] = []
 
-    hab_obs: Dict[str, Any]
+    # ---------------------------------------------------------------
+    # HAB: calculate once for the trajectory
+    # ---------------------------------------------------------------
     if waypoints:
         try:
             alat, alon, aeta = _trajectory_hab_anchor(waypoints)
             hab_obs = _cached_hab_fetch(alat, alon, aeta)
         except Exception:
-            hab_obs = {"hab_detected": None, "hab_probability": None, "provenance": None, "resolved": False}
+            hab_obs = {
+                "hab_detected": None,
+                "hab_probability": None,
+                "provenance": None,
+                "resolved": False,
+            }
     else:
-        hab_obs = {"hab_detected": None, "hab_probability": None, "provenance": None, "resolved": False}
+        hab_obs = {
+            "hab_detected": None,
+            "hab_probability": None,
+            "provenance": None,
+            "resolved": False,
+        }
 
-    for wp in waypoints:
+    def fetch_single_wp(wp):
         wp = _normalize_waypoint_contract(wp)
-        lat     = wp["lat"]
-        lon     = wp["lon"]
+
+        lat = float(wp["lat"])
+        lon = float(wp["lon"])
         eta_iso = wp.get("eta_iso") or _now_iso()
-        idx     = wp.get("waypoint_index", 0)
-        phase   = wp.get("phase", "UNKNOWN")
+        idx = wp.get("waypoint_index", 0)
+        phase = wp.get("phase", "UNKNOWN")
 
-        # Fetch each sub-observation independently so one failure doesn't
-        # block the others.
+        # -----------------------------------------------------------
+        # SST
+        # -----------------------------------------------------------
         try:
-            sst_obs = _sst_adapter.fetch_data(lat, lon, eta_iso)
+            sst_obs = _sst_adapter.fetch_data(
+                lat,
+                lon,
+                eta_iso,
+            )
         except Exception:
-            sst_obs = {"sst_celsius": None, "provenance": None}
+            sst_obs = {
+                "sst_celsius": None,
+                "provenance": None,
+                "resolved": False,
+            }
 
-        # HAB: trajectory-level result, not a per-waypoint STAC download.
-        # Provenance: prefer SST provenance (it runs a live query attempt);
-        # if both resolved, we note the primary source only.  The Risk Engine
-        # can inspect individual tool provenances separately if needed.
-        merged_provenance = sst_obs.get("provenance") or hab_obs.get("provenance")
+        # -----------------------------------------------------------
+        # CHLOROPHYLL
+        # -----------------------------------------------------------
+        try:
+            chlorophyll_obs = _chlorophyll_adapter.fetch_data(
+                lat,
+                lon,
+                eta_iso,
+            )
+        except Exception:
+            chlorophyll_obs = {
+                "chlorophyll_mg_m3": None,
+                "chlorophyll_mgm3": None,
+                "provenance": None,
+                "resolved": False,
+            }
 
+        # -----------------------------------------------------------
+        # Provenance
+        # -----------------------------------------------------------
+        merged_provenance = (
+            sst_obs.get("provenance")
+            or chlorophyll_obs.get("provenance")
+            or hab_obs.get("provenance")
+        )
+
+        # -----------------------------------------------------------
+        # Complete MarineObservation
+        # -----------------------------------------------------------
         marine_obs: Dict[str, Any] = {
-            "lat":                lat,
-            "lon":                lon,
-            "time_iso":           eta_iso,
-            "sst_celsius":        sst_obs.get("sst_celsius"),
-            # Chlorophyll is populated only by the explicit ERDDAP tool.
-            "chlorophyll_mg_m3":  None,
-            "chlorophyll_mgm3":   None,
-            "hab_detected":       hab_obs.get("hab_detected"),
-            "hab_probability":    hab_obs.get("hab_probability"),
-            "current_speed_kmh":  None,   # not sourced in M4 scope
+            "lat": lat,
+            "lon": lon,
+            "time_iso": eta_iso,
+
+            "sst_celsius": sst_obs.get("sst_celsius"),
+
+            "chlorophyll_mg_m3": chlorophyll_obs.get("chlorophyll_mg_m3"),
+            "chlorophyll_mgm3": chlorophyll_obs.get("chlorophyll_mgm3"),
+
+            "hab_detected": hab_obs.get("hab_detected"),
+            "hab_probability": hab_obs.get("hab_probability"),
+
+            "current_speed_kmh": None,
             "current_direction_deg": None,
+
             "resolved": (
-                sst_obs.get("resolved", False) or hab_obs.get("resolved", False)
+                sst_obs.get("resolved", False)
+                or chlorophyll_obs.get("resolved", False)
+                or hab_obs.get("resolved", False)
             ),
+
             "provenance": merged_provenance,
         }
 
-        results.append({
+        return {
             "waypoint_index": idx,
-            "phase":          phase,
-            "lat":            lat,
-            "lon":            lon,
-            "time_iso":       eta_iso,
-            "marine":         marine_obs,
-        })
+            "phase": phase,
+            "lat": lat,
+            "lon": lon,
+            "time_iso": eta_iso,
+            "marine": marine_obs,
+        }
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        results = list(executor.map(fetch_single_wp, waypoints))
 
     return results

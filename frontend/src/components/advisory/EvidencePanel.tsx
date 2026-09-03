@@ -3,6 +3,7 @@ import { RiskEvidence, EvidenceItem } from '../../types/risk';
 import { HazardAlert } from './HazardAlert';
 import { FileText, ChevronDown, ChevronUp, Database, ShieldCheck, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Trans } from '@lingui/react/macro';
 
 interface Props {
   riskEvidence: RiskEvidence;
@@ -29,17 +30,17 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
           </div>
           <div>
             <h3 className="text-sm sm:text-base font-bold text-sagar-navy">
-              Data Evidence & Operational Provenance ("See Why")
+              <Trans>Data Evidence & Operational Provenance ("See Why")</Trans>
             </h3>
             <p className="text-xs text-slate-500">
-              Verified dataset attribution, confidence ratings, and safety threshold triggers
+              <Trans>Verified dataset attribution, confidence ratings, and safety threshold triggers</Trans>
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-sagar-powder text-sky-800 border border-sky-200">
-            {triggersCount} Hazard Triggers
+            <Trans>{triggersCount} Hazard Triggers</Trans>
           </span>
           {isOpen ? <ChevronUp className="w-5 h-5 text-slate-500" /> : <ChevronDown className="w-5 h-5 text-slate-500" />}
         </div>
@@ -65,7 +66,7 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
                     : 'text-slate-600 hover:text-sagar-navy'
                 }`}
               >
-                Hazard Triggers ({triggersCount})
+                <Trans>Hazard Triggers ({triggersCount})</Trans>
               </button>
               {registryCount > 0 && (
                 <button
@@ -76,7 +77,7 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
                       : 'text-slate-600 hover:text-sagar-navy'
                   }`}
                 >
-                  Evidence Registry ({registryCount})
+                  <Trans>Evidence Registry ({registryCount})</Trans>
                 </button>
               )}
               <button
@@ -87,7 +88,7 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
                     : 'text-slate-600 hover:text-sagar-navy'
                 }`}
               >
-                Attribution & Tiers
+                <Trans>Attribution & Tiers</Trans>
               </button>
             </div>
 
@@ -97,7 +98,7 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
                 {triggersCount === 0 ? (
                   <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs font-medium">
                     <ShieldCheck className="w-5 h-5 text-emerald-700 shrink-0" />
-                    <span>No deterministic safety threshold violations were triggered across any leg of your trip.</span>
+                    <span><Trans>No deterministic safety threshold violations were triggered across any leg of your trip.</Trans></span>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -118,7 +119,7 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
                     className="p-4 bg-sagar-canvasAlt border border-sagar-borderLight rounded-xl text-xs space-y-2"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-sky-900 capitalize">{item.category} Agent</span>
+                      <span className="font-bold text-sky-900 capitalize">{item.category} <Trans>Agent</Trans></span>
                       <span className="text-[10px] px-2 py-0.5 rounded-full bg-white text-slate-700 border border-sagar-border font-mono font-semibold">
                         {typeof item.confidence === 'number' ? `${(item.confidence * 100).toFixed(0)}% Conf.` : item.confidence}
                       </span>
@@ -129,7 +130,7 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
                     </div>
 
                     <div className="text-[11px] text-slate-500 space-y-0.5 pt-1.5 border-t border-sagar-borderLight">
-                      <div className="truncate">Source: <strong className="text-sagar-navy font-semibold">{item.source}</strong></div>
+                      <div className="truncate"><Trans>Source: </Trans><strong className="text-sagar-navy font-semibold">{item.source}</strong></div>
                       <div className="flex items-center gap-1 text-[10px] text-slate-500 font-mono">
                         <Clock className="w-3 h-3 text-sky-600" />
                         <span>{new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} UTC</span>
@@ -145,7 +146,7 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
               <div className="space-y-3">
                 <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block flex items-center gap-1.5">
                   <Database className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Dataset Attribution & Fallback Tiers:</span>
+                  <span><Trans>Dataset Attribution & Fallback Tiers:</Trans></span>
                 </span>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -159,7 +160,7 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
                           {prov.source}
                         </span>
                         <span className="text-[10px] text-slate-500 block font-mono">
-                          Valid: {prov.validity_time ? new Date(prov.validity_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Current model cycle'}
+                          <Trans>Valid:</Trans> {prov.validity_time ? new Date(prov.validity_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : <Trans>Current model cycle</Trans>}
                         </span>
                       </div>
                       <span
@@ -171,7 +172,7 @@ export const EvidencePanel: React.FC<Props> = ({ riskEvidence, evidenceRegistry 
                             : 'bg-orange-100 text-orange-800 border-orange-300'
                         }`}
                       >
-                        {prov.fallback_tier === 1 ? 'Tier 1 Live' : prov.fallback_tier === 2 ? 'Tier 2 ML' : 'Tier 3 Ref'} • {prov.confidence}
+                        {prov.fallback_tier === 1 ? <Trans>Tier 1 Live</Trans> : prov.fallback_tier === 2 ? <Trans>Tier 2 ML</Trans> : <Trans>Tier 3 Ref</Trans>} • {prov.confidence}
                       </span>
                     </div>
                   ))}

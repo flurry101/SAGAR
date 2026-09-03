@@ -112,29 +112,63 @@ def planner_synthesize(state: OrcaState) -> OrcaState:
     category = risk.get("advisory_category", "INSUFFICIENT_INFORMATION")
     overall_risk = state.get("overall_risk_level", "UNKNOWN")
     user_lang = state.get("trip_context", {}).get("language", "en")
+    trip = state.get("trip_context", {})
+    
+    # We want to respond conversationally to the original query
+    resolved_query = state.get("resolved_query", "")
 
-    llm = get_llm()
     recommendation = f"Advisory based on {category}. Overall Risk: {overall_risk}."
     reason = "Deterministic safety rules fired."
 
-    if llm:
-        prompt = f"""
-        Synthesize a safety advisory for fishermen based on this evidence.
-        Category: {category}
-        Risk Level: {overall_risk}
-        Evidence summary: {risk.get('summary', '')}
-        
-        Provide a short recommendation text (max 2 sentences) and a reason (1 sentence).
-        Output BOTH the recommendation and reason in this language code: '{user_lang}'.
-        Return JSON with keys: 'recommendation_text', 'reason'.
-        """
-        try:
-            resp = llm.invoke([SystemMessage(content="You are a marine safety synthesis assistant."), HumanMessage(content=prompt)])
-            extracted = json.loads(resp.content.strip().strip('```json').strip('```'))
+    try:
+        from app.core.llm import get_llm
+        from app.core.llm_utils import normalize_content, extract_json
+        from langchain_core.messages import SystemMessage, HumanMessage
+
+        llm = get_llm()
+        if llm:
+            prompt = f"""You are ORCA, an intelligent conversational marine assistant.
+The deterministic agents have finished their execution. Your job is to generate the final natural-language response to the user.
+
+USER REQUEST: {resolved_query}
+TRIP CONTEXT: {json.dumps(trip)}
+
+DETERMINISTIC RESULTS (DO NOT INVENT OR CONTRADICT THESE):
+- Risk Level: {overall_risk}
+- Risk Category: {category}
+- Evidence Summary: {risk.get('summary', '')}
+- Weather: {len(state.get('weather_observations', []))} observations
+- Marine: {len(state.get('marine_observations', []))} observations
+- PFZ: {len(state.get('pfz_data', []))} zones
+
+RULES:
+1. Write a natural, ChatGPT-style response directly to the user addressing their request.
+2. ALWAYS cite the Risk Level and Evidence Summary if safety was assessed. Do NOT calculate safety yourself; explain the deterministic results.
+3. Be concise and professional.
+4. Output BOTH the recommendation text and a brief reason.
+5. Translate your response to the user's preferred language code: '{user_lang}'.
+
+Return ONLY valid JSON with keys:
+```json
+{{
+  "recommendation_text": "Your natural language response...",
+  "reason": "Brief summary of the deterministic reason"
+}}
+```"""
+            resp = llm.invoke([
+                SystemMessage(content="You are the ORCA Marine Synthesis Assistant. Output only valid JSON."), 
+                HumanMessage(content=prompt)
+            ])
+            raw_text = normalize_content(resp.content)
+            extracted = extract_json(raw_text)
+            
             recommendation = extracted.get("recommendation_text", recommendation)
             reason = extracted.get("reason", reason)
-        except Exception as e:
-            execution["error"] = f"LLM synthesis failed: {e}"
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning(f"LLM synthesis failed: {e}")
+        execution["error"] = f"LLM synthesis failed: {e}"
 
     state["advisory"] = {
         "advisory_category": category,
@@ -155,5 +189,7 @@ def planner_synthesize(state: OrcaState) -> OrcaState:
     execution["completed_at"] = datetime.now(timezone.utc).isoformat()
     execution["output_data"] = {"advisory_category": category}
 
-    state["agent_executions"] = [execution]
+    if "agent_executions" not in state:
+        state["agent_executions"] = []
+    state["agent_executions"].append(execution)
     return state

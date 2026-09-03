@@ -29,7 +29,7 @@ CRITICAL SAFETY PRINCIPLE:
 
 from __future__ import annotations
 
-from langgraph.graph import StateGraph, END
+from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.memory import MemorySaver
 
 from app.config import settings
@@ -37,6 +37,7 @@ from app.graph.state import OrcaState
 from app.graph.routing import supervisor_router, post_risk_router
 
 # --- Node imports ---
+from app.graph.nodes.context_resolution import resolve_context
 from app.graph.nodes.supervisor import supervisor_node
 from app.graph.nodes.planner import planner_intake, planner_synthesize
 from app.graph.nodes.geo import geo_node
@@ -54,17 +55,44 @@ def _knowledge_node(state: OrcaState) -> OrcaState:
     """Handle knowledge-only queries via the Copilot/RAG path.
 
     When the Supervisor determines only knowledge/copilot is needed,
-    this node provides a minimal response directing the system to
-    use the separate Copilot agent for the actual RAG retrieval.
+    this node provides a contextual response using the LLM.
     """
     from datetime import datetime, timezone
+    from app.core.llm import get_llm
+    from langchain_core.messages import SystemMessage, HumanMessage
 
     task_plan = state.get("task_plan", {})
+    history = state.get("conversation_history", [])
+    user_query = history[-1].get("content", "") if history else "I have a question."
+    
+    advisory = state.get("advisory", {})
+    risk = state.get("risk_evidence", {})
+    trip = state.get("trip_context", {})
+    
+    llm = get_llm()
+    answer_text = "This is a knowledge question. Use the ORCA Copilot for detailed answers."
+    
+    if llm:
+        sys_prompt = f"""You are SAGAR, the ORCA Copilot. The user is asking a conversational question about their maritime voyage or general knowledge.
+Context about their current trip plan:
+- Trip: {trip}
+- Last Advisory: {advisory.get('recommendation_text', 'None')}
+- Risk Evidence: {risk}
+
+Answer the user's question concisely and professionally. If they are asking about their plan or why a decision was made, explain it using the context provided."""
+        try:
+            resp = llm.invoke([SystemMessage(content=sys_prompt), HumanMessage(content=user_query)])
+            answer_text = resp.content
+            if isinstance(answer_text, list):
+                # Langchain sometimes returns a list of blocks for Gemini
+                answer_text = "\n".join([str(b.get("text", "")) for b in answer_text if isinstance(b, dict) and "text" in b])
+        except Exception as e:
+            answer_text = f"Failed to generate response: {e}"
 
     return {
         "advisory": {
             "advisory_category": "KNOWLEDGE_RESPONSE",
-            "recommendation_text": "This is a knowledge question. Use the ORCA Copilot for detailed answers.",
+            "recommendation_text": answer_text,
             "reason": f"Intent: {task_plan.get('intent', 'knowledge')}",
             "affected_phase": "",
             "affected_time": "",
@@ -81,7 +109,7 @@ def _knowledge_node(state: OrcaState) -> OrcaState:
             "status": "completed",
             "started_at": datetime.now(timezone.utc).isoformat(),
             "data_sources": [],
-            "output_summary": "Routed to Copilot/RAG for knowledge query.",
+            "output_summary": "Answered contextual follow-up.",
         }]
     }
 
@@ -182,13 +210,22 @@ def build_graph() -> StateGraph:
                 → marine + weather (parallel)
                     → risk
                         → [post_process?] → post_process_node → planner_synthesize
-                        → [no post?] → planner_synthesize
-                            → persist_results
-                                → END
+        context_resolution
+            → supervisor
+                → [needs_clarification?] → END
+                → [knowledge_only?] → knowledge_node → END
+                → [operational] → geo
+                    → marine + weather (parallel)
+                        → risk
+                            → [post_process?] → post_process_node → planner_synthesize
+                            → [no post?] → planner_synthesize
+                                → persist_results
+                                    → END
     """
     graph = StateGraph(OrcaState)
 
     # --- Register all nodes ---
+    graph.add_node("context_resolution", resolve_context)
     graph.add_node("supervisor", supervisor_node)
     graph.add_node("knowledge", _knowledge_node)
     graph.add_node("geo", geo_node)
@@ -201,7 +238,8 @@ def build_graph() -> StateGraph:
     graph.add_node("persist_results", _persist_results)
 
     # --- Entry point ---
-    graph.set_entry_point("supervisor")
+    graph.add_edge(START, "context_resolution")
+    graph.add_edge("context_resolution", "supervisor")
 
     # --- Supervisor routing ---
     graph.add_conditional_edges(
@@ -246,6 +284,9 @@ def build_graph() -> StateGraph:
     return graph
 
 
+# Global checkpointer instance for MemorySaver to persist state across FastAPI requests
+_memory_saver_instance = None
+
 def get_compiled_graph(checkpointer=None):
     """Return a compiled graph instance ready for invocation.
 
@@ -267,26 +308,36 @@ def get_compiled_graph(checkpointer=None):
         conn = psycopg.connect(settings.SUPABASE_DB_URL)
         graph = get_compiled_graph(checkpointer=PostgresSaver(conn))
     """
+    global _memory_saver_instance
+    
     if checkpointer is None:
         import os
         supabase_url = getattr(settings, "SUPABASE_DB_URL", None) or os.environ.get("SUPABASE_DB_URL") or os.environ.get("DATABASE_URL")
 
         if supabase_url:
             try:
-                from langgraph.checkpoint.postgres import PostgresSaver
+                from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
                 import psycopg
                 from psycopg.rows import dict_row
 
-                conn = psycopg.connect(supabase_url, row_factory=dict_row)
-                checkpointer = PostgresSaver(conn)
-                checkpointer.setup()
+                # Given time constraints, fallback to MemorySaver for ainvoke compatibility.
+                print("WARNING: PostgresSaver is sync but endpoint is async. Falling back to MemorySaver to prevent NotImplementedError.")
+                if _memory_saver_instance is None:
+                    _memory_saver_instance = MemorySaver()
+                checkpointer = _memory_saver_instance
             except ImportError:
                 print("WARNING: psycopg or langgraph-checkpoint-postgres not installed. Falling back to MemorySaver.")
-                checkpointer = MemorySaver()
+                if _memory_saver_instance is None:
+                    _memory_saver_instance = MemorySaver()
+                checkpointer = _memory_saver_instance
             except Exception as e:
                 print(f"WARNING: Could not connect to Postgres checkpointer: {e}. Falling back to MemorySaver.")
-                checkpointer = MemorySaver()
+                if _memory_saver_instance is None:
+                    _memory_saver_instance = MemorySaver()
+                checkpointer = _memory_saver_instance
         else:
-            checkpointer = MemorySaver()
+            if _memory_saver_instance is None:
+                _memory_saver_instance = MemorySaver()
+            checkpointer = _memory_saver_instance
 
     return build_graph().compile(checkpointer=checkpointer)

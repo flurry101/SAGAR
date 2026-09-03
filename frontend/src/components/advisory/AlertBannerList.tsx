@@ -2,17 +2,19 @@ import React from 'react';
 import { AlertItem } from '../../types/risk';
 import { ShieldAlert, Waves, Wind, Eye, CloudLightning } from 'lucide-react';
 import { sanitizeSagarText } from '../../utils/brand';
+import { Trans, useLingui } from '@lingui/react/macro';
 
 interface Props {
   alerts?: AlertItem[];
 }
 
 export const AlertBannerList: React.FC<Props> = ({ alerts = [] }) => {
+  const { t } = useLingui();
   if (!alerts || alerts.length === 0) {
     return (
       <div className="flex items-center gap-2 p-3.5 bg-white border border-sagar-border rounded-xl text-xs text-slate-700 shadow-soft-sm">
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-        <span>No active extreme weather or maritime hazard alerts for this operational window.</span>
+        <span><Trans>No active extreme weather or maritime hazard alerts for this operational window.</Trans></span>
       </div>
     );
   }
@@ -39,9 +41,9 @@ export const AlertBannerList: React.FC<Props> = ({ alerts = [] }) => {
       <div className="flex items-center justify-between text-xs font-bold text-sagar-navy">
         <span className="flex items-center gap-1.5">
           <ShieldAlert className="w-4 h-4 text-amber-600" />
-          <span>Active Hazard Alerts ({alerts.length})</span>
+          <span><Trans>Active Hazard Alerts ({alerts.length})</Trans></span>
         </span>
-        <span className="text-[10px] text-slate-500 font-mono">Standard Maritime Thresholds</span>
+        <span className="text-[10px] text-slate-500 font-mono"><Trans>Standard Maritime Thresholds</Trans></span>
       </div>
 
       <div className="space-y-2">
@@ -72,7 +74,7 @@ export const AlertBannerList: React.FC<Props> = ({ alerts = [] }) => {
                         : 'bg-amber-100 text-amber-900 border-amber-300'
                     }`}
                   >
-                    {isSevere ? 'SEVERE HAZARD' : 'WARNING'}
+                    {isSevere ? t`SEVERE HAZARD` : t`WARNING`}
                   </span>
                 </div>
 
@@ -84,12 +86,12 @@ export const AlertBannerList: React.FC<Props> = ({ alerts = [] }) => {
                   <div className="flex items-center gap-4 text-[11px] pt-1 font-mono text-slate-700">
                     {alert.actual_value !== undefined && (
                       <span>
-                        Forecast: <strong className="text-sagar-navy">{alert.actual_value}</strong>
+                        <Trans>Forecast: </Trans><strong className="text-sagar-navy">{alert.actual_value}</strong>
                       </span>
                     )}
                     {alert.threshold !== undefined && (
                       <span>
-                        Safe Limit: <strong className="text-sagar-navy">{alert.threshold}</strong>
+                        <Trans>Safe Limit: </Trans><strong className="text-sagar-navy">{alert.threshold}</strong>
                       </span>
                     )}
                   </div>

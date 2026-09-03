@@ -13,7 +13,7 @@
         "lon_max": 86.0
       },
       "valid_from_offset_hours": -1,
-      "valid_until_offset_hours": 48,
+      "valid_until_offset_hours": 72,
       "source": "Hand-built demo sample (NOT official IMD/INCOIS)",
       "cyclone_active": true
     }

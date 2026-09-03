@@ -128,8 +128,7 @@ def fetch_hazard_alerts(
     and time window.
 
     Invoked by: Weather Agent
-    Adapter: StaticHazardAdapter (always Tier 3 for MVP)
-
+Adapter: StaticHazardAdapter (Tier 1 GDACS -> Tier 3 static fallback)
     Parameters
     ----------
     bbox        : {"lat_min", "lat_max", "lon_min", "lon_max"}
@@ -208,9 +207,9 @@ def fetch_weather_forecast_batch(
     that waypoint will have resolved=False and status="unresolvable" rather
     than raising an exception that aborts the entire batch.
     """
-    results: List[Dict[str, Any]] = []
+    import concurrent.futures
 
-    for wp in waypoints:
+    def fetch_single_wp(wp):
         wp = _normalize_waypoint_contract(wp)
         lat       = wp["lat"]
         lon       = wp["lon"]
@@ -238,13 +237,16 @@ def fetch_weather_forecast_batch(
                 },
             }
 
-        results.append({
+        return {
             "waypoint_index": idx,
             "phase":          phase,
             "lat":            lat,
             "lon":            lon,
             "time_iso":       eta_iso,
             "weather":        obs,
-        })
+        }
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        results = list(executor.map(fetch_single_wp, waypoints))
 
     return results
