@@ -56,13 +56,37 @@ def geo_node(state: Dict[str, Any]) -> Dict[str, Any]:
     origin_name = origin
     
     # Destination
+    destination_name_input = trip_context.get("destination_name")
+    
     if destination_lat and destination_lon:
         dest_lat, dest_lon = destination_lat, destination_lon
-        destination_name = "Custom Destination"
+        destination_name = destination_name_input or "Custom Destination"
+    elif destination_name_input:
+        try:
+            dest_lat, dest_lon = geocode(destination_name_input)
+            destination_name = destination_name_input
+        except ValueError:
+            state["workflow_status"] = "CLARIFICATION_REQUIRED"
+            state["errors"] = [{"node": "geo", "message": f"Could not geocode destination '{destination_name_input}'"}]
+            if "task_plan" not in state: state["task_plan"] = {}
+            state["task_plan"]["clarification_question"] = f"I could not locate your destination '{destination_name_input}'. Could you clarify?"
+            if "missing_fields" not in state["task_plan"]: state["task_plan"]["missing_fields"] = []
+            state["task_plan"]["missing_fields"].append({"field": "destination_name", "reason": "Geocoding failed"})
+            return state
     else:
-        # Fallback to Mangalore if unspecified for demo purposes
-        dest_lat, dest_lon = geocode("Mangalore")
-        destination_name = "Mangalore"
+        # User requested a trip but gave no destination. Do NOT default to PFZ.
+        state["workflow_status"] = "CLARIFICATION_REQUIRED"
+        state["errors"] = [{"node": "geo", "message": "Missing destination."}]
+        if "task_plan" not in state: state["task_plan"] = {}
+        state["task_plan"]["clarification_question"] = "Where would you like to go?"
+        if "missing_fields" not in state["task_plan"]: state["task_plan"]["missing_fields"] = []
+        state["task_plan"]["missing_fields"].append({"field": "destination_name", "reason": "Not provided"})
+        return state
+
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info(f"[LOCATION_RESOLUTION] origin={origin_name} destination={destination_name}")
+    logger.info(f"[ROUTE_INPUT] origin={origin_name} destination={destination_name}")
 
     trajectory = calculate_trajectory(
         origin_lat=origin_lat,

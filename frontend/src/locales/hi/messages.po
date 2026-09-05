@@ -15,367 +15,464 @@ msgstr ""
 
 #: src/components/conditions/MarineCard.tsx:69
 msgid "(HAB DETECTED)"
-msgstr ""
+msgstr "(हानिकारक शैवाल प्रस्फुटन का पता चला)"
 
 #: src/components/conditions/MarineCard.tsx:69
 msgid "(Low)"
-msgstr ""
+msgstr "(निम्न)"
+
+#. placeholder {0}: failed.length
+#: src/pages/LiveConditionsPage.tsx:88
+msgid "{0} adapter request(s) failed. The remaining results are shown."
+msgstr "{0} एडेप्टर अनुरोध विफल। शेष परिणाम दिखाए गए हैं।"
+
+#. placeholder {0}: pfzZones.length
+#: src/components/map/TrajectoryMap.tsx:779
+msgid "{0} found"
+msgstr "{0} मिला"
 
 #. placeholder {0}: trajectory.total_distance_km
-#: src/components/advisory/TripTimeline.tsx:80
+#: src/components/advisory/TripTimeline.tsx:81
 msgid "{0} km voyage"
-msgstr ""
+msgstr "{0} किमी की यात्रा"
 
 #. placeholder {0}: returnWave.toFixed(1)
 #. placeholder {0}: svasLimit.toFixed(2)
-#: src/components/common/InteractiveVoyageSimulator.tsx:125
-#: src/components/common/InteractiveVoyageSimulator.tsx:160
+#: src/components/common/InteractiveVoyageSimulator.tsx:152
+#: src/components/common/InteractiveVoyageSimulator.tsx:218
 msgid "{0} meters"
-msgstr ""
+msgstr "{0} मीटर"
 
 #. placeholder {0}: routeCandidates.length
 #: src/components/advisory/RouteComparisonCard.tsx:29
 msgid "{0} Scored Trajectories"
-msgstr ""
+msgstr "{0} स्कोर किए गए प्रक्षेपवक्र"
 
 #. placeholder {0}: pfzZones.length
 #: src/components/conditions/PFZSelector.tsx:39
 msgid "{0} Zones Available"
-msgstr ""
+msgstr "{0} क्षेत्र उपलब्ध हैं"
 
 #. placeholder {0}: ruleResults.filter((r) => r.status === 'PASSED').length
 #. placeholder {1}: ruleResults.length
 #: src/components/advisory/RuleResultsPanel.tsx:24
 msgid "{0}/{1} Rules Passed"
-msgstr ""
+msgstr "{0}/{1} नियम पारित"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:137
+#: src/components/common/InteractiveVoyageSimulator.tsx:167
+msgid "{departureHour}:00 IST"
+msgstr "{departureHour}:00 IST"
+
+#: src/pages/LiveConditionsPage.tsx:31
+msgid "{label}"
+msgstr "{label}"
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:193
 msgid "{returnHour}:00 IST"
-msgstr ""
+msgstr "{returnHour}:00 IST"
 
 #: src/components/advisory/EvidencePanel.tsx:43
 msgid "{triggersCount} Hazard Triggers"
-msgstr ""
+msgstr "{triggersCount} खतरा ट्रिगर"
 
-#: src/pages/KnowledgeChatPage.tsx:108
+#: src/pages/KnowledgeChatPage.tsx:109
 msgid "<0>Note:</0> This knowledge assistant answers domain questions. To evaluate safety for a specific planned voyage, use the <1>Trip Planner</1>."
-msgstr ""
+msgstr "<0>नोट:</0> यह ज्ञान सहायक डोमेन प्रश्नों के उत्तर देता है। एक विशिष्ट नियोजित यात्रा के लिए सुरक्षा का मूल्यांकन करने के लिए, <1>ट्रिप प्लानर</1> का उपयोग करें।"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:152
-msgid "06:00 (Calm 0.8m)"
-msgstr ""
-
-#: src/components/common/InteractiveVoyageSimulator.tsx:97
+#: src/components/common/InteractiveVoyageSimulator.tsx:124
 msgid "1. Select Boat Hull Specification:"
-msgstr ""
+msgstr "1. नाव हल विशिष्टता का चयन करें:"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:153
-msgid "12:00 (Mid-day 1.2m)"
-msgstr ""
+#: src/components/common/InteractiveVoyageSimulator.tsx:164
+msgid "2. Departure Time:"
+msgstr "2. प्रस्थान का समय:"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:154
-msgid "16:00+ (Surge 2.1m)"
-msgstr ""
-
-#: src/components/common/InteractiveVoyageSimulator.tsx:134
-msgid "2. Adjust Expected Return Hour:"
-msgstr ""
-
-#: src/components/common/InteractiveVoyageSimulator.tsx:101
+#: src/components/common/InteractiveVoyageSimulator.tsx:128
 msgid "2.2m beam"
-msgstr ""
+msgstr "2.2 मी बीम"
 
-#: src/components/common/ParallaxOceanHero.tsx:29
+#: src/components/common/LanguageSelector.tsx:88
+msgid "22 Indian Official Languages & Coastal Ports"
+msgstr "22 भारतीय आधिकारिक भाषाएं और तटीय बंदरगाह"
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:190
+msgid "3. Expected Return:"
+msgstr "3. अपेक्षित वापसी:"
+
+#: src/components/common/ParallaxOceanHero.tsx:30
 msgid "30km Corridor"
-msgstr ""
+msgstr "30 किमी कॉरिडोर"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:102
+#: src/components/common/InteractiveVoyageSimulator.tsx:129
 msgid "4.5m beam"
-msgstr ""
+msgstr "4.5 मी बीम"
 
-#: src/components/common/ParallaxOceanHero.tsx:115
+#: src/components/common/ParallaxOceanHero.tsx:116
 msgid "4D Coastal Grids"
-msgstr ""
+msgstr "4D तटीय ग्रिड"
 
-#: src/components/map/TrajectoryMap.tsx:751
+#: src/components/map/TrajectoryMap.tsx:752
 msgid "4D Marine Safety & Trajectory Map"
-msgstr ""
+msgstr "4D समुद्री सुरक्षा और प्रक्षेपवक्र मानचित्र"
 
-#: src/components/layout/Header.tsx:57
+#: src/components/layout/Header.tsx:59
 msgid "4D Marine Voyage Safety System"
-msgstr ""
+msgstr "4D समुद्री यात्रा सुरक्षा प्रणाली"
 
-#: src/components/chat/ChatInterface.tsx:231
+#: src/components/chat/ChatInterface.tsx:252
 msgid "4D Safety Evaluation"
-msgstr ""
+msgstr "4D सुरक्षा मूल्यांकन"
 
 #: src/pages/LandingPage.tsx:201
 msgid "4D Spatio-Temporal Matching"
-msgstr ""
+msgstr "4D स्थानिक-लौकिक मिलान"
 
-#: src/components/advisory/TripTimeline.tsx:74
+#: src/components/advisory/TripTimeline.tsx:75
 msgid "4D Voyage Journey Timeline"
-msgstr ""
+msgstr "4D यात्रा समयरेखा"
 
-#: src/components/trip/TripConfirmation.tsx:65
+#: src/components/trip/TripConfirmation.tsx:66
 msgid "4D Voyage Plan Summary"
-msgstr ""
+msgstr "4D यात्रा योजना सारांश"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:103
+#: src/components/common/InteractiveVoyageSimulator.tsx:130
 msgid "6.0m beam"
-msgstr ""
+msgstr "6.0 मी बीम"
 
 #: src/pages/LandingPage.tsx:221
 msgid "A 1.8m wave is safe for a 30m steel trawler but dangerous for a 5m motorized canoe. SAGAR computes physical capsize limits tailored to your boat's beam width:"
-msgstr ""
+msgstr "1.8 मीटर की लहर 30 मीटर के स्टील ट्रॉलर के लिए सुरक्षित है, लेकिन 5 मीटर की मोटरयुक्त डोंगी के लिए खतरनाक है। सागर आपकी नाव की बीम की चौड़ाई के अनुरूप भौतिक कैपसाइज सीमा की गणना करता है:"
 
-#. placeholder {0}: alerts.length
-#: src/components/advisory/AlertBannerList.tsx:44
+#: src/components/common/SosEmergencyModal.tsx:117
+msgid "Acquiring live GPS fix..."
+msgstr "लाइव जीपीएस फिक्स प्राप्त कर रहा है..."
+
+#. placeholder {0}: uniqueAlerts.length
+#: src/components/advisory/AlertBannerList.tsx:49
 msgid "Active Hazard Alerts ({0})"
-msgstr ""
+msgstr "सक्रिय खतरा अलर्ट ({0})"
 
 #: src/components/advisory/RouteComparisonCard.tsx:112
 msgid "Active on Map"
-msgstr ""
+msgstr "मानचित्र पर सक्रिय"
 
-#: src/components/common/ParallaxOceanHero.tsx:30
+#: src/components/common/ParallaxOceanHero.tsx:31
 msgid "Active PFZ"
-msgstr ""
+msgstr "सक्रिय PFZ"
 
-#: src/components/layout/Header.tsx:17
+#: src/components/layout/Header.tsx:19
 msgid "Advisory"
-msgstr ""
+msgstr "परामर्श"
 
-#: src/components/layout/Header.tsx:17
+#: src/components/layout/Header.tsx:19
 msgid "Advisory Dashboard"
 msgstr "परामर्श डैशबोर्ड"
 
 #. placeholder {0}: advisory.affected_phase
 #: src/components/advisory/AdvisoryCard.tsx:23
 msgid "Affected: {0}"
-msgstr ""
+msgstr "प्रभावित: {0}"
 
-#: src/components/common/ParallaxOceanHero.tsx:205
+#: src/components/common/ParallaxOceanHero.tsx:206
 msgid "Afternoon wave surge exceeds trawler stability beam limit (1.1m)"
-msgstr ""
+msgstr "दोपहर की लहरों का उछाल ट्रॉलर स्थिरता बीम सीमा (1.1 मी) से अधिक है"
 
 #: src/components/advisory/EvidencePanel.tsx:122
 msgid "Agent"
-msgstr ""
+msgstr "एजेंट"
 
-#: src/components/common/ParallaxOceanHero.tsx:185
+#: src/components/common/ParallaxOceanHero.tsx:186
 msgid "AGGREGATION ACTIVE"
-msgstr ""
+msgstr "एकत्रीकरण सक्रिय"
 
-#: src/pages/AuthPage.tsx:179
+#: src/components/common/LanguageSelector.tsx:122
+msgid "All 22 Languages"
+msgstr "सभी 22 भाषाएँ"
+
+#: src/pages/AuthPage.tsx:188
 msgid "Already have an account? Sign in"
-msgstr ""
+msgstr "क्या आपके पास पहले से खाता है? साइन इन करें"
 
 #. placeholder {0}: c.route_id
-#: src/components/map/TrajectoryMap.tsx:331
+#: src/components/map/TrajectoryMap.tsx:332
 msgid "Alternative Route ({0})"
-msgstr ""
+msgstr "वैकल्पिक मार्ग ({0})"
 
-#: src/components/chat/ChatInterface.tsx:211
+#: src/components/chat/ChatInterface.tsx:223
 msgid "Analysis complete [{cat}]: {text}"
+msgstr "विश्लेषण पूरा हुआ [{cat}]: {text}"
+
+#: src/components/trip/AssessmentProgress.tsx:25
+msgid "Applying deterministic SVAS vessel stability limits"
 msgstr ""
 
-#: src/pages/KnowledgeChatPage.tsx:208
+#: src/pages/KnowledgeChatPage.tsx:209
 msgid "Ask"
-msgstr ""
+msgstr "पूछें"
 
-#: src/components/trip/TripConfirmation.tsx:199
+#: src/components/trip/TripConfirmation.tsx:200
 msgid "Assess My Trip"
-msgstr ""
+msgstr "मेरी यात्रा का मूल्यांकन करें"
 
-#: src/components/chat/ChatInterface.tsx:350
+#: src/components/chat/ChatInterface.tsx:371
 msgid "Assess Voyage"
+msgstr "यात्रा का मूल्यांकन करें"
+
+#: src/components/trip/AssessmentProgress.tsx:25
+msgid "Assessing safety"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:207
+#: src/components/chat/ChatInterface.tsx:219
 msgid "Assessment complete"
-msgstr ""
+msgstr "मूल्यांकन पूरा हुआ"
 
 #. placeholder {0}: response.error?.message || 'Failed to complete safety assessment.'
-#: src/components/chat/ChatInterface.tsx:125
+#: src/components/chat/ChatInterface.tsx:137
+#: src/components/chat/ChatInterface.tsx:198
 msgid "Assessment error: {0}"
-msgstr ""
+msgstr "मूल्यांकन त्रुटि: {0}"
 
 #: src/components/advisory/EvidencePanel.tsx:91
 msgid "Attribution & Tiers"
-msgstr ""
+msgstr "एट्रिब्यूशन और टियर"
 
-#: src/pages/AssessmentHistoryPage.tsx:64
+#: src/pages/AssessmentHistoryPage.tsx:65
 msgid "Audit log of previous voyage safety evaluations and advisory outputs"
-msgstr ""
+msgstr "पिछली यात्रा सुरक्षा मूल्यांकन और सलाहकार आउटपुट का ऑडिट लॉग"
 
-#: src/pages/AdvisoryPage.tsx:96
+#: src/pages/AdvisoryPage.tsx:97
 msgid "Back to Trip Planner"
-msgstr ""
+msgstr "ट्रिप प्लानर पर वापस जाएं"
 
-#: src/components/vessel/VesselForm.tsx:171
+#: src/components/vessel/VesselForm.tsx:172
 msgid "Base Port / Harbor"
-msgstr ""
+msgstr "बेस पोर्ट / हार्बर"
 
-#: src/components/profile/OperatorProfileForm.tsx:193
+#: src/components/profile/OperatorProfileForm.tsx:194
 msgid "Base Port / Home Harbor"
-msgstr ""
+msgstr "बेस पोर्ट / होम हार्बर"
 
-#: src/components/trip/TripConfirmation.tsx:171
+#: src/components/trip/TripConfirmation.tsx:172
 msgid "beam"
-msgstr ""
+msgstr "बीम"
 
-#: src/components/trip/TripConfirmation.tsx:166
+#: src/components/trip/TripConfirmation.tsx:167
 msgid "Beam (m)"
-msgstr ""
+msgstr "बीम (मी)"
 
-#: src/components/vessel/VesselForm.tsx:128
+#: src/components/common/ParallaxOceanHero.tsx:120
+msgid "Beam / 4.0 SVAS"
+msgstr "बीम / 4.0 SVAS"
+
+#: src/components/vessel/VesselForm.tsx:129
 msgid "Beam Width (meters)"
-msgstr ""
+msgstr "बीम की चौड़ाई (मीटर)"
 
-#: src/components/advisory/ModificationModal.tsx:87
+#: src/components/advisory/ModificationModal.tsx:88
 msgid "Beat afternoon wave surge"
-msgstr ""
+msgstr "दोपहर की लहर के उछाल से बचें"
 
 #: src/components/advisory/HazardAlert.tsx:42
 msgid "Boat Safety Limit"
-msgstr ""
+msgstr "नाव सुरक्षा सीमा"
 
 #: src/components/advisory/RouteComparisonCard.tsx:99
 msgid "Boundary Violation"
-msgstr ""
+msgstr "सीमा उल्लंघन"
+
+#: src/components/common/SosEmergencyModal.tsx:100
+msgid "Broadcasting geo-tagged distress packet to Indian Coast Guard Maritime Rescue Co-ordination Centre (MRCC)."
+msgstr "भारतीय तटरक्षक समुद्री बचाव समन्वय केंद्र (MRCC) को जियो-टैग किया गया डिस्ट्रेस पैकेट प्रसारित किया जा रहा है।"
 
 #: src/pages/LandingPage.tsx:261
 msgid "Built for Coastal Operations"
+msgstr "तटीय संचालन के लिए निर्मित"
+
+#: src/pages/LiveConditionsPage.tsx:51
+msgid "Calculating Tides..."
+msgstr "ज्वार की गणना की जा रही है..."
+
+#: src/components/trip/AssessmentProgress.tsx:22
+msgid "Calculating your route"
 msgstr ""
 
-#: src/components/common/ParallaxOceanHero.tsx:28
+#: src/components/common/SosEmergencyModal.tsx:145
+msgid "Call Coast Guard 1554"
+msgstr "कोस्ट गार्ड 1554 को कॉल करें"
+
+#: src/pages/LiveConditionsPage.tsx:109
+msgid "Calls six M4 adapter endpoints directly. No trip assessment, chat, graph, or LLM is involved."
+msgstr "सीधे छह M4 एडेप्टर एंडपॉइंट्स पर कॉल करता है। इसमें कोई यात्रा मूल्यांकन, चैट, ग्राफ़ या LLM शामिल नहीं है।"
+
+#: src/components/common/ParallaxOceanHero.tsx:29
 msgid "Calm (0.8m)"
-msgstr ""
+msgstr "शांत (0.8m)"
 
-#: src/components/common/ParallaxOceanHero.tsx:156
+#: src/components/common/ParallaxOceanHero.tsx:157
 msgid "Calm morning coastal sea state"
-msgstr ""
+msgstr "शांत सुबह तटीय समुद्र की स्थिति"
 
-#: src/components/trip/TripConfirmation.tsx:191
+#: src/components/advisory/ModificationModal.tsx:141
+#: src/components/trip/TripConfirmation.tsx:192
 msgid "Cancel"
-msgstr ""
+msgstr "रद्द करें"
 
 #: src/components/conditions/PFZSelector.tsx:83
 msgid "Candidate"
-msgstr ""
+msgstr "उम्मीदवार"
 
 #: src/components/conditions/PFZSelector.tsx:36
 msgid "Candidate Potential Fishing Zones (PFZ)"
+msgstr "संभावित मत्स्य पालन क्षेत्र (PFZ)"
+
+#: src/components/map/TrajectoryMap.tsx:824
+msgid "Caution"
+msgstr "सावधानी"
+
+#: src/components/common/LanguageSelector.tsx:51
+msgid "Change language"
+msgstr "भाषा बदलें"
+
+#: src/components/chat/ChatInterface.tsx:233
+msgid "Checking maritime boundaries & MPAs..."
+msgstr "समुद्री सीमाओं और एमपीए की जांच की जा रही है..."
+
+#: src/components/trip/AssessmentProgress.tsx:23
+msgid "Checking sea conditions"
 msgstr ""
+
+#: src/components/trip/AssessmentProgress.tsx:24
+msgid "Checking weather forecast"
+msgstr ""
+
+#: src/components/map/TrajectoryMap.tsx:918
+msgid "Chlorophyll-a"
+msgstr "क्लोरोफिल-ए"
 
 #: src/components/conditions/MarineCard.tsx:59
 msgid "Chlorophyll-a:"
-msgstr ""
+msgstr "क्लोरोफिल-ए:"
 
 #: src/components/advisory/RouteComparisonCard.tsx:99
 msgid "Clear"
-msgstr ""
+msgstr "साफ करें"
 
-#: src/pages/AssessmentHistoryPage.tsx:75
+#: src/pages/AssessmentHistoryPage.tsx:76
 msgid "Clear History"
-msgstr ""
+msgstr "इतिहास साफ़ करें"
 
 #: src/components/advisory/RouteComparisonCard.tsx:115
 msgid "Click to Inspect"
-msgstr ""
+msgstr "निरीक्षण करने के लिए क्लिक करें"
 
-#: src/components/advisory/TripTimeline.tsx:76
+#: src/components/advisory/TripTimeline.tsx:77
 msgid "Click waypoints to focus map camera & ETA conditions"
-msgstr ""
+msgstr "मैप कैमरा और ईटीए स्थितियों पर ध्यान केंद्रित करने के लिए वेपॉइंट पर क्लिक करें"
 
-#: src/components/layout/Header.tsx:217
+#: src/components/advisory/ModificationModal.tsx:67
+#: src/components/common/LanguageSelector.tsx:94
+msgid "Close"
+msgstr "बंद करें"
+
+#: src/components/layout/Header.tsx:236
 msgid "Coast Guard Emergency"
-msgstr ""
+msgstr "कोस्ट गार्ड आपातकाल"
 
-#: src/components/layout/Header.tsx:124
+#: src/components/layout/Header.tsx:126
 msgid "Coast Guard Emergency Distress (1554)"
-msgstr ""
+msgstr "कोस्ट गार्ड आपातकालीन संकट (1554)"
 
-#: src/components/vessel/VesselForm.tsx:108
+#: src/components/common/LanguageSelector.tsx:111
+msgid "Coastal Ports & States"
+msgstr "तटीय बंदरगाह और राज्य"
+
+#: src/components/map/TrajectoryMap.tsx:845
+msgid "Collapse live conditions side panel"
+msgstr "लाइव स्थितियों के साइड पैनल को संक्षिप्त करें"
+
+#: src/components/vessel/VesselForm.tsx:109
 msgid "Computed SVAS Max Wave Limit:"
-msgstr ""
+msgstr "गणना की गई SVAS अधिकतम लहर सीमा:"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:85
+#: src/components/layout/Header.tsx:20
+msgid "Conditions"
+msgstr "स्थितियां"
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:112
 msgid "CONDITIONS FAVORABLE"
-msgstr ""
+msgstr "स्थितियां अनुकूल हैं"
 
-#: src/components/advisory/TripTimeline.tsx:42
+#: src/components/advisory/TripTimeline.tsx:43
 msgid "Conditions within limits"
-msgstr ""
+msgstr "सीमा के भीतर स्थितियां"
 
 #: src/components/advisory/HazardAlert.tsx:69
 msgid "CONFIDENCE"
-msgstr ""
+msgstr "आत्मविश्वास"
 
 #: src/pages/LandingPage.tsx:285
 msgid "Configure Boat Profile"
-msgstr ""
+msgstr "बोट प्रोफ़ाइल कॉन्फ़िगर करें"
 
 #: src/components/advisory/ConflictInfoCard.tsx:18
 msgid "Conflicting Data Sources Detected (Multi-Source Comparison)"
-msgstr ""
+msgstr "परस्पर विरोधी डेटा स्रोत पाए गए (बहु-स्रोत तुलना)"
 
-#: src/components/VoiceAssistant/VoiceWidget.tsx:75
+#: src/components/VoiceAssistant/VoiceWidget.tsx:103
 msgid "connecting..."
-msgstr ""
+msgstr "कनेक्ट हो रहा है..."
 
-#: src/pages/AuthPage.tsx:171
+#: src/pages/AuthPage.tsx:180
 msgid "Continue with Google"
-msgstr ""
+msgstr "Google के साथ जारी रखें"
 
-#: src/components/common/ParallaxOceanHero.tsx:227
+#: src/components/common/ParallaxOceanHero.tsx:228
 msgid "Continuous Voyage Safety Lifecycle"
-msgstr ""
+msgstr "निरंतर यात्रा सुरक्षा जीवनचक्र"
 
 #: src/components/conditions/PFZSelector.tsx:94
 msgid "Coordinates"
-msgstr ""
+msgstr "निर्देशांक"
 
 #: src/components/advisory/RouteComparisonCard.tsx:107
 msgid "Corridor"
-msgstr ""
+msgstr "गलियारा"
 
-#: src/pages/AuthPage.tsx:151
+#: src/pages/AuthPage.tsx:160
 msgid "Create Account"
-msgstr ""
+msgstr "खाता बनाएं"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:189
+#: src/components/common/InteractiveVoyageSimulator.tsx:247
 msgid "Critical 4D Spatio-Temporal Hazard Explanation"
-msgstr ""
+msgstr "महत्वपूर्ण 4D स्थानिक-लौकिक खतरे की व्याख्या"
 
 #: src/components/advisory/AdvisoryCard.tsx:53
 msgid "Critical Time Window"
-msgstr ""
+msgstr "महत्वपूर्ण समय सीमा"
 
 #: src/components/advisory/AdvisoryCard.tsx:65
 msgid "Critical Zone"
-msgstr ""
+msgstr "क्रिटिकल ज़ोन"
 
-#: src/components/vessel/VesselForm.tsx:150
+#: src/components/vessel/VesselForm.tsx:151
 msgid "Cruising Speed (km/h)"
-msgstr ""
+msgstr "क्रूजिंग गति (किमी/घंटा)"
 
-#: src/pages/KnowledgeChatPage.tsx:100
+#: src/pages/KnowledgeChatPage.tsx:101
 msgid "Curated Marine Repository"
-msgstr ""
+msgstr "क्यूरेटेड समुद्री रिपोजिटरी"
 
 #: src/components/advisory/EvidencePanel.tsx:163
 msgid "Current model cycle"
-msgstr ""
+msgstr "वर्तमान मॉडल चक्र"
 
-#: src/components/advisory/ModificationModal.tsx:108
+#: src/components/advisory/ModificationModal.tsx:109
 msgid "Custom Departure Time (IST):"
-msgstr ""
+msgstr "कस्टम प्रस्थान समय (IST):"
 
-#: src/components/advisory/ModificationModal.tsx:121
+#: src/components/advisory/ModificationModal.tsx:122
 msgid "Custom Expected Return Time (IST):"
-msgstr ""
+msgstr "कस्टम अपेक्षित वापसी समय (IST):"
 
 #: src/components/advisory/EvidencePanel.tsx:33
 msgid "Data Evidence & Operational Provenance (\"See Why\")"
@@ -383,133 +480,165 @@ msgstr ""
 
 #: src/components/advisory/EvidencePanel.tsx:149
 msgid "Dataset Attribution & Fallback Tiers:"
-msgstr ""
+msgstr "डेटासेट एट्रिब्यूशन और फ़ॉलबैक टियर:"
 
-#: src/components/layout/Header.tsx:53
+#: src/components/layout/Header.tsx:55
 msgid "Decision Support"
-msgstr ""
+msgstr "निर्णय समर्थन"
 
-#: src/components/vessel/VesselForm.tsx:89
+#: src/components/vessel/VesselForm.tsx:90
 msgid "Deep Sea Seiner"
-msgstr ""
+msgstr "डीप सी सेनर"
 
-#: src/components/common/ParallaxOceanHero.tsx:28
+#: src/components/common/ParallaxOceanHero.tsx:29
 msgid "Departure"
-msgstr ""
+msgstr "प्रस्थान"
 
-#: src/components/chat/ChatInterface.tsx:40
+#: src/components/chat/ChatInterface.tsx:41
 msgid "Departure 5 AM from Mangalore, return 6 PM with mechanized trawler (missing beam example)"
-msgstr ""
+msgstr "मंगलौर से सुबह 5 बजे प्रस्थान, यंत्रीकृत ट्रॉलर के साथ शाम 6 बजे वापसी (लापता बीम का उदाहरण)"
 
-#: src/components/trip/TripConfirmation.tsx:85
+#: src/components/trip/TripConfirmation.tsx:86
 msgid "Departure Harbor"
-msgstr ""
+msgstr "प्रस्थान बंदरगाह"
 
-#: src/pages/AssessmentHistoryPage.tsx:136
+#: src/pages/AssessmentHistoryPage.tsx:137
 msgid "Departure:"
-msgstr ""
+msgstr "प्रस्थान:"
 
 #: src/pages/LandingPage.tsx:264
 msgid "Designed for Outdoor Visibility, Mobile Touch & Regional Languages"
-msgstr ""
+msgstr "बाहरी दृश्यता, मोबाइल टच और क्षेत्रीय भाषाओं के लिए डिज़ाइन किया गया"
 
 #: src/pages/LandingPage.tsx:184
 msgid "Deterministic Physics & Spatio-Temporal Intelligence"
-msgstr ""
+msgstr "नियतात्मक भौतिकी और स्थानिक-लौकिक बुद्धिमत्ता"
 
 #: src/pages/LandingPage.tsx:219
 msgid "Deterministic Stability (SVAS)"
-msgstr ""
+msgstr "नियतात्मक स्थिरता (SVAS)"
 
 #: src/components/advisory/RuleResultsPanel.tsx:20
 msgid "Deterministic Stability & Safety Rules"
-msgstr ""
+msgstr "नियतात्मक स्थिरता और सुरक्षा नियम"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:124
+#: src/components/common/InteractiveVoyageSimulator.tsx:151
 msgid "Deterministic SVAS Limit (Beam/4.0):"
-msgstr ""
+msgstr "नियतात्मक SVAS सीमा (बीम/4.0):"
 
 #: src/components/advisory/ConflictInfoCard.tsx:22
 msgid "Different authoritative weather/marine models report divergent values for your voyage window. SAGAR presents both sources transparently without fabricating an ungrounded consensus:"
-msgstr ""
+msgstr "विभिन्न आधिकारिक मौसम/समुद्री मॉडल आपकी यात्रा विंडो के लिए अलग-अलग मान रिपोर्ट करते हैं। सागर निराधार सर्वसम्मति के बिना दोनों स्रोतों को पारदर्शी रूप से प्रस्तुत करता है:"
 
-#: src/pages/KnowledgeChatPage.tsx:35
+#: src/pages/LiveConditionsPage.tsx:108
+msgid "Direct marine conditions"
+msgstr "प्रत्यक्ष समुद्री स्थितियां"
+
+#: src/components/common/SosEmergencyModal.tsx:153
+msgid "Dismiss"
+msgstr "खारिज करें"
+
+#: src/components/common/SosEmergencyModal.tsx:131
+msgid "Distress Frequency:"
+msgstr "डिस्ट्रेस फ्रीक्वेंसी:"
+
+#: src/pages/KnowledgeChatPage.tsx:36
 msgid "Diurnal Swell Dynamics"
-msgstr ""
+msgstr "दैनिक सूजन की गतिशीलता"
 
-#: src/components/trip/AssessmentProgress.tsx:112
-#: src/components/trip/TripConfirmation.tsx:75
+#: src/components/trip/AssessmentProgress.tsx:110
+#: src/components/trip/TripConfirmation.tsx:76
 msgid "Done"
-msgstr ""
+msgstr "हो गया"
 
-#: src/components/chat/ClarificationPrompt.tsx:70
+#: src/components/VoiceAssistant/VoiceWidget.tsx:111
+msgid "Done Speaking"
+msgstr "बोलना हो गया"
+
+#: src/components/chat/ClarificationPrompt.tsx:71
 msgid "e.g. Departure 5:00 AM, Mechanized Trawler with 4.5m beam width..."
-msgstr ""
+msgstr "उदा. प्रस्थान सुबह 5:00 बजे, 4.5 मीटर बीम चौड़ाई वाला यंत्रीकृत ट्रॉलर..."
 
-#: src/components/profile/OperatorProfileForm.tsx:201
+#: src/components/profile/OperatorProfileForm.tsx:202
 msgid "e.g. Mangalore Old Port"
-msgstr ""
+msgstr "उदा. मंगलौर पुराना बंदरगाह"
 
-#: src/components/profile/OperatorProfileForm.tsx:171
+#: src/components/profile/OperatorProfileForm.tsx:172
 msgid "e.g. Ramesh Sagar"
-msgstr ""
+msgstr "उदा. रमेश सागर"
 
-#: src/components/trip/TripConfirmation.tsx:75
+#: src/components/trip/TripConfirmation.tsx:76
 msgid "Edit Details"
-msgstr ""
+msgstr "विवरण संपादित करें"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:80
+#: src/components/common/InteractiveVoyageSimulator.tsx:107
 msgid "ELEVATED SWELL CAUTION"
-msgstr ""
+msgstr "बढ़े हुए सूजन की सावधानी"
 
-#: src/components/advisory/TripTimeline.tsx:34
+#: src/components/advisory/TripTimeline.tsx:35
 msgid "Elevated wave swell"
-msgstr ""
+msgstr "बढ़ी हुई लहर सूजन"
 
-#: src/components/profile/OperatorProfileForm.tsx:179
-#: src/pages/AuthPage.tsx:113
+#: src/components/profile/OperatorProfileForm.tsx:180
+#: src/pages/AuthPage.tsx:122
 msgid "Email Address"
-msgstr ""
+msgstr "ईमेल पता"
 
-#: src/components/layout/Header.tsx:125
+#: src/components/layout/Header.tsx:127
 msgid "Emergency Distress SOS 1554"
-msgstr ""
+msgstr "आपातकालीन संकट एसओएस 1554"
 
-#: src/components/common/ParallaxOceanHero.tsx:234
+#: src/components/common/SosEmergencyModal.tsx:97
+msgid "EMERGENCY DISTRESS SOS ACTIVATED"
+msgstr "आपातकालीन संकट एसओएस सक्रिय"
+
+#: src/components/common/ParallaxOceanHero.tsx:235
 msgid "End-to-end spatio-temporal vessel safety matching"
-msgstr ""
+msgstr "एंड-टू-एंड स्थानिक-अस्थायी पोत सुरक्षा मिलान"
 
-#: src/pages/AuthPage.tsx:104
+#: src/pages/LiveConditionsPage.tsx:69
+msgid "Enter a valid latitude and longitude."
+msgstr "एक वैध अक्षांश और देशांतर दर्ज करें।"
+
+#: src/pages/AuthPage.tsx:113
 msgid "Enter your full name"
-msgstr ""
+msgstr "अपना पूरा नाम दर्ज करें"
 
-#: src/components/vessel/VesselForm.tsx:190
+#: src/components/vessel/VesselForm.tsx:191
 msgid "Equipped with active AIS Transponder / VMS Beacon"
-msgstr ""
+msgstr "सक्रिय एआईएस ट्रांसपोंडर / वीएमएस बीकन से सुसज्जित"
 
 #: src/components/advisory/RouteComparisonCard.tsx:82
 msgid "Est. Voyage Time"
-msgstr ""
+msgstr "अनुमानित यात्रा समय"
 
-#: src/components/map/TrajectoryMap.tsx:968
+#: src/components/map/TrajectoryMap.tsx:969
 msgid "ETA:"
-msgstr ""
+msgstr "ईटीए:"
 
 #: src/pages/LandingPage.tsx:206
 msgid "Evaluates departure, transit, & return legs"
-msgstr ""
+msgstr "प्रस्थान, पारगमन, और वापसी चरणों का मूल्यांकन करता है"
 
-#: src/components/trip/AssessmentProgress.tsx:60
+#: src/components/trip/AssessmentProgress.tsx:58
 msgid "Evaluating Spatio-Temporal Safety"
+msgstr "स्थानिक-लौकिक सुरक्षा का मूल्यांकन"
+
+#: src/components/trip/AssessmentProgress.tsx:24
+msgid "Evaluating wind, wave & swell across all trip phases"
 msgstr ""
 
-#: src/components/trip/AssessmentProgress.tsx:117
+#: src/components/trip/AssessmentProgress.tsx:115
 msgid "Evaluating..."
-msgstr ""
+msgstr "मूल्यांकन कर रहा है..."
 
 #: src/components/advisory/EvidencePanel.tsx:80
 msgid "Evidence Registry ({registryCount})"
-msgstr ""
+msgstr "साक्ष्य रजिस्ट्री ({registryCount})"
+
+#: src/components/map/TrajectoryMap.tsx:845
+msgid "Expand live conditions side panel"
+msgstr "लाइव स्थितियों के साइड पैनल का विस्तार करें"
 
 #: src/pages/LandingPage.tsx:242
 msgid "Expandable \"See Why\" evidence registry"
@@ -517,1089 +646,1340 @@ msgstr ""
 
 #: src/pages/LandingPage.tsx:116
 msgid "Explore Real Operational Scenarios"
+msgstr "वास्तविक परिचालन परिदृश्यों का अन्वेषण करें"
+
+#: src/components/trip/AssessmentProgress.tsx:20
+msgid "Extracting departure, destination & vessel schedule"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:192
+#: src/components/chat/ChatInterface.tsx:204
 msgid "Failed to process clarification response."
-msgstr ""
+msgstr "स्पष्टीकरण प्रतिक्रिया को संसाधित करने में विफल।"
 
-#: src/components/common/ParallaxOceanHero.tsx:169
-#: src/components/map/TrajectoryMap.tsx:334
+#: src/components/map/TrajectoryMap.tsx:799
+msgid "Fallback PFZ data received"
+msgstr "फ़ॉलबैक PFZ डेटा प्राप्त हुआ"
+
+#: src/components/common/ParallaxOceanHero.tsx:170
+#: src/components/map/TrajectoryMap.tsx:335
 msgid "FAVOURABLE"
+msgstr "अनुकूल"
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:215
+msgid "Fetching Live Wave Forecast..."
+msgstr "लाइव लहर पूर्वानुमान प्राप्त किया जा रहा है..."
+
+#: src/pages/LiveConditionsPage.tsx:47
+msgid "Fetching Weather..."
+msgstr "मौसम की जानकारी प्राप्त की जा रही है..."
+
+#: src/components/trip/AssessmentProgress.tsx:21
+msgid "Finding your fishing zone"
 msgstr ""
 
-#: src/components/profile/OperatorProfileForm.tsx:138
+#: src/components/profile/OperatorProfileForm.tsx:139
 msgid "Fisherman & Operator Profile"
-msgstr ""
+msgstr "मछुआरे और ऑपरेटर प्रोफाइल"
 
 #. placeholder {0}: svasLimit.toFixed(2)
 #. placeholder {1}: returnWave.toFixed(1)
-#: src/components/common/InteractiveVoyageSimulator.tsx:196
+#: src/components/common/InteractiveVoyageSimulator.tsx:254
 msgid "For your <0>{vesselType}</0>, the safe capsize limit is <1>{0} m</1>. By <2>{returnHour}:00 IST</2>, forecasted coastal wave height climbs to <3>{1} m</3>. Leaving early or returning before 12:00 PM prevents capsizing risks."
-msgstr ""
+msgstr "आपके <0>{vesselType}</0> के लिए, सुरक्षित कैपसाइज सीमा <1>{0} मी</1> है। <2>{returnHour}:00 IST</2> तक, अनुमानित तटीय लहर की ऊंचाई <3>{1} मी</3> तक चढ़ जाती है। जल्दी निकलने या दोपहर 12:00 बजे से पहले लौटने से पलटने के जोखिम को रोका जा सकता है।"
 
-#: src/components/advisory/AlertBannerList.tsx:89
+#: src/components/advisory/AlertBannerList.tsx:94
 msgid "Forecast: "
-msgstr ""
+msgstr "पूर्वानुमान: "
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:158
+#: src/components/common/InteractiveVoyageSimulator.tsx:215
 msgid "Forecasted Sea Wave at {returnHour}:00:"
-msgstr ""
+msgstr "{returnHour}:00 पर अनुमानित समुद्री लहर:"
 
-#: src/components/vessel/VesselForm.tsx:112
+#: src/components/vessel/VesselForm.tsx:113
 msgid "Formula:"
+msgstr "सूत्र:"
+
+#: src/components/trip/AssessmentProgress.tsx:26
+msgid "Formulating explainable recommendations & evidence"
 msgstr ""
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:101
+#: src/components/common/InteractiveVoyageSimulator.tsx:128
 msgid "FRP Boat"
-msgstr ""
+msgstr "एफआरपी बोट"
 
 #: src/pages/LandingPage.tsx:237
 msgid "Full Data Provenance"
-msgstr ""
+msgstr "पूर्ण डेटा उत्पत्ति"
 
-#: src/pages/AuthPage.tsx:95
+#: src/pages/AuthPage.tsx:104
 msgid "Full Name"
+msgstr "पूरा नाम"
+
+#: src/components/trip/AssessmentProgress.tsx:22
+msgid "Generating 4D waypoints and transit ETAs"
 msgstr ""
 
 #: src/components/advisory/RouteComparisonCard.tsx:97
 msgid "Geofence Constraint:"
-msgstr ""
+msgstr "जियोफेंस बाधा:"
 
 #: src/components/common/GeofenceWarning.tsx:17
 msgid "GEOFENCE WARNING: Restricted Marine Zone Intersection"
-msgstr ""
+msgstr "जियोफेंस चेतावनी: प्रतिबंधित समुद्री क्षेत्र प्रतिच्छेदन"
 
 #: src/components/common/GeofenceWarning.tsx:40
 msgid "GIS Source:"
-msgstr ""
+msgstr "GIS स्रोत:"
 
-#: src/pages/KnowledgeChatPage.tsx:91
+#: src/components/common/SosEmergencyModal.tsx:112
+msgid "GPS Coordinates:"
+msgstr "जीपीएस निर्देशांक:"
+
+#: src/pages/KnowledgeChatPage.tsx:92
 msgid "Grounded Q&A"
-msgstr ""
+msgstr "ग्राउण्डेड प्रश्नोत्तर"
 
-#: src/pages/KnowledgeChatPage.tsx:133
+#: src/pages/KnowledgeChatPage.tsx:134
 msgid "Grounded Sources & Documentation:"
-msgstr ""
+msgstr "ग्राउण्डेड स्रोत और दस्तावेज़ीकरण:"
 
 #: src/components/conditions/MarineCard.tsx:66
 msgid "HAB Risk:"
-msgstr ""
+msgstr "HAB जोखिम:"
 
-#: src/components/common/ParallaxOceanHero.tsx:27
+#: src/components/common/ParallaxOceanHero.tsx:28
 msgid "Harbor Base"
-msgstr ""
+msgstr "हार्बर बेस"
 
-#: src/components/common/ParallaxOceanHero.tsx:151
+#: src/components/common/ParallaxOceanHero.tsx:152
 msgid "Harbor Departure"
-msgstr ""
+msgstr "बंदरगाह प्रस्थान"
 
 #: src/components/advisory/HazardAlert.tsx:57
 msgid "Hazard Time:"
-msgstr ""
+msgstr "खतरे का समय:"
 
 #: src/components/advisory/EvidencePanel.tsx:69
 msgid "Hazard Triggers ({triggersCount})"
-msgstr ""
+msgstr "खतरा ट्रिगर ({triggersCount})"
 
-#: src/pages/AssessmentHistoryPage.tsx:36
+#: src/pages/LiveConditionsPage.tsx:122
+msgid "Hazards"
+msgstr "खतरे"
+
+#: src/components/map/TrajectoryMap.tsx:848
+msgid "Hide Conditions"
+msgstr "स्थितियां छिपाएं"
+
+#: src/pages/AssessmentHistoryPage.tsx:37
 msgid "HIGH RISK"
-msgstr ""
+msgstr "उच्च जोखिम"
 
 #: src/components/advisory/AdvisoryBanner.tsx:36
 msgid "HIGH RISK — ROUTE OR TIME MODIFICATION RECOMMENDED"
-msgstr ""
+msgstr "उच्च जोखिम - मार्ग या समय संशोधन की सिफारिश की गई"
 
 #: src/components/advisory/RouteComparisonCard.tsx:83
 msgid "Hours"
-msgstr ""
+msgstr "घंटे"
 
-#: src/pages/KnowledgeChatPage.tsx:24
+#: src/pages/KnowledgeChatPage.tsx:25
 msgid "How is Potential Fishing Zone (PFZ) calculated from satellite SST?"
-msgstr ""
+msgstr "उपग्रह SST से संभावित मत्स्य पालन क्षेत्र (PFZ) की गणना कैसे की जाती है?"
 
-#: src/pages/KnowledgeChatPage.tsx:72
+#: src/pages/KnowledgeChatPage.tsx:73
 msgid "I am sorry, but I am currently unable to connect to the knowledge base. Please ensure your backend is running or check your network connection."
-msgstr ""
+msgstr "मुझे खेद है, लेकिन मैं वर्तमान में ज्ञानकोष से जुड़ने में असमर्थ हूं। कृपया सुनिश्चित करें कि आपका बैकएंड चल रहा है या अपना नेटवर्क कनेक्शन जांचें।"
 
-#: src/components/chat/ChatInterface.tsx:120
+#: src/components/chat/ChatInterface.tsx:132
 msgid "I have extracted your 4D voyage schedule. Please review the departure, destination, and return timing below before beginning safety assessment."
-msgstr ""
+msgstr "मैंने आपके 4D यात्रा कार्यक्रम को निकाला है। कृपया सुरक्षा मूल्यांकन शुरू करने से पहले नीचे प्रस्थान, गंतव्य और वापसी के समय की समीक्षा करें।"
 
-#: src/components/trip/TripConfirmation.tsx:179
+#: src/components/chat/ChatInterface.tsx:103
+#: src/components/chat/ChatInterface.tsx:182
+msgid "I need a few missing parameters to safely evaluate your voyage:"
+msgstr "आपकी यात्रा का सुरक्षित रूप से मूल्यांकन करने के लिए मुझे कुछ लापता मापदंडों की आवश्यकता है:"
+
+#: src/components/trip/TripConfirmation.tsx:180
 msgid "ℹ Note:"
-msgstr ""
+msgstr "ℹ नोट:"
 
-#: src/pages/AssessmentHistoryPage.tsx:124
+#: src/components/chat/ChatInterface.tsx:230
+msgid "Initializing LangGraph Supervisor..."
+msgstr "लैंगग्राफ पर्यवेक्षक को आरंभ किया जा रहा है..."
+
+#: src/pages/AssessmentHistoryPage.tsx:125
 msgid "Inspect Advisory"
-msgstr ""
+msgstr "परामर्श का निरीक्षण करें"
 
 #: src/components/advisory/AdvisoryBanner.tsx:51
 msgid "INSUFFICIENT DATA — UNABLE TO SAFELY ASSESS VOYAGE"
-msgstr ""
+msgstr "अपर्याप्त डेटा - सुरक्षित रूप से यात्रा का मूल्यांकन करने में असमर्थ"
 
 #: src/components/common/InsufficientInfo.tsx:23
 msgid "INSUFFICIENT INFORMATION"
-msgstr ""
+msgstr "अपर्याप्त जानकारी"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:48
+#: src/components/common/InteractiveVoyageSimulator.tsx:75
 msgid "Interactive 4D Voyage Risk Simulator"
-msgstr ""
+msgstr "इंटरएक्टिव 4D यात्रा जोखिम सिम्युलेटर"
 
 #: src/pages/LandingPage.tsx:87
 msgid "Interactive Decision Testbed"
-msgstr ""
+msgstr "इंटरएक्टिव डिसीजन टेस्टबेड"
 
-#: src/components/layout/Header.tsx:19
+#: src/components/layout/Header.tsx:21
 msgid "Knowledge"
-msgstr ""
+msgstr "ज्ञान"
+
+#: src/components/common/LanguageSelector.tsx:52
+msgid "Language Selector"
+msgstr "भाषा चयनकर्ता"
+
+#: src/pages/LiveConditionsPage.tsx:113
+msgid "Latitude"
+msgstr "अक्षांश"
 
 #: src/pages/LandingPage.tsx:162
 msgid "Launch Advisory Dashboard"
-msgstr ""
+msgstr "सलाहकार डैशबोर्ड लॉन्च करें"
 
 #: src/pages/LandingPage.tsx:119
 msgid "Launch pre-computed spatio-temporal scenarios to inspect how SAGAR detects return swell hazards, geofence breaches, and multi-PFZ optimization."
-msgstr ""
+msgstr "सागर रिटर्न स्वेल खतरों, जियोफेंस उल्लंघनों और मल्टी-पीएफजेड अनुकूलन का पता कैसे लगाता है, इसका निरीक्षण करने के लिए पूर्व-परिकलित स्थानिक-लौकिक परिदृश्यों को लॉन्च करें।"
 
-#: src/components/chat/ChatInterface.tsx:38
+#: src/components/chat/ChatInterface.tsx:39
 msgid "Leave at 5 AM from Mangalore to nearest PFZ and return by 2 PM"
-msgstr ""
+msgstr "मंगलौर से सुबह 5 बजे निकटतम पीएफजेड के लिए प्रस्थान करें और दोपहर 2 बजे तक वापस आएं"
 
 #. placeholder {0}: hazard.trip_phase
 #: src/components/advisory/HazardAlert.tsx:29
 msgid "Leg: {0}"
-msgstr ""
+msgstr "चरण: {0}"
 
-#: src/components/map/TrajectoryMap.tsx:754
+#: src/components/map/TrajectoryMap.tsx:755
 msgid "Light Map"
-msgstr ""
+msgstr "लाइट मैप"
 
-#: src/components/VoiceAssistant/VoiceWidget.tsx:75
+#: src/components/VoiceAssistant/VoiceWidget.tsx:103
 msgid "listening..."
-msgstr ""
+msgstr "सुन रहा है..."
+
+#: src/components/layout/Header.tsx:20
+#: src/components/map/TrajectoryMap.tsx:848
+msgid "Live Conditions"
+msgstr "लाइव स्थितियां"
+
+#: src/components/common/SosEmergencyModal.tsx:125
+msgid "Live GPS"
+msgstr "लाइव जीपीएस"
 
 #: src/components/conditions/WeatherCard.tsx:42
 msgid "Live Model"
-msgstr ""
+msgstr "लाइव मॉडल"
 
 #: src/components/layout/OfflineBanner.tsx:35
 msgid "Live sea state and atmospheric forecasts require an active connection. Showing cached vessel profile and offline guidance."
-msgstr ""
+msgstr "लाइव समुद्र की स्थिति और वायुमंडलीय पूर्वानुमानों के लिए एक सक्रिय कनेक्शन की आवश्यकता होती है। कैश्ड पोत प्रोफ़ाइल और ऑफ़लाइन मार्गदर्शन दिखा रहा है।"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:50
+#: src/components/common/InteractiveVoyageSimulator.tsx:77
 msgid "Live SVAS Engine"
-msgstr ""
+msgstr "लाइव एसवीएएस इंजन"
 
-#: src/components/advisory/ModificationModal.tsx:30
+#: src/pages/LiveConditionsPage.tsx:115
+msgid "Load conditions"
+msgstr "स्थितियां लोड करें"
+
+#: src/pages/LiveConditionsPage.tsx:49
+msgid "Locating PFZs..."
+msgstr "पीएफजेड का पता लगाया जा रहा है..."
+
+#: src/components/layout/Header.tsx:194
+#: src/components/layout/Header.tsx:285
+msgid "Log Out"
+msgstr "लॉग आउट करें"
+
+#: src/pages/LiveConditionsPage.tsx:114
+msgid "Longitude"
+msgstr "देशांतर"
+
+#: src/components/advisory/ModificationModal.tsx:31
 msgid "Mangalore Port"
-msgstr ""
+msgstr "मंगलौर बंदरगाह"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:191
+#: src/pages/LiveConditionsPage.tsx:52
+msgid "Mapping Bathymetry..."
+msgstr "मैपिंग बाथिमेट्री..."
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:249
 msgid "Marginal Safety Clearance Warning"
-msgstr ""
+msgstr "सीमांत सुरक्षा मंजूरी चेतावनी"
 
 #. placeholder {0}: specLayer.layer_id
-#: src/components/map/TrajectoryMap.tsx:286
+#: src/components/map/TrajectoryMap.tsx:287
 msgid "Marine Hazard Zone ({0})"
-msgstr ""
+msgstr "समुद्री खतरा क्षेत्र ({0})"
 
-#: src/components/layout/Header.tsx:19
+#: src/components/layout/Header.tsx:21
 msgid "Marine Knowledge"
 msgstr "समुद्री ज्ञान केंद्र"
 
-#: src/components/layout/Header.tsx:28
+#: src/components/layout/Header.tsx:30
 msgid "Marine Operator"
-msgstr ""
+msgstr "समुद्री ऑपरेटर"
 
-#: src/pages/KnowledgeChatPage.tsx:31
+#: src/pages/KnowledgeChatPage.tsx:32
 msgid "Marine Protected Area"
-msgstr ""
+msgstr "समुद्री संरक्षित क्षेत्र"
 
-#: src/components/common/ParallaxOceanHero.tsx:69
+#: src/components/common/ParallaxOceanHero.tsx:70
 msgid "Marine Safety & Decision Support"
-msgstr ""
+msgstr "समुद्री सुरक्षा और निर्णय समर्थन"
 
-#: src/pages/AuthPage.tsx:122
+#: src/pages/AuthPage.tsx:131
 msgid "marine.operator@example.com"
-msgstr ""
+msgstr "marine.operator@example.com"
 
-#: src/components/vessel/VesselForm.tsx:87
+#: src/components/vessel/VesselForm.tsx:88
 msgid "Mechanized Trawler"
-msgstr ""
+msgstr "यंत्रीकृत ट्रॉलर"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:13
+#: src/components/common/InteractiveVoyageSimulator.tsx:19
 msgid "Mechanized Trawler (4.5m)"
-msgstr ""
+msgstr "यंत्रीकृत ट्रॉलर (4.5m)"
 
-#: src/components/vessel/VesselForm.tsx:109
+#: src/components/vessel/VesselForm.tsx:110
 msgid "meters"
-msgstr ""
+msgstr "मीटर"
 
-#: src/components/chat/ChatInterface.tsx:165
+#: src/components/chat/ChatInterface.tsx:177
 msgid "Missing details received. Please review your trip summary before starting safety evaluation."
-msgstr ""
+msgstr "लापता विवरण प्राप्त हुआ। सुरक्षा मूल्यांकन शुरू करने से पहले कृपया अपनी यात्रा के सारांश की समीक्षा करें।"
 
 #: src/components/common/InsufficientInfo.tsx:38
 msgid "Missing Safety Parameters:"
-msgstr ""
+msgstr "सुरक्षा पैरामीटर गायब:"
 
-#: src/pages/AssessmentHistoryPage.tsx:30
+#: src/pages/AssessmentHistoryPage.tsx:31
 msgid "MODERATE"
-msgstr ""
+msgstr "मध्यम"
 
-#: src/components/advisory/TripTimeline.tsx:33
-#: src/components/map/TrajectoryMap.tsx:334
+#: src/components/advisory/TripTimeline.tsx:34
+#: src/components/map/TrajectoryMap.tsx:335
 msgid "MODERATE RISK"
-msgstr ""
+msgstr "मध्यम जोखिम"
 
 #: src/components/advisory/AdvisoryBanner.tsx:29
 msgid "MODERATE RISK — PROCEED WITH CAUTION"
-msgstr ""
+msgstr "मध्यम जोखिम — सावधानी के साथ आगे बढ़ें"
 
-#: src/pages/AdvisoryPage.tsx:110
+#: src/pages/AdvisoryPage.tsx:111
 msgid "Modify Route or Return Time"
-msgstr ""
+msgstr "मार्ग या वापसी का समय संशोधित करें"
 
 #. placeholder {0}: tripContext?.origin || t`Mangalore Port`
-#: src/components/advisory/ModificationModal.tsx:29
+#: src/components/advisory/ModificationModal.tsx:30
 msgid "Modify trip parameters: Departure at {departureTime} from {0}, return earlier at {effectiveReturn} IST to avoid return wave hazard."
-msgstr ""
+msgstr "यात्रा मापदंडों को संशोधित करें: वापसी की लहर के खतरे से बचने के लिए {0} से {departureTime} पर प्रस्थान करें, {effectiveReturn} IST पर पहले वापस आएं।"
 
-#: src/components/advisory/ModificationModal.tsx:61
+#: src/components/advisory/ModificationModal.tsx:62
 msgid "Modify Voyage Timing & Route"
-msgstr ""
+msgstr "यात्रा के समय और मार्ग को संशोधित करें"
 
-#: src/components/vessel/VesselForm.tsx:88
+#: src/components/vessel/VesselForm.tsx:89
 msgid "Motorized FRP Boat"
-msgstr ""
+msgstr "मोटर चालित एफआरपी नाव"
 
-#: src/components/chat/ChatInterface.tsx:235
+#: src/components/chat/ChatInterface.tsx:256
 msgid "Natural language voyage planning with vessel stability limits"
-msgstr ""
+msgstr "पोत स्थिरता सीमा के साथ प्राकृतिक भाषा यात्रा योजना"
 
-#: src/pages/AuthPage.tsx:179
+#: src/pages/AuthPage.tsx:188
 msgid "Need an account? Sign up"
-msgstr ""
+msgstr "खाता चाहिए? साइन अप करें"
 
-#: src/components/chat/ChatInterface.tsx:131
+#: src/components/chat/ChatInterface.tsx:143
 msgid "Network error encountered while connecting to SAGAR decision-support service."
-msgstr ""
+msgstr "सागर निर्णय-समर्थन सेवा से कनेक्ट करते समय नेटवर्क त्रुटि आई।"
 
-#: src/components/advisory/AlertBannerList.tsx:17
+#: src/pages/LiveConditionsPage.tsx:122
+#: src/pages/LiveConditionsPage.tsx:124
+msgid "No"
+msgstr "नहीं"
+
+#: src/components/advisory/AlertBannerList.tsx:22
 msgid "No active extreme weather or maritime hazard alerts for this operational window."
-msgstr ""
+msgstr "इस परिचालन विंडो के लिए कोई सक्रिय चरम मौसम या समुद्री खतरा अलर्ट नहीं है।"
 
 #: src/components/advisory/EvidencePanel.tsx:101
 msgid "No deterministic safety threshold violations were triggered across any leg of your trip."
-msgstr ""
+msgstr "आपकी यात्रा के किसी भी चरण में कोई नियतात्मक सुरक्षा सीमा उल्लंघन ट्रिगर नहीं किया गया था।"
+
+#: src/components/common/LanguageSelector.tsx:185
+msgid "No matching language found for \"{searchQuery}\"."
+msgstr "\ के लिए कोई मेल खाने वाली भाषा नहीं मिली"
 
 #: src/components/conditions/MarineCard.tsx:34
 msgid "No oceanographic satellite observations available for this trajectory."
-msgstr ""
+msgstr "इस प्रक्षेपवक्र के लिए कोई महासागरीय उपग्रह अवलोकन उपलब्ध नहीं है।"
 
-#: src/pages/AssessmentHistoryPage.tsx:86
+#: src/pages/AssessmentHistoryPage.tsx:87
 msgid "No Previous Trip Assessments Found"
-msgstr ""
+msgstr "कोई पिछली यात्रा का मूल्यांकन नहीं मिला"
 
-#: src/components/advisory/ModificationModal.tsx:130
+#: src/components/advisory/ModificationModal.tsx:131
 msgid "Note: Changing return timing recalculates sea state wave heights for every waypoint along the return route."
-msgstr ""
+msgstr "नोट: वापसी का समय बदलने से वापसी मार्ग के प्रत्येक वेपॉइंट के लिए समुद्री स्थिति की लहर की ऊंचाई की पुनर्गणना होती है।"
 
 #: src/components/advisory/HazardAlert.tsx:36
 msgid "Observed Forecast"
-msgstr ""
+msgstr "देखा गया पूर्वानुमान"
+
+#: src/pages/LiveConditionsPage.tsx:124
+msgid "Ocean observations"
+msgstr "महासागरीय अवलोकन"
 
 #: src/components/conditions/MarineCard.tsx:18
 msgid "Oceanographic & PFZ Satellite Signals"
-msgstr ""
+msgstr "समुद्र विज्ञान और PFZ सैटेलाइट सिग्नल"
 
 #: src/components/conditions/PFZSelector.tsx:46
 msgid "Oceanographic Aggregation Signals"
-msgstr ""
+msgstr "समुद्र विज्ञान एकत्रीकरण सिग्नल"
 
 #: src/components/layout/OfflineBanner.tsx:35
 msgid "Offline Mode:"
-msgstr ""
+msgstr "ऑफ़लाइन मोड:"
 
 #: src/components/conditions/PFZSelector.tsx:90
 msgid "Offshore Distance"
-msgstr ""
+msgstr "अपतटीय दूरी"
 
-#: src/components/common/ParallaxOceanHero.tsx:30
+#: src/components/common/ParallaxOceanHero.tsx:31
 msgid "Operational Area"
-msgstr ""
+msgstr "परिचालन क्षेत्र"
 
 #: src/components/common/DisclaimerFooter.tsx:15
 msgid "Operational Decision-Support Disclaimer"
-msgstr ""
+msgstr "परिचालन निर्णय-समर्थन अस्वीकरण"
 
-#: src/components/trip/TripConfirmation.tsx:103
+#: src/components/trip/TripConfirmation.tsx:104
 msgid "Operational Destination"
-msgstr ""
+msgstr "परिचालन गंतव्य"
 
 #: src/components/common/ScenarioSelector.tsx:33
 msgid "Operational Scenario Testbed:"
-msgstr ""
+msgstr "परिचालन परिदृश्य टेस्टबेड:"
 
-#: src/components/layout/Header.tsx:29
+#: src/components/layout/Header.tsx:31
 msgid "Operator"
-msgstr ""
+msgstr "ऑपरेटर"
 
-#: src/components/profile/OperatorProfileForm.tsx:162
+#: src/components/profile/OperatorProfileForm.tsx:163
 msgid "Operator Full Name"
-msgstr ""
+msgstr "ऑपरेटर का पूरा नाम"
 
 #: src/pages/VesselProfilePage.tsx:25
 msgid "Operator Identity"
-msgstr ""
+msgstr "ऑपरेटर पहचान"
 
-#: src/components/profile/OperatorProfileForm.tsx:149
+#: src/components/profile/OperatorProfileForm.tsx:150
 msgid "Operator profile updated and synced successfully!"
-msgstr ""
+msgstr "ऑपरेटर प्रोफ़ाइल को सफलतापूर्वक अपडेट और समन्वयित किया गया!"
 
-#: src/components/profile/OperatorProfileForm.tsx:186
+#: src/components/profile/OperatorProfileForm.tsx:187
 msgid "operator@marine.mission"
-msgstr ""
+msgstr "operator@marine.mission"
 
 #: src/pages/LandingPage.tsx:239
 msgid "Operators need to trust their advice. Every advisory provides complete provenance tiers (Tier 1 Live API, Tier 2 Numerical Forecast, Tier 3 Historical Baseline) with confidence ratings."
-msgstr ""
+msgstr "ऑपरेटरों को अपनी सलाह पर भरोसा करने की आवश्यकता है। प्रत्येक सलाह विश्वास रेटिंग के साथ पूर्ण उत्पत्ति टियर (टियर 1 लाइव एपीआई, टियर 2 संख्यात्मक पूर्वानुमान, टियर 3 ऐतिहासिक बेसलाइन) प्रदान करती है।"
 
-#: src/pages/AuthPage.tsx:157
+#: src/pages/AuthPage.tsx:166
 msgid "OR"
-msgstr ""
+msgstr "या"
 
-#: src/components/common/ParallaxOceanHero.tsx:27
+#: src/components/common/ParallaxOceanHero.tsx:28
 msgid "Origin"
-msgstr ""
+msgstr "मूल"
 
-#: src/components/common/ParallaxOceanHero.tsx:29
+#: src/components/common/ParallaxOceanHero.tsx:30
 msgid "Outbound"
-msgstr ""
+msgstr "आउटबाउंड"
 
 #. placeholder {0}: returnHazard.observed_value
 #. placeholder {1}: returnHazard.threshold_value
-#: src/pages/AdvisoryPage.tsx:143
+#: src/pages/AdvisoryPage.tsx:144
 msgid "Outbound conditions at 05:00 departure may be calm, but afternoon wave height is forecasted to build to <0>{0} m</0> near the coastal approach by 16:00 return time, exceeding your boat’s physical capsize stability limit of <1>{1} m</1>."
-msgstr ""
+msgstr "05:00 के प्रस्थान पर आउटबाउंड स्थितियां शांत हो सकती हैं, लेकिन दोपहर में लहर की ऊंचाई तटीय दृष्टिकोण के पास 16:00 वापसी के समय तक <0>{0} मी</0> तक बढ़ने का अनुमान है, जो आपकी नाव की भौतिक कैपसाइज स्थिरता सीमा <1>{1} मी</1> से अधिक है।"
 
-#: src/components/common/ParallaxOceanHero.tsx:167
+#: src/components/common/ParallaxOceanHero.tsx:168
 msgid "Outbound Transit (30 km)"
-msgstr ""
+msgstr "आउटबाउंड ट्रांजिट (30 किमी)"
 
-#: src/components/vessel/VesselForm.tsx:139
+#: src/components/vessel/VesselForm.tsx:140
 msgid "Overall Length (meters)"
-msgstr ""
+msgstr "कुल लंबाई (मीटर)"
 
-#: src/components/layout/Header.tsx:15
-#: src/components/layout/Header.tsx:15
+#: src/components/layout/Header.tsx:17
+#: src/components/layout/Header.tsx:17
 msgid "Overview"
 msgstr "अवलोकन"
 
 #: src/components/advisory/ConflictInfoCard.tsx:28
 msgid "Parameter:"
-msgstr ""
+msgstr "पैरामीटर:"
 
-#: src/pages/AuthPage.tsx:130
+#: src/pages/AuthPage.tsx:139
 msgid "Password"
-msgstr ""
+msgstr "पासवर्ड"
 
-#: src/components/profile/OperatorProfileForm.tsx:141
+#: src/components/profile/OperatorProfileForm.tsx:142
 msgid "Personal identity, base harbor, and language settings for localized advisories."
-msgstr ""
+msgstr "स्थानीयकृत सलाह के लिए व्यक्तिगत पहचान, बेस हार्बर और भाषा सेटिंग।"
 
 #: src/components/conditions/MarineCard.tsx:28
 msgid "PFZ CLOUD OBSTRUCTED"
-msgstr ""
+msgstr "पीएफजेड क्लाउड बाधित"
 
-#: src/components/map/TrajectoryMap.tsx:834
+#: src/components/map/TrajectoryMap.tsx:835
 msgid "PFZ Glow Zone"
-msgstr ""
+msgstr "PFZ ग्लो ज़ोन"
 
-#: src/pages/KnowledgeChatPage.tsx:23
+#: src/pages/KnowledgeChatPage.tsx:24
 msgid "PFZ Satellite Data"
-msgstr ""
+msgstr "PFZ सैटेलाइट डेटा"
 
 #: src/components/conditions/MarineCard.tsx:28
 msgid "PFZ SIGNALS ACTIVE"
-msgstr ""
+msgstr "पीएफजेड सिग्नल सक्रिय"
 
 #: src/components/conditions/PFZSelector.tsx:49
 msgid "PFZs identify thermal boundaries and chlorophyll fronts derived from satellite data. They indicate higher probability of pelagic fish aggregation, but do not guarantee catch."
-msgstr ""
+msgstr "पीएफजेड उपग्रह डेटा से प्राप्त थर्मल सीमाओं और क्लोरोफिल मोर्चों की पहचान करते हैं। वे पेलजिक मछली एकत्रीकरण की उच्च संभावना का संकेत देते हैं, लेकिन पकड़ने की गारंटी नहीं देते हैं।"
 
-#: src/components/map/TrajectoryMap.tsx:967
+#: src/components/map/TrajectoryMap.tsx:968
 msgid "Phase:"
-msgstr ""
+msgstr "चरण:"
 
-#: src/components/vessel/VesselForm.tsx:68
+#: src/components/vessel/VesselForm.tsx:69
 msgid "Physical boat dimensions determine deterministic SVAS capsize wave safety limits."
-msgstr ""
+msgstr "नाव के भौतिक आयाम नियतात्मक एसवीएएस कैपसाइज वेव सुरक्षा सीमा निर्धारित करते हैं।"
 
-#: src/pages/AssessmentHistoryPage.tsx:94
+#: src/pages/AssessmentHistoryPage.tsx:95
 msgid "Plan a New Voyage"
-msgstr ""
+msgstr "एक नई यात्रा की योजना बनाएं"
 
-#: src/components/common/ParallaxOceanHero.tsx:98
+#: src/components/common/ParallaxOceanHero.tsx:99
 msgid "Plan Maritime Voyage"
-msgstr ""
+msgstr "समुद्री यात्रा की योजना बनाएं"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:229
+#: src/components/common/InteractiveVoyageSimulator.tsx:287
 msgid "Plan My Maritime Voyage"
-msgstr ""
+msgstr "मेरी समुद्री यात्रा की योजना बनाएं"
 
-#: src/components/chat/ChatInterface.tsx:257
+#: src/components/chat/ChatInterface.tsx:278
 msgid "Plan Your Voyage Safely"
-msgstr ""
+msgstr "सुरक्षित रूप से अपनी यात्रा की योजना बनाएं"
 
-#: src/components/chat/ChatInterface.tsx:39
+#: src/components/chat/ChatInterface.tsx:40
 msgid "Planning trip from Malpe at 6 AM, 4 hours fishing, return at 4 PM"
-msgstr ""
+msgstr "मल्पे से सुबह 6 बजे, 4 घंटे मछली पकड़ने, शाम 4 बजे लौटने की योजना"
 
-#: src/components/trip/TripConfirmation.tsx:66
+#: src/components/chat/ChatInterface.tsx:42
+msgid "Planning trip from Rameswaram to Gulf of Mannar leaving at 4 AM and returning at 1 PM"
+msgstr "रामेश्वरम से मन्नार की खाड़ी तक सुबह 4 बजे प्रस्थान करने और दोपहर 1 बजे लौटने की योजना"
+
+#: src/components/trip/TripConfirmation.tsx:67
 msgid "Please review what SAGAR understood before starting safety evaluation."
-msgstr ""
+msgstr "सुरक्षा मूल्यांकन शुरू करने से पहले कृपया समीक्षा करें कि सागर ने क्या समझा।"
 
-#: src/components/profile/OperatorProfileForm.tsx:208
+#: src/components/map/TrajectoryMap.tsx:870
+msgid "Position:"
+msgstr "स्थान:"
+
+#: src/pages/LiveConditionsPage.tsx:123
+msgid "Potential fishing zones"
+msgstr "संभावित मत्स्य पालन क्षेत्र"
+
+#: src/components/map/TrajectoryMap.tsx:777
+msgid "Potential Fishing Zones"
+msgstr "संभावित मत्स्य पालन क्षेत्र"
+
+#: src/components/profile/OperatorProfileForm.tsx:209
 msgid "Preferred Advisory Language"
+msgstr "पसंदीदा सलाहकार भाषा"
+
+#: src/components/trip/AssessmentProgress.tsx:26
+msgid "Preparing your advisory"
 msgstr ""
 
 #: src/components/advisory/AdvisoryCard.tsx:31
 msgid "Primary Safety Factor:"
-msgstr ""
+msgstr "प्राथमिक सुरक्षा कारक:"
 
-#: src/components/trip/AssessmentProgress.tsx:129
+#: src/components/trip/AssessmentProgress.tsx:127
 msgid "Processing forecast models & deterministic SVAS stability rules..."
-msgstr ""
+msgstr "पूर्वानुमान मॉडल और नियतात्मक SVAS स्थिरता नियमों को संसाधित किया जा रहा है..."
 
-#: src/components/VoiceAssistant/VoiceWidget.tsx:75
+#: src/components/VoiceAssistant/VoiceWidget.tsx:103
 msgid "processing..."
-msgstr ""
+msgstr "प्रसंस्करण..."
 
-#: src/components/layout/Header.tsx:23
+#: src/components/layout/Header.tsx:25
 msgid "Profile"
-msgstr ""
+msgstr "प्रोफ़ाइल"
 
-#: src/components/common/ParallaxOceanHero.tsx:122
+#: src/components/common/ParallaxOceanHero.tsx:123
 msgid "Provenance"
-msgstr ""
+msgstr "उत्पत्ति"
 
 #: src/components/common/InsufficientInfo.tsx:59
 msgid "Provide Missing Parameters in Planner"
+msgstr "प्लानर में लापता मापदंडों को प्रदान करें"
+
+#: src/pages/LiveConditionsPage.tsx:48
+msgid "Querying Hazards..."
+msgstr "खतरों को खोजा जा रहा है..."
+
+#: src/components/chat/ChatInterface.tsx:232
+msgid "Querying INCOIS Ocean State Forecast APIs..."
+msgstr "INCOIS महासागर राज्य पूर्वानुमान API को खोजा जा रहा है..."
+
+#: src/components/trip/AssessmentProgress.tsx:21
+msgid "Querying PFZ thermal & chlorophyll coordinates"
 msgstr ""
 
-#: src/components/chat/ChatInterface.tsx:245
+#: src/components/chat/ChatInterface.tsx:266
 msgid "Quick Sample"
-msgstr ""
+msgstr "त्वरित नमूना"
 
-#: src/components/advisory/ModificationModal.tsx:147
+#: src/components/advisory/ModificationModal.tsx:148
 msgid "Re-assess Voyage"
-msgstr ""
+msgstr "यात्रा का पुनर्मूल्यांकन करें"
 
-#: src/components/advisory/ModificationModal.tsx:147
+#: src/components/advisory/ModificationModal.tsx:148
 msgid "Re-evaluating..."
-msgstr ""
+msgstr "पुनर्मूल्यांकन किया जा रहा है..."
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:220
+#: src/pages/LiveConditionsPage.tsx:50
+msgid "Reading Marine Data..."
+msgstr "समुद्री डेटा पढ़ा जा रहा है..."
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:278
 msgid "Ready to assess your real voyage coordinates and 4D trajectory?"
-msgstr ""
+msgstr "क्या आप अपने वास्तविक यात्रा निर्देशांक और 4D प्रक्षेपवक्र का आकलन करने के लिए तैयार हैं?"
 
 #: src/components/advisory/RouteComparisonCard.tsx:63
 msgid "Recommended"
-msgstr ""
+msgstr "अनुशंसित"
 
-#: src/pages/KnowledgeChatPage.tsx:160
+#: src/pages/KnowledgeChatPage.tsx:161
 msgid "Recommended Marine Knowledge Inquiries:"
+msgstr "अनुशंसित समुद्री ज्ञान पूछताछ:"
+
+#: src/components/advisory/ModificationModal.tsx:100
+msgid "Reduce return exposure"
+msgstr "रिटर्न एक्सपोजर कम करें"
+
+#: src/components/vessel/VesselForm.tsx:162
+msgid "Registration Number"
+msgstr "पंजीकरण संख्या"
+
+#: src/components/map/TrajectoryMap.tsx:811
+msgid "Reset map view to full voyage"
+msgstr "मानचित्र दृश्य को पूर्ण यात्रा पर रीसेट करें"
+
+#: src/components/map/TrajectoryMap.tsx:814
+msgid "Reset View"
+msgstr "दृश्य रीसेट करें"
+
+#: src/components/chat/ChatInterface.tsx:231
+msgid "Resolving 4D spatio-temporal context..."
+msgstr "4D स्थानिक-लौकिक संदर्भ को हल किया जा रहा है..."
+
+#: src/pages/KnowledgeChatPage.tsx:152
+msgid "Retrieving grounded marine knowledge..."
+msgstr "स्थानीय समुद्री ज्ञान प्राप्त किया जा रहा है..."
+
+#: src/components/trip/AssessmentProgress.tsx:23
+msgid "Retrieving marine wave and current observations"
 msgstr ""
 
 #: src/components/advisory/ModificationModal.tsx:99
-msgid "Reduce return exposure"
-msgstr ""
-
-#: src/components/vessel/VesselForm.tsx:161
-msgid "Registration Number"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:810
-msgid "Reset map view to full voyage"
-msgstr ""
-
-#: src/components/map/TrajectoryMap.tsx:813
-msgid "Reset View"
-msgstr ""
-
-#: src/pages/KnowledgeChatPage.tsx:151
-msgid "Retrieving grounded marine knowledge..."
-msgstr ""
-
-#: src/components/chat/ChatInterface.tsx:294
-msgid "Retrieving marine sea-state forecasts & spatial geofences"
-msgstr ""
-
-#: src/components/advisory/ModificationModal.tsx:98
 msgid "Return at 1:00 PM"
-msgstr ""
+msgstr "दोपहर 1:00 बजे वापसी"
 
-#: src/components/advisory/ModificationModal.tsx:86
+#: src/components/advisory/ModificationModal.tsx:87
 msgid "Return at 12:00 PM"
-msgstr ""
+msgstr "दोपहर 12:00 बजे वापसी"
 
-#: src/components/common/ParallaxOceanHero.tsx:199
+#: src/components/common/ParallaxOceanHero.tsx:200
 msgid "Return Leg Swell Surge"
-msgstr ""
+msgstr "रिटर्न लेग स्वेल सर्ज"
 
-#: src/pages/AdvisoryPage.tsx:136
+#: src/pages/AdvisoryPage.tsx:137
 msgid "Return Phase Spatio-Temporal Hazard Alert"
-msgstr ""
+msgstr "रिटर्न चरण स्थानिक-लौकिक खतरा अलर्ट"
 
-#: src/pages/AdvisoryPage.tsx:60
+#: src/pages/AdvisoryPage.tsx:61
 msgid "Return to Trip Planner"
-msgstr ""
+msgstr "ट्रिप प्लानर पर वापस आएं"
 
-#: src/components/common/ParallaxOceanHero.tsx:31
+#: src/components/common/ParallaxOceanHero.tsx:32
 msgid "Return Transit"
-msgstr ""
+msgstr "रिटर्न ट्रांज़िट"
 
-#: src/pages/AssessmentHistoryPage.tsx:136
+#: src/pages/AssessmentHistoryPage.tsx:137
 msgid "Return:"
-msgstr ""
+msgstr "वापसी:"
 
 #: src/components/advisory/RouteComparisonCard.tsx:25
 msgid "Route Candidate Evaluation & Scoring"
-msgstr ""
+msgstr "मार्ग उम्मीदवार मूल्यांकन और स्कोरिंग"
 
 #: src/components/conditions/PFZSelector.tsx:103
 msgid "Route Verified"
-msgstr ""
+msgstr "मार्ग सत्यापित"
 
 #: src/components/advisory/HazardAlert.tsx:53
 msgid "Rule Applied:"
-msgstr ""
+msgstr "नियम लागू:"
 
-#: src/components/advisory/TripTimeline.tsx:41
-#: src/pages/AssessmentHistoryPage.tsx:23
+#: src/components/chat/ChatInterface.tsx:234
+msgid "Running SVAS deterministic risk model..."
+msgstr "SVAS नियतात्मक जोखिम मॉडल चला रहा है..."
+
+#: src/components/advisory/TripTimeline.tsx:42
+#: src/pages/AssessmentHistoryPage.tsx:24
 msgid "SAFE"
-msgstr ""
+msgstr "सुरक्षित"
 
 #: src/components/advisory/AdvisoryBanner.tsx:21
 msgid "SAFE — CONDITIONS FAVORABLE"
-msgstr ""
+msgstr "सुरक्षित — स्थितियां अनुकूल हैं"
 
-#: src/components/common/ParallaxOceanHero.tsx:153
+#: src/components/common/ParallaxOceanHero.tsx:154
 msgid "SAFE (0.8m Wave)"
-msgstr ""
+msgstr "सुरक्षित (0.8m लहर)"
 
-#: src/components/common/ParallaxOceanHero.tsx:32
+#: src/components/common/ParallaxOceanHero.tsx:33
 msgid "Safe Arrival"
-msgstr ""
+msgstr "सुरक्षित आगमन"
 
-#: src/components/advisory/AlertBannerList.tsx:94
+#: src/components/advisory/AlertBannerList.tsx:99
 msgid "Safe Limit: "
-msgstr ""
+msgstr "सुरक्षित सीमा: "
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:192
+#: src/components/common/InteractiveVoyageSimulator.tsx:250
 msgid "Safe Navigation Profile"
-msgstr ""
+msgstr "सुरक्षित नेविगेशन प्रोफ़ाइल"
 
-#: src/components/map/TrajectoryMap.tsx:819
+#: src/components/map/TrajectoryMap.tsx:820
 msgid "Safe Segment"
-msgstr ""
+msgstr "सुरक्षित खंड"
 
-#: src/pages/AdvisoryPage.tsx:52
+#: src/pages/AdvisoryPage.tsx:53
 msgid "Safety Decision Service Unavailable"
-msgstr ""
+msgstr "सुरक्षा निर्णय सेवा अनुपलब्ध है"
 
 #: src/components/advisory/AdvisoryCard.tsx:19
 msgid "Safety Reasoning & Context"
-msgstr ""
+msgstr "सुरक्षा तर्क और संदर्भ"
 
 #. placeholder {0}: c.score
-#: src/components/map/TrajectoryMap.tsx:332
+#: src/components/map/TrajectoryMap.tsx:333
 msgid "Safety Score: {0}/100"
-msgstr ""
+msgstr "सुरक्षा स्कोर: {0}/100"
 
-#: src/components/chat/ChatInterface.tsx:292
+#: src/components/chat/ChatInterface.tsx:313
 msgid "SAGAR Decision Pipeline is executing..."
-msgstr ""
+msgstr "सागर निर्णय पाइपलाइन निष्पादित हो रही है..."
 
 #: src/components/advisory/RouteComparisonCard.tsx:34
 msgid "SAGAR evaluates and scores candidate corridors against sea-state wave models, distance, and geofence boundaries:"
-msgstr ""
+msgstr "सागर समुद्र-राज्य लहर मॉडल, दूरी और जियोफेंस सीमाओं के खिलाफ उम्मीदवार गलियारों का मूल्यांकन और स्कोर करता है:"
 
 #: src/pages/LandingPage.tsx:267
 msgid "SAGAR features high-contrast typography readable under bright marine sunlight, 44px+ touch targets for vessel operations, multilingual support across coastal regions, and offline progressive caching."
-msgstr ""
+msgstr "सागर में उज्ज्वल समुद्री धूप में पढ़ने योग्य उच्च-कंट्रास्ट टाइपोग्राफी, पोत संचालन के लिए 44px+ टच लक्ष्य, तटीय क्षेत्रों में बहुभाषी समर्थन और ऑफ़लाइन प्रगतिशील कैशिंग शामिल हैं।"
 
-#: src/components/layout/Header.tsx:42
+#: src/components/layout/Header.tsx:44
 msgid "SAGAR Home"
-msgstr ""
+msgstr "सागर होम"
 
-#: src/pages/AuthPage.tsx:74
+#: src/pages/AuthPage.tsx:83
 msgid "SAGAR Identity"
-msgstr ""
+msgstr "सागर पहचान"
 
-#: src/components/common/ParallaxOceanHero.tsx:85
-msgid "SAGAR is a voice-first, multilingual marine safety assistant for fishermen, researchers and coastal authorities, combining ocean forecasting, geofencing, and explainable advisory logic into a single operational decision-support system."
-msgstr ""
+#: src/components/common/ParallaxOceanHero.tsx:86
+msgid "SAGAR is a marine safety assistant for fishermen, researchers and coastal authorities, combining ocean forecasting, geofencing, and explainable advisory logic into a single operational decision-support system."
+msgstr "सागर मछुआरों, शोधकर्ताओं और तटीय अधिकारियों के लिए एक समुद्री सुरक्षा सहायक है, जो महासागर पूर्वानुमान, जियोफेंसिंग और व्याख्यात्मक सलाहकार तर्क को एकल परिचालन निर्णय-समर्थन प्रणाली में जोड़ता है।"
 
-#: src/components/trip/AssessmentProgress.tsx:61
+#: src/components/trip/AssessmentProgress.tsx:59
 msgid "SAGAR is checking sea state and boat stability limits across all legs."
-msgstr ""
+msgstr "सागर सभी चरणों में समुद्र की स्थिति और नाव स्थिरता सीमा की जांच कर रहा है।"
 
-#: src/pages/KnowledgeChatPage.tsx:89
+#: src/pages/KnowledgeChatPage.tsx:90
 msgid "SAGAR Marine Knowledge Copilot"
-msgstr ""
+msgstr "सागर मरीन नॉलेज कोपायलट"
 
 #: src/components/common/InsufficientInfo.tsx:30
 msgid "SAGAR never fabricates or guesses safety-critical parameters. Assessment was paused because required vessel dimensions or temporal data is missing."
 msgstr ""
 
-#: src/components/chat/ClarificationPrompt.tsx:43
+#: src/components/chat/ClarificationPrompt.tsx:44
 msgid "SAGAR never guesses safety-critical voyage or boat parameters. Please provide the missing details below:"
 msgstr ""
 
 #: src/components/chat/MessageBubble.tsx:39
 msgid "SAGAR Safety Decision Support"
-msgstr ""
+msgstr "सागर सुरक्षा निर्णय समर्थन"
 
-#: src/components/chat/ChatInterface.tsx:229
+#: src/components/chat/ChatInterface.tsx:250
 msgid "SAGAR Spatio-Temporal Voyage Planner"
-msgstr ""
+msgstr "सागर स्थानिक-लौकिक यात्रा योजनाकार"
 
-#: src/components/trip/TripConfirmation.tsx:180
+#: src/components/trip/TripConfirmation.tsx:181
 msgid "SAGAR will correlate this 4D timeline with ocean wave forecasts and geofenced boundaries."
-msgstr ""
+msgstr "सागर इस 4D टाइमलाइन को महासागर लहर पूर्वानुमानों और जियोफेंस्ड सीमाओं से जोड़ेगा।"
 
-#: src/components/chat/ChatInterface.tsx:266
+#: src/components/chat/ChatInterface.tsx:287
 msgid "Sample Voyage Inquiries:"
-msgstr ""
+msgstr "नमूना यात्रा पूछताछ:"
 
-#: src/components/profile/OperatorProfileForm.tsx:230
+#: src/components/profile/OperatorProfileForm.tsx:231
 msgid "Save Operator Profile"
-msgstr ""
+msgstr "ऑपरेटर प्रोफ़ाइल सहेजें"
 
-#: src/components/vessel/VesselForm.tsx:199
+#: src/components/vessel/VesselForm.tsx:200
 msgid "Save Vessel Profile"
-msgstr ""
+msgstr "पोत प्रोफ़ाइल सहेजें"
 
-#: src/components/profile/OperatorProfileForm.tsx:230
+#: src/components/profile/OperatorProfileForm.tsx:231
 msgid "Saving Profile..."
-msgstr ""
+msgstr "प्रोफ़ाइल सहेजी जा रही है..."
 
-#: src/components/trip/TripConfirmation.tsx:121
+#: src/components/trip/TripConfirmation.tsx:122
 msgid "Schedule (Departure → Return)"
-msgstr ""
+msgstr "अनुसूची (प्रस्थान → वापसी)"
 
 #: src/components/conditions/MarineCard.tsx:52
 msgid "Sea Surface Temp:"
-msgstr ""
+msgstr "समुद्र की सतह का तापमान:"
 
-#: src/pages/AuthPage.tsx:77
+#: src/components/map/TrajectoryMap.tsx:908
+msgid "Sea Temp (SST)"
+msgstr "समुद्र का तापमान (SST)"
+
+#: src/pages/LiveConditionsPage.tsx:126
+msgid "Seabed depth"
+msgstr "समुद्र तल की गहराई"
+
+#: src/components/common/LanguageSelector.tsx:134
+msgid "Search language, script, or coastal port..."
+msgstr "भाषा, लिपि या तटीय बंदरगाह खोजें..."
+
+#: src/pages/AuthPage.tsx:86
 msgid "Secure Coastal Decision Support Access"
-msgstr ""
+msgstr "सुरक्षित तटीय निर्णय समर्थन एक्सेस"
 
 #: src/pages/LandingPage.tsx:93
 msgid "See why a 2.1m afternoon return swell is dangerous for a 2.2m beam boat, but safe for a 6.0m seiner."
-msgstr ""
+msgstr "देखें कि 2.1 मीटर दोपहर का रिटर्न स्वेल 2.2 मीटर बीम वाली नाव के लिए क्यों खतरनाक है, लेकिन 6.0 मीटर सेनर के लिए क्यों सुरक्षित है।"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:103
+#: src/components/common/InteractiveVoyageSimulator.tsx:130
 msgid "Seiner"
-msgstr ""
+msgstr "सेनर"
+
+#: src/components/common/LanguageSelector.tsx:87
+msgid "Select Language / ಭಾಷೆ"
+msgstr "भाषा चुनें / भाषा"
 
 #: src/components/conditions/PFZSelector.tsx:79
 msgid "Selected"
-msgstr ""
+msgstr "चयनित"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:75
+#: src/components/VoiceAssistant/VoiceWidget.tsx:113
+msgid "Send"
+msgstr "भेजें"
+
+#: src/components/common/InteractiveVoyageSimulator.tsx:102
 msgid "SEVERE CAPSIZE HAZARD"
-msgstr ""
+msgstr "गंभीर कैपसाइज खतरा"
 
-#: src/components/advisory/AlertBannerList.tsx:77
-#: src/components/advisory/TripTimeline.tsx:26
-#: src/pages/AssessmentHistoryPage.tsx:42
+#: src/components/advisory/AlertBannerList.tsx:82
+#: src/components/advisory/TripTimeline.tsx:27
+#: src/pages/AssessmentHistoryPage.tsx:43
 msgid "SEVERE HAZARD"
-msgstr ""
+msgstr "गंभीर खतरा"
 
-#: src/components/common/ParallaxOceanHero.tsx:201
+#: src/components/common/ParallaxOceanHero.tsx:202
 msgid "SEVERE HAZARD (2.1m)"
-msgstr ""
+msgstr "गंभीर खतरा (2.1m)"
 
 #: src/components/advisory/AdvisoryBanner.tsx:43
 msgid "SEVERE HAZARD DETECTED — VOYAGE NOT RECOMMENDED"
-msgstr ""
+msgstr "गंभीर खतरे का पता चला — यात्रा की सिफारिश नहीं की गई"
 
-#: src/components/map/TrajectoryMap.tsx:828
+#: src/components/map/TrajectoryMap.tsx:829
 msgid "Severe Risk"
-msgstr ""
+msgstr "गंभीर जोखिम"
 
-#: src/components/layout/Header.tsx:23
-#: src/components/layout/Header.tsx:28
-#: src/components/layout/Header.tsx:29
+#: src/components/map/TrajectoryMap.tsx:773
+msgid "Show or hide potential fishing zones"
+msgstr "संभावित मछली पकड़ने के क्षेत्रों को दिखाएं या छिपाएं"
+
+#: src/components/layout/Header.tsx:25
+#: src/components/layout/Header.tsx:30
+#: src/components/layout/Header.tsx:31
 msgid "Sign In"
-msgstr ""
+msgstr "साइन इन करें"
 
-#: src/pages/AuthPage.tsx:151
+#: src/pages/AuthPage.tsx:160
 msgid "Sign In to SAGAR"
-msgstr ""
+msgstr "सागर में साइन इन करें"
 
-#: src/components/common/ParallaxOceanHero.tsx:107
+#: src/components/common/ParallaxOceanHero.tsx:108
 msgid "Simulate Afternoon Swell Surge"
-msgstr ""
+msgstr "दोपहर की सूजन वृद्धि का अनुकरण करें"
+
+#: src/components/common/ParallaxOceanHero.tsx:81
+msgid "Smart Agentic Grid for Aquatic Reasoning"
+msgstr "स्मार्ट एजेंटीक ग्रिड फॉर एक्वाटिक रीजनिंग"
+
+#: src/components/layout/Header.tsx:130
+msgid "SOS 1554"
+msgstr "एसओएस 1554"
 
 #: src/components/advisory/ConflictInfoCard.tsx:38
 msgid "Source A:"
-msgstr ""
+msgstr "स्रोत ए:"
 
 #: src/components/advisory/ConflictInfoCard.tsx:49
 msgid "Source B:"
-msgstr ""
+msgstr "स्रोत बी:"
+
+#: src/components/map/TrajectoryMap.tsx:934
+msgid "Source:"
+msgstr "स्रोत:"
 
 #: src/components/advisory/EvidencePanel.tsx:133
 msgid "Source: "
-msgstr ""
+msgstr "स्रोत: "
 
-#: src/components/common/ParallaxOceanHero.tsx:114
+#. placeholder {0}: provenance?.source || 'not supplied by adapter'
+#: src/pages/LiveConditionsPage.tsx:24
+msgid "Source: {0}"
+msgstr "स्रोत: {0}"
+
+#: src/components/common/ParallaxOceanHero.tsx:115
 msgid "Spatial Engine"
-msgstr ""
+msgstr "स्थानिक इंजन"
 
-#: src/pages/AdvisoryPage.tsx:178
+#: src/pages/AdvisoryPage.tsx:179
 msgid "Spatio-Temporal Trajectory & Environmental Layers"
-msgstr ""
+msgstr "स्थानिक-लौकिक प्रक्षेपवक्र और पर्यावरणीय परतें"
 
-#: src/components/VoiceAssistant/VoiceWidget.tsx:75
+#: src/components/VoiceAssistant/VoiceWidget.tsx:103
 msgid "speaking..."
-msgstr ""
+msgstr "बोल रहा है..."
 
-#: src/components/chat/ChatInterface.tsx:259
+#: src/components/chat/ChatInterface.tsx:280
 msgid "Specify your departure time, origin harbor, operational area, and expected return time. SAGAR evaluates sea state forecasts, geofencing, and capsize stability limits across every phase of your journey."
-msgstr ""
+msgstr "अपना प्रस्थान समय, मूल बंदरगाह, परिचालन क्षेत्र और अपेक्षित वापसी समय निर्दिष्ट करें। सागर आपकी यात्रा के हर चरण में समुद्र की स्थिति के पूर्वानुमान, जियोफेंसिंग और कैपसाइज स्थिरता सीमा का मूल्यांकन करता है।"
 
-#: src/components/common/ParallaxOceanHero.tsx:118
+#: src/components/common/ParallaxOceanHero.tsx:119
 msgid "Stability Rule"
-msgstr ""
+msgstr "स्थिरता नियम"
 
 #: src/components/conditions/WeatherCard.tsx:38
 msgid "STALE"
-msgstr ""
+msgstr "बासी"
 
-#: src/components/vessel/VesselForm.tsx:83
+#: src/components/vessel/VesselForm.tsx:84
 msgid "Standard Coastal Boat Presets:"
-msgstr ""
+msgstr "मानक तटीय नाव प्रीसेट:"
 
-#: src/components/advisory/AlertBannerList.tsx:46
+#: src/components/advisory/AlertBannerList.tsx:51
 msgid "Standard Maritime Thresholds"
-msgstr ""
+msgstr "मानक समुद्री सीमाएं"
 
-#: src/components/VoiceAssistant/VoiceWidget.tsx:51
+#: src/components/VoiceAssistant/VoiceWidget.tsx:79
 msgid "Start Voice Assistant"
-msgstr ""
+msgstr "वॉयस असिस्टेंट शुरू करें"
 
 #: src/pages/LandingPage.tsx:277
 msgid "Start Voyage Assessment"
-msgstr ""
+msgstr "यात्रा मूल्यांकन प्रारंभ करें"
 
-#: src/components/VoiceAssistant/VoiceWidget.tsx:82
+#: src/components/VoiceAssistant/VoiceWidget.tsx:119
 msgid "Stop Voice Assistant"
-msgstr ""
+msgstr "वॉयस असिस्टेंट रोकें"
 
-#: src/components/chat/ClarificationPrompt.tsx:81
+#: src/components/chat/ClarificationPrompt.tsx:82
 msgid "Submit Details"
-msgstr ""
+msgstr "विवरण जमा करें"
 
 #: src/components/common/GeofenceWarning.tsx:41
 msgid "Suggested Action: Select coastal or offshore bypass corridor"
-msgstr ""
+msgstr "सुझाई गई कार्रवाई: तटीय या अपतटीय बाईपास कॉरिडोर चुनें"
 
-#: src/components/advisory/ModificationModal.tsx:75
+#: src/components/advisory/ModificationModal.tsx:76
 msgid "Suggested Mitigations:"
-msgstr ""
+msgstr "सुझाए गए शमन:"
 
 #: src/components/conditions/MarineCard.tsx:75
 msgid "Surface Currents:"
-msgstr ""
+msgstr "सतही धाराएँ:"
 
-#: src/pages/AuthPage.tsx:193
+#: src/pages/AuthPage.tsx:202
 msgid "SVAS Compliant"
-msgstr ""
+msgstr "SVAS अनुरूप"
 
-#: src/pages/AdvisoryPage.tsx:139
+#: src/pages/AdvisoryPage.tsx:140
 msgid "SVAS Stability Threshold Breached"
-msgstr ""
+msgstr "SVAS स्थिरता सीमा का उल्लंघन किया गया"
+
+#: src/components/common/ParallaxOceanHero.tsx:33
+msgid "SVAS Verified"
+msgstr "SVAS सत्यापित"
 
 #: src/components/common/ParallaxOceanHero.tsx:32
-msgid "SVAS Verified"
-msgstr ""
-
-#: src/components/common/ParallaxOceanHero.tsx:31
 msgid "Swell Evaluated"
-msgstr ""
+msgstr "सूजन का मूल्यांकन किया गया"
 
 #: src/components/conditions/WeatherCard.tsx:66
 msgid "Swell:"
-msgstr ""
+msgstr "सूजन:"
 
-#: src/components/common/ParallaxOceanHero.tsx:183
+#: src/components/chat/ChatInterface.tsx:235
+msgid "Synthesizing Final Safety Advisory..."
+msgstr "अंतिम सुरक्षा सलाह को संश्लेषित किया जा रहा है..."
+
+#: src/components/common/ParallaxOceanHero.tsx:184
 msgid "Target PFZ Ground"
-msgstr ""
+msgstr "लक्ष्य PFZ ग्राउंड"
 
-#: src/pages/KnowledgeChatPage.tsx:94
+#: src/components/map/TrajectoryMap.tsx:877
+msgid "Target Time:"
+msgstr "लक्ष्य समय:"
+
+#: src/pages/KnowledgeChatPage.tsx:95
 msgid "Technical Q&A based on verified oceanographic & marine safety documentation."
-msgstr ""
+msgstr "सत्यापित समुद्र विज्ञान और समुद्री सुरक्षा प्रलेखन पर आधारित तकनीकी प्रश्नोत्तर।"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:54
+#: src/components/common/InteractiveVoyageSimulator.tsx:81
 msgid "Test how boat physical beam width and return hour determine capsize risk in real time."
-msgstr ""
+msgstr "परीक्षण करें कि कैसे नाव की भौतिक बीम की चौड़ाई और वापसी का समय वास्तविक समय में कैपसाइज जोखिम निर्धारित करता है।"
 
 #: src/pages/LandingPage.tsx:90
 msgid "Test Vessel Stability & Diurnal Swell in Real Time"
-msgstr ""
+msgstr "वास्तविक समय में पोत स्थिरता और दैनिक सूजन का परीक्षण करें"
 
-#: src/components/common/ParallaxOceanHero.tsx:188
+#: src/components/common/ParallaxOceanHero.tsx:189
 msgid "Thermal front convergence active"
-msgstr ""
+msgstr "थर्मल फ्रंट अभिसरण सक्रिय"
 
-#: src/pages/AuthPage.tsx:189
+#: src/components/chat/ChatInterface.tsx:119
+#: src/components/chat/ChatInterface.tsx:164
+msgid "This is a knowledge question. Use the ORCA Copilot for detailed answers."
+msgstr "यह एक ज्ञान का प्रश्न है। विस्तृत उत्तरों के लिए ORCA Copilot का उपयोग करें।"
+
+#: src/pages/LiveConditionsPage.tsx:125
+msgid "Tides"
+msgstr "ज्वार"
+
+#. placeholder {0}: tier === 1 ? 'live data' : 'fallback data'
+#: src/pages/LiveConditionsPage.tsx:23
+msgid "Tier {tier} {0}"
+msgstr "टियर {tier} {0}"
+
+#: src/pages/AuthPage.tsx:198
 msgid "Tier 1 Data"
-msgstr ""
+msgstr "टियर 1 डेटा"
 
 #: src/components/advisory/EvidencePanel.tsx:175
 msgid "Tier 1 Live"
-msgstr ""
+msgstr "टियर 1 लाइव"
 
-#: src/components/common/ParallaxOceanHero.tsx:123
+#: src/components/map/TrajectoryMap.tsx:930
+msgid "Tier 1 Live Data Confirmed"
+msgstr "टियर 1 लाइव डेटा की पुष्टि की गई"
+
+#: src/components/map/TrajectoryMap.tsx:798
+msgid "Tier 1 live PFZ data received"
+msgstr "टियर 1 लाइव PFZ डेटा प्राप्त हुआ"
+
+#: src/components/common/ParallaxOceanHero.tsx:124
 msgid "Tier 1–3 Verified"
-msgstr ""
+msgstr "टियर 1-3 सत्यापित"
 
 #: src/components/advisory/EvidencePanel.tsx:175
 msgid "Tier 2 ML"
-msgstr ""
+msgstr "टियर 2 ML"
 
 #: src/components/advisory/EvidencePanel.tsx:175
 msgid "Tier 3 Ref"
-msgstr ""
+msgstr "टियर 3 Ref"
 
 #: src/components/advisory/ConflictInfoCard.tsx:42
 #: src/components/advisory/ConflictInfoCard.tsx:53
 msgid "Timestamp:"
-msgstr ""
+msgstr "टाइमस्टैम्प:"
 
-#: src/components/trip/TripConfirmation.tsx:141
+#: src/components/trip/TripConfirmation.tsx:142
 msgid "to"
-msgstr ""
+msgstr "तक"
 
-#: src/components/layout/Header.tsx:189
+#: src/components/layout/Header.tsx:208
 msgid "Toggle navigation menu"
-msgstr ""
+msgstr "नेविगेशन मेनू टॉगल करें"
 
-#: src/components/vessel/VesselForm.tsx:90
+#: src/components/vessel/VesselForm.tsx:91
 msgid "Traditional Catamaran"
-msgstr ""
+msgstr "पारंपरिक कटमरैन"
 
-#: src/components/common/ParallaxOceanHero.tsx:172
+#: src/components/common/ParallaxOceanHero.tsx:173
 msgid "Transit corridor clear, wind 12 km/h"
-msgstr ""
+msgstr "ट्रांजिट कॉरिडोर स्पष्ट, हवा 12 किमी/घंटा"
 
-#: src/pages/AdvisoryPage.tsx:102
+#: src/pages/AdvisoryPage.tsx:103
 msgid "Translation:"
-msgstr ""
+msgstr "अनुवाद:"
 
-#: src/components/common/InteractiveVoyageSimulator.tsx:102
+#: src/components/common/InteractiveVoyageSimulator.tsx:129
 msgid "Trawler"
-msgstr ""
+msgstr "ट्रॉलर"
 
-#: src/components/layout/Header.tsx:16
-#: src/components/layout/Header.tsx:16
+#: src/components/layout/Header.tsx:18
+#: src/components/layout/Header.tsx:18
 msgid "Trip Planner"
 msgstr "यात्रा योजनाकार"
 
-#: src/components/chat/ChatInterface.tsx:342
+#: src/components/chat/ChatInterface.tsx:363
 msgid "Type your voyage details (e.g. Leave Mangalore 5 AM, return 2 PM)..."
-msgstr ""
+msgstr "अपनी यात्रा का विवरण टाइप करें (उदा. मंगलौर से सुबह 5 बजे प्रस्थान, दोपहर 2 बजे वापसी)..."
 
-#: src/components/chat/ChatInterface.tsx:101
+#: src/components/chat/ChatInterface.tsx:113
+#: src/components/chat/ChatInterface.tsx:192
 msgid "Unable to assess safety due to missing vessel or trip parameters."
-msgstr ""
+msgstr "पोत या यात्रा मापदंडों के गायब होने के कारण सुरक्षा का आकलन करने में असमर्थ।"
 
-#: src/pages/AdvisoryPage.tsx:54
+#: src/pages/AdvisoryPage.tsx:55
 msgid "Unable to connect to SAGAR safety decision service. Please verify network connection and retry."
-msgstr ""
+msgstr "सागर सुरक्षा निर्णय सेवा से जुड़ने में असमर्थ। कृपया नेटवर्क कनेक्शन जांचें और पुनः प्रयास करें।"
 
 #: src/components/common/InsufficientInfo.tsx:26
 msgid "Unable to Safely Assess Your Voyage"
+msgstr "आपकी यात्रा का सुरक्षित रूप से आकलन करने में असमर्थ"
+
+#: src/pages/LiveConditionsPage.tsx:32
+msgid "Unavailable"
+msgstr "अनुपलब्ध"
+
+#: src/components/trip/AssessmentProgress.tsx:20
+msgid "Understanding your trip"
 msgstr ""
 
-#: src/pages/AssessmentHistoryPage.tsx:48
+#: src/pages/AssessmentHistoryPage.tsx:49
 msgid "UNKNOWN"
-msgstr ""
+msgstr "अज्ञात"
 
 #: src/components/advisory/EvidencePanel.tsx:163
 #: src/components/conditions/PFZSelector.tsx:102
 msgid "Valid:"
-msgstr ""
+msgstr "मान्य:"
 
 #: src/components/advisory/EvidencePanel.tsx:36
 msgid "Verified dataset attribution, confidence ratings, and safety threshold triggers"
-msgstr ""
+msgstr "सत्यापित डेटासेट एट्रिब्यूशन, विश्वास रेटिंग, और सुरक्षा सीमा ट्रिगर"
 
 #: src/pages/LandingPage.tsx:113
 msgid "Verified Test Scenarios"
-msgstr ""
+msgstr "सत्यापित परीक्षण परिदृश्य"
 
-#: src/components/trip/TripConfirmation.tsx:150
+#: src/components/trip/TripConfirmation.tsx:151
 msgid "Vessel & Stability Baseline"
-msgstr ""
+msgstr "पोत और स्थिरता बेसलाइन"
 
-#: src/components/layout/Header.tsx:24
+#: src/components/common/SosEmergencyModal.tsx:107
+msgid "Vessel ID:"
+msgstr "पोत आईडी:"
+
+#: src/components/layout/Header.tsx:26
 msgid "Vessel Profile"
 msgstr "नौका प्रोफ़ाइल"
 
-#: src/components/vessel/VesselForm.tsx:76
+#: src/components/vessel/VesselForm.tsx:77
 msgid "Vessel profile updated & SVAS max safe wave limit recalculated!"
-msgstr ""
+msgstr "पोत प्रोफ़ाइल अद्यतन और एसवीएएस अधिकतम सुरक्षित लहर सीमा की पुनर्गणना की गई!"
 
-#: src/components/vessel/VesselForm.tsx:66
+#: src/components/vessel/VesselForm.tsx:67
 msgid "Vessel Specification Profile"
-msgstr ""
+msgstr "पोत विशिष्टता प्रोफ़ाइल"
 
 #: src/pages/VesselProfilePage.tsx:37
 msgid "Vessel Specifications"
-msgstr ""
+msgstr "पोत के विनिर्देश"
 
 #: src/components/advisory/AdvisoryCard.tsx:42
 msgid "Vessel Stability Context:"
-msgstr ""
+msgstr "पोत स्थिरता संदर्भ:"
 
-#: src/pages/KnowledgeChatPage.tsx:27
+#: src/pages/KnowledgeChatPage.tsx:28
 msgid "Vessel Stability Rule"
-msgstr ""
+msgstr "पोत स्थिरता नियम"
 
-#: src/components/vessel/VesselForm.tsx:118
+#: src/components/vessel/VesselForm.tsx:119
 msgid "Vessel Type"
-msgstr ""
+msgstr "पोत का प्रकार"
+
+#: src/components/common/SosEmergencyModal.tsx:133
+msgid "VHF Channel 16 (156.8 MHz)"
+msgstr "VHF चैनल 16 (156.8 MHz)"
 
 #: src/components/conditions/WeatherCard.tsx:73
 msgid "Visibility:"
-msgstr ""
+msgstr "दृश्यता:"
 
-#: src/components/VoiceAssistant/VoiceWidget.tsx:21
+#: src/components/VoiceAssistant/VoiceWidget.tsx:43
 msgid "Voice unavailable"
-msgstr ""
+msgstr "वॉयस अनुपलब्ध"
 
-#: src/components/common/ParallaxOceanHero.tsx:80
-msgid "Voice-First Multilingual Marine Safety Assistant"
-msgstr ""
-
-#: src/pages/AssessmentHistoryPage.tsx:62
+#: src/pages/AssessmentHistoryPage.tsx:63
 msgid "Voyage Assessment History"
-msgstr ""
+msgstr "यात्रा मूल्यांकन इतिहास"
 
-#: src/components/chat/ClarificationPrompt.tsx:40
+#: src/components/chat/ClarificationPrompt.tsx:41
 msgid "Voyage Clarification Required"
 msgstr ""
 
 #: src/components/advisory/RouteComparisonCard.tsx:78
 msgid "Voyage Distance"
-msgstr ""
+msgstr "यात्रा की दूरी"
 
-#: src/components/layout/Header.tsx:25
+#: src/components/layout/Header.tsx:27
 msgid "Voyage History"
 msgstr "यात्रा इतिहास"
 
-#: src/components/common/ParallaxOceanHero.tsx:135
+#: src/components/common/ParallaxOceanHero.tsx:136
 msgid "Voyage Spatio-Temporal Journey"
-msgstr ""
+msgstr "यात्रा स्थानिक-लौकिक यात्रा"
 
-#: src/components/advisory/AlertBannerList.tsx:77
+#: src/components/advisory/AlertBannerList.tsx:82
 msgid "WARNING"
-msgstr ""
+msgstr "चेतावनी"
 
-#: src/components/common/ParallaxOceanHero.tsx:215
+#: src/components/common/ParallaxOceanHero.tsx:216
 msgid "Warns of return hazards before departure."
-msgstr ""
+msgstr "प्रस्थान से पहले वापसी के खतरों की चेतावनी देता है।"
 
 #. placeholder {0}: hazard.observed_value
 #. placeholder {1}: hazard.threshold_value
-#: src/components/advisory/TripTimeline.tsx:27
+#: src/components/advisory/TripTimeline.tsx:28
 msgid "Wave {0}m > {1}m limit"
-msgstr ""
+msgstr "लहर {0}m > {1}m सीमा"
+
+#: src/components/map/TrajectoryMap.tsx:888
+msgid "Wave Height"
+msgstr "लहर की ऊंचाई"
 
 #: src/components/conditions/WeatherCard.tsx:50
 msgid "Wave Height:"
-msgstr ""
+msgstr "लहर की ऊंचाई:"
 
 #. placeholder {0}: returnWave.toFixed(1)
 #. placeholder {1}: svasLimit.toFixed(2)
-#: src/components/common/InteractiveVoyageSimulator.tsx:203
+#: src/components/common/InteractiveVoyageSimulator.tsx:261
 msgid "Wave heights at <0>{returnHour}:00 IST ({0} m)</0> are close to your boat limit of <1>{1} m</1>. Exercise caution during return approach."
-msgstr ""
+msgstr "<0>{returnHour}:00 IST ({0} मी)</0> पर लहरों की ऊंचाई आपकी नाव की सीमा <1>{1} मी</1> के करीब है। वापस आते समय सावधानी बरतें।"
 
 #. placeholder {0}: returnWave.toFixed(1)
 #. placeholder {1}: svasLimit.toFixed(2)
-#: src/components/common/InteractiveVoyageSimulator.tsx:208
+#: src/components/common/InteractiveVoyageSimulator.tsx:266
 msgid "Wave heights during <0>{returnHour}:00 IST ({0} m)</0> remain comfortably under your vessel's safe limit of <1>{1} m</1>."
-msgstr ""
+msgstr "<0>{returnHour}:00 IST ({0} मी)</0> के दौरान लहरों की ऊंचाई आपके पोत की सुरक्षित सीमा <1>{1} मी</1> से नीचे रहती है।"
 
 #. placeholder {0}: idx + 1
 #. placeholder {0}: wp.waypoint_index + 1
-#: src/components/advisory/TripTimeline.tsx:135
-#: src/components/map/TrajectoryMap.tsx:505
+#: src/components/advisory/TripTimeline.tsx:136
+#: src/components/map/TrajectoryMap.tsx:506
 msgid "Waypoint {0}"
-msgstr ""
+msgstr "वेपॉइंट {0}"
+
+#. placeholder {0}: activeWpIndex + 1
+#: src/components/map/TrajectoryMap.tsx:859
+msgid "Waypoint {0} Conditions"
+msgstr "वेपॉइंट {0} स्थितियां"
 
 #: src/components/conditions/WeatherCard.tsx:23
 msgid "Waypoint Interpolated"
-msgstr ""
+msgstr "वेपॉइंट इंटरपोलेटेड"
 
 #: src/components/conditions/WeatherCard.tsx:19
 msgid "Weather & Sea State Forecast (Time-Aligned)"
-msgstr ""
+msgstr "मौसम और समुद्री स्थिति का पूर्वानुमान (समय-संरेखित)"
+
+#: src/pages/LiveConditionsPage.tsx:121
+msgid "Weather and sea state"
+msgstr "मौसम और समुद्र की स्थिति"
 
 #: src/pages/LandingPage.tsx:203
 msgid "Weather is not a static 2D snapshot. SAGAR models your trip across time and space — evaluating forecasted wave height, period, and wind speed at the exact future ETA of each waypoint."
-msgstr ""
+msgstr "मौसम एक स्थिर 2D स्नैपशॉट नहीं है। सागर समय और स्थान के पार आपकी यात्रा का मॉडल तैयार करता है - प्रत्येक वेपॉइंट के सटीक भविष्य के ईटीए पर अनुमानित लहर की ऊंचाई, अवधि और हवा की गति का मूल्यांकन करता है।"
 
 #: src/components/advisory/RouteComparisonCard.tsx:91
 msgid "Weather Risk Penalty:"
-msgstr ""
+msgstr "मौसम जोखिम जुर्माना:"
 
-#: src/pages/KnowledgeChatPage.tsx:15
+#: src/pages/KnowledgeChatPage.tsx:16
 msgid "Welcome to the SAGAR Marine Knowledge Copilot. You can ask grounded domain questions regarding INCOIS Potential Fishing Zones (PFZ), SVAS vessel stability safety formulas, Marine Protected Area rules, or satellite oceanography data."
-msgstr ""
+msgstr "सागर मरीन नॉलेज कोपायलट में आपका स्वागत है। आप INCOIS संभावित मत्स्य पालन क्षेत्र (PFZ), SVAS पोत स्थिरता सुरक्षा सूत्र, समुद्री संरक्षित क्षेत्र नियम, या उपग्रह समुद्र विज्ञान डेटा के संबंध में जमीनी डोमेन प्रश्न पूछ सकते हैं।"
 
-#: src/pages/KnowledgeChatPage.tsx:28
+#: src/pages/KnowledgeChatPage.tsx:29
 msgid "What is the SVAS capsize wave height limit formula for a 4.5m beam trawler?"
-msgstr ""
+msgstr "4.5 मीटर बीम ट्रॉलर के लिए SVAS कैपसाइज वेव ऊंचाई सीमा का सूत्र क्या है?"
 
-#: src/pages/KnowledgeChatPage.tsx:32
+#: src/pages/KnowledgeChatPage.tsx:33
 msgid "What marine protected areas exist near the Gulf of Mannar?"
-msgstr ""
+msgstr "मन्नार की खाड़ी के पास कौन से समुद्री संरक्षित क्षेत्र मौजूद हैं?"
 
-#: src/pages/AssessmentHistoryPage.tsx:88
+#: src/pages/AssessmentHistoryPage.tsx:89
 msgid "When you evaluate a voyage in the Trip Planner, the assessment parameters and safety advisories will be archived here."
-msgstr ""
+msgstr "जब आप ट्रिप प्लानर में यात्रा का मूल्यांकन करते हैं, तो मूल्यांकन पैरामीटर और सुरक्षा सलाह यहां संग्रहीत किए जाएंगे।"
 
-#: src/pages/KnowledgeChatPage.tsx:36
+#: src/pages/KnowledgeChatPage.tsx:37
 msgid "Why does afternoon wave surge increase risk for small motorized crafts?"
-msgstr ""
+msgstr "दोपहर की लहर में उछाल छोटे मोटर चालित जहाजों के लिए जोखिम क्यों बढ़ाता है?"
 
 #: src/pages/LandingPage.tsx:187
 msgid "Why static weather cards fail maritime operators — and how SAGAR provides true voyage decision support."
-msgstr ""
+msgstr "समुद्री ऑपरेटरों के लिए स्थिर मौसम कार्ड क्यों विफल होते हैं - और कैसे सागर सही यात्रा निर्णय समर्थन प्रदान करता है।"
+
+#: src/components/map/TrajectoryMap.tsx:898
+msgid "Wind Speed"
+msgstr "हवा की गति"
 
 #: src/components/conditions/WeatherCard.tsx:59
 msgid "Wind Speed:"
-msgstr ""
+msgstr "हवा की गति:"
+
+#: src/pages/LiveConditionsPage.tsx:122
+#: src/pages/LiveConditionsPage.tsx:124
+msgid "Yes"
+msgstr "हाँ"
 
 #: src/components/chat/MessageBubble.tsx:39
 msgid "You"
-msgstr ""
+msgstr "आप"
 
 #. placeholder {0}: geo.affected_waypoints?.join(', ')
 #: src/components/common/GeofenceWarning.tsx:33
 msgid "Your planned route trajectory intersects this protected boundary at waypoint indices <0>{0}</0>. Navigation and harvesting inside this zone are restricted under national maritime and environmental regulations."
-msgstr ""
+msgstr "आपका नियोजित मार्ग प्रक्षेपवक्र वेपॉइंट सूचकांक <0>{0}</0> पर इस संरक्षित सीमा को प्रतिच्छेदित करता है। राष्ट्रीय समुद्री और पर्यावरण नियमों के तहत इस क्षेत्र के भीतर नेविगेशन और कटाई प्रतिबंधित है।"
 
 #: src/components/conditions/MarineCard.tsx:42
 msgid "Zone"
-msgstr ""
+msgstr "क्षेत्र"
+

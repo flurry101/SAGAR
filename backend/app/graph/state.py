@@ -279,9 +279,11 @@ class TripContext(TypedDict, total=False):
     fisher_id: str
     language: str
     origin: str
+    destination_name: str
     destination_lat: float
     destination_lon: float
     departure_time_iso: str
+    return_time_iso: str
     last_route_id: str | None
     last_risk_level: str | None
     last_assessment_id: str | None

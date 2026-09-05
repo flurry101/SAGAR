@@ -11,7 +11,7 @@ async def run_multiturn():
     print(f"\n--- SESSION: {session_id} ---")
 
     # Turn 1
-    msg1 = "I want to go fishing from Mangalore tomorrow."
+    msg1 = "Planning trip from Rameswaram to Gulf of Mannar leaving at 4 AM and returning at 1 PM"
     print(f"\nUSER (Turn 1): {msg1}")
     state1 = {
         "conversation_history": [{"role": "user", "content": msg1}],
@@ -24,7 +24,7 @@ async def run_multiturn():
     print(f"\nADVISORY (Turn 1): {json.dumps(res1.get('advisory', {}), indent=2)}")
 
     # Turn 2
-    msg2 = "What about 6 PM?"
+    msg2 = "Actually return at 5 PM"
     print(f"\nUSER (Turn 2): {msg2}")
     state2 = {
         "conversation_history": [{"role": "user", "content": msg2}],

@@ -3,12 +3,15 @@ import { useAppStore } from '../../state/appStore';
 import { LANGUAGE_REGISTRY, INDIAN_LOCALES, SupportedLocale, LanguageInfo } from '../../i18n/lingui';
 import { Globe, Check, Anchor, Search, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Trans } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 
 export const LanguageSelector: React.FC = () => {
   const { selectedLanguage, setLanguage } = useAppStore();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'coastal' | 'all'>('coastal');
   const [searchQuery, setSearchQuery] = useState('');
+  const { t } = useLingui();
 
   const currentLangInfo = LANGUAGE_REGISTRY[selectedLanguage] || LANGUAGE_REGISTRY.en;
 
@@ -45,8 +48,8 @@ export const LanguageSelector: React.FC = () => {
         whileTap={{ scale: 0.98 }}
         onClick={() => setIsOpen((prev) => !prev)}
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-sagar-canvasAlt text-sagar-navy text-xs font-bold border border-sagar-border transition-all shadow-soft-sm cursor-pointer shrink-0"
-        title="Change language / ಭಾಷೆಯನ್ನು ಬದಲಿಸಿ / மொழியை மாற்றുക"
-        aria-label="Language Selector"
+        title={t`Change language`}
+        aria-label={t`Language Selector`}
       >
         <Globe className="w-3.5 h-3.5 text-sky-600 shrink-0" />
         <span className="font-extrabold text-sagar-navy whitespace-nowrap">{currentLangInfo.regional}</span>
@@ -81,14 +84,14 @@ export const LanguageSelector: React.FC = () => {
                     <Globe className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-extrabold text-sagar-navy">Select Language / ಭಾಷೆ</h3>
-                    <p className="text-[11px] text-slate-500">22 Indian Official Languages & Coastal Ports</p>
+                    <h3 className="text-sm font-extrabold text-sagar-navy"><Trans>Select Language / ಭಾಷೆ</Trans></h3>
+                    <p className="text-[11px] text-slate-500"><Trans>22 Indian Official Languages & Coastal Ports</Trans></p>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600"
-                  aria-label="Close"
+                  aria-label={t`Close`}
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -105,7 +108,7 @@ export const LanguageSelector: React.FC = () => {
                   }`}
                 >
                   <Anchor className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Coastal Ports & States</span>
+                  <span><Trans>Coastal Ports & States</Trans></span>
                 </button>
                 <button
                   onClick={() => setActiveTab('all')}
@@ -116,7 +119,7 @@ export const LanguageSelector: React.FC = () => {
                   }`}
                 >
                   <Globe className="w-3.5 h-3.5 text-sky-600" />
-                  <span>All 22 Languages</span>
+                  <span><Trans>All 22 Languages</Trans></span>
                 </button>
               </div>
 
@@ -128,7 +131,7 @@ export const LanguageSelector: React.FC = () => {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search language, script, or coastal port..."
+                    placeholder={t`Search language, script, or coastal port...`}
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-sagar-navy focus:outline-none focus:border-sky-500"
                   />
                 </div>
@@ -179,7 +182,7 @@ export const LanguageSelector: React.FC = () => {
 
                 {displayedLanguages.length === 0 && (
                   <div className="p-6 text-center text-xs text-slate-400">
-                    No matching language found for "{searchQuery}".
+                    <Trans>No matching language found for "{searchQuery}".</Trans>
                   </div>
                 )}
               </div>

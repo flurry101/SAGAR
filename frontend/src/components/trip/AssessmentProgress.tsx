@@ -2,24 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Clock, Loader2, Shield, Compass, Waves, CloudRain, FileCheck, Navigation } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Trans } from '@lingui/react/macro';
-import { useLingui } from '@lingui/react/macro';
 
 interface Step {
   id: string;
-  label: string;
-  sublabel: string;
+  label: React.ReactNode;
+  sublabel: React.ReactNode;
   icon: React.ReactNode;
 }
-
-const getSteps = (t: any): Step[] => [
-  { id: '1', label: t`Understanding your trip`, sublabel: t`Extracting departure, destination & vessel schedule`, icon: <Compass className="w-4 h-4" /> },
-  { id: '2', label: t`Finding your fishing zone`, sublabel: t`Querying PFZ thermal & chlorophyll coordinates`, icon: <Waves className="w-4 h-4" /> },
-  { id: '3', label: t`Calculating your route`, sublabel: t`Generating 4D waypoints and transit ETAs`, icon: <Navigation className="w-4 h-4" /> },
-  { id: '4', label: t`Checking sea conditions`, sublabel: t`Retrieving marine wave and current observations`, icon: <Waves className="w-4 h-4" /> },
-  { id: '5', label: t`Checking weather forecast`, sublabel: t`Evaluating wind, wave & swell across all trip phases`, icon: <CloudRain className="w-4 h-4" /> },
-  { id: '6', label: t`Assessing safety`, sublabel: t`Applying deterministic SVAS vessel stability limits`, icon: <Shield className="w-4 h-4" /> },
-  { id: '7', label: t`Preparing your advisory`, sublabel: t`Formulating explainable recommendations & evidence`, icon: <FileCheck className="w-4 h-4" /> }
-];
 
 interface Props {
   onComplete?: () => void;
@@ -27,8 +16,16 @@ interface Props {
 }
 
 export const AssessmentProgress: React.FC<Props> = ({ onComplete, speedMs = 350 }) => {
-  const { t } = useLingui();
-  const STEPS = getSteps(t);
+  const STEPS: Step[] = [
+    { id: '1', label: <Trans>Understanding your trip</Trans>, sublabel: <Trans>Extracting departure, destination & vessel schedule</Trans>, icon: <Compass className="w-4 h-4" /> },
+    { id: '2', label: <Trans>Finding your fishing zone</Trans>, sublabel: <Trans>Querying PFZ thermal & chlorophyll coordinates</Trans>, icon: <Waves className="w-4 h-4" /> },
+    { id: '3', label: <Trans>Calculating your route</Trans>, sublabel: <Trans>Generating 4D waypoints and transit ETAs</Trans>, icon: <Navigation className="w-4 h-4" /> },
+    { id: '4', label: <Trans>Checking sea conditions</Trans>, sublabel: <Trans>Retrieving marine wave and current observations</Trans>, icon: <Waves className="w-4 h-4" /> },
+    { id: '5', label: <Trans>Checking weather forecast</Trans>, sublabel: <Trans>Evaluating wind, wave & swell across all trip phases</Trans>, icon: <CloudRain className="w-4 h-4" /> },
+    { id: '6', label: <Trans>Assessing safety</Trans>, sublabel: <Trans>Applying deterministic SVAS vessel stability limits</Trans>, icon: <Shield className="w-4 h-4" /> },
+    { id: '7', label: <Trans>Preparing your advisory</Trans>, sublabel: <Trans>Formulating explainable recommendations & evidence</Trans>, icon: <FileCheck className="w-4 h-4" /> }
+  ];
+
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   useEffect(() => {

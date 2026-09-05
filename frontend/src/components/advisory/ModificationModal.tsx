@@ -64,7 +64,7 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
           <button
             onClick={onClose}
             className="p-1 rounded-lg text-slate-400 hover:text-sagar-navy transition-colors touch-target"
-            aria-label="Close"
+            aria-label={t`Close`}
           >
             <X className="w-5 h-5" />
           </button>
@@ -138,7 +138,7 @@ export const ModificationModal: React.FC<Props> = ({ isOpen, onClose }) => {
               onClick={onClose}
               className="flex-1 px-4 py-3 rounded-xl bg-sagar-canvasAlt hover:bg-slate-100 text-slate-700 text-xs font-bold border border-sagar-border transition-colors touch-target"
             >
-              Cancel
+              <Trans>Cancel</Trans>
             </button>
             <button
               type="submit"

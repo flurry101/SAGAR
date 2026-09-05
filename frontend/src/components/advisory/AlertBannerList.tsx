@@ -11,7 +11,11 @@ interface Props {
 
 export const AlertBannerList: React.FC<Props> = ({ alerts = [] }) => {
   const { t } = useLingui();
-  if (!alerts || alerts.length === 0) {
+  const uniqueAlerts = alerts.filter((alert, index, self) =>
+    index === self.findIndex((a) => a.message === alert.message && a.alert_type === alert.alert_type)
+  );
+
+  if (!uniqueAlerts || uniqueAlerts.length === 0) {
     return (
       <div className="flex items-center gap-2 p-3.5 bg-white border border-sagar-border rounded-xl text-xs text-slate-700 shadow-soft-sm">
         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
@@ -42,13 +46,13 @@ export const AlertBannerList: React.FC<Props> = ({ alerts = [] }) => {
       <div className="flex items-center justify-between text-xs font-bold text-sagar-navy">
         <span className="flex items-center gap-1.5">
           <ShieldAlert className="w-4 h-4 text-amber-600" />
-          <span><Trans>Active Hazard Alerts ({alerts.length})</Trans></span>
+          <span><Trans>Active Hazard Alerts ({uniqueAlerts.length})</Trans></span>
         </span>
         <span className="text-[10px] text-slate-500 font-mono"><Trans>Standard Maritime Thresholds</Trans></span>
       </div>
 
       <div className="space-y-2">
-        {alerts.map((alert, idx) => {
+        {uniqueAlerts.map((alert, idx) => {
           const isSevere = alert.severity === 'SEVERE';
           return (
             <div

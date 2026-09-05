@@ -9,14 +9,36 @@ import { useAppStore } from '../../state/appStore';
 export const InteractiveVoyageSimulator: React.FC = () => {
   const { setCurrentView, setScenario, setActiveAssessment } = useAppStore();
   const { t } = useLingui();
+  const currentHour = new Date().getHours();
+  const initialDep = Math.max(0, Math.min(20, currentHour));
+  const initialRet = Math.min(23, initialDep + 6);
+  
   const [beamWidth, setBeamWidth] = useState<number>(4.5);
-  const [returnHour, setReturnHour] = useState<number>(16); // 16:00 IST
+  const [departureHour, setDepartureHour] = useState<number>(initialDep);
+  const [returnHour, setReturnHour] = useState<number>(initialRet);
   const [vesselType, setVesselType] = useState<string>(t`Mechanized Trawler (4.5m)`);
+
+  const [waveForecast, setWaveForecast] = useState<number[] | null>(null);
+  const [isFetchingWave, setIsFetchingWave] = useState(true);
+
+  React.useEffect(() => {
+    // Fetch live wave data for Mangalore coast for today from Open-Meteo Marine API
+    setIsFetchingWave(true);
+    fetch('https://marine-api.open-meteo.com/v1/marine?latitude=12.87&longitude=74.84&hourly=wave_height&timezone=Asia%2FKolkata&forecast_days=1')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.hourly && data.hourly.wave_height) {
+          setWaveForecast(data.hourly.wave_height);
+        }
+      })
+      .catch(err => console.error("Failed to fetch live wave data for simulator", err))
+      .finally(() => setIsFetchingWave(false));
+  }, []);
 
   // Deterministic SVAS Limit: beam / 4.0
   const svasLimit = beamWidth / 4.0;
 
-  // Afternoon Swell Curve (05:00 = 0.8m, 12:00 = 1.2m, 16:00 = 2.1m, 18:00 = 2.4m)
+  // Fallback Afternoon Swell Curve (05:00 = 0.8m, 12:00 = 1.2m, 16:00 = 2.1m, 18:00 = 2.4m)
   const getForecastWave = (hour: number) => {
     if (hour <= 8) return 0.8;
     if (hour <= 11) return 1.1;
@@ -26,7 +48,11 @@ export const InteractiveVoyageSimulator: React.FC = () => {
     return 2.3;
   };
 
-  const returnWave = getForecastWave(returnHour);
+  const getWave = (hour: number) => {
+    return waveForecast && waveForecast[hour] != null ? waveForecast[hour] : getForecastWave(hour);
+  };
+
+  const returnWave = getWave(returnHour);
   const isSevere = returnWave > svasLimit * 1.3;
   const isCaution = !isSevere && returnWave > svasLimit * 0.9;
   const isSafe = !isSevere && !isCaution;
@@ -128,35 +154,66 @@ export const InteractiveVoyageSimulator: React.FC = () => {
         </div>
 
         {/* Right: Return Time Slider */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-              <Clock className="w-4 h-4 text-sky-600" />
-              <span><Trans>2. Adjust Expected Return Hour:</Trans></span>
-            </label>
-            <span className="text-xs font-mono font-extrabold px-2.5 py-0.5 rounded-full bg-sagar-powder text-sky-900 border border-sky-200">
-              <Trans>{returnHour}:00 IST</Trans>
-            </span>
+        <div className="space-y-4">
+          
+          {/* Departure Slider */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                <Clock className="w-4 h-4 text-sky-600" />
+                <span><Trans>2. Departure Time:</Trans></span>
+              </label>
+              <span className="text-xs font-mono font-extrabold px-2.5 py-0.5 rounded-full bg-sagar-powder text-sky-900 border border-sky-200">
+                <Trans>{departureHour}:00 IST</Trans>
+              </span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="23"
+              step="1"
+              value={departureHour}
+              onChange={(e) => {
+                const dep = parseInt(e.target.value);
+                setDepartureHour(dep);
+                if (dep >= returnHour) setReturnHour(Math.min(23, dep + 1));
+              }}
+              className="w-full accent-sky-600 cursor-pointer h-2 bg-sagar-canvasAlt rounded-lg"
+            />
           </div>
 
-          <input
-            type="range"
-            min="6"
-            max="18"
-            step="1"
-            value={returnHour}
-            onChange={(e) => setReturnHour(parseInt(e.target.value))}
-            className="w-full accent-sky-600 cursor-pointer h-2 bg-sagar-canvasAlt rounded-lg"
-          />
-
-          <div className="flex justify-between text-[11px] text-slate-500 font-mono">
-            <span><Trans>06:00 (Calm 0.8m)</Trans></span>
-            <span><Trans>12:00 (Mid-day 1.2m)</Trans></span>
-            <span className="text-rose-700 font-bold"><Trans>16:00+ (Surge 2.1m)</Trans></span>
+          {/* Return Slider */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                <Clock className="w-4 h-4 text-sky-600" />
+                <span><Trans>3. Expected Return:</Trans></span>
+              </label>
+              <span className="text-xs font-mono font-extrabold px-2.5 py-0.5 rounded-full bg-sagar-powder text-sky-900 border border-sky-200">
+                <Trans>{returnHour}:00 IST</Trans>
+              </span>
+            </div>
+            <input
+              type="range"
+              min={departureHour + 1}
+              max="23"
+              step="1"
+              value={returnHour}
+              onChange={(e) => setReturnHour(parseInt(e.target.value))}
+              className="w-full accent-rose-600 cursor-pointer h-2 bg-sagar-canvasAlt rounded-lg"
+            />
+            
+            <div className="flex justify-between text-[11px] text-slate-500 font-mono mt-2">
+              <span>06:00 ({getWave(6).toFixed(1)}m)</span>
+              <span>12:00 ({getWave(12).toFixed(1)}m)</span>
+              <span className="text-rose-700 font-bold">18:00 ({getWave(18).toFixed(1)}m)</span>
+            </div>
           </div>
 
           <div className="p-3 bg-sagar-canvasAlt rounded-xl border border-sagar-borderLight flex items-center justify-between text-xs font-mono">
-            <span className="text-slate-600 font-sans font-medium"><Trans>Forecasted Sea Wave at {returnHour}:00:</Trans></span>
+            <span className="text-slate-600 font-sans font-medium">
+              {isFetchingWave ? <Trans>Fetching Live Wave Forecast...</Trans> : <Trans>Forecasted Sea Wave at {returnHour}:00:</Trans>}
+            </span>
             <strong className={`font-bold text-sm ${isSevere ? 'text-rose-700' : 'text-sagar-navy'}`}>
               <Trans>{returnWave.toFixed(1)} meters</Trans>
             </strong>

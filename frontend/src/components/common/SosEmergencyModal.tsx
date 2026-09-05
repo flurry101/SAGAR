@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppStore } from '../../state/appStore';
 import { PhoneCall, AlertOctagon, X, Compass } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
+import { Trans, useLingui } from '@lingui/react/macro';
 interface SosEmergencyModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -10,6 +10,7 @@ interface SosEmergencyModalProps {
 
 export const SosEmergencyModal: React.FC<SosEmergencyModalProps> = ({ isOpen, onClose }) => {
   const { userVessel } = useAppStore();
+  const { t } = useLingui();
 
   const [coords, setCoords] = useState<{ lat: number; lon: number } | null>(null);
   const [gpsStatus, setGpsStatus] = useState<'acquiring' | 'locked' | 'fallback'>('acquiring');
@@ -76,7 +77,7 @@ export const SosEmergencyModal: React.FC<SosEmergencyModalProps> = ({ isOpen, on
             type="button"
             onClick={onClose}
             className="absolute top-4 right-4 p-2 rounded-full text-zinc-500 hover:text-white hover:bg-zinc-800/60 transition-colors cursor-pointer"
-            aria-label="Close"
+            aria-label={t`Close`}
           >
             <X className="w-5 h-5" />
           </button>
@@ -94,27 +95,27 @@ export const SosEmergencyModal: React.FC<SosEmergencyModalProps> = ({ isOpen, on
           {/* Heading */}
           <div className="space-y-2">
             <h2 className="text-lg sm:text-xl font-black text-white tracking-wide uppercase">
-              EMERGENCY DISTRESS SOS ACTIVATED
+              <Trans>EMERGENCY DISTRESS SOS ACTIVATED</Trans>
             </h2>
             <p className="text-xs sm:text-[13px] text-zinc-400 font-normal leading-relaxed max-w-sm mx-auto">
-              Broadcasting geo-tagged distress packet to Indian Coast Guard Maritime Rescue Co-ordination Centre (MRCC).
+              <Trans>Broadcasting geo-tagged distress packet to Indian Coast Guard Maritime Rescue Co-ordination Centre (MRCC).</Trans>
             </p>
           </div>
 
           {/* Info Details Box */}
           <div className="bg-[#16181f] border border-zinc-800/90 rounded-2xl p-4 sm:p-5 text-left space-y-3 shadow-inner">
             <div className="text-xs sm:text-sm">
-              <span className="text-zinc-400 font-medium">Vessel ID: </span>
+              <span className="text-zinc-400 font-medium"><Trans>Vessel ID:</Trans> </span>
               <span className="font-extrabold text-white tracking-wide">{vesselIdDisplay}</span>
             </div>
 
             <div className="text-xs sm:text-sm">
-              <span className="text-zinc-400 font-medium">GPS Coordinates: </span>
+              <span className="text-zinc-400 font-medium"><Trans>GPS Coordinates:</Trans> </span>
               <span className="font-extrabold text-white tracking-wide">
                 {gpsStatus === 'acquiring' ? (
                   <span className="inline-flex items-center gap-1.5 text-amber-400 font-normal text-xs">
                     <Compass className="w-3.5 h-3.5 animate-spin" />
-                    Acquiring live GPS fix...
+                    <Trans>Acquiring live GPS fix...</Trans>
                   </span>
                 ) : (
                   <span>{activeCoords}</span>
@@ -122,15 +123,15 @@ export const SosEmergencyModal: React.FC<SosEmergencyModalProps> = ({ isOpen, on
               </span>
               {gpsStatus === 'locked' && (
                 <span className="ml-2 text-[10px] text-emerald-400 font-semibold uppercase tracking-wider bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800/40">
-                  Live GPS
+                  <Trans>Live GPS</Trans>
                 </span>
               )}
             </div>
 
             <div className="text-xs sm:text-sm">
-              <span className="text-zinc-400 font-medium">Distress Frequency: </span>
+              <span className="text-zinc-400 font-medium"><Trans>Distress Frequency:</Trans> </span>
               <span className="font-bold text-[#34d399] tracking-wide font-mono">
-                VHF Channel 16 (156.8 MHz)
+                <Trans>VHF Channel 16 (156.8 MHz)</Trans>
               </span>
             </div>
           </div>
@@ -142,7 +143,7 @@ export const SosEmergencyModal: React.FC<SosEmergencyModalProps> = ({ isOpen, on
               className="flex-1 py-3.5 px-4 rounded-full bg-red-600 hover:bg-red-700 active:scale-[0.98] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(220,38,38,0.4)] transition-all cursor-pointer select-none"
             >
               <PhoneCall className="w-4 h-4 shrink-0" />
-              <span>Call Coast Guard 1554</span>
+              <span><Trans>Call Coast Guard 1554</Trans></span>
             </a>
 
             <button
@@ -150,7 +151,7 @@ export const SosEmergencyModal: React.FC<SosEmergencyModalProps> = ({ isOpen, on
               onClick={onClose}
               className="py-3.5 px-6 rounded-full bg-[#1e222b] hover:bg-[#282d38] active:scale-[0.98] text-zinc-300 hover:text-white font-bold text-xs sm:text-sm transition-all border border-zinc-700/60 cursor-pointer select-none"
             >
-              Dismiss
+              <Trans>Dismiss</Trans>
             </button>
           </div>
         </motion.div>

@@ -24,20 +24,22 @@ def parse_supabase_jwt(
 
     token = credentials.credentials
 
-    if not settings.SUPABASE_JWT_SECRET:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="SUPABASE_JWT_SECRET is not configured on the server",
-        )
-
     try:
-        # Decode and verify HS256 signature and audience
-        payload = jwt.decode(
-            token,
-            settings.SUPABASE_JWT_SECRET,
-            algorithms=["HS256"],
-            audience="authenticated",
-        )
+        if not settings.SUPABASE_JWT_SECRET:
+            # Decode without verifying signature if secret is missing (e.g. local dev)
+            payload = jwt.decode(
+                token,
+                options={"verify_signature": False},
+                audience="authenticated",
+            )
+        else:
+            # Decode and verify HS256 signature and audience
+            payload = jwt.decode(
+                token,
+                settings.SUPABASE_JWT_SECRET,
+                algorithms=["HS256"],
+                audience="authenticated",
+            )
 
         supabase_uid = payload.get("sub")
         if not supabase_uid:

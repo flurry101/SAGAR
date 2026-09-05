@@ -117,7 +117,7 @@ export const ParallaxOceanHero: React.FC = () => {
               </div>
               <div className="p-3.5 bg-white/90 rounded-2xl border border-sagar-borderLight shadow-soft-sm hover:border-teal-300 transition-colors">
                 <div className="text-[10px] font-extrabold uppercase text-teal-800 tracking-wider"><Trans>Stability Rule</Trans></div>
-                <div className="text-xs sm:text-sm font-extrabold text-sagar-navy mt-0.5">Beam / 4.0 SVAS</div>
+                <div className="text-xs sm:text-sm font-extrabold text-sagar-navy mt-0.5"><Trans>Beam / 4.0 SVAS</Trans></div>
               </div>
               <div className="p-3.5 bg-white/90 rounded-2xl border border-sagar-borderLight shadow-soft-sm hover:border-indigo-300 transition-colors">
                 <div className="text-[10px] font-extrabold uppercase text-indigo-800 tracking-wider"><Trans>Provenance</Trans></div>

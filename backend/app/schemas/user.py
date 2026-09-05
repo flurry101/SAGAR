@@ -1,5 +1,6 @@
+import uuid
 from datetime import datetime
-from typing import Optional, Any, Dict
+from typing import Optional, Any, Dict, Union
 from pydantic import BaseModel, ConfigDict, EmailStr
 
 ## attr: m1
@@ -17,7 +18,7 @@ class UserUpdate(BaseModel):
 
 class UserResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
-    user_id: str
+    user_id: Union[str, uuid.UUID]
     supabase_uid: str
     email: str
     name: Optional[str] = None
@@ -29,7 +30,7 @@ class UserResponse(BaseModel):
 
 class UserCreateResponse(BaseModel):
     message: str
-    user_id: str
+    user_id: Union[str, uuid.UUID]
     supabase_uid: str
     email: str
     name: Optional[str] = None

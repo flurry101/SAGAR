@@ -256,8 +256,20 @@ def build_graph() -> StateGraph:
     graph.add_edge("knowledge", END)
 
     # Geo → parallel Marine + Weather
-    graph.add_edge("geo", "marine")
-    graph.add_edge("geo", "weather")
+    def geo_router(state: OrcaState):
+        if state.get("workflow_status") == "CLARIFICATION_REQUIRED":
+            return "clarify"
+        return ["marine", "weather"]
+        
+    graph.add_conditional_edges(
+        "geo",
+        geo_router,
+        {
+            "clarify": END,
+            "marine": "marine",
+            "weather": "weather",
+        }
+    )
 
     # Marine + Weather → Risk (both must complete)
     graph.add_edge("marine", "risk")

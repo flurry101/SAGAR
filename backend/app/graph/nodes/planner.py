@@ -55,17 +55,25 @@ def planner_intake(state: OrcaState) -> OrcaState:
         Extract the following trip details from the user's message.
         Return ONLY a JSON object with keys:
         - origin: str
+        - destination_name: str or null (name of destination harbor or area)
         - destination_lat: float or null
         - destination_lon: float or null
         - departure_time_iso: str (ISO 8601 format) or null
-        - language: str (ISO 639-1 code of the user's language, e.g., 'en', 'hi', 'kn', 'ta', 'mr', 'te', 'ml', 'gu', 'bn', 'or')
+        - language: str (ISO 639-1 code of the user's language)
         
         Message: {last_msg}
         """
         try:
+            from app.core.llm_utils import extract_json
             resp = llm.invoke([SystemMessage(content="You are an extraction assistant."), HumanMessage(content=prompt)])
-            extracted = json.loads(resp.content.strip().strip('```json').strip('```'))
+            extracted_text = resp.content.strip()
+            if "```json" in extracted_text:
+                extracted = json.loads(extracted_text.split("```json")[1].split("```")[0].strip())
+            else:
+                extracted = json.loads(extracted_text)
+            
             if extracted.get("origin"): trip["origin"] = extracted["origin"]
+            if extracted.get("destination_name"): trip["destination_name"] = extracted["destination_name"]
             if extracted.get("destination_lat"): trip["destination_lat"] = extracted["destination_lat"]
             if extracted.get("destination_lon"): trip["destination_lon"] = extracted["destination_lon"]
             if extracted.get("departure_time_iso"): trip["departure_time_iso"] = extracted["departure_time_iso"]

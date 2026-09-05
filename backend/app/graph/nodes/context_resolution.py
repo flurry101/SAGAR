@@ -93,7 +93,9 @@ Respond ONLY with a JSON object in the following format:
   "resolved_query": "The rewritten explicit query string",
   "updated_trip_context": {{
     "origin": "string or null",
-    "departure_time": "string (e.g. 5 AM, tomorrow) or null"
+    "destination_name": "string or null",
+    "departure_time": "string (e.g. 5 AM, tomorrow) or null",
+    "return_time": "string (e.g. 1 PM, tomorrow) or null"
   }}
 }}
 ```"""
@@ -119,8 +121,14 @@ Respond ONLY with a JSON object in the following format:
             ctx = parsed["updated_trip_context"]
             if ctx.get("origin"):
                 updated_trip["origin"] = ctx["origin"]
+            if ctx.get("destination_name"):
+                updated_trip["destination_name"] = ctx["destination_name"]
             if ctx.get("departure_time"):
                 updated_trip["departure_time_iso"] = parse_natural_time(ctx["departure_time"])
+            if ctx.get("return_time"):
+                updated_trip["return_time_iso"] = parse_natural_time(ctx["return_time"])
+        
+        logger.info(f"[CONTEXT_RESOLUTION] Trip Context Updated:\n{json.dumps(updated_trip, indent=2)}")
 
         return {
             "original_query": original_query,

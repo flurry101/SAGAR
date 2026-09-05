@@ -68,6 +68,8 @@ interface AppState {
   ) => void;
   setSessionId: (id: string) => void;
   setThreadId: (id: string) => void;
+  voiceQuery: string | null;
+  setVoiceQuery: (query: string | null) => void;
 }
 
 const loadStoredHistory = (): HistoricalAssessment[] => {
@@ -106,7 +108,7 @@ export const useAppStore = create<AppState>()(
         length_m: 14.5,
         cruising_speed_kmh: 15.0,
         registration_number: 'IND-KA-04-MM-8821',
-        home_port: 'Mangalore Old Port'
+        home_port: 'Unspecified'
       },
       isAuthenticated: false,
       userProfile: null,
@@ -114,8 +116,10 @@ export const useAppStore = create<AppState>()(
       isSosModalOpen: false,
       sessionId: `sess-${Date.now()}`,
       threadId: `thread-${Date.now()}`,
+      voiceQuery: null,
 
       setCurrentView: (view) => set({ currentView: view }),
+      setVoiceQuery: (query) => set({ voiceQuery: query }),
       setLanguage: (lang) => {
         dynamicActivate(lang);
         set((state) => ({
@@ -155,11 +159,11 @@ export const useAppStore = create<AppState>()(
         const newEntry: HistoricalAssessment = {
           id: data.trip_id || `hist-${Date.now()}`,
           timestamp: new Date().toISOString(),
-          origin: data.trip_context?.origin || 'Mangalore Port',
-          destination: data.trip_context?.destination_type === 'NEAREST_PFZ' ? 'Nearest PFZ' : 'Target Operational Area',
+          origin: data.trip_context?.origin || 'Unknown',
+          destination: data.trip_context?.destination_name || 'Unknown',
           departureTime: data.trip_context?.departure_time_iso || new Date().toISOString(),
-          returnTime: data.trip_context?.expected_return_time_iso || new Date().toISOString(),
-          riskLevel: data.overall_risk_level || data.risk_evidence?.overall_risk_level || 'SAFE',
+          returnTime: data.trip_context?.expected_return_time_iso || data.trip_context?.return_time_iso || new Date().toISOString(),
+          riskLevel: data.overall_risk_level || data.risk_evidence?.overall_risk_level || 'UNKNOWN',
           advisoryText: sanitizeSagarText(data.advisory?.recommendation_text) || 'Assessment completed.',
           assessmentData: assessment,
         };

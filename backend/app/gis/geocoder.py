@@ -38,6 +38,8 @@ COASTAL_PORTS_DB: Dict[str, Tuple[float, float]] = {
     "porbandar": (21.6417, 69.6293),
     "haldia": (22.0667, 88.0667),
     "port blair": (11.6234, 92.7264),
+    "rameswaram": (9.28, 79.31),
+    "gulf of mannar": (9.15, 79.20),
 }
 
 

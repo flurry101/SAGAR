@@ -163,7 +163,7 @@ async def chat(
 def _get_default_llm():
     """Create the default LLM instance for the Copilot.
 
-    Uses Google Gemini via LangChain.
+    Uses Groq or Google Gemini via LangChain.
 
     Returns:
         LLM instance, or None if API key is not set.
@@ -171,9 +171,19 @@ def _get_default_llm():
     import os
     from app.config import settings
 
+    groq_key = settings.GROQ_API_KEY or os.environ.get("GROQ_API_KEY")
+    if groq_key:
+        from langchain_groq import ChatGroq
+        return ChatGroq(
+            model="qwen/qwen3.8-27b",
+            api_key=groq_key,
+            temperature=0.3,
+            max_tokens=1024,
+        )
+
     api_key = settings.GOOGLE_API_KEY or os.environ.get("GOOGLE_API_KEY")
     if not api_key:
-        print("WARNING: GOOGLE_API_KEY not set. Copilot will return fallback responses.")
+        print("WARNING: GOOGLE_API_KEY and GROQ_API_KEY not set. Copilot will return fallback responses.")
         return None
 
     from langchain_google_genai import ChatGoogleGenerativeAI

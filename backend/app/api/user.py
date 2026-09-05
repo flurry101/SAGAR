@@ -26,9 +26,15 @@ def create_user(
     supabase_uid = token_payload["sub"]
     existing_user = db.query(User).filter(User.supabase_uid == supabase_uid).first()
     if existing_user:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="User already exists",
+        return UserCreateResponse(
+            message="User already exists",
+            user_id=existing_user.user_id,
+            supabase_uid=existing_user.supabase_uid,
+            email=existing_user.email,
+            name=existing_user.name,
+            preferred_language=existing_user.preferred_language,
+            home_port=existing_user.home_port,
+            vessel_id=existing_user.vessel_id,
         )
 
     # Extract email from token payload or user metadata

@@ -12,6 +12,7 @@ export interface TripContext {
   vessel_id?: string;
   origin: string;
   origin_coordinates: Coordinates;
+  destination_name?: string;
   destination_type: DestinationType;
   destination_coordinates: Coordinates;
   departure_time_iso: string;

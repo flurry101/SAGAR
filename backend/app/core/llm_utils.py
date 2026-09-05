@@ -36,15 +36,60 @@ def extract_json(text: str) -> Dict[str, Any]:
 
 
 def parse_natural_time(text: str, default_timezone=None) -> str:
-    """Safely parse natural language time to ISO 8601 string."""
+    """Safely parse natural language time to ISO 8601 string.
+    
+    Handles relative terms like 'tomorrow', 'today', 'tonight' that
+    dateutil.parser cannot resolve on its own.
+    """
+    import re
+    from datetime import timezone, timedelta
+
+    ist = default_timezone or timezone(timedelta(hours=5, minutes=30))
+    now = datetime.now(ist)
+
+    # --- Pre-process relative date words ---
+    normalized = text.strip().lower()
+    
+    # Map relative words to concrete dates
+    date_replacements = {
+        "tomorrow": (now + timedelta(days=1)).strftime("%Y-%m-%d"),
+        "day after tomorrow": (now + timedelta(days=2)).strftime("%Y-%m-%d"),
+        "today": now.strftime("%Y-%m-%d"),
+        "tonight": now.strftime("%Y-%m-%d"),
+        "yesterday": (now - timedelta(days=1)).strftime("%Y-%m-%d"),
+    }
+
+    processed = normalized
+    for word, date_str in date_replacements.items():
+        if word in processed:
+            processed = processed.replace(word, date_str)
+            break
+
     try:
-        dt = date_parser.parse(text)
+        dt = date_parser.parse(processed)
         if dt.tzinfo is None:
-            # Default to IST (UTC+5:30) if no timezone is specified
-            from datetime import timezone, timedelta
-            ist = timezone(timedelta(hours=5, minutes=30))
-            dt = dt.replace(tzinfo=default_timezone or ist)
+            dt = dt.replace(tzinfo=ist)
         return dt.isoformat()
-    except Exception as e:
-        logger.warning(f"Failed to parse time '{text}': {e}")
-        return text
+    except Exception:
+        pass
+
+    # --- Fallback: extract hour + AM/PM manually ---
+    time_match = re.search(r'(\d{1,2})\s*(am|pm|AM|PM)', text, re.IGNORECASE)
+    if time_match:
+        hour = int(time_match.group(1))
+        ampm = time_match.group(2).upper()
+        if ampm == "PM" and hour != 12:
+            hour += 12
+        elif ampm == "AM" and hour == 12:
+            hour = 0
+
+        base_date = now.date()
+        if "tomorrow" in normalized:
+            base_date = (now + timedelta(days=1)).date()
+
+        dt = datetime(base_date.year, base_date.month, base_date.day, hour, 0, 0, tzinfo=ist)
+        return dt.isoformat()
+
+    logger.warning(f"Failed to parse time '{text}', returning raw text")
+    return text
+

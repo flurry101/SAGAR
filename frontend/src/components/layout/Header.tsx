@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useAppStore, AppView } from '../../state/appStore';
 import { LanguageSelector } from '../common/LanguageSelector';
-import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X, AlertTriangle, Waves } from 'lucide-react';
+import { Anchor, Compass, ShieldAlert, Ship, BookOpen, History, UserCheck, Menu, X, AlertTriangle, Waves, LogOut } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Trans } from '@lingui/react/macro';
 import { useLingui } from '@lingui/react/macro';
+import { supabase } from '../../api/supabaseClient';
 
 export const Header: React.FC = () => {
-  const { currentView, setCurrentView, isAuthenticated, userProfile, setSosModalOpen } = useAppStore();
+  const { currentView, setCurrentView, isAuthenticated, userProfile, setSosModalOpen, setAuthenticated } = useAppStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const { t } = useLingui();
@@ -16,7 +17,7 @@ export const Header: React.FC = () => {
     { id: 'landing', label: t`Overview`, shortLabel: t`Overview`, icon: <Compass className="w-4 h-4 shrink-0" /> },
     { id: 'chat', label: t`Trip Planner`, shortLabel: t`Trip Planner`, icon: <Anchor className="w-4 h-4 shrink-0" /> },
     { id: 'advisory', label: t`Advisory Dashboard`, shortLabel: t`Advisory`, icon: <ShieldAlert className="w-4 h-4 shrink-0" /> },
-    { id: 'conditions', label: 'Live Conditions', shortLabel: 'Conditions', icon: <Waves className="w-4 h-4 shrink-0" /> },
+    { id: 'conditions', label: t`Live Conditions`, shortLabel: t`Conditions`, icon: <Waves className="w-4 h-4 shrink-0" /> },
     { id: 'knowledge', label: t`Marine Knowledge`, shortLabel: t`Knowledge`, icon: <BookOpen className="w-4 h-4 shrink-0" /> },
   ];
 
@@ -126,7 +127,7 @@ export const Header: React.FC = () => {
               aria-label={t`Emergency Distress SOS 1554`}
             >
               <AlertTriangle className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span className="tracking-wide">SOS 1554</span>
+              <span className="tracking-wide"><Trans>SOS 1554</Trans></span>
             </motion.button>
 
             {/* Language Selector */}
@@ -177,6 +178,23 @@ export const Header: React.FC = () => {
                         <span>{item.label}</span>
                       </button>
                     ))}
+                    {isAuthenticated && (
+                      <>
+                        <div className="h-px bg-sagar-border my-1 w-full" />
+                        <button
+                          onClick={async () => {
+                            if (supabase) await supabase.auth.signOut();
+                            setAuthenticated(false);
+                            setCurrentView('landing');
+                            setProfileMenuOpen(false);
+                          }}
+                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-rose-600 hover:bg-rose-50 hover:text-rose-700 text-left"
+                        >
+                          <LogOut className="w-4 h-4 shrink-0" />
+                          <span><Trans>Log Out</Trans></span>
+                        </button>
+                      </>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -252,6 +270,21 @@ export const Header: React.FC = () => {
                   <span>{item.label}</span>
                 </button>
               ))}
+
+              {isAuthenticated && (
+                <button
+                  onClick={async () => {
+                    if (supabase) await supabase.auth.signOut();
+                    setAuthenticated(false);
+                    setCurrentView('landing');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-bold text-rose-600 hover:bg-rose-50 hover:text-rose-700 text-left transition-colors touch-target mt-2 border border-rose-100"
+                >
+                  <LogOut className="w-5 h-5 shrink-0" />
+                  <span><Trans>Log Out</Trans></span>
+                </button>
+              )}
             </div>
           </motion.div>
         )}

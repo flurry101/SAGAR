@@ -38,7 +38,8 @@ export const ChatInterface: React.FC = () => {
   const sampleInputs = [
     t`Leave at 5 AM from Mangalore to nearest PFZ and return by 2 PM`,
     t`Planning trip from Malpe at 6 AM, 4 hours fishing, return at 4 PM`,
-    t`Departure 5 AM from Mangalore, return 6 PM with mechanized trawler (missing beam example)`
+    t`Departure 5 AM from Mangalore, return 6 PM with mechanized trawler (missing beam example)`,
+    t`Planning trip from Rameswaram to Gulf of Mannar leaving at 4 AM and returning at 1 PM`
   ];
 
   useEffect(() => {
@@ -58,6 +59,16 @@ export const ChatInterface: React.FC = () => {
     }
     return () => clearInterval(interval);
   }, [loading]);
+
+  const voiceQuery = useAppStore(state => state.voiceQuery);
+  const setVoiceQuery = useAppStore(state => state.setVoiceQuery);
+
+  useEffect(() => {
+    if (voiceQuery) {
+      handleSendMessage(voiceQuery);
+      setVoiceQuery(null);
+    }
+  }, [voiceQuery]);
 
   const handleSendMessage = async (textToSend?: string) => {
     const messageText = textToSend || inputMessage.trim();
@@ -89,7 +100,7 @@ export const ChatInterface: React.FC = () => {
       if (response.status === 'needs_clarification') {
         setNeedsClarification(true);
         setClarificationFields(response.data?.task_plan?.missing_fields || []);
-        const question = response.data?.task_plan?.clarification_question || 'I need a few missing parameters to safely evaluate your voyage:';
+        const question = response.data?.task_plan?.clarification_question || t`I need a few missing parameters to safely evaluate your voyage:`;
         addChatMessage({
           sender: 'sagar',
           text: question,
@@ -105,16 +116,11 @@ export const ChatInterface: React.FC = () => {
       } else if (response.data?.workflow_status === 'KNOWLEDGE_RESPONSE') {
         addChatMessage({
           sender: 'sagar',
-          text: response.data?.advisory?.recommendation_text || 'This is a knowledge question. Use the ORCA Copilot for detailed answers.',
+          text: response.data?.advisory?.recommendation_text || t`This is a knowledge question. Use the ORCA Copilot for detailed answers.`,
         });
       } else if (response.status === 'success') {
         setCachedResponse(response);
-        const tripContext = response.data?.trip_context || {
-          origin: 'Mangalore Port',
-          destination_type: 'NEAREST_PFZ',
-          departure_time_iso: '2026-08-30T05:00:00+05:30',
-          expected_return_time_iso: '2026-08-30T14:00:00+05:30',
-        };
+        const tripContext = response.data?.trip_context || {};
         setPendingConfirmation(tripContext);
         addChatMessage({
           sender: 'sagar',
@@ -129,7 +135,7 @@ export const ChatInterface: React.FC = () => {
     } catch (err: any) {
       addChatMessage({
         sender: 'sagar',
-        text: t`Network error encountered while connecting to SAGAR decision-support service.`,
+        text: t`Network error encountered while connecting to SAGAR decision-support service. Details: ${err.message} Stack: ${err.stack}`,
       });
     } finally {
       setLoading(false);
@@ -150,16 +156,11 @@ export const ChatInterface: React.FC = () => {
       if (response.data?.workflow_status === 'KNOWLEDGE_RESPONSE') {
         addChatMessage({
           sender: 'sagar',
-          text: response.data?.advisory?.recommendation_text || 'This is a knowledge question. Use the ORCA Copilot for detailed answers.',
+          text: response.data?.advisory?.recommendation_text || t`This is a knowledge question. Use the ORCA Copilot for detailed answers.`,
         });
       } else if (response.status === 'success') {
         setCachedResponse(response);
-        const tripContext = response.data?.trip_context || {
-          origin: 'Mangalore Port',
-          destination_type: 'NEAREST_PFZ',
-          departure_time_iso: '2026-08-30T05:00:00+05:30',
-          expected_return_time_iso: '2026-08-30T14:00:00+05:30',
-        };
+        const tripContext = response.data?.trip_context || {};
         setPendingConfirmation(tripContext);
         addChatMessage({
           sender: 'sagar',
@@ -168,7 +169,7 @@ export const ChatInterface: React.FC = () => {
       } else if (response.status === 'needs_clarification') {
         setNeedsClarification(true);
         setClarificationFields(response.data?.task_plan?.missing_fields || []);
-        const question = response.data?.task_plan?.clarification_question || 'I need a few missing parameters to safely evaluate your voyage:';
+        const question = response.data?.task_plan?.clarification_question || t`I need a few missing parameters to safely evaluate your voyage:`;
         addChatMessage({
           sender: 'sagar',
           text: question,
@@ -178,13 +179,13 @@ export const ChatInterface: React.FC = () => {
         setActiveAssessment(response);
         addChatMessage({
           sender: 'sagar',
-          text: sanitizeSagarText(response.data?.recommendation_text) || 'Unable to assess safety due to missing vessel or trip parameters.',
+          text: sanitizeSagarText(response.data?.recommendation_text) || t`Unable to assess safety due to missing vessel or trip parameters.`,
         });
         setCurrentView('advisory');
       } else if (response.status === 'error') {
         addChatMessage({
           sender: 'sagar',
-          text: `Assessment error: ${response.error?.message || 'Failed to complete safety assessment.'}`,
+          text: t`Assessment error: ${response.error?.message || 'Failed to complete safety assessment.'}`,
         });
       }
     } catch (err) {
@@ -213,6 +214,15 @@ export const ChatInterface: React.FC = () => {
       });
       setCurrentView('advisory');
     }
+  };
+
+  const getDynamicLoadingText = (timer: number) => {
+    if (timer < 3) return t`Initializing LangGraph Supervisor...`;
+    if (timer < 7) return t`Resolving 4D spatio-temporal context...`;
+    if (timer < 11) return t`Querying INCOIS Ocean State Forecast APIs...`;
+    if (timer < 15) return t`Checking maritime boundaries & MPAs...`;
+    if (timer < 20) return t`Running SVAS deterministic risk model...`;
+    return t`Synthesizing Final Safety Advisory...`;
   };
 
   return (
@@ -291,8 +301,8 @@ export const ChatInterface: React.FC = () => {
               <RefreshCw className="w-4 h-4 text-sky-600 animate-spin shrink-0" />
               <div>
                 <span className="font-bold block"><Trans>SAGAR Decision Pipeline is executing...</Trans></span>
-                <span className="text-[11px] text-slate-500">
-                  <Trans>Retrieving marine sea-state forecasts & spatial geofences</Trans>
+                <span className="text-[11px] text-slate-500 transition-all duration-300">
+                  {getDynamicLoadingText(graphTimer)}
                 </span>
               </div>
             </div>

@@ -48,8 +48,17 @@ export const AuthPage: React.FC = () => {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    window.location.href = `${API_BASE_URL}/login/google`;
+  const handleGoogleSignIn = async () => {
+    if (!supabase) {
+      setError('Supabase is not configured.');
+      return;
+    }
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    if (error) {
+      setError(error.message);
+    }
   };
 
   return (

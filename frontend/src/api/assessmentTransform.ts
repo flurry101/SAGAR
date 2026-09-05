@@ -50,7 +50,15 @@ export function normalizeAssessmentResponse(response: APIResponse): APIResponse 
   });
 
   const pfzData = data.pfz_data || {};
-  const rawPfzZones = pfzData.pfzs || data.pfz_zones || [];
+  let rawPfzZones = [];
+  if (Array.isArray(data.pfz_data)) {
+    rawPfzZones = data.pfz_data;
+  } else if (Array.isArray(pfzData.pfzs)) {
+    rawPfzZones = pfzData.pfzs;
+  } else if (Array.isArray(data.pfz_zones)) {
+    rawPfzZones = data.pfz_zones;
+  }
+  
   const pfzZones = rawPfzZones.map((pfz: AnyRecord, index: number) => {
   const geometry = pfz.geometry;
 

@@ -21,7 +21,7 @@ export const TripConfirmation: React.FC<Props> = ({
 }) => {
   const { t } = useLingui();
   const [isEditing, setIsEditing] = useState(false);
-  const [origin, setOrigin] = useState(tripContext.origin || 'Mangalore Port');
+  const [origin, setOrigin] = useState(tripContext.origin || '');
   const [departureTime, setDepartureTime] = useState(
     tripContext.departure_time_iso
       ? new Date(tripContext.departure_time_iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
@@ -33,7 +33,7 @@ export const TripConfirmation: React.FC<Props> = ({
       : '14:00'
   );
   const [destination, setDestination] = useState(
-    tripContext.destination_type === 'NEAREST_PFZ' ? 'Nearest Recommended PFZ' : 'Target Operational Area'
+    tripContext.destination_name || ''
   );
   const [vesselType, setVesselType] = useState(
     vesselProfile?.vessel_type || 'Mechanized Trawler'
@@ -43,10 +43,21 @@ export const TripConfirmation: React.FC<Props> = ({
   );
 
   const handleConfirm = () => {
+    // Preserve the original date from the context, or default to today
+    const baseDepDate = tripContext.departure_time_iso ? new Date(tripContext.departure_time_iso) : new Date();
+    const baseRetDate = tripContext.expected_return_time_iso ? new Date(tripContext.expected_return_time_iso) : new Date();
+    
+    const [depHours, depMinutes] = departureTime.split(':');
+    baseDepDate.setHours(parseInt(depHours, 10), parseInt(depMinutes, 10), 0, 0);
+    
+    const [retHours, retMinutes] = returnTime.split(':');
+    baseRetDate.setHours(parseInt(retHours, 10), parseInt(retMinutes, 10), 0, 0);
+
     onConfirm({
       origin,
-      departure_time_iso: new Date(`2026-08-30T${departureTime}:00+05:30`).toISOString(),
-      expected_return_time_iso: new Date(`2026-08-30T${returnTime}:00+05:30`).toISOString()
+      destination_name: destination,
+      departure_time_iso: baseDepDate.toISOString(),
+      expected_return_time_iso: baseRetDate.toISOString()
     });
   };
 

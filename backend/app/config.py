@@ -47,6 +47,9 @@ class Settings(BaseSettings):
 
     # Google AI
     GOOGLE_API_KEY: str = ""
+    
+    # Groq AI
+    GROQ_API_KEY: str = ""
 
     # Google OAuth
     GOOGLE_CLIENT_ID: str = ""

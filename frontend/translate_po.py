@@ -15,7 +15,7 @@ if os.path.exists(env_path):
                 key, val = line.strip().split('=', 1)
                 os.environ[key.strip()] = val.strip().strip('"').strip("'")
 
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY') or os.environ.get('GOOGLE_API_KEY')
 
 LOCALE_MAP = {
     'hi': 'hi', 'kn': 'kn', 'ta': 'ta', 'te': 'te', 'ml': 'ml',

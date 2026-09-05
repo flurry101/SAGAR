@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Header, HTTPException, File, UploadFile, Form
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 import logging
 import os
-
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -74,3 +74,59 @@ async def voice_webhook(
             response="I'm sorry, I encountered an internal error while processing your request.",
             action="continue"
         )
+
+@router.post("/transcribe", response_model=VexylWebhookResponse)
+async def voice_transcribe(
+    audio: UploadFile = File(...),
+    sessionId: str = Form(default=""),
+    history: str = Form(default="[]"),
+):
+    """
+    Direct Audio REST Endpoint using Groq whisper-large-v3.
+    """
+    import json
+    try:
+        history_list = json.loads(history)
+    except:
+        history_list = []
+        
+    try:
+        from groq import Groq
+        from app.config import settings
+        groq_key = settings.GROQ_API_KEY or os.environ.get("GROQ_API_KEY")
+        if not groq_key:
+            return VexylWebhookResponse(response="Groq API key not configured.", action="continue")
+            
+        client = Groq(api_key=groq_key)
+        audio_content = await audio.read()
+        
+        filename = audio.filename if audio.filename else "audio.webm"
+        if not filename.endswith((".webm", ".wav", ".mp3", ".ogg", ".m4a")):
+            filename += ".webm"
+            
+        logger.info(f"[VOICE] Transcribing audio ({len(audio_content)} bytes) using Groq whisper-large-v3")
+        transcription = client.audio.transcriptions.create(
+            file=(filename, audio_content),
+            model="whisper-large-v3",
+            response_format="json",
+            language="en"
+        )
+        
+        transcribed_text = transcription.text
+        logger.info(f"[VOICE] Transcription: {transcribed_text}")
+        
+        if not transcribed_text.strip():
+            return VexylWebhookResponse(response="I didn't catch that.", action="continue")
+            
+        return VexylWebhookResponse(
+            response=transcribed_text,
+            action="transcribed"
+        )
+        
+    except Exception as e:
+        logger.error(f"[VOICE] Transcription failed: {e}")
+        return VexylWebhookResponse(
+            response=f"I'm sorry, I encountered an error: {str(e)}",
+            action="continue"
+        )
+

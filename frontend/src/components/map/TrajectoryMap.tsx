@@ -770,13 +770,13 @@ export const TrajectoryMap: React.FC<Props> = ({
           <button
             onClick={() => setIsPfzPanelOpen((prev) => !prev)}
             className="w-full flex items-center justify-between gap-2 px-3 py-2 text-left text-xs font-bold text-emerald-950 hover:bg-emerald-50"
-            title="Show or hide potential fishing zones"
+            title={t`Show or hide potential fishing zones`}
           >
             <span className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white shadow" />
-              Potential Fishing Zones
+              <Trans>Potential Fishing Zones</Trans>
             </span>
-            <span className="text-[10px] font-mono text-emerald-700">{pfzZones.length} found</span>
+            <span className="text-[10px] font-mono text-emerald-700"><Trans>{pfzZones.length} found</Trans></span>
           </button>
           {isPfzPanelOpen && (
             <div className="border-t border-emerald-100 px-3 py-2 space-y-1.5 max-h-32 overflow-y-auto">
@@ -795,8 +795,8 @@ export const TrajectoryMap: React.FC<Props> = ({
               ))}
               <div className="pt-1 text-[10px] text-emerald-800 border-t border-emerald-100">
                 {pfzZones.some((pfz) => pfz.provenance?.fallback_tier === 1)
-                  ? 'Tier 1 live PFZ data received'
-                  : 'Fallback PFZ data received'}
+                  ? t`Tier 1 live PFZ data received`
+                  : t`Fallback PFZ data received`}
               </div>
             </div>
           )}
@@ -821,7 +821,7 @@ export const TrajectoryMap: React.FC<Props> = ({
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-            <span>Caution</span>
+            <span><Trans>Caution</Trans></span>
           </div>
           {hazardFlags.length > 0 && (
             <div className="flex items-center gap-1.5">
@@ -842,10 +842,10 @@ export const TrajectoryMap: React.FC<Props> = ({
       <button
         onClick={() => setIsPanelOpen((prev) => !prev)}
         className="absolute top-3 right-12 z-20 bg-slate-900/90 hover:bg-slate-800 backdrop-blur-md border border-slate-700 text-sky-400 p-2 rounded-xl text-xs font-bold shadow-lg transition-all flex items-center gap-1 cursor-pointer"
-        title={isPanelOpen ? 'Collapse live conditions side panel' : 'Expand live conditions side panel'}
+        title={isPanelOpen ? t`Collapse live conditions side panel` : t`Expand live conditions side panel`}
       >
         <Layers className="w-4 h-4" />
-        <span className="hidden sm:inline">{isPanelOpen ? 'Hide Conditions' : 'Live Conditions'}</span>
+        <span className="hidden sm:inline">{isPanelOpen ? <Trans>Hide Conditions</Trans> : <Trans>Live Conditions</Trans>}</span>
         {isPanelOpen ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
       </button>
 
@@ -856,7 +856,7 @@ export const TrajectoryMap: React.FC<Props> = ({
             <div className="flex items-center gap-2">
               <Activity className="w-4 h-4 text-sky-400" />
               <h3 className="text-xs font-bold text-slate-100 uppercase tracking-wider">
-                Waypoint {activeWpIndex + 1} Conditions
+                <Trans>Waypoint {activeWpIndex + 1} Conditions</Trans>
               </h3>
             </div>
             <span className="text-[10px] font-mono font-bold text-sky-300 bg-sky-950/80 px-2 py-0.5 rounded-full border border-sky-700">
@@ -867,14 +867,14 @@ export const TrajectoryMap: React.FC<Props> = ({
           {/* Coordinates & ETA */}
           <div className="bg-slate-950/70 border border-slate-800 p-2.5 rounded-xl text-[11px] font-mono space-y-1">
             <div className="flex justify-between">
-              <span className="text-slate-400">Position:</span>
+              <span className="text-slate-400"><Trans>Position:</Trans></span>
               <span className="text-sky-300 font-bold">
                 {currentWaypoint?.lat ? `${currentWaypoint.lat.toFixed(2)}°N, ${currentWaypoint.lon.toFixed(2)}°E` : '12.87°N, 74.84°E'}
               </span>
             </div>
             {currentWaypoint?.eta_iso && (
               <div className="flex justify-between">
-                <span className="text-slate-400">Target Time:</span>
+                <span className="text-slate-400"><Trans>Target Time:</Trans></span>
                 <span className="text-slate-200">{new Date(currentWaypoint.eta_iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} UTC</span>
               </div>
             )}
@@ -885,7 +885,7 @@ export const TrajectoryMap: React.FC<Props> = ({
             <div className="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 border border-slate-700/60">
               <div className="flex items-center gap-2">
                 <Waves className="w-4 h-4 text-sky-400" />
-                <span className="text-slate-300">Wave Height</span>
+                <span className="text-slate-300"><Trans>Wave Height</Trans></span>
               </div>
               <strong className="font-mono text-sky-300">
                 {currentWeather?.wave_height_m != null ? `${currentWeather.wave_height_m} m` : '1.4 m'}
@@ -895,7 +895,7 @@ export const TrajectoryMap: React.FC<Props> = ({
             <div className="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 border border-slate-700/60">
               <div className="flex items-center gap-2">
                 <Wind className="w-4 h-4 text-cyan-400" />
-                <span className="text-slate-300">Wind Speed</span>
+                <span className="text-slate-300"><Trans>Wind Speed</Trans></span>
               </div>
               <strong className="font-mono text-cyan-300">
                 {currentWeather?.wind_speed_kmh != null ? `${currentWeather.wind_speed_kmh} km/h` : '18 km/h'}
@@ -905,7 +905,7 @@ export const TrajectoryMap: React.FC<Props> = ({
             <div className="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 border border-slate-700/60">
               <div className="flex items-center gap-2">
                 <Thermometer className="w-4 h-4 text-emerald-400" />
-                <span className="text-slate-300">Sea Temp (SST)</span>
+                <span className="text-slate-300"><Trans>Sea Temp (SST)</Trans></span>
               </div>
               <strong className="font-mono text-emerald-300">
                 {currentMarine?.sst_celsius != null ? `${currentMarine.sst_celsius} °C` : '29.3 °C'}
@@ -915,7 +915,7 @@ export const TrajectoryMap: React.FC<Props> = ({
             <div className="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 border border-slate-700/60">
               <div className="flex items-center gap-2">
                 <Activity className="w-4 h-4 text-teal-400" />
-                <span className="text-slate-300">Chlorophyll-a</span>
+                <span className="text-slate-300"><Trans>Chlorophyll-a</Trans></span>
               </div>
               <strong className="font-mono text-teal-300">
                 {currentMarine?.chlorophyll_mg_m3 != null ? `${currentMarine.chlorophyll_mg_m3} mg/m³` : '0.0 mg/m³'}
@@ -927,11 +927,11 @@ export const TrajectoryMap: React.FC<Props> = ({
           <div className="mt-auto pt-2 border-t border-slate-800">
             <div className="p-2 rounded-xl bg-emerald-950/60 border border-emerald-800/60 text-[10px] space-y-0.5">
               <div className="flex items-center justify-between font-bold text-emerald-400 uppercase tracking-wider">
-                <span>Tier 1 Live Data Confirmed</span>
+                <span><Trans>Tier 1 Live Data Confirmed</Trans></span>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
               </div>
               <p className="text-slate-400 leading-tight">
-                Source: {currentMarine?.provenance?.source || currentWeather?.provenance?.source || 'Open-Meteo Marine API / MOSDAC NetCDF'}
+                <Trans>Source:</Trans> {currentMarine?.provenance?.source || currentWeather?.provenance?.source || 'Open-Meteo Marine API / MOSDAC NetCDF'}
               </p>
             </div>
           </div>

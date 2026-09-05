@@ -17,10 +17,16 @@ from __future__ import annotations
 
 import json
 import os
+import logging
 from datetime import datetime, timezone
 from typing import Any, Dict
 
 from app.graph.state import OrcaState, APPROVED_CAPABILITIES
+from app.adapters.bhashini_adapter import BhashiniAdapter
+
+logger = logging.getLogger(__name__)
+
+_bhashini_adapter = BhashiniAdapter()
 
 
 # ---------------------------------------------------------------------------
@@ -51,6 +57,15 @@ def enforce_safety_requirements(task_plan: dict, user_message: str) -> dict:
     """
     caps = set(task_plan.get("required_capabilities", []))
     msg_lower = user_message.lower()
+    intent = task_plan.get("intent", "")
+
+    # If the intent is explicitly conversational or informational, bypass the keyword heuristic
+    if intent in ["conversational", "informational", "knowledge_question", "marine_science_query"]:
+        # Do not force a trip assessment on purely conversational/informational queries
+        task_plan["requires_safety_assessment"] = False
+        task_plan["requires_route"] = False
+        task_plan["required_capabilities"] = list(caps)
+        return task_plan
 
     # If it looks like a trip/navigation request, force safety capabilities
     is_trip = task_plan.get("requires_safety_assessment", False)
@@ -111,6 +126,23 @@ def supervisor_node(state: Dict[str, Any]) -> Dict[str, Any]:
         if history:
             user_message = history[-1].get("content", "")
 
+    input_lang = state.get("language", "en")
+    if input_lang and input_lang != "en":
+        try:
+            from app.core.llm import get_llm
+            from langchain_core.messages import SystemMessage, HumanMessage
+            logger.info(f"Translating user message from {input_lang} to English using LLM")
+            llm_translator = get_llm(temperature=0.1)
+            prompt = f"Translate the following text to English. Return ONLY the translated English text, nothing else.\n\nText: {user_message}"
+            resp = llm_translator.invoke([
+                SystemMessage(content="You are a precise translator. Return ONLY the translated English text without quotes."),
+                HumanMessage(content=prompt)
+            ])
+            user_message = resp.content.strip()
+            logger.info(f"Translated user message: {user_message}")
+        except Exception as e:
+            logger.warning(f"Incoming translation failed: {e}")
+
     # Check for simple conversational greetings (fast path)
     greetings = ["hello", "hi", "hey", "thanks", "thank you", "good morning", "good evening", "what can you do"]
     msg_clean = user_message.lower().strip()
@@ -152,9 +184,9 @@ AVAILABLE CAPABILITIES:
 
 INTENT TIERS:
 1. "conversational": Simple chat, greeting, thanks. (Capabilities: [])
-2. "informational": General questions (e.g. "What is SST?"). (Capabilities: ["knowledge"])
+2. "informational": General questions, or follow-up questions asking for reasons/explanations (e.g. "What is SST?", "Why is it dangerous?", "What is the reason I can't go to sea?"). (Capabilities: ["knowledge"])
 3. "operational": Search or planning (e.g. "Find PFZ near Malpe"). (Capabilities: ["marine", "geo", "visualization"])
-4. "safety_critical": Any voyage, route, or safety assessment (e.g. "Is it safe to go fishing tomorrow?"). (Capabilities: ["geo", "weather", "marine", "risk", "visualization", "reporting"])
+4. "safety_critical": Any new voyage, route, or safety assessment (e.g. "Is it safe to go fishing tomorrow?", "Plan a trip to X"). (Capabilities: ["geo", "weather", "marine", "risk", "visualization", "reporting"])
 
 Respond ONLY with valid JSON in this exact schema:
 ```json
@@ -170,7 +202,9 @@ Respond ONLY with valid JSON in this exact schema:
   "clarification_question": "string or null",
   "reasoning_summary": "string explaining capability selection",
   "extracted_origin": "string or null",
+  "extracted_destination_name": "string (e.g. 'Gulf of Mannar', 'Malpe') or null",
   "extracted_departure_time": "string (e.g. '5 AM', 'tomorrow'). Assume IST timezone. or null",
+  "extracted_return_time": "string (e.g. '1 PM', 'tomorrow 5pm'). Assume IST timezone. or null",
   "extracted_beam_width": number or null,
   "extracted_cruising_speed_kmh": number or null,
   "extracted_language": "en" | "hi" | "kn" | "ta" | "ml" | "or" | "gu" | "mr" | "te" | "bn"
@@ -200,8 +234,12 @@ Respond ONLY with valid JSON in this exact schema:
             # Extract trip context from Supervisor response
             if parsed.get("extracted_origin"):
                 trip["origin"] = parsed["extracted_origin"]
+            if parsed.get("extracted_destination_name"):
+                trip["destination_name"] = parsed["extracted_destination_name"]
             if parsed.get("extracted_departure_time"):
                 trip["departure_time_iso"] = parse_natural_time(parsed["extracted_departure_time"])
+            if parsed.get("extracted_return_time"):
+                trip["return_time_iso"] = parse_natural_time(parsed["extracted_return_time"])
             if parsed.get("extracted_language"):
                 trip["language"] = parsed["extracted_language"]
             if parsed.get("extracted_beam_width"):
@@ -214,6 +252,8 @@ Respond ONLY with valid JSON in this exact schema:
                     vessel["cruising_speed_kmh"] = float(parsed["extracted_cruising_speed_kmh"])
                 except (ValueError, TypeError):
                     pass
+            
+            logger.info(f"[LLM_EXTRACTION]\n{json.dumps(trip, indent=2)}")
 
         except Exception as e:
             execution["error"] = f"LLM parsing failed: {e}. Falling back to default plan."
@@ -225,8 +265,13 @@ Respond ONLY with valid JSON in this exact schema:
     # --- Knowledge Guard ---
     # Force knowledge intent for explicit questions to prevent them from triggering the trip pipeline
     msg_clean_lower = user_message.lower().strip()
-    knowledge_starters = ["what is", "what are", "what does", "explain", "why", "how", "tell me", "can you explain"]
-    if any(msg_clean_lower.startswith(kw) for kw in knowledge_starters):
+    knowledge_starters = ["what is", "what are", "what does", "explain", "why", "how", "tell me", "can you explain", "whta"]
+    
+    is_question = any(msg_clean_lower.startswith(kw) for kw in knowledge_starters)
+    if "reason" in msg_clean_lower or "why" in msg_clean_lower or "explain" in msg_clean_lower:
+        is_question = True
+
+    if is_question:
         task_plan["intent"] = "informational"
         task_plan["required_capabilities"] = ["knowledge"]
         task_plan["requires_safety_assessment"] = False
@@ -249,10 +294,14 @@ Respond ONLY with valid JSON in this exact schema:
     if task_plan.get("requires_safety_assessment"):
         required_trip = ["origin", "departure_time_iso"]
         missing = [f for f in required_trip if not trip.get(f)]
+
+        # Apply sensible defaults for vessel params instead of blocking
         if not vessel.get("beam_width_m"):
-            missing.append("beam_width_m")
+            vessel["beam_width_m"] = 4.5  # Typical small fishing vessel
+            logger.info("[SUPERVISOR] Applied default beam_width_m=4.5m")
         if not vessel.get("cruising_speed_kmh"):
-            missing.append("cruising_speed_kmh")
+            vessel["cruising_speed_kmh"] = 15.0  # ~8 knots
+            logger.info("[SUPERVISOR] Applied default cruising_speed_kmh=15.0 km/h")
 
         if missing:
             friendly_names = {
@@ -264,10 +313,37 @@ Respond ONLY with valid JSON in this exact schema:
             friendly_missing = [friendly_names.get(m, m) for m in missing]
             
             task_plan["clarification_required"] = True
-            task_plan["clarification_question"] = (
+            question = (
                 f"I need more information to assess safety. "
                 f"Please provide: {', '.join(friendly_missing)}"
             )
+            
+            # Translate if needed
+            lang = state.get("language", "en")
+            if lang and lang != "en":
+                translated = False
+                if _bhashini_adapter.supports_language(lang) and _bhashini_adapter.is_configured:
+                    res = _bhashini_adapter.translate(question, target_lang=lang)
+                    if res.get("success"):
+                        question = res.get("translated_text", question)
+                        translated = True
+                
+                if not translated:
+                    # Fallback to Gemini
+                    try:
+                        from app.core.llm import get_llm
+                        from langchain_core.messages import SystemMessage, HumanMessage
+                        llm = get_llm(temperature=0.1)
+                        prompt = f"Translate the following text to language code '{lang}'. Return ONLY the translated text, no other formatting or explanations.\n\nText: {question}"
+                        resp = llm.invoke([
+                            SystemMessage(content="You are a precise translator."),
+                            HumanMessage(content=prompt)
+                        ])
+                        question = resp.content.strip()
+                    except Exception as e:
+                        logger.warning(f"Fallback translation failed: {e}")
+                        
+            task_plan["clarification_question"] = question
             task_plan["missing_fields"] = [{"field": m, "reason": "Required for safety calculation"} for m in missing]
 
     # --- Update state ---

@@ -36,7 +36,7 @@ from .relative_time import resolve_validity_window
 # Endpoints and configuration
 # ---------------------------------------------------------------------------
 _GDACS_TC_URL = "https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?eventlist=TC"
-_TIMEOUT_S = 10.0
+_TIMEOUT_S = 5.0
 
 # Path to the static fallback file (relative to this file)
 _FALLBACK_PATH = os.path.normpath(

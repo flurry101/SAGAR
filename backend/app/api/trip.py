@@ -51,10 +51,15 @@ async def assess_trip(
         "fisher_id": fisher_id or "anonymous",
         "language": language,
     }
-    if request_data.origin:
+    if getattr(request_data, 'origin', None):
         trip_ctx["origin"] = request_data.origin
-    if request_data.departure_time:
+    if getattr(request_data, 'departure_time', None):
         trip_ctx["departure_time_iso"] = request_data.departure_time
+    
+    import logging
+    import json
+    logger.info(f"[CHAT_INPUT] message={request_data.message}")
+    logger.info(f"[THREAD] thread_id={session_id}")
 
     vessel_profile = {}
     v_input = request_data.vessel or request_data.vessel_profile
@@ -101,19 +106,20 @@ async def assess_trip(
             "trajectory": result.get("trajectory"),
             "weather_observations": result.get("weather_observations", []),
             "marine_observations": result.get("marine_observations", []),
-            "pfz_data": result.get("pfz_data"),
+            "pfz_data": {"pfzs": result.get("pfz_data", [])},
+            "ocean_analysis": result.get("ocean_analysis"),
             "risk_evidence": result.get("risk_evidence"),
             "advisory": result.get("advisory"),
             "alerts": result.get("alerts", []),
-            "route_candidates": result.get("route_candidates", []),
-            "ocean_analysis": result.get("ocean_analysis"),
-            "visualization_spec": result.get("visualization_spec"),
-            "report": result.get("report"),
+            "geofence_results": result.get("geofence_results", []),
+            "errors": result.get("errors", []),
+            "recommendation_text": result.get("advisory", {}).get("recommendation_text") if result.get("advisory") else None,
             "evidence_registry": result.get("evidence_registry", []),
             "persistence_status": result.get("persistence_status", "skipped"),
             "agent_executions": result.get("agent_executions", []),
-            "errors": result.get("errors", []),
         }
+        
+        logger.info(f"[FINAL_TRIP_CONTEXT]\n{json.dumps(result.get('trip_context', {}), indent=2)}")
 
         return TripAssessResponse(
             status=status_type,
@@ -165,12 +171,19 @@ async def continue_trip(
             "trip_context": result_state.get("trip_context"),
             "vessel_profile": result_state.get("vessel_profile"),
             "trajectory": result_state.get("trajectory"),
+            "weather_observations": result_state.get("weather_observations", []),
+            "marine_observations": result_state.get("marine_observations", []),
+            "pfz_data": result_state.get("pfz_data"),
             "risk_evidence": result_state.get("risk_evidence"),
             "advisory": result_state.get("advisory"),
             "alerts": result_state.get("alerts", []),
+            "route_candidates": result_state.get("route_candidates", []),
+            "ocean_analysis": result_state.get("ocean_analysis"),
             "visualization_spec": result_state.get("visualization_spec"),
             "report": result_state.get("report"),
+            "evidence_registry": result_state.get("evidence_registry", []),
             "persistence_status": result_state.get("persistence_status", "skipped"),
+            "agent_executions": result_state.get("agent_executions", []),
             "errors": result_state.get("errors", []),
         }
 
