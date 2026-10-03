@@ -3,7 +3,7 @@ import sys
 import json
 import urllib.request
 
-API_KEY = "AQ.Ab8RN6LrGcDT4L9RziAwFcyShBMQTvuxaOf9uTObJoTao_UbAA"
+API_KEY = os.environ.get("GEMINI_API_KEY")
 URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}"
 
 def translate_texts(texts, target_lang):
